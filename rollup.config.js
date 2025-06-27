@@ -9,6 +9,7 @@ import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import sass from 'rollup-plugin-sass';
+import typescript from '@rollup/plugin-typescript';
 
 export default {
     input: 'resources/typescript/app.ts',
@@ -22,6 +23,7 @@ export default {
         }
     },
     plugins: [
+        typescript(),
         replace({preventAssignment: false, 'Reflect.decorate': 'undefined'}),
         sass({
             output: "./public/css/app.css",
