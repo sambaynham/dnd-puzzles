@@ -1,0 +1,61 @@
+@use "../mixins/goldtext";
+
+@font-face {
+    font-family: 'Gladius';
+    src: url('../fonts/Gladius.woff2');
+    font-weight: normal;
+}
+
+
+@font-face {
+    font-family: 'EBGaramond';
+    src: url('../fonts/EBGaramond-Italic-VariableFont_wght.woff2') format('woff2');
+    font-weight: italic;
+}
+
+@font-face {
+    font-family: 'EBGaramond';
+    src: url('../fonts/EBGaramond-VariableFont_wght.woff2') format('woff2');
+    font-weight: normal;
+}
+
+$textStack: 'EBGaramond', serif;
+$displayStack: 'Gladius', serif;
+
+body, html {
+	font-size: 12pt;
+	font-family: $textStack;
+    position: relative;
+    z-index: 1;
+}
+
+a.brand {
+	font-family: $displayStack;
+	text-decoration: none;
+	font-size: 3rem;
+}
+
+h1 {
+    @include goldtext.goldText();
+    position: relative;
+    padding-left: 3rem;
+    margin: 1.5vw 0;
+    display: block;
+    &:before {
+        content: " ";
+        background-image: url('../images/heading-backer.svg');
+        display: block;
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+    }
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: $displayStack;
+}

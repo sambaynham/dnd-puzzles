@@ -1,0 +1,25 @@
+$base-spacing: 1.5vw;
+
+main {
+    display: flex;
+    flex-direction: column;
+
+    .row, .col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .col {
+        padding: 0 $base-spacing;
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+
+    main {
+        .row {
+            flex-direction: row;
+        }
+    }
+}

@@ -10,6 +10,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import sass from 'rollup-plugin-sass';
 import typescript from '@rollup/plugin-typescript';
+import copy from 'rollup-plugin-copy'
 
 export default {
     input: 'resources/typescript/app.ts',
@@ -23,6 +24,12 @@ export default {
         }
     },
     plugins: [
+        copy({
+            targets: [
+                { src: 'resources/images', dest: 'public' },
+                { src: 'resources/fonts', dest: 'public' },
+            ]
+        }),
         typescript(),
         replace({preventAssignment: false, 'Reflect.decorate': 'undefined'}),
         sass({

@@ -1,0 +1,15 @@
+@use "sass:color";
+@use "palette";
+
+body, html {
+	background-color: palette.$vellum;
+	height: 100%;
+	color: color.adjust(palette.$charcoal, $alpha: -0.125);
+}
+
+body {
+	background-image: url('../images/grads.svg');
+	background-position: bottom right;
+	background-size: cover;
+	background-repeat: no-repeat;
+}

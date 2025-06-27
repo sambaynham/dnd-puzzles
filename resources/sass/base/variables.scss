@@ -1,0 +1,8 @@
+@use "sass:color";
+@use "palette";
+
+$gemBorderWidth: 0.3rem;
+$base-spacing: 1rem;
+$baseBoxShadow:  0 0 calc($base-spacing/3) color.adjust(palette.$charcoal, $alpha: -0.75);
+//Misc
+$alphabet: a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z;

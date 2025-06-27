@@ -30,6 +30,7 @@
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "rollup": "^4.44.1",
+    "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-sass": "^1.15.3",
     "rollup-plugin-summary": "^2.0.1",
     "typescript": "~5.5.0"

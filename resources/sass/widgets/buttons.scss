@@ -1,0 +1,40 @@
+@use "sass:color";
+@use "../base/palette";
+@use "../base/variables";
+@use "../mixins/buttonise";
+
+.btn {
+
+   @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+
+
+    &.btn-secondary {
+        @include buttonise.buttonize(palette.$green, color.adjust(palette.$green, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+    }
+
+    &.btn-blue {
+        @include buttonise.buttonize(palette.$blue, color.adjust(palette.$blue, $lightness: 25%), variables.$gemBorderWidth, palette.$white);
+    }
+
+    &.btn-yellow {
+        @include buttonise.buttonize(palette.$yellow, color.adjust(palette.$yellow, $lightness: 30%), variables.$gemBorderWidth, color.adjust(palette.$yellow, $lightness: -17.5%));
+    }
+
+    &.btn-purple {
+        @include buttonise.buttonize(palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: 25%), variables.$gemBorderWidth, palette.$white);
+    }
+}
+
+.btn-group {
+    display: inline-flex;
+    flex-direction: row;
+    flex: 1;
+    flex-basis: auto;
+    border: 0;
+
+    .btn {
+        border: none;
+        border-radius: 0;
+    }
+
+}

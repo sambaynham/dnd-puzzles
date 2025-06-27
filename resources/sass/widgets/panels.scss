@@ -1,0 +1,6 @@
+@use "../base/palette";
+.panel {
+    border: 1.5rem solid transparent;
+    border-image: url('../images/eroded-frame.svg');
+    border-image-slice: calc(100% / 3);
+}
