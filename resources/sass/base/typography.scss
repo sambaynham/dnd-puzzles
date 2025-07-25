@@ -41,6 +41,8 @@ h1 {
     padding-left: 3rem;
     margin: 1.5vw 0;
     display: block;
+    font-size: 5rem;
+
     &:before {
         content: " ";
         background-image: url('../images/heading-backer.svg');
@@ -49,7 +51,7 @@ h1 {
         position: absolute;
         height: 100%;
         top: 0;
-        left: 0;
+        left: -1em;
         z-index: -1;
         background-size: contain;
         background-repeat: no-repeat;

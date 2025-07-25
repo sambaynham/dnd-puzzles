@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>{{ pageTitle }}</h1>
+        </div>
+    </div>
+    <div class="puzzle-container">
+        <hammer-puzzle>
+            <hammer-node class="broken" id="one">I</hammer-node>
+            <hammer-node class="active" data-activatesdefault="three" data-activatesrotated="four" id="two">II</hammer-node>
+            <hammer-node data-activatesdefault="four" id="three">III</hammer-node>
+            <hammer-node data-activatesdefault="five" data-activatesrotated="six" id="four">IV</hammer-node>
+            <hammer-node data-activatesdefault="six" class="node" id="five">V</hammer-node>
+            <hammer-node data-activatesdefault="seven" data-activatesrotated="eight" class="node" id="six">VI</hammer-node>
+            <hammer-node data-activatesdefault="eight" class="node" id="seven">VII</hammer-node>
+            <hammer-node data-activatesdefault="one" data-activatesrotated="two" id="eight">VIII</hammer-node>
+        </hammer-puzzle>
+    </div>
+{% endblock %}
