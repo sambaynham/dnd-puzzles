@@ -7,14 +7,17 @@
     </div>
     <div class="puzzle-container">
         <hammer-puzzle>
-            <hammer-node class="broken" id="one">I</hammer-node>
-            <hammer-node class="active" data-activatesdefault="three" data-activatesrotated="four" id="two">II</hammer-node>
-            <hammer-node data-activatesdefault="four" id="three">III</hammer-node>
-            <hammer-node data-activatesdefault="five" data-activatesrotated="six" id="four">IV</hammer-node>
-            <hammer-node data-activatesdefault="six" class="node" id="five">V</hammer-node>
-            <hammer-node data-activatesdefault="seven" data-activatesrotated="eight" class="node" id="six">VI</hammer-node>
-            <hammer-node data-activatesdefault="eight" class="node" id="seven">VII</hammer-node>
-            <hammer-node data-activatesdefault="one" data-activatesrotated="two" id="eight">VIII</hammer-node>
+            <hammer-node data-broken="true" data-active="false"  id="one">I</hammer-node>
+            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="three" data-activatesrotated="four" id="two">II</hammer-node>
+            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="four" id="three">III</hammer-node>
+            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="five" data-activatesrotated="six" id="four">IV</hammer-node>
+            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="six" class="node" id="five">V</hammer-node>
+            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="seven" data-activatesrotated="eight" class="node" id="six">VI</hammer-node>
+            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="eight" class="node" id="seven">VII</hammer-node>
+            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="one" data-activatesrotated="two" id="eight">VIII</hammer-node>
+            <div class="success-message">
+                <h2>The Hammer is charging! Choose your target!</h2>
+            </div>
         </hammer-puzzle>
     </div>
 {% endblock %}
