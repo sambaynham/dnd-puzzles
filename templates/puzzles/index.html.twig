@@ -1,11 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'base/base.html.twig' %}
 {% block body %}
     <div class="row">
         <div class="col">
             <h1>{{ pageTitle }}</h1>
-            {% for puzzle in puzzles %}
-                 <a class="btn" href="{{ path(puzzle.route) }}">{{ puzzle.label }}</a>
-            {% endfor %}
+            <div class="row halves">
+                <div class="col panel">
+                    <h2>Available Puzzles</h2>
+                    {% for puzzle in puzzles %}
+                        <a class="btn" href="{{ path(puzzle.route) }}">{{ puzzle.label }}</a>
+                    {% endfor %}
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+
         </div>
     </div>
 {% endblock %}

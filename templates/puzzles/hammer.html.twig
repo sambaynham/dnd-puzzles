@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base/base.html.twig' %}
 {% block body %}
     <div class="row">
         <div class="col">
@@ -7,17 +7,110 @@
     </div>
     <div class="puzzle-container">
         <hammer-puzzle>
-            <hammer-node data-broken="true" data-active="false"  id="one">I</hammer-node>
-            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="three" data-activatesrotated="four" id="two">II</hammer-node>
-            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="four" id="three">III</hammer-node>
-            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="five" data-activatesrotated="six" id="four">IV</hammer-node>
-            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="six" class="node" id="five">V</hammer-node>
-            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="seven" data-activatesrotated="eight" class="node" id="six">VI</hammer-node>
-            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="eight" class="node" id="seven">VII</hammer-node>
-            <hammer-node data-broken="false" data-active="false" data-rotated="false" data-activatesdefault="one" data-activatesrotated="two" id="eight">VIII</hammer-node>
-            <div class="success-message">
-                <h2>The Hammer is charging! Choose your target!</h2>
+            <hammer-node
+                id="one"
+                data-broken="true"
+                data-active="false"
+                data-rotated="false"
+                data-activatesdefault="two"
+                data-activatesrotated=""
+            >
+                1
+            </hammer-node>
+            <hammer-node
+                id="two"
+                data-broken="false"
+                data-active="true"
+                data-rotated="false"
+                data-activatesdefault="three"
+                data-activatesrotated="four"
+                id="two"
+            >
+                2
+            </hammer-node>
+            <hammer-node
+                id="three"
+                data-broken="false"
+                data-active="true"
+                data-rotated="false"
+                data-activatesdefault="four"
+            >
+                3
+            </hammer-node>
+            <hammer-node
+                id="four"
+                data-broken="false"
+                data-active="false"
+                data-rotated="false"
+                data-activatesdefault="five"
+                data-activatesrotated="six"
+
+            >
+                4
+            </hammer-node>
+            <hammer-node
+                id="five"
+                data-broken="false"
+                data-active="false"
+                data-rotated="false"
+                data-activatesdefault="six"
+                id="five"
+            >
+                5
+            </hammer-node>
+            <hammer-node
+                id="six"
+                data-broken="false"
+                data-active="false"
+                data-rotated="false"
+                data-activatesdefault="seven"
+                data-activatesrotated="eight"
+            >
+                6
+            </hammer-node>
+            <hammer-node
+                id="seven"
+                data-broken="false"
+                data-active="false"
+                data-rotated="false"
+                data-activatesdefault="eight"
+                id="seven"
+            >
+                7
+            </hammer-node>
+            <hammer-node
+                id="eight"
+                data-broken="false"
+                data-active="false"
+                data-rotated="false"
+                data-activatesdefault="one"
+                data-activatesdefault="two"
+            >
+                8
+            </hammer-node>
+
+            <div class="hammer-power-wrapper">
+                <hammer-power min="0" value="1" max="8"></hammer-power>
             </div>
+
+            <div class="success-message">
+                <h2>Hammer charge re-routed succesfully. Firing sequence Initiated.</h2>
+                <h3>Select Target</h3>
+                <div class="btn-group">
+                    <hammer-firing-button id="bastion" class="btn btn-red">Bastion Point</hammer-firing-button>
+                    <hammer-firing-button id="blessing" class="btn btn-red">Dumathoin's Blessing</hammer-firing-button>
+                    <hammer-firing-button id="gladestone" class="btn btn-red">Gladestone</hammer-firing-button>
+                    <hammer-firing-button id="steading" class="btn btn-red">Moradin's Steading</hammer-firing-button>
+                    <hammer-firing-button id="anvil" class="btn btn-red">Dugmarin's Anvil</hammer-firing-button>
+                </div>
+
+            </div>
+            <div class="hammer-ops">
+                <hammer-output></hammer-output>
+                <hammer-reset-button>Reset</hammer-reset-button>
+                <hammer-translate-button>Translate</hammer-translate-button>
+            </div>
+
         </hammer-puzzle>
     </div>
 {% endblock %}

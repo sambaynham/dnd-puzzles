@@ -2,6 +2,7 @@
 @use "../base/palette";
 @use "../base/variables";
 @use "../mixins/buttonise";
+@use "../base/typography";
 
 hammer-puzzle {
     display: block;
@@ -9,6 +10,9 @@ hammer-puzzle {
     height: 50rem;
     margin: 0 auto;
     position: relative;
+    font-family: 'DethekStone', sans-serif;
+
+
 
     &:before {
         content: " ";
@@ -21,14 +25,20 @@ hammer-puzzle {
         background: palette.$silverFX;
     }
 
+    button, h2, h3, .btn {
+        font-family: 'DethekStone', sans-serif !important;
+    }
+
+
     hammer-node {
-        @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+        @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
 
 
         &.broken {
-            @include buttonise.buttonize(palette.$black, color.adjust(palette.$black, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+            @include buttonise.buttonize(palette.$black, color.adjust(palette.$black, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
             font-size: 3rem;
         }
+
         &.active {
             background-color: palette.$green;
 
@@ -94,9 +104,18 @@ hammer-puzzle {
         }
     }
 
+
+    hammer-reset-button {
+        @include buttonise.buttonize(palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
+        font-size: 2.5rem;
+    }
+    hammer-translate-button {
+        @include buttonise.buttonize(palette.$blue, color.adjust(palette.$blue, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
+        font-size: 2.5rem;
+    }
+
     .success-message {
         background-color: palette.$vellum;
-        height: 5rem;
         width: 40rem;
         border: 1rem solid palette.$crimson;
         padding: 2rem;
@@ -112,6 +131,14 @@ hammer-puzzle {
         opacity: 0;
         pointer-events: none;
         transition: opacity 200ms ease-in-out;
+
+        h2 {
+            margin-bottom: 2rem;
+        }
+
+        h3 {
+            margin-bottom: 2rem;
+        }
     }
 
     &.success {
@@ -121,6 +148,161 @@ hammer-puzzle {
 
         .success-message {
             opacity: 1;
+            pointer-events: all;
         }
+    }
+
+    .hammer-ops {
+        position: absolute;
+        top: -1rem;
+        left: -32rem;
+        width: 30rem;
+
+        hammer-output {
+            display: block;
+            width: 30rem;
+            background-color: black;
+            color: lime;
+            height: 20rem;
+            overflow: hidden;
+            overflow-y: scroll;
+            padding: 1rem;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 1rem lime;
+        }
+    }
+
+
+
+    .hammer-power-wrapper {
+        position: absolute;
+        top: 7.25rem;
+        right: -15rem;
+        display: block;
+        background: linear-gradient(90deg, gray 62%, green 60.5%, green 75%, red 75.1%);
+        height: 3.5rem;
+        width: 20rem;
+        z-index: 999;
+        border: 0.25rem solid palette.$crimson;
+        transform: rotate(-90deg);
+
+        hammer-power {
+            display: block;
+            height: 3rem;
+            background-color: transparent;
+            position: relative;
+
+            &:after {
+                content: " ";
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 3rem;
+                width: 0.25rem;
+                background-color: lime;
+                box-shadow: 0 0 0.25rem transparentize(lime, 0.5);
+            }
+            &.overvolt {
+                box-shadow: 0 0 1rem red;
+            }
+        }
+    }
+
+    &.translated {
+        font-family: 'Gladius', sans-serif;
+        hammer-output {
+            font-family: monospace;
+        }
+        hammer-reset-button {
+            @include buttonise.buttonize(palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+            font-size: 2.5rem;
+        }
+        hammer-translate-button {
+            @include buttonise.buttonize(palette.$blue, color.adjust(palette.$blue, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+            font-size: 2.5rem;
+        }
+
+        .success-message {
+            h2, h3, .btn, button {
+                font-family: 'Gladius', sans-serif !important;
+            }
+
+
+        }
+        hammer-node {
+            @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+
+
+            &.broken {
+                @include buttonise.buttonize(palette.$black, color.adjust(palette.$black, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+                font-size: 3rem;
+            }
+
+            &.active {
+                background-color: palette.$green;
+
+                &:hover {
+                    background-color: color.adjust(palette.$green, $lightness: 30%);
+                }
+
+            }
+            width: 7rem;
+            height: 7rem;
+            display: block;
+            font-size: 3rem;
+            line-height: 6rem;
+            position: absolute;
+            transition: transform 200ms ease-in-out;
+
+            &.rotated {
+                transform: rotate(45deg);
+            }
+
+            &#one {
+                top: 0;
+                left: 0;
+            }
+
+            &#two {
+                top: 0;
+                margin-left: -3.5rem;
+                left: 50%;
+            }
+
+            &#three {
+                top: 0;
+                right: 0;
+            }
+
+            &#four {
+                top: 50%;
+                margin-top: -3.5rem;
+                right: 0;
+            }
+
+            &#five {
+                bottom: 0;
+                right: 0;
+            }
+
+            &#six {
+                bottom: 0;
+                left: 50%;
+                margin-left: -3.5rem;
+            }
+
+            &#seven {
+                bottom: 0;
+                left: 0;
+            }
+
+            &#eight {
+                margin-top: -3.5rem;
+                top: 50%;
+                left: 0;
+            }
+        }
+
     }
 }

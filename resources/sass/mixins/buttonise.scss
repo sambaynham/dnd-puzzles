@@ -1,6 +1,6 @@
 @use "sass:color";
 @use "../base/palette";
-@mixin buttonize($primaryColor, $hoverColor, $gemBorderWidth, $textColor)
+@mixin buttonize($primaryColor, $hoverColor, $gemBorderWidth, $textColor, $fontFamily: 'Gladius')
 {
     $gemBorderRadius: 0.125rem;
     position: relative;
@@ -12,7 +12,7 @@
     border-radius: $gemBorderRadius;
     background-color: $primaryColor;
     transition: background-color 400ms ease-in-out;
-    font-family: 'Gladius', sans-serif;
+    font-family: $fontFamily, sans-serif;
     font-size: 0.9rem;
     text-transform: uppercase;
     cursor: pointer;
@@ -55,5 +55,15 @@
         background-color: $hoverColor;
     }
 
+    &[disabled] {
+        background-color: desaturate($primaryColor, 90);
+
+        &:after {
+            border: $gemBorderWidth outset desaturate(color.adjust($primaryColor, $lightness: 20%), 90);
+        }
+        &:hover {
+            background-color: desaturate($hoverColor, 90);
+        }
+    }
 
 }

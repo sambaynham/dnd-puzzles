@@ -6,12 +6,14 @@
 @use "base/typography";
 
 @use "layout/grid.scss";
+@use "elements/header.scss";
 
 @use "widgets/buttons";
 @use "widgets/dropCaps";
 @use "widgets/progress-bars";
 @use "widgets/panels";
 @use "widgets/rules";
+@use "widgets/puzzles";
 
 
 @use "puzzles/hammer";

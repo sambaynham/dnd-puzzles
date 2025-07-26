@@ -1,0 +1,8 @@
+<header>
+    <a class="brand" href="/">DND Puzzles</a>
+    <nav class="main">
+        {% for navItem in nav %}
+            <a class="nav-item {% if navItem.active %} active{% endif %}" href="{{ path(navItem.route) }}">{{ navItem.label }}</a>
+        {% endfor %}
+    </nav>
+</header>

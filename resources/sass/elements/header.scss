@@ -1,0 +1,46 @@
+@use '../base/palette';
+
+header {
+    display: flex;
+    flex-direction: row;
+    background-color: palette.$crimson;
+    height: 5rem;
+    padding: 1rem;
+    line-height: 3rem;
+
+    a.brand {
+        flex: 1;
+        flex-basis: 10%;
+        flex-grow: 0;
+        color: palette.$white;
+        position: relative;
+        margin-right: 1rem;
+        &:after {
+            position: absolute;
+            right: 0;
+            top: 0;
+            content: " ";
+            display: block;
+            width: 0.5rem;
+            background-color: palette.$white;
+            height: 100%;
+        }
+
+    }
+    nav.main {
+        flex: 1;
+        flex-basis: 90%;
+        display: flex;
+        flex-direction: row;
+
+
+        a {
+            font-family: 'Gladius', fancy, sans-serif;
+            font-weight: bold;
+            color: palette.$white;
+            text-decoration: none;
+            font-size: 3rem;
+        }
+    }
+
+}
