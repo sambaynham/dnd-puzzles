@@ -7,7 +7,7 @@
                 <div class="col panel">
                     <h2>Available Puzzles</h2>
                     {% for puzzle in puzzles %}
-                        <a class="btn" href="{{ path(puzzle.route) }}">{{ puzzle.label }}</a>
+                        <a  href="{{ path(puzzle.route) }}">{{ puzzle.label }}</a>
                     {% endfor %}
                 </div>
                 <div class="col">

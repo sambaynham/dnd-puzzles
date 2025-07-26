@@ -11,6 +11,7 @@ hammer-puzzle {
     margin: 0 auto;
     position: relative;
     font-family: 'DethekStone', sans-serif;
+    border: 2rem groove gray;
 
 
 
@@ -154,8 +155,8 @@ hammer-puzzle {
 
     .hammer-ops {
         position: absolute;
-        top: -1rem;
-        left: -32rem;
+        top: -2rem;
+        left: -34rem;
         width: 30rem;
 
         hammer-output {
@@ -173,12 +174,10 @@ hammer-puzzle {
         }
     }
 
-
-
     .hammer-power-wrapper {
         position: absolute;
-        top: 7.25rem;
-        right: -15rem;
+        top: 6.25rem;
+        right: -16rem;
         display: block;
         background: linear-gradient(90deg, gray 62%, green 60.5%, green 75%, red 75.1%);
         height: 3.5rem;
@@ -186,6 +185,7 @@ hammer-puzzle {
         z-index: 999;
         border: 0.25rem solid palette.$crimson;
         transform: rotate(-90deg);
+
 
         hammer-power {
             display: block;

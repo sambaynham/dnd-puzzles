@@ -1,0 +1,22 @@
+@use '../base/palette';
+a {
+    color: palette.$crimson;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 200ms ease-in-out;
+    transition-property: color, border-color;
+    border-bottom: 0.125em solid transparent;
+    display: inline-block;
+    width: auto;
+
+
+    &:visited {
+        color: palette.$wyrdPurple;
+        border-bottom-color: palette.$wyrdPurple;
+    }
+
+    &:hover {
+        color: saturate(palette.$crimson, 20);
+        border-bottom-color: saturate(palette.$crimson, 20);
+    }
+}

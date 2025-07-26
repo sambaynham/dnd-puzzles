@@ -68,7 +68,7 @@ export default class HammerPuzzle extends HTMLDivElement {
                 total+= rollTotal;
                 rollString = `${rollString}${rollTotal},`
             })
-            let message = `A scintillating beam of light strikes ${e.detail?.target}, dealing ${total} damage to everything within it. (${rollString})`;
+            let message = `A searing beam of light strikes ${e.detail?.target}, dealing ${total} damage to everything within it. (${rollString})`;
             this.querySelectorAll('hammer-firing-button').forEach((button: Element)=> {
                 if (button instanceof HammerFiringButton) {
                     button.setAttribute('disabled', 'true');
