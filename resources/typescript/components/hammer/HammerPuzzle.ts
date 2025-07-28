@@ -82,7 +82,7 @@ export default class HammerPuzzle extends HTMLDivElement {
         });
 
         this.addEventListener('translation-request', () => {
-
+            console.log('translate request received');
             this.classList.toggle('translated');
         });
     }

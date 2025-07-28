@@ -181,7 +181,6 @@
         top: 6.25rem;
         right: -16rem;
         display: block;
-        background: linear-gradient(90deg, gray 62%, green 60.5%, green 75%, red 75.1%);
         height: 3.5rem;
         width: 20rem;
         z-index: 999;
@@ -194,6 +193,7 @@
             height: 3rem;
             background-color: transparent;
             position: relative;
+            background: none;
 
             &:after {
                 content: " ";
@@ -204,6 +204,7 @@
                 width: 0.25rem;
                 background-color: lime;
                 box-shadow: 0 0 0.25rem transparentize(lime, 0.5);
+
             }
             &.overvolt {
                 box-shadow: 0 0 1rem red;
