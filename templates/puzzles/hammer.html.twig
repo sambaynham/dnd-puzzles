@@ -6,8 +6,10 @@
         </div>
     </div>
     <div class="puzzle-container">
-        <hammer-puzzle>
-            <hammer-node
+        <div is="hammer-puzzle" class="hammer-puzzle">
+            <button
+                is="hammer-node"
+                class="hammer-node"
                 id="one"
                 data-broken="true"
                 data-active="false"
@@ -16,8 +18,10 @@
                 data-activatesrotated=""
             >
                 1
-            </hammer-node>
-            <hammer-node
+            </button>
+            <button
+                is="hammer-node"
+                class="hammer-node"
                 id="two"
                 data-broken="false"
                 data-active="true"
@@ -27,8 +31,10 @@
                 id="two"
             >
                 2
-            </hammer-node>
-            <hammer-node
+            </button>
+            <button
+                is="hammer-node"
+                class="hammer-node"
                 id="three"
                 data-broken="false"
                 data-active="true"
@@ -36,8 +42,10 @@
                 data-activatesdefault="four"
             >
                 3
-            </hammer-node>
-            <hammer-node
+            </button>
+            <button
+                is="hammer-node"
+                class="hammer-node"
                 id="four"
                 data-broken="false"
                 data-active="false"
@@ -47,8 +55,10 @@
 
             >
                 4
-            </hammer-node>
-            <hammer-node
+            </button>
+            <button
+                is="hammer-node"
+                class="hammer-node"
                 id="five"
                 data-broken="false"
                 data-active="false"
@@ -57,8 +67,10 @@
                 id="five"
             >
                 5
-            </hammer-node>
-            <hammer-node
+            </button>
+            <button
+                is="hammer-node"
+                class="hammer-node"
                 id="six"
                 data-broken="false"
                 data-active="false"
@@ -67,18 +79,21 @@
                 data-activatesrotated="eight"
             >
                 6
-            </hammer-node>
-            <hammer-node
+            </button>
+            <button
+                is="hammer-node"
+                class="hammer-node"
                 id="seven"
                 data-broken="false"
                 data-active="false"
                 data-rotated="false"
                 data-activatesdefault="eight"
-                id="seven"
             >
                 7
-            </hammer-node>
-            <hammer-node
+            </button>
+            <button
+                is="hammer-node"
+                class="hammer-node"
                 id="eight"
                 data-broken="false"
                 data-active="false"
@@ -87,30 +102,30 @@
                 data-activatesdefault="two"
             >
                 8
-            </hammer-node>
+            </button>
 
             <div class="hammer-power-wrapper">
-                <hammer-power min="0" value="1" max="8"></hammer-power>
+                <meter class="hammer-power" is="hammer-power" min="0" value="1" max="8"></meter>
             </div>
 
             <div class="success-message">
                 <h2>Hammer charge re-routed succesfully. Firing sequence Initiated.</h2>
                 <h3>Select Target</h3>
                 <div class="btn-group">
-                    <hammer-firing-button id="bastion" class="btn btn-red">Bastion Point</hammer-firing-button>
-                    <hammer-firing-button id="blessing" class="btn btn-red">Dumathoin's Blessing</hammer-firing-button>
-                    <hammer-firing-button id="gladestone" class="btn btn-red">Gladestone</hammer-firing-button>
-                    <hammer-firing-button id="steading" class="btn btn-red">Moradin's Steading</hammer-firing-button>
-                    <hammer-firing-button id="anvil" class="btn btn-red">Dugmarin's Anvil</hammer-firing-button>
+                    <button is="hammer-firing-button" id="bastion" class="btn btn-red">Bastion Point</button>
+                    <button is="hammer-firing-button" id="blessing" class="btn btn-red">Dumathoin's Blessing</button>
+                    <button is="hammer-firing-button" id="gladestone" class="btn btn-red">Gladestone</button>
+                    <button is="hammer-firing-button" id="steading" class="btn btn-red">Moradin's Steading</button>
+                    <button is="hammer-firing-button" id="anvil" class="btn btn-red">Dugmarin's Anvil</button>
                 </div>
 
             </div>
             <div class="hammer-ops">
-                <hammer-output></hammer-output>
-                <hammer-reset-button>Reset</hammer-reset-button>
-                <hammer-translate-button>Translate</hammer-translate-button>
+                <ul is="hammer-output" class="hammer-output"></ul>
+                <button class="hammer-reset-button" is="hammer-reset-button">Reset</button>
+                <button class="hammer-translate-button" is="hammer-translate-button">Translate</button>
             </div>
 
-        </hammer-puzzle>
+        </div>
     </div>
 {% endblock %}

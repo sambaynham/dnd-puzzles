@@ -4,7 +4,7 @@
 @use "../mixins/buttonise";
 @use "../base/typography";
 
-hammer-puzzle {
+.hammer-puzzle {
     display: block;
     width: 50rem;
     height: 50rem;
@@ -31,7 +31,7 @@ hammer-puzzle {
     }
 
 
-    hammer-node {
+    .hammer-node {
         @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
 
 
@@ -106,11 +106,11 @@ hammer-puzzle {
     }
 
 
-    hammer-reset-button {
+    .hammer-reset-button {
         @include buttonise.buttonize(palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
         font-size: 2.5rem;
     }
-    hammer-translate-button {
+    .hammer-translate-button {
         @include buttonise.buttonize(palette.$blue, color.adjust(palette.$blue, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
         font-size: 2.5rem;
     }
@@ -143,7 +143,7 @@ hammer-puzzle {
     }
 
     &.success {
-        hammer-node {
+        .hammer-node {
             pointer-events: none;
         }
 
@@ -159,7 +159,7 @@ hammer-puzzle {
         left: -34rem;
         width: 30rem;
 
-        hammer-output {
+        .hammer-output {
             display: block;
             width: 30rem;
             background-color: black;
@@ -171,6 +171,8 @@ hammer-puzzle {
             padding-left: 2rem;
             margin-bottom: 1rem;
             box-shadow: 0 0 1rem lime;
+            scrollbar-color: lime black;
+            scrollbar-width: thin;
         }
     }
 
@@ -187,7 +189,7 @@ hammer-puzzle {
         transform: rotate(-90deg);
 
 
-        hammer-power {
+        .hammer-power {
             display: block;
             height: 3rem;
             background-color: transparent;
@@ -210,16 +212,17 @@ hammer-puzzle {
     }
 
     &.translated {
+
         font-family: 'Gladius', sans-serif;
-        hammer-output {
+        .hammer-output {
             font-family: monospace;
         }
-        hammer-reset-button {
-            @include buttonise.buttonize(palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+        .hammer-reset-button {
+            font-family: 'Gladius', sans-serif !important;
             font-size: 2.5rem;
         }
-        hammer-translate-button {
-            @include buttonise.buttonize(palette.$blue, color.adjust(palette.$blue, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+        .hammer-translate-button {
+            font-family: 'Gladius', sans-serif !important;
             font-size: 2.5rem;
         }
 
@@ -230,12 +233,13 @@ hammer-puzzle {
 
 
         }
-        hammer-node {
-            @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+        .hammer-node {
+
+            font-family: 'Gladius', sans-serif !important;
 
 
             &.broken {
-                @include buttonise.buttonize(palette.$black, color.adjust(palette.$black, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+                font-family: 'Gladius', sans-serif !important;
                 font-size: 3rem;
             }
 
@@ -247,62 +251,6 @@ hammer-puzzle {
                 }
 
             }
-            width: 7rem;
-            height: 7rem;
-            display: block;
-            font-size: 3rem;
-            line-height: 6rem;
-            position: absolute;
-            transition: transform 200ms ease-in-out;
-
-            &.rotated {
-                transform: rotate(45deg);
-            }
-
-            &#one {
-                top: 0;
-                left: 0;
-            }
-
-            &#two {
-                top: 0;
-                margin-left: -3.5rem;
-                left: 50%;
-            }
-
-            &#three {
-                top: 0;
-                right: 0;
-            }
-
-            &#four {
-                top: 50%;
-                margin-top: -3.5rem;
-                right: 0;
-            }
-
-            &#five {
-                bottom: 0;
-                right: 0;
-            }
-
-            &#six {
-                bottom: 0;
-                left: 50%;
-                margin-left: -3.5rem;
-            }
-
-            &#seven {
-                bottom: 0;
-                left: 0;
-            }
-
-            &#eight {
-                margin-top: -3.5rem;
-                top: 50%;
-                left: 0;
-            }
         }
-
     }
 }

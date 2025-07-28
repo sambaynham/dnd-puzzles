@@ -12,45 +12,74 @@ import sass from 'rollup-plugin-sass';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy'
 
-export default {
-    input: 'resources/typescript/app.ts',
-    output: {
-        file: './public/js/app.js',
-        format: 'esm',
-    },
-    onwarn(warning) {
-        if (warning.code !== 'THIS_IS_UNDEFINED') {
-            console.error(`(!) ${warning.message}`);
-        }
-    },
-    plugins: [
-        copy({
-            targets: [
-                { src: 'resources/images', dest: 'public' },
-                { src: 'resources/fonts', dest: 'public' },
-            ]
-        }),
-        typescript(),
-        replace({preventAssignment: false, 'Reflect.decorate': 'undefined'}),
-        sass({
-            output: "./public/css/app.css",
-            failOnError: true,
-        }),
-        resolve(),
-        /**
-         * This minification setup serves the static site generation.
-         * For bundling and minification, check the README.md file.
-         */
-        terser({
-            ecma: 2021,
-            module: true,
-            warnings: true,
-            mangle: {
-                properties: {
-                    regex: /^__/,
+export default [
+    {
+        input: 'resources/typescript/components/hammer/HammerPuzzle.ts',
+        output: {
+            file: './public/js/components/hammer/hammer-puzzle.js',
+            format: 'esm'
+        },
+        plugins: [
+            typescript(),
+            replace({preventAssignment: false, 'Reflect.decorate': 'undefined'}),
+            resolve(),
+            /**
+             * This minification setup serves the static site generation.
+             * For bundling and minification, check the README.md file.
+             */
+            terser({
+                ecma: 2021,
+                module: true,
+                warnings: true,
+                mangle: {
+                    properties: {
+                        regex: /^__/,
+                    },
                 },
-            },
-        }),
-        summary(),
-    ],
-};
+            }),
+            summary(),
+        ]
+    },
+    {
+        input: 'resources/typescript/app.ts',
+        output: {
+            file: './public/js/app.js',
+            format: 'esm',
+        },
+        onwarn(warning) {
+            if (warning.code !== 'THIS_IS_UNDEFINED') {
+                console.error(`(!) ${warning.message}`);
+            }
+        },
+        plugins: [
+            copy({
+                targets: [
+                    { src: 'resources/images', dest: 'public' },
+                    { src: 'resources/fonts', dest: 'public' },
+                ]
+            }),
+            typescript(),
+            replace({preventAssignment: false, 'Reflect.decorate': 'undefined'}),
+            sass({
+                output: "./public/css/app.css",
+                failOnError: true,
+            }),
+            resolve(),
+            /**
+             * This minification setup serves the static site generation.
+             * For bundling and minification, check the README.md file.
+             */
+            terser({
+                ecma: 2021,
+                module: true,
+                warnings: true,
+                mangle: {
+                    properties: {
+                        regex: /^__/,
+                    },
+                },
+            }),
+            summary(),
+        ],
+    }
+];

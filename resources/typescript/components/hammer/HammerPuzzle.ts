@@ -18,9 +18,9 @@ export default class HammerPuzzle extends HTMLDivElement {
 
     constructor() {
         super();
-        let hammerPowerLevel = this.querySelector('hammer-power'),
-            hammerOutput = this.querySelector('hammer-output'),
-            hammerNodes: NodeListOf<HammerNode> = this.querySelectorAll('hammer-node');
+        let hammerPowerLevel = this.querySelector('.hammer-power'),
+            hammerOutput = this.querySelector('.hammer-output'),
+            hammerNodes: NodeListOf<HammerNode> = this.querySelectorAll('.hammer-node');
         this.guard(hammerNodes, hammerPowerLevel, hammerOutput);
         this.nodes = hammerNodes;
         this.hammerPowerLevel = hammerPowerLevel as HammerPowerLevel;
@@ -53,7 +53,7 @@ export default class HammerPuzzle extends HTMLDivElement {
         });
 
         this.addEventListener('puzzle-success-event', () => {
-            if (this.querySelector('hammer-node.active.broken') === null) {
+            if (this.querySelector('.hammer-node.active.broken') === null) {
                 this.hammerOutput.pushMessage('Stable power levels detected. Charging.');
                 this.classList.add('success');
             } else {
@@ -69,7 +69,7 @@ export default class HammerPuzzle extends HTMLDivElement {
                 rollString = `${rollString}${rollTotal},`
             })
             let message = `A searing beam of light strikes ${e.detail?.target}, dealing ${total} damage to everything within it. (${rollString})`;
-            this.querySelectorAll('hammer-firing-button').forEach((button: Element)=> {
+            this.querySelectorAll('.hammer-firing-button').forEach((button: Element)=> {
                 if (button instanceof HammerFiringButton) {
                     button.setAttribute('disabled', 'true');
                 }
@@ -82,6 +82,7 @@ export default class HammerPuzzle extends HTMLDivElement {
         });
 
         this.addEventListener('translation-request', () => {
+
             this.classList.toggle('translated');
         });
     }
@@ -108,11 +109,11 @@ export default class HammerPuzzle extends HTMLDivElement {
         let activatesDefaultNode: Element | null = null;
 
         if (activatesDefault !== '') {
-            activatesDefaultNode = this.querySelector(`hammer-node#${nodeDetail.activatesDefault}`);
+            activatesDefaultNode = this.querySelector(`.hammer-node#${nodeDetail.activatesDefault}`);
         }
 
         if (activatesRotated !== '') {
-            activatesRotatedNode = this.querySelector(`hammer-node#${nodeDetail.activatesRotated}`);
+            activatesRotatedNode = this.querySelector(`.hammer-node#${nodeDetail.activatesRotated}`);
         }
 
         if (nodeDetail.isRotated) {
@@ -164,7 +165,7 @@ export default class HammerPuzzle extends HTMLDivElement {
         setTimeout(() => {
 
             this.initialValues.forEach((initialValue:NodeDetail) => {
-                let node = this.querySelector(`hammer-node#${initialValue.id}`);
+                let node = this.querySelector(`.hammer-node#${initialValue.id}`);
                 if (node instanceof HammerNode) {
                     node.dataset.active = initialValue.isActive ? 'true' : 'false';
                 }

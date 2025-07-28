@@ -11,13 +11,15 @@ import HammerResetButton from "./components/hammer/HammerResetButton";
 import HammerTranslateButton from "./components/hammer/HammerTranslateButton";
 
 document.addEventListener('DOMContentLoaded', () => {
-    customElements.define('drop-cap', DropCap, {extends: 'p'})
-    customElements.define('progress-bar', ProgressBar)
-    customElements.define('hammer-node', HammerNode, { extends: 'button'})
-    customElements.define('hammer-firing-button', HammerFiringButton, { extends: 'button'})
-    customElements.define('hammer-translate-button', HammerTranslateButton, { extends: 'button'})
-    customElements.define('hammer-reset-button', HammerResetButton, { extends: 'button'})
-    customElements.define('hammer-power', HammerPowerLevel, { extends: 'meter'})
-    customElements.define('hammer-output', HammerOutput, { extends: 'ul'})
-    customElements.define('hammer-puzzle', HammerPuzzle, { extends: 'div'})
+    let customElementRegistry = window.customElements;
+
+    customElementRegistry.define('drop-cap', DropCap, {extends: 'p'})
+    customElementRegistry.define('progress-bar', ProgressBar)
+    customElementRegistry.define('hammer-node', HammerNode, { extends: 'button'})
+    customElementRegistry.define('hammer-firing-button', HammerFiringButton, { extends: 'button'})
+    customElementRegistry.define('hammer-translate-button', HammerTranslateButton, { extends: 'button'})
+    customElementRegistry.define('hammer-reset-button', HammerResetButton, { extends: 'button'})
+    customElementRegistry.define('hammer-power', HammerPowerLevel, { extends: 'meter'})
+    customElementRegistry.define('hammer-output', HammerOutput, { extends: 'ul'})
+    customElementRegistry.define('hammer-puzzle', HammerPuzzle, { extends: 'div'})
 });
