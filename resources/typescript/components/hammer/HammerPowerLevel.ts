@@ -6,8 +6,6 @@ export default class HammerPowerLevel  extends HTMLMeterElement implements HTMLM
 
     attributeChangedCallback(_name: string, _oldValue: string, newValue: string) {
         let newValueInteger = parseInt(newValue);
-        // let width = newValueInteger * 12.5;
-        // this.style.width = `${width}%`;
 
         if (newValueInteger == HammerPowerLevel.successfulPowerLevel) {
             this.dispatchEvent(new CustomEvent('puzzle-success-event', {

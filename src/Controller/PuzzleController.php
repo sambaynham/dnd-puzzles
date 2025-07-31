@@ -20,6 +20,11 @@ final class PuzzleController extends AbstractBaseController
                     'label' => 'The Hammer of Tharmekhûl',
                     'route' => 'app.puzzles.hammer',
                     'active'=> false
+                ],
+                [
+                    'label' => 'The Lightforge of Dormuid Fireglad',
+                    'route' => 'app.puzzles.forge',
+                    'active' => false
                 ]
 
             ]
@@ -33,5 +38,14 @@ final class PuzzleController extends AbstractBaseController
             'pageTitle' => 'The Hammer of Tharmekhûl'
         ];
         return $this->render('puzzles/hammer.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+
+    #[Route('/puzzles/forge', name: 'app.puzzles.forge')]
+    public function forge(Request $request): Response {
+        $pageVars =[
+            'pageTitle' => 'The Lightforge'
+        ];
+        return $this->render('puzzles/lightforge.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }
