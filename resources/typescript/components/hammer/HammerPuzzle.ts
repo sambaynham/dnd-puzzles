@@ -106,7 +106,7 @@ export default class HammerPuzzle extends HTMLDivElement {
         let activatesDefault = nodeDetail.activatesDefault;
 
         let activatesRotatedNode: Element|null = null;
-        let activatesDefaultNode: Element | null = null;
+        let activatesDefaultNode: Element|null = null;
 
         if (activatesDefault !== '') {
             activatesDefaultNode = this.querySelector(`.hammer-node#${nodeDetail.activatesDefault}`);

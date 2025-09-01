@@ -3,7 +3,7 @@
 @use "../base/variables";
 @use "../mixins/buttonise";
 
-.btn {
+button, .btn {
 
    @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
 

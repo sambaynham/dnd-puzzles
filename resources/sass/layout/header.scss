@@ -1,0 +1,38 @@
+@use '../base/palette';
+
+header {
+    display: flex;
+    flex-direction: row;
+    //background-color: palette.$crimson;
+    width: 100%;
+
+    div.top {
+        flex: 1;
+        flex-direction: row;
+        width: 100%;
+        height: 25rem;
+        background-color: green;
+        align-items: center;
+        justify-content: center;
+        a.brand {
+            width: 20rem;
+        }
+    }
+
+    nav.main {
+        flex: 1;
+        flex-basis: 90%;
+        display: flex;
+        flex-direction: row;
+
+
+        a {
+            font-family: 'Gladius', fancy, sans-serif;
+            font-weight: bold;
+            color: palette.$white;
+            text-decoration: none;
+            font-size: 3rem;
+        }
+    }
+
+}

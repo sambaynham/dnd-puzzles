@@ -31,21 +31,4 @@ final class PuzzleController extends AbstractBaseController
         ];
         return $this->render('puzzles/index.html.twig', $this->populatePageVars($pageVars, $request));
     }
-
-    #[Route('/puzzles/hammer', name: 'app.puzzles.hammer')]
-    public function hammer(Request $request): Response {
-        $pageVars =[
-            'pageTitle' => 'The Hammer of Tharmekhûl'
-        ];
-        return $this->render('puzzles/hammer.html.twig', $this->populatePageVars($pageVars, $request));
-    }
-
-
-    #[Route('/puzzles/forge', name: 'app.puzzles.forge')]
-    public function forge(Request $request): Response {
-        $pageVars =[
-            'pageTitle' => 'The Lightforge'
-        ];
-        return $this->render('puzzles/lightforge.html.twig', $this->populatePageVars($pageVars, $request));
-    }
 }
