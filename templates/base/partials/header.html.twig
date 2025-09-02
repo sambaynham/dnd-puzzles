@@ -7,10 +7,12 @@
         </form>
     </div>
 
+    <div class="bottom">
+        <nav class="main">
+            {% for navItem in nav %}
+                <a class="nav-item {% if navItem.active %} active{% endif %}" href="{{ path(navItem.route) }}">{{ navItem.label }}</a>
+            {% endfor %}
+        </nav>
+    </div>
 
-    <nav class="main">
-        {% for navItem in nav %}
-            <a class="nav-item {% if navItem.active %} active{% endif %}" href="{{ path(navItem.route) }}">{{ navItem.label }}</a>
-        {% endfor %}
-    </nav>
 </header>

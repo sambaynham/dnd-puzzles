@@ -1,3 +1,5 @@
+@use '../base/variables';
+
 form {
     display: flex;
     flex-direction: column;
@@ -22,6 +24,10 @@ form {
         border-image-slice: calc(100% / 3);
         background-color: #f7f5f2ff;
         flex: 1;
+    }
+
+    *:not(:last-child) {
+        margin-bottom: variables.$base-spacing;
     }
 }
 
