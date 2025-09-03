@@ -1,18 +1,16 @@
 <header>
-    <div class="top">
         <a class="brand" href="/">DND Puzzles</a>
-        <form class="search-form">
-            <input name="search" id="search">
-            <button type="submit">Search</button>
-        </form>
-    </div>
 
-    <div class="bottom">
+
         <nav class="main">
             {% for navItem in nav %}
                 <a class="nav-item {% if navItem.active %} active{% endif %}" href="{{ path(navItem.route) }}">{{ navItem.label }}</a>
             {% endfor %}
         </nav>
-    </div>
+
+    <form class="search-form">
+        <input name="search" id="search">
+        <button type="submit">Search</button>
+    </form>
 
 </header>
