@@ -10,23 +10,22 @@ header {
         display: flex;
         flex-direction: row;
         width: 100%;
-        //background-color: green;
-        height: 5rem + (variables.$base-spacing * 4);
         padding: variables.$base-spacing;
+        background-image: url('../../images/hero.jpg');
+        background-size: cover;
+        background-position: 50% 60%;
         a.brand {
             padding-left: 5rem + (variables.$base-spacing * 2);
             flex-shrink: 1;
             flex-grow: 0;
-            height: 5rem + (variables.$base-spacing * 2);
-            line-height: 5rem + (variables.$base-spacing * 2);
             &:before {
                 content: " ";
                 display: block;
                 position: absolute;
                 top: 0;
                 left: 0;
-                height: 5rem;
-                width: 5rem;
+                height: 4rem;
+                width: 4rem;
                 background-image: url("../../images/myotr-logo.svg");
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -41,13 +40,19 @@ header {
             flex-basis: 20%;
             display: flex;
             flex-direction: row;
+            border: 1rem solid black;
+            border-image: url('../images/eroded-frame-whiteinner-transparent-outer.svg');
+            border-image-slice: 25%;
+            background-color: transparent;
+            margin-right: variables.$base-spacing;
+            position: relative;
 
             input {
                 margin-bottom: 0;
-                //border: none;
-                //background-color: transparent;
+
+                border: none;
             }
-            height: 3rem;
+
         }
     }
 
@@ -56,16 +61,23 @@ header {
         flex-basis: 90%;
         display: flex;
         flex-direction: row;
-        background-color: palette.$crimson;
-        padding: variables.$base-spacing;
+        background: linear-gradient(0deg, palette.$black, palette.$grey);
+
 
 
         a {
-            font-family: 'Gladius', fancy, sans-serif;
+            font-family: sans-serif;
+            text-transform: uppercase;
             font-weight: bold;
-            color: palette.$white;
+            color: palette.$offWhite;
             text-decoration: none;
-            //font-size: 3rem;
+            border: none;
+            padding: variables.$base-spacing;
+            text-shadow: -0.05em -0.05em 0em rgba(0, 0, 0, 0.25), 0.05em 0.05em 0em rgba(255, 255, 255, 0.125);
+            &:hover {
+                color: palette.$white;
+            }
+
         }
     }
 
