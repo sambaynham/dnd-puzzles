@@ -5,10 +5,6 @@ header {
     display: flex;
     flex-direction: row;
 
-    //background: linear-gradient(0deg, palette.$black, palette.$grey 51%, lighten(palette.$grey, 10) 52%, palette.$black);
-    background-color: palette.$wyrdPurple;
-    border-radius: 1.25rem;
-
     padding: variables.$base-spacing;
 
     box-shadow: -1px -1px 0m lighten(palette.$grey, 5), 1px 1px 0rem darken(palette.$grey, 5);
@@ -18,7 +14,7 @@ header {
         font-family: 'Gladius', fancy, serif;
         @include goldtext.goldText();
         background-size: 300%;
-        text-shadow: -0.05em -0.05em 0em rgba(0, 0, 0, 0.25), 0.05em 0.05em 0em rgba(255, 255, 255, 0.125);
+        //text-shadow: -0.05em -0.05em 0em rgba(0, 0, 0, 0.25), 0.05em 0.05em 0em rgba(255, 255, 255, 0.125);
         border: none;
         position: relative;
         padding-left: 5rem;
@@ -57,11 +53,8 @@ header {
 
         input {
             margin-bottom: 0 !important;
-            border-image: url('../../images/eroded-frame-whiteinner-transparent-outer.svg');
-            border-image-slice: 33%;
-            background-color: palette.$white;
+
             margin-right: variables.$base-spacing;
-            padding: 0;
         }
     }
     /*
