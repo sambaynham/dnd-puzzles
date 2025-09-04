@@ -11,17 +11,19 @@ body {
     position: relative;
 
     &:before {
+        top: 0;
+        left: 0;
         position: fixed;
         display: block;
         width: 100vw;
         height: 100vh;
         content: " ";
-        background-image: url('../images/noise.webp');
+        background-image: url('../../images/hero2.jpg');
+        mask-image: linear-gradient(270deg, black, transparent );
         background-position: top right;
         background-size: cover;
         background-repeat: no-repeat;
         z-index: -9999;
-        opacity: 0.5;
     }
 
 }
