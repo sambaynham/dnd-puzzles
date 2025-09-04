@@ -38,7 +38,7 @@ body, html {
 h1 {
     @include goldtext.goldText();
     position: relative;
-    padding-left: 3rem;
+    
     margin: 1.5vw 0;
     display: block;
     font-size: 5rem;

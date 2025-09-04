@@ -2,64 +2,64 @@
 @use '../base/variables';
 @use "../mixins/goldtext";
 
-.gt2{
-    h1 {
-        background: linear-gradient(to bottom, #cfc09f 27%, #ffecb3 40%, #3a2c0f 78%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: #fff;
-        font-family: 'Playfair Display', serif;
-        position: relative;
-        text-transform: uppercase;
-        font-size: calc(18vw + .5rem);
-        margin: 0;
-        font-weight: 400;
-    }
 
-    h1::after {
-        background: none;
-        content: attr(data-heading) / "";
-        left: 0;
-        top: 0;
-        z-index: -1;
-        position: absolute;
-        text-shadow:
-            -1px 0 1px #c6bb9f,
-            0 1px 1px #c6bb9f,
-            5px 5px 10px rgba(0, 0, 0, 0.4),
-            -5px -5px 10px rgba(0, 0, 0, 0.4);
-    }}
 header {
     display: flex;
     flex-direction: row;
 
-    padding: variables.$base-spacing;
+    margin: 0 0;
+    padding: variables.$base-spacing 10vw;
+    background-color: palette.$charcoal;
+    background: linear-gradient(to bottom, palette.$charcoal, palette.$black);
+    position: relative;
 
-    box-shadow: -1px -1px 0m lighten(palette.$grey, 5), 1px 1px 0rem darken(palette.$grey, 5);
-
+    &:after {
+        content: " ";
+        height: (variables.$base-spacing / 4);
+        width: 100%;
+        position: absolute;
+        bottom: 0 - (variables.$base-spacing / 4);
+        left: 0;
+        background: palette.$goldFX;
+    }
     a.brand {
-        font-size: 2.5rem;
-        font-family: 'Gladius', fancy, serif;
-        @include goldtext.goldText();
-        background-size: 300%;
-        //text-shadow: -0.05em -0.05em 0em rgba(0, 0, 0, 0.25), 0.05em 0.05em 0em rgba(255, 255, 255, 0.125);
-        border: none;
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: #fff;
+        font-family: 'Gladius', serif;
         position: relative;
-        padding-left: 5rem;
+        text-transform: uppercase;
+        font-size: 2.5rem;
+        margin: 0;
+        font-weight: 400;
+        @include goldtext.goldText();
+        background-size: 200%;
+        padding-left: 4rem + variables.$base-spacing;
 
         &:before {
-            content: " ";
-            display: block;
             position: absolute;
-            top: 0;
             left: 0;
+            content: " ";
+            background-image: url('../images/myotr-logo.svg');
+            display: block;
             height: 4rem;
             width: 4rem;
-            background-image: url("../../images/myotr-logo.svg");
+            position: absolute;
             background-size: contain;
-            background-repeat: no-repeat;
-            background-position: top left;
-            margin: 0;
+        }
+        &:after {
+            background: none;
+            content: attr(content) / "";
+            left: 0;
+            top: 0;
+            z-index: -1;
+            position: absolute;
+            text-shadow:
+                -0.05rem 0 0.05rem #c6bb9f,
+                0 0.05rem 0.05rem #c6bb9f,
+                .125rem .125rem .5rem rgba(0, 0, 0, 0.2),
+                -0.125rem -0.125rem .25rem rgba(0, 0, 0, 0.2);
         }
     }
 
@@ -68,11 +68,31 @@ header {
         flex: 1;
         flex-direction: row;
         margin-left: variables.$base-spacing;
+
         a {
+            position: relative;
             flex: 1;
             border: none;
-            font-family: 'Gladius', fancy, serif;
-            font-size: 2.5rem;
+            font-family: 'Crimson Text', fancy, serif;
+            font-size: 1.25rem;
+            line-height: 4rem;
+            flex-grow: 0;
+            flex-shrink: 1;
+            @include goldtext.goldText();
+            &:after {
+                content: " ";
+                display: block;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                height: 1rem;
+                width: 1rem;
+                background-color: palette.$crimson;
+                margin-left: -0.5rem;
+                border: 0.2rem ridge gold;
+
+                border-radius: 50%;
+            }
         }
     }
     form {

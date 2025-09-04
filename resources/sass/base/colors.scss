@@ -2,28 +2,12 @@
 @use "palette";
 
 body, html {
-	background-color: palette.$vellum;
+	//background-color: palette.$vellum;
+    background: linear-gradient(0deg, palette.$vellum, darken(palette.$vellum, 10));
 	height: 100%;
 	color: color.adjust(palette.$charcoal, $alpha: -0.125);
 }
 
 body {
-    position: relative;
-
-    &:before {
-        top: 0;
-        left: 0;
-        position: fixed;
-        display: block;
-        width: 100vw;
-        height: 100vh;
-        content: " ";
-        background-image: url('../../images/hero2.jpg');
-        mask-image: linear-gradient(270deg, black, transparent );
-        background-position: top right;
-        background-size: cover;
-        background-repeat: no-repeat;
-        z-index: -9999;
-    }
 
 }
