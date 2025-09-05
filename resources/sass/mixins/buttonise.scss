@@ -1,27 +1,28 @@
 @use "sass:color";
 @use "../base/palette";
 @use "../base/variables";
+@use 'sass:math';
 
-@mixin buttonize($primaryColor, $hoverColor, $gemBorderWidth, $textColor, $fontFamily: 'Crimson Text')
+@mixin buttonize($primaryColor, $hoverColor, $gemBorderWidth, $textColor, $fontFamily: 'Gladius')
 {
-    $gemBorderRadius: 0.125rem;
+    box-shadow: 0 0 1rem transparentize(palette.$ink, 0.5);
     position: relative;
     z-index: 1;
     color: $textColor;
     padding: 0.5rem 1rem;
     text-shadow: 0 -1px 0 color.adjust(palette.$gold, $lightness: -40%);
-    border: 0;
-    border-radius: $gemBorderRadius;
-    background-color: $primaryColor;
+    background-color: darken($primaryColor, 15);
     transition: background-color 400ms ease-in-out;
     font-family: $fontFamily, sans-serif;
     font-size: 0.9rem;
     font-weight: 800;
-    //text-transform: uppercase;
     cursor: pointer;
     text-decoration: none;
     text-align: center;
-    margin: (variables.$base-spacing / 2);
+    margin: math.div(variables.$base-spacing, 2);
+    border: 0.2rem solid red;
+    border-image: palette.$goldFX;
+    border-image-slice: 33%;
 
 
     &:before {
@@ -35,7 +36,7 @@
         z-index: -1;
         pointer-events: none;
         background: radial-gradient(at 50% 110%, transparent 50%, color.adjust($primaryColor, $lightness: -10%) 100%);
-        border-radius: $gemBorderRadius;
+        mix-blend-mode: color-dodge;
 
     }
     &:after {
@@ -48,15 +49,15 @@
         display: block;
         z-index: -1;
         border: $gemBorderWidth outset color.adjust($primaryColor, $lightness: 20%);
-        opacity: 0.25;
+        mix-blend-mode: soft-light;
+        opacity: 0.5;
         pointer-events: none;
-        border-radius: $gemBorderRadius;
-        background-image: url('../../images/grads.svg');
         background-size: contain;
     }
 
     &:hover {
         background-color: $hoverColor;
+        color: $textColor;
     }
 
     &[disabled] {

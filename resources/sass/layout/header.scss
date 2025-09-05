@@ -1,7 +1,10 @@
 @use '../base/palette';
 @use '../base/variables';
 @use "../mixins/goldtext";
+@use 'sass:math';
+@use "sass:color";
 
+$header-full-height: 7rem;
 
 header {
     display: flex;
@@ -13,7 +16,8 @@ header {
     background: linear-gradient(to bottom, palette.$charcoal, palette.$black);
     position: relative;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-
+    height: $header-full-height;
+    line-height: $header-full-height - (variables.$base-spacing * 2);
     &:before {
         content: " ";
         position: absolute;
@@ -28,10 +32,10 @@ header {
     }
     &:after {
         content: " ";
-        height: (variables.$base-spacing / 4);
+        height: math.div(variables.$base-spacing, 4);
         width: 100%;
         position: absolute;
-        bottom: 0 - (variables.$base-spacing / 4);
+        bottom: 0 - math.div(variables.$base-spacing, 4);
         left: 0;
         background-image: url('../../images/gold-bead.svg');
         background-size: 1.1rem auto;
@@ -45,12 +49,12 @@ header {
         font-family: 'Gladius', serif;
         position: relative;
         text-transform: uppercase;
-        font-size: 1.75rem;
+        font-size: 2rem;
 
         font-weight: 400;
         @include goldtext.goldText();
         background-size: 200%;
-        padding-left: 3rem + variables.$base-spacing;
+        padding-left: $header-full-height ;
         border: none;
 
         &:before {
@@ -73,49 +77,26 @@ header {
         flex: 1;
         flex-direction: row;
         margin-left: variables.$base-spacing;
+        padding: variables.$base-spacing;
 
         a {
-            position: relative;
-            flex: 1;
-            border: none;
-            font-family: 'Crimson Text', fancy, serif;
-            font-size: 1.25rem;
-            flex-grow: 0;
-            flex-shrink: 1;
+            padding: variables.$base-spacing;
+            line-height: $header-full-height - (variables.$base-spacing * 4);
             @include goldtext.goldText();
-            position: relative;
-            padding: 0 variables.$base-spacing;
-            z-index: 1;
-            line-height: 5rem;
-
-            &:before {
-                content: " ";
-                display: block;
-                position: absolute;
-                background: radial-gradient(circle at bottom center, lighten(palette.$crimson, 10), palette.$crimson, transparent 33%);
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                z-index: 0;
-                transition: opacity 200ms ease-in-out;
-                opacity: 0;
-                pointer-events: none;
-            }
+            font-family: 'Gladius', fancy, serif;
+            font-size: 1.5rem;
 
             &:hover {
-                &:before {
-                    opacity: 100;
-                }
+                color: white;
             }
         }
     }
     form {
         flex-direction: row;
-        margin: variables.$base-spacing;
         margin-left: auto;
         position: relative;
         z-index: 9999;
+        padding: variables.$base-spacing;
 
         input {
             margin-bottom: 0 !important;
@@ -124,6 +105,9 @@ header {
             color: palette.$gold;
             margin-right: variables.$base-spacing;
             border-bottom: 0.125rem solid palette.$gold;
+            font-family: 'Crimson Text', fancy, serif;
+            font-size: 1.2rem;
+            padding: variables.$base-spacing;
         }
     }
 

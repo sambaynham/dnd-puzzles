@@ -1,0 +1,75 @@
+@use '../base/palette';
+
+.switch-container {
+    display: block;
+    width: 3rem;
+    height: 5rem;
+    background-color: mix(palette.$vellum, palette.$ink);
+    box-shadow: inset 0 0 1rem palette.$black;
+    position: relative;
+    border: 0.2rem solid darken(palette.$gold, 15);
+    border-radius: 1.5rem;
+    padding-top: 4rem;
+    margin-top: 2rem;
+
+    label {
+        position: absolute;
+        top: -3rem;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 600;
+        background: palette.$goldFX;
+        border: 2px outset red;
+        border-image: palette.$silverFX;
+    }
+
+
+    input[type="checkbox"].switch {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        opacity: 0;
+    }
+
+    .toggle {
+
+        border: 0.2rem solid darken(palette.$gold, 15);
+        height: 2rem;
+        width: 2rem;
+        display: block;
+        position: absolute;
+        bottom : 0.3rem;
+        left: 0.3rem;
+        background: radial-gradient(circle at 50% 50%, palette.$crimson, darken(palette.$crimson, 10));
+        border-radius: 100%;
+        pointer-events: none;
+        transition: all 0.2s ease-in-out;
+        transition-property: transform, background, box-shadow;
+        box-shadow: 0 0 1rem transparent;
+
+        &:after {
+            content: " ";
+            position: absolute;
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            top: 0.1rem;
+            left: 0.1rem;
+            background: radial-gradient(circle at 33% 33%, white, transparent);
+            mix-blend-mode: soft-light;
+            border-radius: 100%;
+        }
+    }
+
+    input[type="checkbox"].switch:checked ~ .toggle {
+        transform: translateY(-2rem);
+        background: radial-gradient(circle at 50% 50%, palette.$green, darken(palette.$green, 10));
+
+    }
+}
+

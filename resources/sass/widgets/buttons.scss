@@ -5,11 +5,11 @@
 
 button, .btn {
 
-   @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+   @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 5%), variables.$gemBorderWidth, palette.$white);
 
 
     &.btn-secondary {
-        @include buttonise.buttonize(palette.$green, color.adjust(palette.$green, $lightness: 30%), variables.$gemBorderWidth, palette.$white);
+        @include buttonise.buttonize(palette.$green, color.adjust(palette.$green, $lightness: 2%), variables.$gemBorderWidth, palette.$white);
     }
 
     &.btn-blue {
@@ -23,6 +23,9 @@ button, .btn {
     &.btn-purple {
         @include buttonise.buttonize(palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: 25%), variables.$gemBorderWidth, palette.$white);
     }
+
+    font-family: 'Gladius', Serif;
+    text-transform: uppercase;
 }
 
 .btn-group {

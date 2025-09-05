@@ -1,7 +1,8 @@
 @use "../base/palette";
 .panel {
     border: 1.5rem solid transparent;
-    border-image: url('../images/eroded-frame-whiteinner-transparent-outer.svg');
+    border-image: url('../../images/eroded-frame-whiteinner-transparent-outer-ink.svg');
     background-color: palette.$white;
     border-image-slice: calc(100% / 3);
+    transform: rotate(-0.125deg);
 }

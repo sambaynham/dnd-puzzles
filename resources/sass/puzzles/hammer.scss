@@ -32,11 +32,11 @@
 
 
     .hammer-node {
-        @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
+        @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 5%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
 
 
         &.broken {
-            @include buttonise.buttonize(palette.$black, color.adjust(palette.$black, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
+            @include buttonise.buttonize(palette.$black, color.adjust(palette.$black, $lightness: 5%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
             font-size: 3rem;
         }
 
@@ -54,7 +54,7 @@
         font-size: 3rem;
         line-height: 6rem;
         position: absolute;
-        transition: transform 200ms ease-in-out;
+        transition: all 200ms ease-in-out;
 
         &.rotated {
             transform: rotate(45deg);
@@ -117,7 +117,7 @@
 
     .success-message {
         background-color: palette.$vellum;
-        width: 40rem;
+        width: 50rem;
         border: 1rem solid palette.$crimson;
         padding: 2rem;
         text-align: center;
@@ -125,7 +125,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        margin-left: -20rem;
+        margin-left: -25rem;
         margin-top: -3.5rem;
         z-index: 9999;
         box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
@@ -150,6 +150,10 @@
         .success-message {
             opacity: 1;
             pointer-events: all;
+
+            h2 {
+                font-size: 1rem;
+            }
         }
     }
 
@@ -230,6 +234,10 @@
         .success-message {
             h2, h3, .btn, button {
                 font-family: 'Gladius', sans-serif !important;
+            }
+
+            h2 {
+                font-size: 1rem;
             }
 
 

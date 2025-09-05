@@ -18,11 +18,13 @@ final class PuzzleController extends AbstractBaseController
             'puzzles' => [
                 [
                     'label' => 'The Hammer of Tharmekhûl',
+                    'description' => 'Reroute an ancient super-weapon\'s power supply, and smite your enemies!',
                     'route' => 'app.puzzles.hammer',
                     'active'=> false
                 ],
                 [
                     'label' => 'The Lightforge of Dormuid Fireglad',
+                    'description' => 'Some security systems are designed to keep something out. This one keeps something in.',
                     'route' => 'app.puzzles.forge',
                     'active' => false
                 ]

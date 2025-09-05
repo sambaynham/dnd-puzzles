@@ -1,7 +1,7 @@
 @use "sass:color";
 @use "palette";
 
-$gemBorderWidth: 0.3rem;
+$gemBorderWidth: 0.5rem;
 $base-spacing: 1rem;
 $baseBoxShadow:  0 0 calc($base-spacing/3) color.adjust(palette.$charcoal, $alpha: -0.75);
 //Misc

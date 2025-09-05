@@ -1,6 +1,7 @@
 @use "../mixins/goldtext";
 @use "../base/palette";
 @use "../base/variables";
+@use "sass:color";
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Julius+Sans+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Julius+Sans+One&display=swap');
 @font-face {
@@ -60,9 +61,14 @@ h1 {
         z-index: -1;
         border-top: 0.25rem double palette.$gold;
         border-bottom: 0.25rem double palette.$gold;
+
+
     }
 }
 h1 {
 	font-family: $displayStack;
 }
 
+h2 {
+    font-size: 3rem;
+}

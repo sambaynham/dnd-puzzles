@@ -1,0 +1,19 @@
+@use '../base/palette';
+@use '../base/variables';
+@use 'sass:math';
+
+table.table {
+    border-collapse: collapse;
+    border: 0.2rem solid palette.$ink;
+    text-align: left;
+
+    tr, td, th {
+        border: 0.2rem solid palette.$ink;
+        padding: math.div(variables.$base-spacing, 2);
+    }
+
+    th {
+        background-color: palette.$ink;
+        color: palette.$vellum;
+    }
+}
