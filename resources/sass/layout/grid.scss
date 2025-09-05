@@ -9,7 +9,7 @@ main {
     display: flex;
     flex-direction: column;
     max-width: 80vw;
-    margin: 0 auto;
+    margin: 0 auto variables.$base-spacing auto ;
 
     .row, .col {
         flex: 1;

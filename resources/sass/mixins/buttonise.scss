@@ -1,6 +1,8 @@
 @use "sass:color";
 @use "../base/palette";
-@mixin buttonize($primaryColor, $hoverColor, $gemBorderWidth, $textColor, $fontFamily: 'Gladius')
+@use "../base/variables";
+
+@mixin buttonize($primaryColor, $hoverColor, $gemBorderWidth, $textColor, $fontFamily: 'Crimson Text')
 {
     $gemBorderRadius: 0.125rem;
     position: relative;
@@ -14,10 +16,12 @@
     transition: background-color 400ms ease-in-out;
     font-family: $fontFamily, sans-serif;
     font-size: 0.9rem;
-    text-transform: uppercase;
+    font-weight: 800;
+    //text-transform: uppercase;
     cursor: pointer;
     text-decoration: none;
     text-align: center;
+    margin: (variables.$base-spacing / 2);
 
 
     &:before {
@@ -47,7 +51,7 @@
         opacity: 0.25;
         pointer-events: none;
         border-radius: $gemBorderRadius;
-        background-image: url('../images/crack.svg');
+        background-image: url('../../images/grads.svg');
         background-size: contain;
     }
 

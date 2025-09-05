@@ -2,13 +2,23 @@
 {% block body %}
     <div class="row">
         <div class="col">
-            <h1>{{ pageTitle }}</h1>
+            <h1 content="{{ pageTitle }}">{{ pageTitle }}</h1>
             <div class="row halves">
                 <div class="col panel">
                     <h2>Available Puzzles</h2>
                     {% for puzzle in puzzles %}
                         <a  href="{{ path(puzzle.route) }}">{{ puzzle.label }}</a>
                     {% endfor %}
+                    <p is="drop-cap">Lorem Ipsum</p>
+                    <p>Lorem Ipsum</p>
+                    <p>Lorem Ipsum</p>
+                    <p>Lorem Ipsum</p><p>Lorem Ipsum</p>
+                    <p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p>
+                    <p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p>
+                    <p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p>
+                    <p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p>
+                    <p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p><p>Lorem Ipsum</p>
+
                 </div>
                 <div class="col">
 

@@ -8,11 +8,24 @@ header {
     flex-direction: row;
 
     margin: 0 0;
-    padding: variables.$base-spacing 10vw;
+    padding: 0 10vw;
     background-color: palette.$charcoal;
     background: linear-gradient(to bottom, palette.$charcoal, palette.$black);
     position: relative;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
 
+    &:before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-image: url('../../images/leather-tile.png');
+        background-size: 3rem;
+        mix-blend-mode: color-dodge;
+        pointer-events:none;
+    }
     &:after {
         content: " ";
         height: (variables.$base-spacing / 4);
@@ -20,22 +33,25 @@ header {
         position: absolute;
         bottom: 0 - (variables.$base-spacing / 4);
         left: 0;
-        background: palette.$goldFX;
+        background-image: url('../../images/gold-bead.svg');
+        background-size: 1.1rem auto;
+        background-repeat: repeat-x;
     }
     a.brand {
-
+        margin: variables.$base-spacing;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         color: #fff;
         font-family: 'Gladius', serif;
         position: relative;
         text-transform: uppercase;
-        font-size: 2.5rem;
-        margin: 0;
+        font-size: 1.75rem;
+
         font-weight: 400;
         @include goldtext.goldText();
         background-size: 200%;
-        padding-left: 4rem + variables.$base-spacing;
+        padding-left: 3rem + variables.$base-spacing;
+        border: none;
 
         &:before {
             position: absolute;
@@ -43,24 +59,13 @@ header {
             content: " ";
             background-image: url('../images/myotr-logo.svg');
             display: block;
-            height: 4rem;
-            width: 4rem;
+            height: 100%;
+            width: 100%;
             position: absolute;
             background-size: contain;
+            background-repeat: no-repeat;
         }
-        &:after {
-            background: none;
-            content: attr(content) / "";
-            left: 0;
-            top: 0;
-            z-index: -1;
-            position: absolute;
-            text-shadow:
-                -0.05rem 0 0.05rem #c6bb9f,
-                0 0.05rem 0.05rem #c6bb9f,
-                .125rem .125rem .5rem rgba(0, 0, 0, 0.2),
-                -0.125rem -0.125rem .25rem rgba(0, 0, 0, 0.2);
-        }
+
     }
 
     nav {
@@ -75,101 +80,51 @@ header {
             border: none;
             font-family: 'Crimson Text', fancy, serif;
             font-size: 1.25rem;
-            line-height: 4rem;
             flex-grow: 0;
             flex-shrink: 1;
             @include goldtext.goldText();
-            &:after {
+            position: relative;
+            padding: 0 variables.$base-spacing;
+            z-index: 1;
+            line-height: 5rem;
+
+            &:before {
                 content: " ";
                 display: block;
                 position: absolute;
+                background: radial-gradient(circle at bottom center, lighten(palette.$crimson, 10), palette.$crimson, transparent 33%);
+                top: 0;
+                left: 0;
                 bottom: 0;
-                left: 50%;
-                height: 1rem;
-                width: 1rem;
-                background-color: palette.$crimson;
-                margin-left: -0.5rem;
-                border: 0.2rem ridge gold;
+                right: 0;
+                z-index: 0;
+                transition: opacity 200ms ease-in-out;
+                opacity: 0;
+                pointer-events: none;
+            }
 
-                border-radius: 50%;
+            &:hover {
+                &:before {
+                    opacity: 100;
+                }
             }
         }
     }
     form {
         flex-direction: row;
+        margin: variables.$base-spacing;
         margin-left: auto;
+        position: relative;
+        z-index: 9999;
 
         input {
             margin-bottom: 0 !important;
-
-            margin-right: variables.$base-spacing;
-        }
-    }
-    /*
-    div.top {
-        flex: 1;
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-
-
-        background-size: cover;
-        background-position: 50% 60%;
-        a.brand {
-            padding-left: 5rem + (variables.$base-spacing * 2);
-            flex-shrink: 1;
-            flex-grow: 0;
-
-
-        }
-
-        form.search-form {
-            margin-left: auto;
-            flex-basis: 20%;
-            display: flex;
-            flex-direction: row;
-            border: 1rem solid black;
-            border-image: url('../images/eroded-frame-whiteinner-transparent-outer.svg');
-            border-image-slice: 25%;
-            background-color: transparent;
-            margin-right: variables.$base-spacing;
-            position: relative;
-
-            input {
-                margin-bottom: 0;
-
-                border: none;
-            }
-
-        }
-    }
-
-    nav.main {
-        flex: 1;
-        flex-basis: 90%;
-        display: flex;
-        flex-direction: row;
-
-
-
-
-        a {
-            font-family: sans-serif;
-            text-transform: uppercase;
-            font-weight: bold;
-            color: palette.$offWhite;
-            text-decoration: none;
             border: none;
-            padding: variables.$base-spacing;
-            text-shadow: -0.05em -0.05em 0em rgba(0, 0, 0, 0.25), 0.05em 0.05em 0em rgba(255, 255, 255, 0.125);
-            &:hover {
-                color: palette.$white;
-            }
-
+            background-color: transparent;
+            color: palette.$gold;
+            margin-right: variables.$base-spacing;
+            border-bottom: 0.125rem solid palette.$gold;
         }
     }
 
-
-
-*/
 }

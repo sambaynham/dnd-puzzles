@@ -2,12 +2,34 @@
 @use "palette";
 
 body, html {
-	//background-color: palette.$vellum;
-    background: linear-gradient(0deg, palette.$vellum, darken(palette.$vellum, 10));
-	height: 100%;
+
+    background: linear-gradient(to bottom, darken(palette.$vellum, 2), darken(palette.$vellum, 10));
 	color: color.adjust(palette.$charcoal, $alpha: -0.125);
+
 }
 
 body {
+    position: relative;
+    color: palette.$ink;
+    p {
+        text-shadow: 0 0 0.125em transparentize(palette.$ink, 0.666);
+    }
+    &:before {
+        content: " ";
+        display: block;
+        left: 5vw;
+        top: 0;
+        height: 100%;
+        width: 2rem;
+        background-color: cyan;
+        position: absolute;
+        z-index: -2;
+        mask-image: url('../../images/pattern.svg');
+        mask-repeat: repeat-y;
+        mask-size: contain;
+        background-attachment: fixed;
+        background: repeating-linear-gradient(33deg, #B38728 1em, #edd888 2em, #e8c678 3em, #edd888 4em, #a58d58 5em);
+        background-size: 200%;
 
+    }
 }

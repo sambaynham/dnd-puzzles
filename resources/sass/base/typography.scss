@@ -1,4 +1,6 @@
 @use "../mixins/goldtext";
+@use "../base/palette";
+@use "../base/variables";
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Julius+Sans+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Julius+Sans+One&display=swap');
 @font-face {
@@ -25,7 +27,7 @@
     src: url('../fonts/DethekStone.ttf') format('truetype');
 }
 
-$textStack: 'EBGaramond', serif;
+$textStack: 'Crimson Text', serif;
 $displayStack: 'Gladius', serif;
 
 body, html {
@@ -33,33 +35,34 @@ body, html {
 	font-family: $textStack;
     position: relative;
     z-index: 1;
+    padding: 0;
+    margin: 0;
 }
 
 h1 {
     @include goldtext.goldText();
     position: relative;
-    
+
     margin: 1.5vw 0;
     display: block;
     font-size: 5rem;
-
+    line-height: 6rem;
+    margin-bottom: (variables.$base-spacing * 3);
 
     &:before {
-        content: " ";
-        background-image: url('../images/heading-backer.svg');
-        display: block;
-        width: 100%;
         position: absolute;
-        height: 100%;
-        top: 0;
-        left: -1em;
+        content: " ";
+        display: block;
+        background: linear-gradient(to bottom, palette.$crimson, darken(palette.$crimson, 10));
+        left: -11vw;
+        right: -11vw;
+        height: 7rem;
         z-index: -1;
-        background-size: contain;
-        background-repeat: no-repeat;
-
+        border-top: 0.25rem double palette.$gold;
+        border-bottom: 0.25rem double palette.$gold;
     }
 }
-h1, h2, h3, h4, h5, h6 {
+h1 {
 	font-family: $displayStack;
 }
 
