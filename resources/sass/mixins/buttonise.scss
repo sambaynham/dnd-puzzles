@@ -5,14 +5,14 @@
 
 @mixin buttonize($primaryColor, $hoverColor, $gemBorderWidth, $textColor, $fontFamily: 'Gladius')
 {
-    box-shadow: 0 0 1rem transparentize(palette.$ink, 0.5);
+    box-shadow: 0 0 0.5rem transparentize(palette.$ink, 0.25), 0 0 0.25rem transparentize(palette.$ink, 0.25);
     position: relative;
     z-index: 1;
     color: $textColor;
     padding: 0.5rem 1rem;
     text-shadow: 0 -1px 0 color.adjust(palette.$gold, $lightness: -40%);
     background-color: darken($primaryColor, 15);
-    transition: background-color 400ms ease-in-out;
+    transition: background-color 250ms ease-in-out;
     font-family: $fontFamily, sans-serif;
     font-size: 0.9rem;
     font-weight: 800;
@@ -20,7 +20,7 @@
     text-decoration: none;
     text-align: center;
     margin: math.div(variables.$base-spacing, 2);
-    border: 0.2rem solid red;
+    border: math.div($gemBorderWidth, 2) solid transparent;
     border-image: palette.$goldFX;
     border-image-slice: 33%;
 
@@ -38,6 +38,7 @@
         background: radial-gradient(at 50% 110%, transparent 50%, color.adjust($primaryColor, $lightness: -10%) 100%);
         mix-blend-mode: color-dodge;
 
+
     }
     &:after {
         content: "";
@@ -48,16 +49,22 @@
         right: 0;
         display: block;
         z-index: -1;
-        border: $gemBorderWidth outset color.adjust($primaryColor, $lightness: 20%);
-        mix-blend-mode: soft-light;
-        opacity: 0.5;
+        border: $gemBorderWidth outset white;
+        mix-blend-mode: hard-light;
+        opacity: 0.25;
         pointer-events: none;
         background-size: contain;
+        box-shadow: 0 0 1rem transparent, 0 0 0.5rem transparent, 0 0 0.25rem transparent;
+        transition: box-shadow 250ms ease-in-out;
     }
 
     &:hover {
         background-color: $hoverColor;
         color: $textColor;
+
+        &:after {
+            box-shadow: 0 0 1rem $primaryColor, 0 0 0.5rem $primaryColor, 0 0 0.25rem $primaryColor;
+        }
     }
 
     &[disabled] {

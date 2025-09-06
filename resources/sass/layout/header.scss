@@ -1,114 +1,384 @@
 @use '../base/palette';
 @use '../base/variables';
 @use "../mixins/goldtext";
+@use "../base/typography";
+@use "../mixins/buttonise";
 @use 'sass:math';
 @use "sass:color";
 
-$header-full-height: 7rem;
-
+$mobile-header-height: 10vh;
 header {
-    display: flex;
-    flex-direction: row;
-
-    margin: 0 0;
-    padding: 0 10vw;
     background-color: palette.$charcoal;
-    background: linear-gradient(to bottom, palette.$charcoal, palette.$black);
+    margin: 0;
     position: relative;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-    height: $header-full-height;
-    line-height: $header-full-height - (variables.$base-spacing * 2);
-    &:before {
-        content: " ";
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background-image: url('../../images/leather-tile.png');
-        background-size: 3rem;
-        mix-blend-mode: color-dodge;
-        pointer-events:none;
-    }
-    &:after {
-        content: " ";
-        height: math.div(variables.$base-spacing, 4);
-        width: 100%;
-        position: absolute;
-        bottom: 0 - math.div(variables.$base-spacing, 4);
-        left: 0;
-        background-image: url('../../images/gold-bead.svg');
-        background-size: 1.1rem auto;
-        background-repeat: repeat-x;
+    height: $mobile-header-height;
+    padding: variables.$base-spacing;
+    border-bottom: 0.125rem solid transparent;
+    border-image: url("../../images/gold-bead.svg") 20%;
+
+    .search-form {
+        display: none;
     }
     a.brand {
-        margin: variables.$base-spacing;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: #fff;
-        font-family: 'Gladius', serif;
-        position: relative;
-        text-transform: uppercase;
-        font-size: 2rem;
-
-        font-weight: 400;
-        @include goldtext.goldText();
-        background-size: 200%;
-        padding-left: $header-full-height ;
+        color: transparent;
+        width: $mobile-header-height - 2;
+        height: $mobile-header-height - 2;
+        background-image: url("../images/myotr-logo.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        display: block;
+        position: absolute;
+        top: 1vh;
+        left: 50%;
+        margin-left: 0 - math.div(($mobile-header-height - 2), 2);
+    }
+    button.nav-toggle {
+        background-color: palette.$crimson;
+        background: radial-gradient(circle at 50% 100%, palette.$crimson, darken(palette.$crimson, 15));
         border: none;
+        height: ($mobile-header-height - 2vh);
+        width: ($mobile-header-height - 2vh);
+        position: absolute;
+        top: 1vh;
+
+        transition: background 200ms ease-in-out;
+        border-radius: 0.25rem;
+
 
         &:before {
-            position: absolute;
-            left: 0;
-            content: " ";
-            background-image: url('../images/myotr-logo.svg');
             display: block;
-            height: 100%;
-            width: 100%;
             position: absolute;
-            background-size: contain;
-            background-repeat: no-repeat;
+            content: " ";
+            color: palette.$white;
+            top: 1vh;
+            left: 1vh;
+            right: 1vh;
+            bottom: 1vh;
+            font-family: 'RPGAwesome', sans-serif;
+            font-size: 4vh;
+            line-height: 6vh;
+
+        }
+
+        &:after {
+            content: " ";
+            position: absolute;
+            pointer-events: none;
+            background-color: transparent;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            border: 1vh outset rgba(255, 255, 255, 0.5);
+            mix-blend-mode: soft-light;
+            border-radius: 0.25rem;
+        }
+
+        &.open, &:focus, &:hover {
+            background-color: palette.$crimson;
+            background: radial-gradient(circle at 50% 100%, lighten(palette.$crimson, 5), palette.$crimson);
+        }
+        &.main-nav-toggle {
+            left: 1vh;
+            &:before {
+                content: "";
+            }
+        }
+
+
+        &.user-nav-toggle {
+            right: 1vh;
+
+            &:before {
+                content: "";
+            }
         }
 
     }
 
-    nav {
+    nav.mobile-nav {
         display: flex;
-        flex: 1;
-        flex-direction: row;
-        margin-left: variables.$base-spacing;
-        padding: variables.$base-spacing;
+        flex-direction: column;
+        position: fixed;
+        top: $mobile-header-height;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: palette.$vellum;
+        z-index: 9999;
+        transition: transform 200ms ease-in-out;
+        overflow-y: scroll;
+
+        &#main-nav {
+            transform: translateX(-100%);
+        }
+
+        &#user-nav {
+            transform: translateX(100%);
+        }
+
+        &.open {
+            transform: translateX(0) !important;
+        }
 
         a {
-            padding: variables.$base-spacing;
-            line-height: $header-full-height - (variables.$base-spacing * 4);
-            @include goldtext.goldText();
-            font-family: 'Gladius', fancy, serif;
-            font-size: 1.5rem;
+            flex: 1;
+            height: 5vh;
+            line-height: 5vh;
+            text-align: left;
+            font-size: 2rem;
+            padding: 0 variables.$base-spacing;
 
-            &:hover {
-                color: white;
+        }
+    }
+
+
+}
+
+@media (min-width: 1080px) {
+    header {
+        background-color: transparent;
+        width: 80vw;
+        margin: 0 auto;
+        height: auto;
+        border-bottom: none;
+        padding: 3rem 0 0 0;
+        button.nav-toggle {
+            display: none;
+        }
+
+        nav.mobile-nav {
+
+            transform: initial !important;
+            position: static;
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            background-color: transparent;
+            justify-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            margin-top: (variables.$base-spacing * 2);
+        }
+
+        .top {
+            display: flex;
+            flex-direction: row;
+            height: auto;
+            position: relative;
+            justify-content: center;
+            justify-items: center;
+
+            &:after {
+                display: block;
+                content: " ";
+                width: 100%;
+                height: 0.25rem;
+                position: absolute;
+                left: 0;
+                bottom: 0 - variables.$base-spacing;
+
+                background-image: url('../../images/eroded-line.svg');
+                background-size: 50% auto;
+                background-repeat: repeat-x;
+            }
+
+            a.brand {
+                display: flex;
+                flex: 1;
+                flex-basis: 80%;
+                position: relative;
+                text-align: center;
+                color: palette.$ink;
+                padding-left: 7rem;
+                height: auto;
+                width: auto;
+                top: initial;
+                left: initial;
+                margin: 0;
+                background: none;
+                font-family: typography.$displayStack;
+                font-weight: 800;
+                font-size: 4rem;
+                border: none;
+                text-shadow: palette.$bleedingInk;
+                margin-bottom: variables.$base-spacing;
+                &:hover {
+                    border: none;
+                }
+
+                &:before, &:after {
+                    content: " ";
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 1.5em;
+                    width: 1.5em;
+
+                }
+                &:before {
+                    background-size: 33%;
+                    background: palette.$goldFX;
+                    background-size: 10%;
+                    border-radius: 10%;
+                    background-attachment: fixed;
+                }
+
+                &:after {
+                    background-image: url('../../images/myotr-logo-cutout.svg');
+                    background-size: contain;
+                }
+            }
+
+
+
+            .right {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+                flex-basis: 20%;
+                justify-content: right;
+
+                form.search-form {
+                    display: flex;
+                    flex-direction: row;
+
+                    border: 1rem solid transparent;
+                    border-image: url('../../images/eroded-frame-whiteinner.svg');
+                    border-image-slice: 33%;
+                    position: relative;
+
+                    &:before {
+                        content: " ";
+                        display: block;
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        right: 0;
+                        background-color: #f7f5f2;
+                        pointer-events: none;
+                        z-index: -1;
+
+                    }
+
+                    input {
+                        flex: 1;
+                        border: none;
+                        color: black;
+                        height: 2rem;
+                        line-height: 2rem;
+                        font-family: typography.$textStack;
+                        margin-bottom: 0;
+                        font-size: 1.25rem;
+                        padding: 1rem;
+                        flex-basis: 80%;
+                    }
+
+                    button {
+                        flex: 1;
+                        flex-basis: 20%;
+                        background-color: transparent;
+                        border: none;
+                        color: transparent;
+                        position: relative;
+                        &:after {
+                            content: " ";
+                            background-image: url('../../images/magnifier-ink.svg');
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            background-position: right;
+                            display: block;
+                            height: 100%;
+                            width: 4rem;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                        }
+                    }
+                }
+
+                nav#user-nav {
+                    flex: 1;
+                    font-size: 1.125rem;
+                    text-align: left;
+                    margin: 0;
+                    display: inline;
+                    padding: 0 0.5rem;
+                    line-height: 2em;
+                    .user-greeting {
+                        position: relative;
+                        display: block;
+                        &:before {
+                            content: "";
+                            font-family: 'RPGAwesome', sans-serif;
+                            margin-right: 0.5rem;
+                            font-size: 1.5em;
+                            line-height: 1.5em;
+                        }
+                        a {
+                            font-size: 1em;
+                            padding: 0;
+                            display: inline;
+                        }
+                    }
+
+                    .user-options {
+                        display: flex;
+                        flex-direction: row;
+                        margin-left: auto;
+
+                        a {
+                            flex: 1;
+                            flex-grow: 0;
+                            font-size: 1em;
+                            line-height: 2.5rem;
+                            padding: 0 variables.$base-spacing;
+                            height: auto;
+
+                        }
+
+                    }
+
+
+
+
+                }
+            }
+
+
+
+        }
+        .bottom {
+            display: flex;
+            flex-direction: row;
+
+            nav {
+
+
+
+                transform: initial !important;
+                position: static;
+                flex: 1;
+                display: flex;
+                flex-direction: row;
+                background-color: transparent;
+                justify-items: center;
+                justify-content: center;
+                margin: 0 auto;
+                margin-top: (variables.$base-spacing * 2);
+                a {
+                    @include buttonise.buttonize(palette.$blue, lighten(palette.$blue, 5), 0.5rem, palette.$white);
+                    font-size: 2rem;
+                    line-height: 2.5rem;
+                    flex-grow: 0;
+                    flex-shrink: 1;
+
+
+                }
             }
         }
     }
-    form {
-        flex-direction: row;
-        margin-left: auto;
-        position: relative;
-        z-index: 9999;
-        padding: variables.$base-spacing;
-
-        input {
-            margin-bottom: 0 !important;
-            border: none;
-            background-color: transparent;
-            color: palette.$gold;
-            margin-right: variables.$base-spacing;
-            border-bottom: 0.125rem solid palette.$gold;
-            font-family: 'Crimson Text', fancy, serif;
-            font-size: 1.2rem;
-            padding: variables.$base-spacing;
-        }
-    }
-
 }

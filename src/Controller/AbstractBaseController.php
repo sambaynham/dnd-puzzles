@@ -17,7 +17,8 @@ abstract class AbstractBaseController extends AbstractController
                 'route' => 'app.puzzles.index',
                 'label' => 'Puzzles',
                 'active' => false
-            ]
+            ],
+
         ];
         foreach ($pageVars['nav'] as &$navItem) {
             if ($navItem['route'] === $route) {

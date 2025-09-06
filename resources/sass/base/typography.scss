@@ -2,34 +2,57 @@
 @use "../base/palette";
 @use "../base/variables";
 @use "sass:color";
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Julius+Sans+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Julius+Sans+One&display=swap');
+
 @font-face {
     font-family: 'Gladius';
-    src: url('../fonts/Gladius.woff2');
+    src: url('../../fonts/Gladius.woff2');
     font-weight: normal;
 }
 
-
 @font-face {
-    font-family: 'EBGaramond';
-    src: url('../fonts/EBGaramond-Italic-VariableFont_wght.woff2') format('woff2');
-    font-weight: italic;
+    font-family: 'Crimson Text';
+    src: url('../../fonts/CrimsonText-Bold.ttf') format('truetype');
+    font-weight: bold;
 }
 
 @font-face {
-    font-family: 'EBGaramond';
-    src: url('../fonts/EBGaramond-VariableFont_wght.woff2') format('woff2');
+    font-family: 'Crimson Text';
+    src: url('../../fonts/CrimsonText-Regular.ttf') format('truetype');
     font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Crimson Text';
+    src: url('../../fonts/CrimsonText-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
 }
 
 @font-face {
     font-family: 'DethekStone';
-    src: url('../fonts/DethekStone.ttf') format('truetype');
+    src: url('../../fonts/DethekStone.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Devinne Swash';
+    src: url('../../fonts/DevinneSwash-solid.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'RPGAwesome';
+    src: url('../../fonts/rpgawesome-webfont.eot?v=0.1.0');
+    src: url('../../fonts/rpgawesome-webfont.eot?#iefix&v=0.1.0') format('embedded-opentype'), url('../../fonts/rpgawesome-webfont.woff?v=0.1.0') format('woff'), url('../../fonts/rpgawesome-webfont.ttf?v=0.1.0') format('truetype'), url('../../fonts/rpgawesome-webfont.svg?v=0.1.0#rpg-awesome') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lugrasimo';
+    src: url('../../fonts/Lugrasimo-Regular.ttf') format('truetype');
 }
 
 $textStack: 'Crimson Text', serif;
-$displayStack: 'Gladius', serif;
+$displayStack: 'Devinne Swash', serif;
 
 body, html {
 	font-size: 12pt;
@@ -41,29 +64,14 @@ body, html {
 }
 
 h1 {
-    @include goldtext.goldText();
     position: relative;
-
     margin: 1.5vw 0;
     display: block;
     font-size: 5rem;
     line-height: 6rem;
     margin-bottom: (variables.$base-spacing * 3);
+    transform: rotate(0.0665deg);
 
-    &:before {
-        position: absolute;
-        content: " ";
-        display: block;
-        background: linear-gradient(to bottom, palette.$crimson, darken(palette.$crimson, 10));
-        left: -11vw;
-        right: -11vw;
-        height: 7rem;
-        z-index: -1;
-        border-top: 0.25rem double palette.$gold;
-        border-bottom: 0.25rem double palette.$gold;
-
-
-    }
 }
 h1 {
 	font-family: $displayStack;

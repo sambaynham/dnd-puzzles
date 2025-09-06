@@ -4,8 +4,8 @@
     display: block;
     width: 3rem;
     height: 5rem;
-    background-color: mix(palette.$vellum, palette.$ink);
-    box-shadow: inset 0 0 1rem palette.$black;
+    background-color: palette.$charcoal;
+    box-shadow: inset 0 0 1rem black;
     position: relative;
     border: 0.2rem solid darken(palette.$gold, 15);
     border-radius: 1.5rem;

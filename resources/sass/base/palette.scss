@@ -1,7 +1,7 @@
 $charcoal: #080808;
 $vellum: #f8ecd4;
 $white: #eee8dc;
-$offWhite: #eddabe;
+$offWhite: #fffdef;
 $crimson: #790000;
 $green: #049c18;
 $grey: #454141;
@@ -13,3 +13,5 @@ $ink: #3b2e1f;
 $black: #282828;
 $goldFX: repeating-linear-gradient(33deg, #B38728, #FCF6BA, #B38728, #FBF5B7, #B38728);
 $silverFX: repeating-linear-gradient(33deg, #616161, #C8C8C8FF, #fff, #c8c8c8, #616161);
+
+$bleedingInk: 0 0 0.125em transparentize($ink, 0.8), 0 0 0.0625em transparentize($ink, 0.333);

@@ -1,16 +1,38 @@
 <header>
+    <div class="top">
         <a class="brand" href="/" content="DND Puzzles">DND Puzzles</a>
 
 
-        <nav class="main">
+
+        <button is="nav-toggle" class="nav-toggle user-nav-toggle" data-target="user-nav" data-open="false">
+        </button>
+
+        <div class="right">
+            <form class="search-form">
+                <input name="search" placeholder="Search" id="search">
+                <button class="" type="submit">Search</button>
+            </form>
+            <nav class="mobile-nav" id="user-nav">
+                <span class="user-greeting">Logged in as <a href="#">Dave</a></span>
+                <span class="user-options">
+                    <a class="btn btn-secondary" href="#">Logout</a>
+                    <a class="btn btn-red" href="#">Account</a>
+                </span>
+
+            </nav>
+        </div>
+
+
+
+    </div>
+
+    <div class="bottom">
+        <button  is="nav-toggle" class="nav-toggle main-nav-toggle" data-target="main-nav" data-open="false"></button>
+        <nav class="mobile-nav" id="main-nav">
             {% for navItem in nav %}
                 <a class="nav-item {% if navItem.active %} active{% endif %}" href="{{ path(navItem.route) }}">{{ navItem.label }}</a>
             {% endfor %}
         </nav>
-
-    <form class="search-form">
-        <input name="search" placeholder="Search" id="search">
-        <button class="btn btn-secondary" type="submit">Search</button>
-    </form>
+    </div>
 
 </header>

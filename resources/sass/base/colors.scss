@@ -11,25 +11,63 @@ body, html {
 body {
     position: relative;
     color: palette.$ink;
-    p {
-        text-shadow: 0 0 0.125em transparentize(palette.$ink, 0.666);
+    p,h1,h2,h3,h4,h5,h6 {
+        text-shadow: palette.$bleedingInk;
     }
-    &:before {
+    &:before, &:after {
         content: " ";
         display: block;
-        left: 5vw;
-        top: 0;
-        height: 100%;
-        width: 2rem;
-        background-color: cyan;
         position: absolute;
         z-index: -2;
+
+        background: palette.$goldFX;
+        background-attachment: fixed;
+        background-size: 20%;
+        height: 100%;
+        opacity: 0.5;
+    }
+
+    &:after {
+        width: 12.5rem;
+        bottom: 1vw;
+        right: 1vw;
+        mask-image: url('../../images/decorative_corner.svg');
+        mask-repeat: no-repeat;
+        mask-position: right bottom;
+    }
+
+    &:before {
+
+        left: 5vw;
+        top: 0;
+
+        width: 3rem;
         mask-image: url('../../images/pattern.svg');
         mask-repeat: repeat-y;
         mask-size: contain;
-        background-attachment: fixed;
-        background: repeating-linear-gradient(33deg, #B38728 1em, #edd888 2em, #e8c678 3em, #edd888 4em, #a58d58 5em);
-        background-size: 200%;
 
+
+    }
+    main {
+        border: 3rem solid transparent;
+        border-image: url('../../images/paper-sheet.svg');
+        border-image-slice: 10%;
+        position: relative;
+
+        h1:first-child {
+            margin-top: 0;
+        }
+
+        &:before {
+            content: " ";
+            display: block;
+            position: absolute;
+            background-color: palette.$offWhite;
+            top: 0rem;
+            left: 0rem;
+            right: 0rem;
+            bottom: 0rem;
+            z-index: -1;
+        }
     }
 }

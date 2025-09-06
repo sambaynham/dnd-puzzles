@@ -6,6 +6,7 @@ table.table {
     border-collapse: collapse;
     border: 0.2rem solid palette.$ink;
     text-align: left;
+    transform: rotate(-0.125deg);
 
     tr, td, th {
         border: 0.2rem solid palette.$ink;
