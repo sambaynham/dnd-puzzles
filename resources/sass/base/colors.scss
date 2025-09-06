@@ -11,7 +11,7 @@ body, html {
 body {
     position: relative;
     color: palette.$ink;
-    p,h1,h2,h3,h4,h5,h6 {
+    p,h1,h2,h3,h4,h5,h6,ul,li {
         text-shadow: palette.$bleedingInk;
     }
     &:before, &:after {
@@ -29,7 +29,7 @@ body {
 
     &:after {
         width: 12.5rem;
-        bottom: 1vw;
+        bottom: 5vw;
         right: 1vw;
         mask-image: url('../../images/decorative_corner.svg');
         mask-repeat: no-repeat;
@@ -40,7 +40,6 @@ body {
 
         left: 5vw;
         top: 0;
-
         width: 3rem;
         mask-image: url('../../images/pattern.svg');
         mask-repeat: repeat-y;

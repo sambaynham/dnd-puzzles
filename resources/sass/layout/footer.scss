@@ -1,0 +1,19 @@
+@use "../base/variables";
+@use "../base/palette";
+main {
+    margin-bottom: 10vh;
+}
+footer {
+    padding: variables.$base-spacing 10vw;
+    background-color: palette.$charcoal;
+    display: flex;
+    flex-direction: row;
+    color: palette.$white;
+    position: fixed;
+    height: 2.5vh;
+    top: 97.5vh;
+    left: 0;
+    width: 100%;
+    box-shadow: variables.$baseBoxShadow;
+    z-index: 999;
+}

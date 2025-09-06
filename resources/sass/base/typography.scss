@@ -55,7 +55,7 @@ $textStack: 'Crimson Text', serif;
 $displayStack: 'Devinne Swash', serif;
 
 body, html {
-	font-size: 12pt;
+	font-size: 11pt;
 	font-family: $textStack;
     position: relative;
     z-index: 1;
@@ -79,4 +79,8 @@ h1 {
 
 h2 {
     font-size: 3rem;
+}
+
+p, ul {
+    font-size: 1.5rem;
 }
