@@ -1,9 +1,4 @@
 @use '../base/palette';
 
 .puzzle-container {
-    padding: 3rem;
-    background-color: palette.$white;
-    border: 1.5rem solid transparent;
-    border-image: url('../images/eroded-frame-whiteinner-transparent-outer.svg');
-    border-image-slice: calc(100% / 3);
 }

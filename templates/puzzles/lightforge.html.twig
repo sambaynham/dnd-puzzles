@@ -3,12 +3,57 @@
     <div class="row">
         <div class="col">
             <h1>{{ pageTitle }}</h1>
-            <div class="row halves">
-                <div class="switch-container">
-                    <label>1</label>
-                    <input type="checkbox" class="switch">
-                    <span class="toggle"></span>
-                </div>
+
+                <div class=" puzzle-container">
+                    <div class="lightforge-puzzle" is="lightforge-puzzle" data-solution="switch-2,switch-3,switch-6">
+                        <div class="switches" id="switches">
+                            <div class="switch-container">
+                                <input type="checkbox" id="switch-1" class="switch">
+                                <span class="toggle"></span>
+                            </div>
+                            <div class="switch-container">
+                                <input type="checkbox" id="switch-2" class="switch">
+                                <span class="toggle"></span>
+                            </div>
+                            <div class="switch-container">
+                                <input type="checkbox" id="switch-3" class="switch">
+                                <span class="toggle"></span>
+                            </div>
+                            <div class="switch-container">
+                                <input type="checkbox" id="switch-4" class="switch">
+                                <span class="toggle"></span>
+                            </div>
+                            <div class="switch-container">
+                                <input type="checkbox" id="switch-5" class="switch">
+                                <span class="toggle"></span>
+                            </div>
+                            <div class="switch-container">
+                                <input type="checkbox" id="switch-6" class="switch">
+                                <span class="toggle"></span>
+                            </div>
+                            <div class="switch-container">
+                                <input type="checkbox" id="switch-7" class="switch">
+                                <span class="toggle"></span>
+                            </div>
+                            <div class="switch-container">
+                                <input type="checkbox" id="switch-8" class="switch">
+                                <span class="toggle"></span>
+                            </div>
+
+
+                        </div>
+                        <div class="operations">
+                            <audio src="/audio/lightforge-ditty.mp3" id="chime"></audio>
+                            <button class="btn btn-teal" id="ring">Ring doorbell</button>
+                            <button class="btn btn-green" id="solve">Unlock</button>
+                            <button class="btn btn-purple" id="reset">Reset</button>
+                        </div>
+
+                        <div id="message-container" class="hide">
+                            MESSAGE
+                        </div>
+                    </div>
+
 
             </div>
         </div>

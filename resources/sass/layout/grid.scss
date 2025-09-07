@@ -29,6 +29,12 @@ main {
         margin-top: (variables.$base-spacing * 2);
         .row {
             flex-direction: row;
+
+            &.three-quarters {
+                :first-child {
+                    flex-basis: 75%;
+                }
+            }
         }
     }
 }

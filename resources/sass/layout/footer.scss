@@ -16,4 +16,13 @@ footer {
     width: 100%;
     box-shadow: variables.$baseBoxShadow;
     z-index: 999;
+
+    aside {
+        flex: 1;
+        margin: 0 1rem;
+
+        a {
+            color: palette.$white;
+        }
+    }
 }

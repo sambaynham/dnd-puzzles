@@ -20,8 +20,14 @@
         @include buttonise.buttonize(palette.$yellow, color.adjust(palette.$yellow, $lightness: 30%), variables.$gemBorderWidth, color.adjust(palette.$yellow, $lightness: -17.5%));
     }
 
+
+
     &.btn-purple {
         @include buttonise.buttonize(palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: 25%), variables.$gemBorderWidth, palette.$white);
+    }
+
+    &.btn-teal {
+        @include buttonise.buttonize(palette.$teal, color.adjust(palette.$teal, $lightness: 25%), variables.$gemBorderWidth, palette.$white);
     }
 
     font-family: 'Gladius', Serif;

@@ -15,6 +15,10 @@ const copyConfig = {
         src: 'resources/fonts',
         dest: 'public'
     },
+      {
+          src: 'resources/audio',
+          dest: 'public'
+      },
   ]
 };
 
