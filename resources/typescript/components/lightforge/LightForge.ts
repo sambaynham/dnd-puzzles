@@ -118,7 +118,7 @@ export default class LightForge extends HTMLDivElement {
     private handleFailure(): void {
         this.switchesContainer.classList.add('lock');
         let damage = calculateDamage(20, 2);
-        this.messageContainer.innerHTML = `Failure! The door panel delivers an electric shock dealing ${damage} damage to you!`;
+        this.messageContainer.innerHTML = `Failure! The floor panels deliver an electric shock dealing ${damage} damage to you!`;
         this.messageContainer.classList.add('show');
     }
 }

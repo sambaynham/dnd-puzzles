@@ -67,6 +67,10 @@
         }
     }
 
+    &:visited {
+        color: $textColor;
+    }
+
     &[disabled] {
         background-color: desaturate($primaryColor, 90);
 
