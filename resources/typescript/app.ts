@@ -1,5 +1,5 @@
 
-import '../sass/app.scss';
+// import '../sass/critical.scss';
 import DropCap from "./components/dropCap";
 import ProgressBar from "./components/ProgressBar";
 import HammerPuzzle from "./components/hammer/HammerPuzzle";

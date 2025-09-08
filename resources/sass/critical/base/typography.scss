@@ -5,50 +5,44 @@
 
 @font-face {
     font-family: 'Gladius';
-    src: url('../../fonts/Gladius.woff2');
+    src: url('../../../fonts/gladius/Gladius.woff2') format('woff2');
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'Crimson Text';
-    src: url('../../fonts/CrimsonText-Bold.ttf') format('truetype');
+    src: url('../../../fonts/crimsontext/CrimsonText-Bold.woff2') format('woff2');
     font-weight: bold;
 }
 
 @font-face {
     font-family: 'Crimson Text';
-    src: url('../../fonts/CrimsonText-Regular.ttf') format('truetype');
+    src: url('../../../fonts/crimsontext/CrimsonText-Regular.woff2') format('woff2');
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'Crimson Text';
-    src: url('../../fonts/CrimsonText-Italic.ttf') format('truetype');
+    src: url('../../../fonts/crimsontext/CrimsonText-Italic.woff2') format('woff2');
     font-weight: normal;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'DethekStone';
-    src: url('../../fonts/DethekStone.ttf') format('truetype');
+    src: url('../../../fonts/dethekstone/DethekStone.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Devinne Swash';
-    src: url('../../fonts/DevinneSwash-solid.ttf') format('truetype');
+    src: url('../../../fonts/devinneswash/DevinneSwash-solid.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'RPGAwesome';
-    src: url('../../fonts/rpgawesome-webfont.eot?v=0.1.0');
-    src: url('../../fonts/rpgawesome-webfont.eot?#iefix&v=0.1.0') format('embedded-opentype'), url('../../fonts/rpgawesome-webfont.woff?v=0.1.0') format('woff'), url('../../fonts/rpgawesome-webfont.ttf?v=0.1.0') format('truetype'), url('../../fonts/rpgawesome-webfont.svg?v=0.1.0#rpg-awesome') format('svg');
+    src: url('../../../fonts/rpgawesome/rpgawesome-webfont.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-}
-
-@font-face {
-    font-family: 'Lugrasimo';
-    src: url('../../fonts/Lugrasimo-Regular.ttf') format('truetype');
 }
 
 $textStack: 'Crimson Text', serif;

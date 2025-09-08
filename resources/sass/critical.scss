@@ -1,0 +1,23 @@
+@use "critical/base/reset";
+@use "critical/base/palette";
+@use "critical/base/variables";
+
+@use "critical/base/colors";
+@use "critical/base/typography";
+
+@use "critical/layout/grid.scss";
+@use "critical/layout/header";
+@use "critical/layout/footer";
+@use "critical/elements/links.scss";
+@use "critical/elements/forms.scss";
+
+@use "critical/widgets/buttons";
+@use "critical/widgets/dropCaps";
+@use "critical/widgets/progress-bars";
+@use "critical/widgets/panels";
+@use "critical/widgets/frames";
+@use "critical/widgets/tables";
+@use "critical/widgets/rules";
+@use "critical/widgets/puzzles";
+@use "critical/widgets/switches";
+
