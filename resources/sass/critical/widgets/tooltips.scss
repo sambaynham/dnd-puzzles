@@ -1,0 +1,32 @@
+@use '../../critical/base/palette';
+@use '../../critical/base/variables';
+
+.tooltip {
+    position: relative;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    .tooltip-content {
+        cursor: initial;
+        font-style: initial;
+        color: palette.$ink;
+        display: block;
+        background-color: palette.$white;
+        border: 0.1rem solid rgba(0, 0, 0, 0.3);
+        padding: variables.$base-spacing;
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        min-width: 30rem;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 200ms ease-in-out;
+    }
+
+    &.show {
+        .tooltip-content {
+            opacity: 1;
+            pointer-events: all;
+        }
+    }
+}

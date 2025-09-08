@@ -11,6 +11,7 @@ import HammerResetButton from "./components/hammer/HammerResetButton";
 import HammerTranslateButton from "./components/hammer/HammerTranslateButton";
 import NavToggle from "./components/NavToggle";
 import LightForge from "./components/lightforge/LightForge";
+import ToolTip from "./components/Tooltip";
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     customElementRegistry.define('hammer-puzzle', HammerPuzzle, { extends: 'div'});
     customElementRegistry.define('nav-toggle', NavToggle, { extends: 'button'});
     customElementRegistry.define('lightforge-puzzle', LightForge, { extends: 'div'});
+    customElementRegistry.define('tooltip-element', ToolTip, {extends: 'span'});
 
     if (null === body) {
         throw new Error('Body not found');
