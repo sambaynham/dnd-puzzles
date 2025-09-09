@@ -5,13 +5,14 @@
 
 @mixin buttonize($primaryColor, $hoverColor, $gemBorderWidth, $textColor, $fontFamily: 'Gladius')
 {
-    box-shadow: 0 0 0.5rem transparentize(palette.$ink, 0.25), 0 0 0.25rem transparentize(palette.$ink, 0.25);
+
+    box-shadow: 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.25), 0 0 0.25rem color.scale(palette.$ink, $alpha: -25%);
     position: relative;
     z-index: 1;
     color: $textColor;
     padding: 0.5rem 1rem;
     text-shadow: 0 -1px 0 color.adjust(palette.$gold, $lightness: -40%);
-    background-color: darken($primaryColor, 15);
+    background-color: color.adjust($primaryColor, $lightness: -15%);
     transition: background-color 250ms ease-in-out;
     font-family: $fontFamily, sans-serif;
     font-size: 0.9rem;
@@ -72,13 +73,13 @@
     }
 
     &[disabled] {
-        background-color: desaturate($primaryColor, 90);
+        background-color: color.adjust($primaryColor, $saturation: -90%, $space: hsl);
 
         &:after {
-            border: $gemBorderWidth outset desaturate(color.adjust($primaryColor, $lightness: 20%), 90);
+            border: $gemBorderWidth outset color.adjust(color.adjust($primaryColor, $lightness: 20%), $saturation: -90%, $space: hsl);
         }
         &:hover {
-            background-color: desaturate($hoverColor, 90);
+            background-color: color.adjust($hoverColor, $saturation: -90%, $space: hsl);
         }
     }
 

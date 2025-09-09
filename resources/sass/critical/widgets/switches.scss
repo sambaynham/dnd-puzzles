@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @use '../base/palette';
 
 .switch-container {
@@ -7,7 +9,7 @@
     background-color: palette.$charcoal;
     box-shadow: inset 0 0 1rem black;
     position: relative;
-    border: 0.2rem solid darken(palette.$gold, 15);
+    border: 0.2rem solid color.adjust(palette.$gold, $lightness: -15%, $space: hsl);
     border-radius: 1.5rem;
     padding-top: 4rem;
 
@@ -56,14 +58,14 @@
 
     .toggle {
 
-        border: 0.2rem solid darken(palette.$gold, 15);
+        border: 0.2rem solid color.adjust(palette.$gold, $lightness: -15%, $space: hsl);
         height: 2rem;
         width: 2rem;
         display: block;
         position: absolute;
         bottom : 0.3rem;
         left: 0.3rem;
-        background: radial-gradient(circle at 50% 50%, palette.$crimson, darken(palette.$crimson, 10));
+        background: radial-gradient(circle at 50% 50%, palette.$crimson, color.adjust(palette.$crimson, $lightness: -10%, $space: hsl));
         border-radius: 100%;
         pointer-events: none;
         transition: all 0.2s ease-in-out;
@@ -86,7 +88,7 @@
 
     input[type="checkbox"].switch:checked ~ .toggle {
         transform: translateY(-2rem);
-        background: radial-gradient(circle at 50% 50%, palette.$green, darken(palette.$green, 10));
+        background: radial-gradient(circle at 50% 50%, palette.$green, color.adjust(palette.$green, $lightness: -10%, $space: hsl));
 
     }
 }

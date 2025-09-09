@@ -35,7 +35,7 @@ header {
     }
     button.nav-toggle {
         background-color: palette.$crimson;
-        background: radial-gradient(circle at 50% 100%, palette.$crimson, darken(palette.$crimson, 15));
+        background: radial-gradient(circle at 50% 100%, palette.$crimson, color.adjust(palette.$crimson, $lightness: -15%, $space: hsl));
         border: none;
         height: ($mobile-header-height - 2vh);
         width: ($mobile-header-height - 2vh);
@@ -77,7 +77,7 @@ header {
 
         &.open, &:focus, &:hover {
             background-color: palette.$crimson;
-            background: radial-gradient(circle at 50% 100%, lighten(palette.$crimson, 5), palette.$crimson);
+            background: radial-gradient(circle at 50% 100%, color.adjust(palette.$crimson, $lightness: 5%, $space: hsl), palette.$crimson);
         }
         &.main-nav-toggle {
             left: 1vh;
@@ -370,7 +370,7 @@ header {
                 margin: 0 auto;
                 margin-top: (variables.$base-spacing * 2);
                 a {
-                    @include buttonise.buttonize(palette.$blue, lighten(palette.$blue, 5), 0.5rem, palette.$white);
+                    @include buttonise.buttonize(palette.$blue, color.adjust(palette.$blue, $lightness: 5%, $space: hsl), 0.5rem, palette.$white);
                     font-size: 2rem;
                     line-height: 2.5rem;
                     flex-grow: 0;

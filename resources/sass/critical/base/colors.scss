@@ -3,8 +3,8 @@
 
 body, html {
 
-    background: linear-gradient(to bottom, darken(palette.$vellum, 2), darken(palette.$vellum, 10));
-	color: color.adjust(palette.$charcoal, $alpha: -0.125);
+    background: linear-gradient(to bottom, color.adjust(palette.$vellum, $lightness: -2%, $space: hsl), color.adjust(palette.$vellum, $lightness: -10%, $space: hsl));
+	color: color.adjust(palette.$charcoal, $alpha: 0.125%);
 
 }
 

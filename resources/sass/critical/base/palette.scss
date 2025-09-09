@@ -1,3 +1,4 @@
+@use 'sass:color';
 $charcoal: #080808;
 $vellum: #f8ecd4;
 $white: #eee8dc;
@@ -15,4 +16,4 @@ $black: #282828;
 $goldFX: repeating-linear-gradient(33deg, #B38728, #FCF6BA, #B38728, #FBF5B7, #B38728);
 $silverFX: repeating-linear-gradient(33deg, #616161, #C8C8C8FF, #fff, #c8c8c8, #616161);
 
-$bleedingInk: 0 0 0.05em transparentize($ink, 0.4), 0 0 0.0001em transparentize($ink, 0.25);
+$bleedingInk: 0 0 0.05em color.scale($ink, $alpha: -40%), 0 0 0.0001em color.scale($ink, $alpha: -25%);

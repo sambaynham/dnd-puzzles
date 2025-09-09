@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @use '../base/palette';
 a {
     color: palette.$crimson;
@@ -16,7 +18,7 @@ a {
     }
 
     &:hover {
-        color: saturate(palette.$crimson, 20);
-        border-bottom-color: saturate(palette.$crimson, 20);
+        color: color.adjust(palette.$crimson, $saturation: 20%, $space: hsl);
+        border-bottom-color: color.adjust(palette.$crimson, $saturation: 20%, $space: hsl);
     }
 }
