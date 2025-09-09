@@ -1,5 +1,4 @@
-import calculateDamage from "../helpers/DamageCalculator";
-
+import rollDice from "../../helpers/RollDie";
 
 export default class LightForge extends HTMLDivElement {
 
@@ -117,7 +116,7 @@ export default class LightForge extends HTMLDivElement {
 
     private handleFailure(): void {
         this.switchesContainer.classList.add('lock');
-        let damage = calculateDamage(20, 2);
+        let damage = rollDice(10, 4);
         this.messageContainer.innerHTML = `Failure! The floor panels deliver an electric shock dealing ${damage} damage to you!`;
         this.messageContainer.classList.add('show');
     }

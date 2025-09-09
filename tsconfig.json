@@ -4,7 +4,7 @@
         "module": "esnext",
         "lib": ["esnext", "DOM", "DOM.Iterable"],
         "declaration": true,
-	"outDir": "public/js",
+	    "outDir": "public/js",
         "declarationMap": true,
         "inlineSources": true,
         "rootDir": "./resources",
@@ -28,6 +28,5 @@
         ],
         "types": ["mocha"]
     },
-    "include": ["resources/typescript/**/*.ts"],
     "exclude": []
 }

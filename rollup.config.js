@@ -26,6 +26,7 @@ const terserOptions = {
     ecma: 2021,
     module: true,
     warnings: true,
+    keep_fnames: true,
     mangle: {
         properties: {
             regex: /^__/,
@@ -37,7 +38,6 @@ const config = [
     {
 
         input: 'resources/typescript/app.ts',
-
         output: {
             dir: './public/js/',
             format: 'es',
@@ -52,18 +52,45 @@ const config = [
         preserveEntrySignatures: false,
     },
     {
+        input: 'resources/typescript/puzzles/hammer/hammerBoot.ts',
+        output: {
+            dir: './public/js/',
+            format: 'es',
+        },
+
+        plugins: [
+            typescript(),
+            resolve()
+        ],
+        preserveEntrySignatures: false,
+    },
+    {
+        input: 'resources/typescript/puzzles/lightforge/lightforgeBoot.ts',
+        output: {
+            dir: './public/js/',
+
+            format: 'es',
+        },
+
+        plugins: [
+            typescript(),
+            resolve()
+        ],
+        preserveEntrySignatures: false,
+    },
+    {
         input: 'resources/sass/critical.scss',
         output: {
             dir: './public/css/'
         },
         plugins: [
             scss({
-                fileName: 'app.css',
+                fileName: 'critical.css',
                 outputStyle: 'compressed',
                 watch: [
                     'resources/sass/critical.scss',
                     'resources/sass/critical/**/*.scss'
-                ]
+                ],
             }),
             summary()
         ]
@@ -103,6 +130,7 @@ const config = [
 
 if (process.env.NODE_ENV !== 'development') {
   config[0].plugins.push(terser(terserOptions));
+  config[1].plugins.push(terser(terserOptions));
 }
 
 export default config;

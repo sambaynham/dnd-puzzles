@@ -1,8 +1,8 @@
 import HammerNode from "./HammerNode";
-import {NodeDetail} from "./Types/NodeDetail";
+import {NodeDetail} from "./types/NodeDetail";
 import HammerPowerLevel from "./HammerPowerLevel";
 import HammerOutput from "./HammerOutput";
-import {FiringDetail} from "./Types/FiringDetail";
+import {FiringDetail} from "./types/FiringDetail";
 import HammerFiringButton from "./HammerFiringButton";
 
 

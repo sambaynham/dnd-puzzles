@@ -14,7 +14,7 @@ header {
     height: $mobile-header-height;
     padding: variables.$base-spacing;
     border-bottom: 0.125rem solid transparent;
-    border-image: url("../../images/gold-bead.svg") 20%;
+    border-image: url("../../../images/gold-bead.svg") 20%;
 
     .search-form {
         display: none;
@@ -23,7 +23,7 @@ header {
         color: transparent;
         width: $mobile-header-height - 2;
         height: $mobile-header-height - 2;
-        background-image: url("../images/myotr-logo.svg");
+        background-image: url("../../../images/myotr-logo.svg");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -179,7 +179,7 @@ header {
                 left: 0;
                 bottom: 0 - variables.$base-spacing;
 
-                background-image: url('../../images/eroded-line.svg');
+                background-image: url('../../../images/eroded-line.svg');
                 background-size: 50% auto;
                 background-repeat: repeat-x;
             }
@@ -227,7 +227,7 @@ header {
                 }
 
                 &:after {
-                    background-image: url('../../images/myotr-logo-cutout.svg');
+                    background-image: url('../../../images/myotr-logo-cutout.svg');
                     background-size: contain;
                 }
             }
@@ -246,7 +246,7 @@ header {
                     flex-direction: row;
 
                     border: 1rem solid transparent;
-                    border-image: url('../../images/eroded-frame-whiteinner.svg');
+                    border-image: url('../../../images/eroded-frame-whiteinner.svg');
                     border-image-slice: 33%;
                     position: relative;
 
@@ -286,7 +286,7 @@ header {
                         position: relative;
                         &:after {
                             content: " ";
-                            background-image: url('../../images/magnifier-ink.svg');
+                            background-image: url('../../../images/magnifier-ink.svg');
                             background-size: contain;
                             background-repeat: no-repeat;
                             background-position: right;

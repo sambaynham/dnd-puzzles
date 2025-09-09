@@ -1,5 +1,5 @@
+import rollDice from "../../helpers/RollDie";
 
-import calculateDamage from "../helpers/DamageCalculator";
 
 export default class HammerFiringButton extends HTMLButtonElement {
     connectedCallback(): void {
@@ -10,7 +10,7 @@ export default class HammerFiringButton extends HTMLButtonElement {
                     bubbles: true,
                     detail: {
                         'target': this.innerText,
-                        'damage': calculateDamage(20, 10)
+                        'damage': rollDice(20, 10)
                     }
                 }))
                 this.setAttribute('disabled','true');

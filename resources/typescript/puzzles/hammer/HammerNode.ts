@@ -1,4 +1,4 @@
-import {NodeDetail} from "./Types/NodeDetail";
+import {NodeDetail} from "./types/NodeDetail";
 
 export default class HammerNode extends HTMLButtonElement {
 
