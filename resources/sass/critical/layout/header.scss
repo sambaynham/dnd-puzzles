@@ -7,6 +7,7 @@
 @use "sass:color";
 
 $mobile-header-height: 10vh;
+
 header {
     background-color: palette.$charcoal;
     margin: 0;
@@ -142,6 +143,7 @@ header {
 }
 
 @media (min-width: 1080px) {
+
     header {
         background-color: transparent;
         width: 80vw;
@@ -189,6 +191,7 @@ header {
                 background-repeat: repeat-x;
                 transform: rotate(-0.125deg);
             }
+
 
             a.brand {
                 display: flex;

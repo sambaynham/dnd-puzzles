@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     customElementRegistry.define('progress-bar', ProgressBar);
     customElementRegistry.define('nav-toggle', NavToggle, { extends: 'button'});
     customElementRegistry.define('tooltip-element', ToolTip, {extends: 'span'});
-    customElementRegistry.define('mote-span', MessageOfTheDay, {})
+    customElementRegistry.define('motd-span', MessageOfTheDay, {extends: 'span'})
     if (null === body) {
         throw new Error('Body not found');
     }
