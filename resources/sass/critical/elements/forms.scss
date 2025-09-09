@@ -20,7 +20,7 @@ form {
     input {
         display: flex;
         border: 1rem solid transparent;
-        border-image: url('../images/eroded-frame-whiteinner.svg');
+        border-image: url('../../../images/eroded-frame-whiteinner.svg');
         border-image-slice: calc(100% / 3);
         background-color: #f7f5f2ff;
         flex: 1;

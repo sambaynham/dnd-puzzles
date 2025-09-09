@@ -89,7 +89,7 @@ const config = [
                 outputStyle: 'compressed',
                 watch: [
                     'resources/sass/critical.scss',
-                    'resources/sass/critical/**/*.scss'
+                    'resources/sass/critical/'
                 ],
             }),
             summary()

@@ -4,8 +4,8 @@
 @use "sass:color";
 
 @font-face {
-    font-family: 'Gladius';
-    src: url('../../../fonts/gladius/Gladius.woff2') format('woff2');
+    font-family: 'Pirata';
+    src: url('../../../fonts/pirata/PirataOne-Regular.woff2') format('woff2');
     font-weight: normal;
 }
 
@@ -34,11 +34,6 @@
 }
 
 @font-face {
-    font-family: 'Devinne Swash';
-    src: url('../../../fonts/devinneswash/DevinneSwash-solid.woff2') format('woff2');
-}
-
-@font-face {
     font-family: 'RPGAwesome';
     src: url('../../../fonts/rpgawesome/rpgawesome-webfont.woff2') format('woff2');
     font-weight: normal;
@@ -46,35 +41,50 @@
 }
 
 $textStack: 'Crimson Text', serif;
-$displayStack: 'Devinne Swash', serif;
+$displayStack: 'Pirata', serif;
 
 body, html {
-	font-size: 11pt;
-	font-family: $textStack;
     position: relative;
     z-index: 1;
     padding: 0;
     margin: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-family: $textStack;
+    font-size: 14.75pt;
+    color: palette.$ink;
+    line-height: 1.46;
 }
 
-h1 {
-    position: relative;
-    margin: 1.5vw 0;
-    display: block;
-    font-size: 5rem;
-    line-height: 6rem;
-    margin-bottom: (variables.$base-spacing * 3);
-    transform: rotate(0.0665deg);
-
-}
-h1 {
+h1,h2,h3 {
 	font-family: $displayStack;
 }
 
-h2 {
-    font-size: 3rem;
+
+h1 {
+    position: relative;
+    display: block;
+    font-size: 4em;		/* 2*16 = 32 */
+    line-height: 2.25em;
+    text-shadow: -0.15rem 0.15rem 0 palette.$antiqueGold;
 }
 
-p, ul {
-    font-size: 1.5rem;
+h2 {
+    font-size: 1.5em;		/* 1.5*16 = 24 */
+}
+
+h3 {
+    font-size: 1.17em;	/* 1.17*16 = 18.72 */
+}
+
+h4 {
+    font-size: 1em;		/* 1*16 = 16 */
+}
+
+h5 {
+    font-size: 0.83em;	/* 0.83*16 = 13.28 */
+}
+
+h6 {
+    font-size: 0.75em;	/* 0.75*16 = 12 */
 }

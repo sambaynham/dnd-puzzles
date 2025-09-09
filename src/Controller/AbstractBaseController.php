@@ -18,6 +18,16 @@ abstract class AbstractBaseController extends AbstractController
                 'label' => 'Puzzles',
                 'active' => false
             ],
+            [
+                'route' => 'app.pages.contributing',
+                'label' => 'Contributing',
+                'active' => false
+            ],
+            [
+                'route' => 'app.pages.about',
+                'label' => 'About',
+                'active' => false
+            ],
 
         ];
         foreach ($pageVars['nav'] as &$navItem) {

@@ -17,4 +17,12 @@ class PageController extends AbstractBaseController
         ];
         return $this->render('pages/contributing.html.twig', $this->populatePageVars($pageVars, $request));
     }
+
+    #[Route('/about', name: 'app.pages.about')]
+    public function about(Request $request): Response {
+        $pageVars =[
+            'pageTitle' => 'About'
+        ];
+        return $this->render('pages/about.html.twig', $this->populatePageVars($pageVars, $request));
+    }
 }

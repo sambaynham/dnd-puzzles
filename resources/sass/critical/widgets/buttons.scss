@@ -29,9 +29,6 @@
     &.btn-teal {
         @include buttonise.buttonize(palette.$teal, color.adjust(palette.$teal, $lightness: 25%), variables.$gemBorderWidth, palette.$white);
     }
-
-    font-family: 'Gladius', Serif;
-    text-transform: uppercase;
 }
 
 .btn-group {
