@@ -8,26 +8,26 @@ form {
         flex: 1;
         display: flex;
         flex-direction: column;
-        margin: 2rem 0;
-        max-width:  50vw;
+
+
     }
     label {
         display: flex;
         flex: 1;
-        font-family: 'Gladius', serif;
+        font-family: 'Pirata';
         font-size: 1.5rem;
     }
     input {
         display: flex;
-        border: 1rem solid transparent;
+        border: 0.5rem solid transparent;
         border-image: url('../../../images/eroded-frame-whiteinner.svg');
-        border-image-slice: calc(100% / 3);
+        border-image-slice: 33%;
         background-color: #f7f5f2ff;
         flex: 1;
     }
 
-    *:not(:last-child) {
-        margin-bottom: variables.$base-spacing;
+    input:not(:last-child) {
+        
     }
 }
 

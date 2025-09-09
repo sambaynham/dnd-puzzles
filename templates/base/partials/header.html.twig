@@ -16,11 +16,19 @@
                 <button class="" type="submit">Search</button>
             </form>
             <nav class="mobile-nav" id="user-nav">
-                <span class="user-greeting">Logged in as <a href="#">Dave</a></span>
-                <span class="user-options">
-                    <a class="" href="#">Logout</a>
-                    <a class="" href="#">Account</a>
-                </span>
+                {% if app.user %}
+                    <span class="user-greeting">Logged in as <a href="#">Dave</a></span>
+                    <span class="user-options">
+                        <a class="" href="#">Logout</a>
+                        <a class="" href="#">Account</a>
+                    </span>
+                {% else %}
+                    <span class="user-greeting">Not logged in</span>
+                    <span class="user-options">
+                        <a class="" href="{{ path('app.user.login') }}">Login</a>
+                        <a class="" href="{{ path('app.user.register') }}">Register</a>
+                    </span>
+                {% endif %}
 
             </nav>
         </div>

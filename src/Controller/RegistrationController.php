@@ -22,7 +22,7 @@ class RegistrationController extends AbstractBaseController
     {
     }
 
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register', name: 'app.user.register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {
 

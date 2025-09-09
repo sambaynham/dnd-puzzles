@@ -212,7 +212,7 @@ header {
                 font-size: 4rem;
                 border: none;
                 text-shadow: -0.15rem 0.15rem 0 palette.$antiqueGold;
-                margin-bottom: variables.$base-spacing;
+                margin-bottom: (variables.$base-spacing * 3);
                 &:hover {
                     border: none;
                 }
