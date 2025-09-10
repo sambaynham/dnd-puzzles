@@ -392,7 +392,6 @@ header {
                 a {
                     position: relative;
                     color: palette.$ink;
-
                     font-family: 'Pirata', serif;
                     border: none;
                     font-size: 1.5rem;
@@ -400,6 +399,7 @@ header {
                     flex-grow: 0;
                     flex-shrink: 1;
                     margin-right: variables.$base-spacing;
+                    
                     &:hover {
                         color: palette.$crimson;
                         transition: color 200ms ease-in-out;
