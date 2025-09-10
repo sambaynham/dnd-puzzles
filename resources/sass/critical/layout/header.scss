@@ -142,13 +142,8 @@ header {
         }
 
         a {
-            flex: 1;
-            height: 5vh;
-            line-height: 5vh;
             text-align: left;
-            font-size: 2rem;
             padding: 0 variables.$base-spacing;
-
         }
     }
 
@@ -280,7 +275,7 @@ header {
                     border-image: url('../../../images/eroded-frame-whiteinner.svg');
                     border-image-slice: 33%;
                     position: relative;
-
+                    padding: math.div(variables.$base-spacing, 4);
                     &:before {
                         content: " ";
                         display: block;
@@ -301,10 +296,9 @@ header {
                         color: black;
                         font-family: typography.$textStack;
                         margin-bottom: 0;
-                        font-size: 1.25rem;
+                        flex-basis: 90%;
                         padding: 0;
-
-                        padding-left: variables.$base-spacing;
+                        font-size: 1rem;
                     }
 
                     button {
@@ -313,6 +307,7 @@ header {
                         border: none;
                         color: transparent;
                         position: relative;
+                        flex-basis: 10%;
                         &:after {
                             content: " ";
                             background-image: url('../../../images/magnifier-ink.svg');

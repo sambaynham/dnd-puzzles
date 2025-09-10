@@ -64,18 +64,9 @@ h1,h2,h3 {
 h1 {
     position: relative;
     display: block;
-    font-size: 4em;		/* 2*16 = 32 */
-    line-height: 2.25em;
-    &:before {
-        content: attr(content);
-        color: transparent;
-        background: palette.$goldFX;
-        background-clip: text;
-        position: absolute;
-        z-index: -1;
-        margin-left: -0.2rem;
-        margin-top: 0.2rem;
-    }
+    font-size: 2em;		/* 2*16 = 32 */
+    line-height: 2em;
+
 }
 
 h2 {
@@ -96,4 +87,24 @@ h5 {
 
 h6 {
     font-size: 0.75em;	/* 0.75*16 = 12 */
+}
+
+@media only screen and (min-width: 1080px) {
+    h1 {
+        position: relative;
+        display: block;
+        font-size: 4em;		/* 2*16 = 32 */
+        line-height: 2.25em;
+        &:before {
+            content: attr(content);
+            color: transparent;
+            background: palette.$goldFX;
+            background-clip: text;
+            position: absolute;
+            z-index: -1;
+            margin-left: -0.2rem;
+            margin-top: 0.2rem;
+        }
+    }
+
 }

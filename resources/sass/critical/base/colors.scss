@@ -45,7 +45,7 @@ body {
 
     }
     main {
-        border: 3rem solid transparent;
+        border: 1rem solid transparent;
         border-image: url('../../../images/paper-sheet-brown-shadow.svg');
         border-image-slice: 10%;
         position: relative;
@@ -64,6 +64,13 @@ body {
             right: 0rem;
             bottom: 0rem;
             z-index: -1;
+        }
+    }
+}
+@media only screen and (min-width: 1080px) {
+    body {
+        main {
+            border: 3rem solid transparent;
         }
     }
 }
