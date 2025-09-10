@@ -10,8 +10,8 @@ footer {
     flex-direction: row;
     color: palette.$white;
     position: fixed;
-    height: 2.5vh;
-    top: 97.5vh;
+    height: 5.5vh;
+    bottom: 0;
     left: 0;
     width: 100%;
     box-shadow: variables.$baseBoxShadow;
@@ -22,7 +22,7 @@ footer {
         margin: 0 1rem;
 
         a {
-            color: palette.$white;
+            color: palette.$white !important;
         }
     }
 }

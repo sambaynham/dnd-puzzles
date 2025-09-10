@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "palette";
+@use "variables";
 
 body, html {
     background: linear-gradient(to bottom, color.adjust(palette.$vellum, $lightness: -2%, $space: hsl), color.adjust(palette.$vellum, $lightness: -10%, $space: hsl));
@@ -47,7 +48,7 @@ body {
     main {
         border: 1rem solid transparent;
         border-image: url('../../../images/paper-sheet-brown-shadow.svg');
-        border-image-slice: 10%;
+        border-image-slice: 7.5%;
         position: relative;
 
         h1:first-child {
@@ -70,7 +71,7 @@ body {
 @media only screen and (min-width: 1080px) {
     body {
         main {
-            border-width: 2rem;
+            border-width: variables.$base-spacing;
         }
     }
 }
