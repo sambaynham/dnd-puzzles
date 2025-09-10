@@ -66,7 +66,16 @@ h1 {
     display: block;
     font-size: 4em;		/* 2*16 = 32 */
     line-height: 2.25em;
-    text-shadow: -0.15rem 0.15rem 0 palette.$antiqueGold;
+    &:before {
+        content: attr(content);
+        color: transparent;
+        background: palette.$goldFX;
+        background-clip: text;
+        position: absolute;
+        z-index: -1;
+        margin-left: -0.2rem;
+        margin-top: 0.2rem;
+    }
 }
 
 h2 {

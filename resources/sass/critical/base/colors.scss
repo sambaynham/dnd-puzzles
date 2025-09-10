@@ -2,9 +2,7 @@
 @use "palette";
 
 body, html {
-
     background: linear-gradient(to bottom, color.adjust(palette.$vellum, $lightness: -2%, $space: hsl), color.adjust(palette.$vellum, $lightness: -10%, $space: hsl));
-
 }
 
 body {

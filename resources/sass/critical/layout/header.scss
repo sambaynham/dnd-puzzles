@@ -211,13 +211,13 @@ header {
                 font-weight: 800;
                 font-size: 4rem;
                 border: none;
-                text-shadow: -0.15rem 0.15rem 0 palette.$antiqueGold;
                 margin-bottom: (variables.$base-spacing * 3);
+
                 &:hover {
                     border: none;
                 }
 
-                &:before, &:after {
+                &:after {
                     content: " ";
                     display: block;
                     position: absolute;
@@ -225,19 +225,21 @@ header {
                     left: 0;
                     height: 1.5em;
                     width: 1.5em;
-
-                }
-                &:before {
-                    background-size: 33%;
-                    background: palette.$goldFX;
-                    background-size: 10%;
                     border-radius: 10%;
-                    background-attachment: fixed;
-                }
-
-                &:after {
                     background-image: url('../../../images/myotr-logo-cutout.svg');
                     background-size: contain;
+                }
+
+                &:before {
+                    content: attr(content);
+                    color: transparent;
+                    background: palette.$goldFX;
+                    background-clip: text;
+                    position: absolute;
+                    z-index: -1;
+                    margin-left: -0.2rem;
+                    margin-top: 0.2rem;
+
                 }
             }
 
@@ -329,13 +331,14 @@ header {
                     .user-greeting {
                         position: relative;
                         display: block;
-                        &:before {
+                        &:after {
                             content: "";
                             font-family: 'RPGAwesome', sans-serif;
                             margin-right: 0.5rem;
                             font-size: 1.5em;
                             line-height: 1.5em;
                         }
+
                         a {
                             font-size: 1em;
                             padding: 0;
@@ -357,15 +360,8 @@ header {
                             padding: 0;
                             height: auto;
                             margin-right: variables.$base-spacing;
-
-
                         }
-
                     }
-
-
-
-
                 }
             }
 
@@ -377,9 +373,6 @@ header {
             flex-direction: row;
 
             nav {
-
-
-
                 transform: initial !important;
                 position: static;
                 flex: 1;
@@ -394,33 +387,23 @@ header {
                 a {
                     position: relative;
                     color: palette.$ink;
-                    text-shadow: -0.15rem 0.15rem 0 palette.$antiqueGold;
+
                     font-family: 'Pirata', serif;
 
                     &:hover {
                         color: palette.$crimson;
                         transition: color 200ms ease-in-out;
                     }
-                    &:before, &:after {
-                        content: " ";
-                        display: block;
-                        height: 1rem;
-                        width: 1rem;
-                        position: absolute;
-                        top: 0.25rem;
-                        left: 0;
-                    }
-                    &:after {
-                        background-image: url('../../../images/ornament.svg');
-                        background-size: contain;
-                        z-index: 1;
-                    }
 
                     &:before {
+                        content: attr(content);
+                        color: transparent;
                         background: palette.$goldFX;
-                        background-size: 30%;
-                        background-attachment: fixed;
+                        background-clip: text;
+                        position: absolute;
                         z-index: -1;
+                        margin-left: -0.125rem;
+                        margin-top: 0.125rem;
                     }
 
                     border: none;

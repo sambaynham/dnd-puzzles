@@ -17,15 +17,16 @@ export default class DropCap extends HTMLParagraphElement {
         this.initial = initial;
     }
      connectedCallback() {
+
         const content = document.createTextNode(this.initial);
         const span = document.createElement('span');
-
 
         span.classList.add('dc');
         span.classList.add('dc-'+this.initial.toLowerCase());
         span.appendChild(content);
-
-        this.innerHTML = this.innerHTML.substring(1);
+        let trimmedContent: string = this.innerHTML.substring(1);
+        this.innerHTML = trimmedContent;
         this.insertBefore(span, this.firstChild);
+        this.setAttribute('content', trimmedContent);
     }
 }
