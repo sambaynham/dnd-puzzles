@@ -2,7 +2,6 @@
 
 header {
     margin: variables.$base-spacing 0;
-
 }
 
 main {
@@ -22,9 +21,7 @@ main {
     }
 }
 
-
 @media only screen and (min-width: 1080px) {
-
     main {
         max-width: 80vw;
         margin-top: (variables.$base-spacing * 2);

@@ -276,6 +276,7 @@ header {
                     border-image-slice: 33%;
                     position: relative;
                     padding: math.div(variables.$base-spacing, 4);
+
                     &:before {
                         content: " ";
                         display: block;
