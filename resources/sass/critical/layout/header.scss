@@ -6,6 +6,19 @@
 @use 'sass:math';
 @use "sass:color";
 
+
+@keyframes glint {
+    from {
+        background-position: 100%;
+
+    }
+
+    to {
+        background-position: 500%;
+    }
+}
+
+
 $mobile-header-height: 10vh;
 
 header {
@@ -181,15 +194,14 @@ header {
                 display: block;
                 content: " ";
                 width: 100%;
-                height: 0.25rem;
+                height: 0;
                 position: absolute;
                 left: 0;
                 bottom: 0 - variables.$base-spacing;
 
-                background-image: url('../../../images/eroded-line.svg');
-                background-size: 10%;
-                background-repeat: repeat-x;
-                transform: rotate(-0.125deg);
+                border-bottom: 0.25rem solid transparent;
+                border-image: url('../../../images/eroded-line.svg');
+                border-image-slice: 33%;
             }
 
 
@@ -200,7 +212,7 @@ header {
                 position: relative;
                 text-align: center;
                 color: palette.$ink;
-                padding-left: 7rem;
+                padding-left: 5rem;
                 height: auto;
                 width: auto;
                 top: initial;
@@ -209,7 +221,7 @@ header {
                 background: none;
                 font-family: typography.$displayStack;
                 font-weight: 800;
-                font-size: 4rem;
+                font-size: 2.5rem;
                 border: none;
                 margin-bottom: (variables.$base-spacing * 3);
 
@@ -237,8 +249,8 @@ header {
                     background-clip: text;
                     position: absolute;
                     z-index: -1;
-                    margin-left: -0.2rem;
-                    margin-top: 0.2rem;
+                    margin-left: -0.15rem;
+                    margin-top: 0.15rem;
 
                 }
             }
@@ -287,18 +299,16 @@ header {
                         flex: 1;
                         border: none;
                         color: black;
-                        height: 2rem;
-                        line-height: 2rem;
                         font-family: typography.$textStack;
                         margin-bottom: 0;
                         font-size: 1.25rem;
-                        padding: 1rem;
-                        flex-basis: 80%;
+                        padding: 0;
+
+                        padding-left: variables.$base-spacing;
                     }
 
                     button {
                         flex: 1;
-                        flex-basis: 20%;
                         background-color: transparent;
                         border: none;
                         color: transparent;
@@ -308,7 +318,7 @@ header {
                             background-image: url('../../../images/magnifier-ink.svg');
                             background-size: contain;
                             background-repeat: no-repeat;
-                            background-position: left;
+                            background-position: center;
                             display: block;
                             height: 100%;
                             width: 4rem;
@@ -321,23 +331,17 @@ header {
 
                 nav#user-nav {
                     flex: 1;
-                    font-size: 1.125rem;
                     text-align: left;
                     margin: 0;
-                    display: inline;
+                    display: flex;
+                    flex-direction: column;
                     padding: 0 0.5rem;
-                    line-height: 2em;
+                    overflow: initial;
 
                     .user-greeting {
+                        flex: 1;
                         position: relative;
                         display: block;
-                        &:after {
-                            content: "";
-                            font-family: 'RPGAwesome', sans-serif;
-                            margin-right: 0.5rem;
-                            font-size: 1.5em;
-                            line-height: 1.5em;
-                        }
 
                         a {
                             font-size: 1em;
@@ -348,9 +352,10 @@ header {
                     }
 
                     .user-options {
+                        flex: 1;
                         display: flex;
                         flex-direction: row;
-                        margin-left: auto;
+
 
                         a {
                             flex: 1;
@@ -383,16 +388,27 @@ header {
                 justify-content: left;
                 margin: 0 auto;
                 margin-top: (variables.$base-spacing * 2);
-
+                overflow: initial;
                 a {
                     position: relative;
                     color: palette.$ink;
 
                     font-family: 'Pirata', serif;
-
+                    border: none;
+                    font-size: 1.5rem;
+                    line-height: 1.5rem;
+                    flex-grow: 0;
+                    flex-shrink: 1;
+                    margin-right: variables.$base-spacing;
                     &:hover {
                         color: palette.$crimson;
                         transition: color 200ms ease-in-out;
+
+                        &:before {
+                            animation-duration: 15s;
+                            animation-name: glint;
+                            animation-iteration-count: infinite;
+                        }
                     }
 
                     &:before {
@@ -404,17 +420,8 @@ header {
                         z-index: -1;
                         margin-left: -0.125rem;
                         margin-top: 0.125rem;
+                        background-size: 500%;
                     }
-
-                    border: none;
-                    font-size: 1.5rem;
-                    line-height: 1.5rem;
-                    flex-grow: 0;
-                    flex-shrink: 1;
-                    padding-left: 1.5rem;
-                    margin-right: variables.$base-spacing;
-
-
                 }
             }
         }
