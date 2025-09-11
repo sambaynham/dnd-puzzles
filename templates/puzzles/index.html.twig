@@ -17,11 +17,13 @@
                 </thead>
                 <tbody>
                 {% for puzzle in puzzles %}
-                    <tr>
-                        <td>{{ puzzle.label }}</td>
-                        <td>{{ puzzle.description }}</td>
-                        <td><a class="btn btn-red" href="{{ path(puzzle.route) }}">Go</a></td>
-                    </tr>
+                    {% if puzzle.active %}
+                        <tr>
+                            <td>{{ puzzle.label }}</td>
+                            <td>{{ puzzle.description }}</td>
+                            <td><a class="btn btn-red" href="{{ path(puzzle.route) }}">Go</a></td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
