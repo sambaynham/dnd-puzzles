@@ -23,7 +23,7 @@ main {
 
 @media only screen and (min-width: 1080px) {
     main {
-        max-width: 80vw;
+        max-width: variables.$desktopMaxViewportWidth;
         margin-top: (variables.$base-spacing * 2);
 
         .row {

@@ -1,5 +1,4 @@
-import rollDice from "../../helpers/RollDie";
-
+import {rollDice} from "../../helpers/RollDie";
 
 export default class HammerFiringButton extends HTMLButtonElement {
     connectedCallback(): void {

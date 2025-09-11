@@ -154,7 +154,7 @@ header {
 
     header {
         background-color: transparent;
-        width: 80vw;
+        width: variables.$desktopMaxViewportWidth;
         margin: 0 auto;
         height: auto;
         border-bottom: none;

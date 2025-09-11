@@ -1,16 +1,18 @@
+@use "sass:math";
+
 @use "../base/variables";
 @use "../base/palette";
 main {
     margin-bottom: 10vh;
 }
 footer {
-    padding: variables.$base-spacing 10vw;
+    padding:  variables.$base-spacing math.div(100vw - variables.$desktopMaxViewportWidth, 2);
     background-color: palette.$charcoal;
     display: flex;
     flex-direction: row;
     color: palette.$white;
     position: fixed;
-    height: 5.5vh;
+    height: 5vh;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -19,7 +21,7 @@ footer {
 
     aside {
         flex: 1;
-        margin: 0 1rem;
+        margin: 0 1rem 0 0;
 
         a {
             color: palette.$white !important;

@@ -1,4 +1,4 @@
-export default function rollDice(dieSides: number, dieCount: number): number {
+export function rollDice(dieSides: number, dieCount: number): number {
 
     let total = 0;
 

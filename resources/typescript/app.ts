@@ -8,7 +8,9 @@ import MessageOfTheDay from "./components/MessageOfTheDay";
 
 document.addEventListener('DOMContentLoaded', () => {
     const body: HTMLBodyElement|null = document.querySelector('body');
+
     let customElementRegistry = window.customElements;
+
     customElementRegistry.define('drop-cap', DropCap, {extends: 'p'});
     customElementRegistry.define('progress-bar', ProgressBar);
     customElementRegistry.define('nav-toggle', NavToggle, { extends: 'button'});
