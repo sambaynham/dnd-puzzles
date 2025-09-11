@@ -47,8 +47,6 @@ class DiceStateProvider implements ProviderInterface
 
     private function generateRoll(string $rollClause): DiceRoll {
         $bonus = 0;
-        $numDice = 0;
-        $dieSides = 0;
         if (str_contains(needle: 'p', haystack: $rollClause)) {
             $components = explode('p', $rollClause);
             $bonus = end($components);
@@ -61,7 +59,7 @@ class DiceStateProvider implements ProviderInterface
             $dieSides = $components[1];
         }
         $rolled = self::rollDice($numDice, $dieSides);
-        return new DiceRoll(id: $rollClause, dieSides: $dieSides, roll: $rolled, total: $rolled+$bonus,bonus: $bonus);
+        return new DiceRoll(id: $rollClause, dieSides: $dieSides, roll: $rolled, total: $rolled+$bonus, bonus: $bonus);
     }
 
     public static function rollDice(int $numDice, int $dieSides): int {
