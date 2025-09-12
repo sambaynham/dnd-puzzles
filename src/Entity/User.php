@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Dto\UserDto;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -30,16 +33,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         #[ORM\Column]
         #[Assert\NotBlank]
-        private string $password,
+        private string $password = '',
 
         #[ORM\Column]
         private array $roles = [],
+
+        #[ORM\OneToMany(
+            mappedBy: 'author',
+            targetEntity: PuzzleTemplate::class,
+            orphanRemoval: false,
+        )]
+        private Collection $puzzlesAuthored = new ArrayCollection(),
 
         #[ORM\Id]
         #[ORM\GeneratedValue]
         #[ORM\Column]
         private ?int $id = null
     ) {}
+
+    public function getPuzzlesAuthored(): Collection
+    {
+        return $this->puzzlesAuthored;
+    }
+
+    public function setPuzzlesAuthored(Collection $puzzlesAuthored): void
+    {
+        $this->puzzlesAuthored = $puzzlesAuthored;
+    }
 
 
     public function getId(): ?int
@@ -114,17 +134,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): static
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
     }
 }

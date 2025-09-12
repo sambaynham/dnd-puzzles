@@ -22,6 +22,7 @@ class SecurityController extends AbstractBaseController
         $pageVars = [
             'last_username' => $lastUsername,
             'error' => $error,
+            'pageTitle' => 'Login'
         ];
         return $this->render('security/login.html.twig', $this->populatePageVars($pageVars, $request));
     }

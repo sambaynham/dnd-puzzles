@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use ApiPlatform\Validator\Exception\ValidationException;
+use ApiPlatform\Validator\ValidatorInterface;
 use App\Dto\UserDto;
 use App\Entity\User;
 use App\Form\RegistrationForm;
@@ -18,7 +20,10 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractBaseController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
+    public function __construct(
+        private EmailVerifier $emailVerifier,
+        private ValidatorInterface $validator
+    )
     {
     }
 
@@ -31,27 +36,35 @@ class RegistrationController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 
-            // encode the plain password
-//            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-/*
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('sam.baynham@gmail.com', 'DND Puzzles Mailer'))
-                    ->to((string) $user->getEmailAddress())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+            $user = new User(
+                $userDto->userName,
+                $userDto->emailAddress,
             );
 
-            // do anything else you need here, like send an email
-*/
-//            return $security->login($user, 'form_login', 'main');
+            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+
+            $success = true;
+            try {
+                $this->validator->validate($user);
+            } catch (ValidationException $e) {
+                $success = false;
+
+                $this->addFlash('error', $e->getMessage());
+
+            }
+
+            if ($success) {
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Your account has been created. You may now log in.');
+                return $this->redirectToRoute('app.user.login');
+            }
+
         }
         $pageVars = [
             'pageTitle' => 'Register',
