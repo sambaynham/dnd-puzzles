@@ -4,6 +4,7 @@ import ProgressBar from "./components/ProgressBar";
 import NavToggle from "./components/NavToggle";
 import ToolTip from "./components/Tooltip";
 import MessageOfTheDay from "./components/MessageOfTheDay";
+import {FlashAlert} from "./components/FlashAlert";
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     customElementRegistry.define('nav-toggle', NavToggle, { extends: 'button'});
     customElementRegistry.define('tooltip-element', ToolTip, {extends: 'span'});
     customElementRegistry.define('motd-span', MessageOfTheDay, {extends: 'span'})
+    customElementRegistry.define('flash-alert', FlashAlert, {extends: 'span'})
     if (null === body) {
         throw new Error('Body not found');
     }

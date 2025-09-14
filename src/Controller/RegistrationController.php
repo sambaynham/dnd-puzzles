@@ -62,7 +62,7 @@ class RegistrationController extends AbstractBaseController
                 $entityManager->flush();
 
                 $this->addFlash('success', 'Your account has been created. You may now log in.');
-                return $this->redirectToRoute('app.user.login');
+                return $this->redirectToRoute('app.auth.login');
             }
 
         }
@@ -87,12 +87,12 @@ class RegistrationController extends AbstractBaseController
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $exception->getReason());
 
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('app.user.register');
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app.user.register');
     }
 }
