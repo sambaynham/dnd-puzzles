@@ -78,6 +78,26 @@ final class GamesController extends AbstractBaseController
         return $this->render('games/create.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
+    #[Route('/games/{slug}/play', name: 'app.games.manage')]
+    public function manage(
+        #[MapEntity(class: Game::class,resolver: GameSlugResolver::class)]
+        Game $game,
+        Request $request
+    ): Response {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException('You must be logged in to manage a game.');
+        }
+        if ($game->getGamesMaster() !== $user) {
+            throw $this->createAccessDeniedException('You are not the games master of this game.');
+        }
+        $pageVars = [
+            'pageTitle' => sprintf("Manage %s", $game->getName()),
+            'game' => $game,
+        ];
+        return $this->render('games/manage.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
     #[Route('/games/{slug}/play', name: 'app.games.play')]
     public function play(
         #[MapEntity(class: Game::class,resolver: GameSlugResolver::class)]
