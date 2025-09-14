@@ -19,6 +19,10 @@ main {
     .col {
         padding: 0 variables.$base-spacing;
     }
+
+    div.title-container {
+        padding: 0 variables.$base-spacing;
+    }
 }
 
 @media only screen and (min-width: 1080px) {

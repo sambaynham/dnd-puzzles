@@ -21,6 +21,7 @@ class LoginType extends AbstractType
                 '_username',
                 EmailType::class,
                 [
+                    'label' => 'Email',
                     'required' => true,
                     'attr' => [
                         'name' => '_username'

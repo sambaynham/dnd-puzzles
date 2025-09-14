@@ -1,0 +1,28 @@
+{% extends 'base/base.html.twig' %}
+{% block body %}
+    <div class="row halves">
+        <div class="col">
+            <h2>My Details</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ user.userName }}</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <hr>
+            <a class="btn btn-secondary" href="">Change these details</a>
+        </div>
+        <div class="col">
+            <h2>My Games</h2>
+        </div>
+    </div>
+{% endblock %}

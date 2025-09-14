@@ -2,6 +2,7 @@
 <header>
     <div class="top">
 
+        <div class="logo"></div>
         <a href="/" class="brand gold-leaf" content="{{ siteName }}">{{ siteName }}</a>
         <span class="tagline">Interactive puzzles for online RPGs</span>
 
@@ -16,16 +17,16 @@
             </form>
             <nav class="mobile-nav" id="user-nav">
                 {% if app.user %}
-                    <span class="user-greeting">Logged in as <a href="#">Dave</a></span>
+                    <span class="user-greeting">Logged in as <a href="{{ path('app.user.account') }}">{{ app.user.userName }}</a></span>
                     <span class="user-options">
                         <a class="" href="#">Logout</a>
-                        <a class="" href="#">Account</a>
+                        <a class="" href="{{ path('app.user.account') }}">Account</a>
                     </span>
                 {% else %}
                     <span class="user-greeting">Not logged in</span>
                     <span class="user-options">
                         <a class="" href="{{ path('app.auth.login') }}">Login</a>
-                        <a class="" href="{{ path('app.user.register') }}">Register</a>
+                        <a class="" href="{{ path('app.auth.register') }}">Register</a>
                     </span>
                 {% endif %}
 

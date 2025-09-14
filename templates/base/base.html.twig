@@ -16,6 +16,9 @@
         {% embed 'base/partials/header.html.twig' %}{% endembed %}
         {% embed 'base/partials/alerts.html.twig' %}{% endembed %}
         <main>
+            <div class="title-container">
+                <h1 is="drop-cap">{{ pageTitle }}</h1>
+            </div>
             {% block body %}{% endblock %}
         </main>
         {% embed 'base/partials/footer.html.twig' %}{% endembed %}

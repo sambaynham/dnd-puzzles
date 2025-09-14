@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="140.50839mm"
+   height="127.27724mm"
+   viewBox="0 0 140.50839 127.27724"
+   version="1.1"
+   id="svg2430"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="penrose-mask.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2432"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.914906"
+     inkscape:cx="-45.359851"
+     inkscape:cy="457.42404"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
+     inkscape:window-x="1080"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2427" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-32.138947,-33.224661)">
+    <g
+       id="path10913">
+      <path
+         style="color:#000000;fill:#ffffff;stroke-width:1.32292;-inkscape-stroke:none"
+         d="m 112.94204,33.887103 -21.733046,0.05478 -58.314269,106.118587 10.694955,19.23655 118.12871,0.54157 10.1787,-19.71146 z m -10.30945,57.406315 16.32303,30.058112 -33.226395,0.002 z"
+         id="path14572" />
+      <path
+         style="color:#000000;fill:#ffffff;-inkscape-stroke:none"
+         d="m 113.33008,33.224609 -0.39063,0.002 -22.123044,0.05469 -58.677734,106.78125 11.060547,19.89453 118.921871,0.54492 10.52539,-20.38672 z m -0.77735,1.324219 58.59375,105.589842 -9.83007,19.03711 L 43.980469,158.63672 33.650391,140.05859 91.601562,34.601562 Z m -9.91015,55.376953 -0.58594,1.042969 -17.458984,31.04688 35.470704,-0.002 z m -0.0215,2.736328 15.22266,28.027341 -30.982422,0.002 z"
+         id="path14574" />
+    </g>
+  </g>
+</svg>

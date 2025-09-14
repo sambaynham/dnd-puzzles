@@ -19,8 +19,8 @@
 
         button {
             position: absolute;
-            top:  variables.$base-spacing /2;
-            right: variables.$base-spacing/2;
+            top:  math.div(variables.$base-spacing,2);
+            right: math.div(variables.$base-spacing,2);
             border: none;
             box-shadow: none;
             background-color: transparent;

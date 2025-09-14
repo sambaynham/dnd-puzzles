@@ -2,69 +2,57 @@
 
 namespace App\Entity;
 
-use App\Dto\UserDto;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+class User extends AbstractDomainEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-    #[ORM\Column]
-    private bool $isVerified = false;
+    /**
+     * @var Collection<int, Game>
+     */
+    #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'GamesMaster', orphanRemoval: true)]
+    private Collection $gamesMastered;
+
+    /**
+     * @var Collection<int, Game>
+     */
+    #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'players')]
+    private Collection $games;
 
     public function __construct(
-        #[ORM\Column(length: 180)]
-        #[Assert\NotBlank]
-        private string $username,
+        #[ORM\Column(length: 180, type: 'string', unique: true)]
+        private string $email,
 
-        #[ORM\Column(type: 'string', unique: true)]
-        #[Assert\Email]
-        #[Assert\NotBlank]
-        private string $emailAddress,
-
-        #[ORM\Column]
-        #[Assert\NotBlank]
+        #[ORM\Column(type: 'string', length: 255)]
         private string $password = '',
+
+        #[ORM\Column(type: 'string', length: 255, nullable: false)]
+        private string $username,
 
         #[ORM\Column]
         private array $roles = [],
 
         #[ORM\OneToMany(
-            mappedBy: 'author',
             targetEntity: PuzzleTemplate::class,
+            mappedBy: 'author',
             orphanRemoval: false,
         )]
         private Collection $puzzlesAuthored = new ArrayCollection(),
-
-        #[ORM\Id]
-        #[ORM\GeneratedValue]
-        #[ORM\Column]
-        private ?int $id = null
-    ) {}
-
-    public function getPuzzlesAuthored(): Collection
-    {
-        return $this->puzzlesAuthored;
-    }
-
-    public function setPuzzlesAuthored(Collection $puzzlesAuthored): void
-    {
-        $this->puzzlesAuthored = $puzzlesAuthored;
-    }
-
-
-    public function getId(): ?int
-    {
-        return $this->id;
+        ?int $id = null
+    ) {
+        parent::__construct($id);
+        if (empty($this->roles)) {
+            $this->roles = ['ROLE_USER'];
+        }
+        $this->gamesMastered = new ArrayCollection();
+        $this->games = new ArrayCollection();
     }
 
     public function getUsername(): string
@@ -77,6 +65,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->username = $username;
     }
 
+    public function getPuzzlesAuthored(): Collection
+    {
+        return $this->puzzlesAuthored;
+    }
+
+    public function setPuzzlesAuthored(Collection $puzzlesAuthored): void
+    {
+        $this->puzzlesAuthored = $puzzlesAuthored;
+    }
+
+
     /**
      * A visual identifier that represents this user.
      *
@@ -84,7 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return $this->username;
+        return (string) $this->email;
     }
 
     /**
@@ -93,30 +92,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
+
     /**
-     * @param list<string> $roles
+     * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
      */
-    public function setRoles(array $roles): void
+    public function __serialize(): array
     {
-        $this->roles = $roles;
+        $data = (array) $this;
+        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+
+        return $data;
     }
 
-    public function getEmailAddress(): string {
-        return $this->emailAddress;
+    #[\Deprecated]
+    public function eraseCredentials(): void
+    {
+        // @deprecated, to be removed when upgrading to Symfony 8
     }
 
-    public function setEmailAddress(string $emailAddress): void {
-        $this->emailAddress = $emailAddress;
+    public function getEmail(): string
+    {
+        return $this->email;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
     public function getPassword(): string
     {
         return $this->password;
@@ -128,11 +137,59 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     * @return Collection<int, Game>
      */
-    public function eraseCredentials(): void
+    public function getGamesMastered(): Collection
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        return $this->gamesMastered;
+    }
+
+    public function addGamesMastered(Game $gamesMastered): static
+    {
+        if (!$this->gamesMastered->contains($gamesMastered)) {
+            $this->gamesMastered->add($gamesMastered);
+            $gamesMastered->setGamesMaster($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGamesMastered(Game $gamesMastered): static
+    {
+        if ($this->gamesMastered->removeElement($gamesMastered)) {
+            // set the owning side to null (unless already changed)
+            if ($gamesMastered->getGamesMaster() === $this) {
+                $gamesMastered->setGamesMaster(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Game>
+     */
+    public function getGames(): Collection
+    {
+        return $this->games;
+    }
+
+    public function addGame(Game $game): static
+    {
+        if (!$this->games->contains($game)) {
+            $this->games->add($game);
+            $game->addPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(Game $game): static
+    {
+        if ($this->games->removeElement($game)) {
+            $game->removePlayer($this);
+        }
+
+        return $this;
     }
 }

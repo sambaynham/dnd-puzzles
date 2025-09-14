@@ -8,7 +8,8 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: username
+                property: email
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -17,11 +18,13 @@ security:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: app.auth.login
-                check_path: app.auth.login
+                login_path: app_login
+                check_path: app_login
                 enable_csrf: true
             logout:
-                path: app.auth.logout
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
                 # where to redirect after logout
                 # target: app_any_route
 

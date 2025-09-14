@@ -6,6 +6,7 @@
 @use 'sass:math';
 @use "sass:color";
 
+$fullsizeLogoHeight: 4rem;
 
 @keyframes glint {
     from {
@@ -15,6 +16,18 @@
 
     to {
         background-position: 500%;
+    }
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
     }
 }
 
@@ -37,7 +50,6 @@ header {
         color: transparent;
         width: $mobile-header-height - 2;
         height: $mobile-header-height - 2;
-        background-image: url("../../../images/myotr-logo.svg");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -47,6 +59,10 @@ header {
         left: 50%;
         margin-left: 0 - math.div(($mobile-header-height - 2), 2);
 
+    }
+
+    .logo {
+        display: none;
     }
 
     span.tagline {
@@ -200,6 +216,33 @@ header {
             }
 
 
+            .logo {
+                display: flex;
+                width: $fullsizeLogoHeight;
+                background: linear-gradient(-45deg, #00ff48, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+                background-size: 400% 400%;
+                animation: gradient 15s ease infinite;
+                mask-image: url('../../../images/penrose-mask.svg');
+                mask-size: contain;
+                mask-repeat: no-repeat;
+                mask-position: center;
+                height: $fullsizeLogoHeight;
+                position: relative;
+
+
+                &:after {
+                    content: " ";
+                    display: block;
+                    width: $fullsizeLogoHeight;
+                    height: $fullsizeLogoHeight;
+                    background-size: $fullsizeLogoHeight $fullsizeLogoHeight;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 1;
+                    background-image: url('../../../images/penrose-overlay.svg')
+                }
+            }
             a.brand {
                 display: flex;
                 flex: 1;
@@ -207,7 +250,6 @@ header {
                 position: relative;
                 text-align: center;
                 color: palette.$ink;
-                padding-left: 5rem;
                 height: auto;
                 width: auto;
                 top: initial;
@@ -224,19 +266,6 @@ header {
                     border: none;
                 }
 
-                &:after {
-                    content: " ";
-                    display: block;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    height: 1.5em;
-                    width: 1.5em;
-                    border-radius: 10%;
-                    background-image: url('../../../images/myotr-logo-cutout.svg');
-                    background-size: contain;
-                }
-
                 &:before {
                     content: attr(content);
                     color: transparent;
@@ -244,9 +273,9 @@ header {
                     background-clip: text;
                     position: absolute;
                     z-index: -1;
-                    margin-left: -0.15rem;
-                    margin-top: 0.15rem;
-
+                    margin-left: -0.125rem;
+                    margin-top: 0.125rem;
+                    background-size: 500%;
                 }
             }
 

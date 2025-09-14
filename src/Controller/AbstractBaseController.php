@@ -19,17 +19,19 @@ abstract class AbstractBaseController extends AbstractController
                 'active' => false
             ],
             [
-                'route' => 'app.pages.contributing',
-                'label' => 'Contributing',
-                'active' => false
-            ],
-            [
                 'route' => 'app.pages.about',
                 'label' => 'About',
                 'active' => false
             ],
 
         ];
+        if ($this->getUser()) {
+            $pageVars['nav'][] = [
+                'route' => 'app.games.index',
+                'label' => 'My Games',
+                'active' => false
+            ];
+        }
         foreach ($pageVars['nav'] as &$navItem) {
             if ($navItem['route'] === $route) {
                 $navItem['active'] = true;

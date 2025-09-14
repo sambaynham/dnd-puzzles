@@ -25,4 +25,12 @@ class PageController extends AbstractBaseController
         ];
         return $this->render('pages/about.html.twig', $this->populatePageVars($pageVars, $request));
     }
+
+    #[Route('/coc', name: 'app.pages.coc')]
+    public function terms(Request $request): Response {
+        $pageVars =[
+            'pageTitle' => 'Code of Conduct'
+        ];
+        return $this->render('pages/terms.html.twig', $this->populatePageVars($pageVars, $request));
+    }
 }
