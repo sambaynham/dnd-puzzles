@@ -1,6 +1,9 @@
 @use '../base/palette';
 @use '../base/variables';
 @use 'sass:math';
+@use 'sass:color';
+@use "../mixins/inputs";
+@use "../mixins/buttonise";
 
 table.table {
     border-collapse: collapse;
@@ -11,10 +14,34 @@ table.table {
     tr, td, th {
         border: 0.2rem solid palette.$ink;
         padding: math.div(variables.$base-spacing, 2);
+        @include inputs.styleInputs();
+
+        button {
+            @include buttonise.buttonize(palette.$green);
+        }
+    }
+
+    tr {
+        background-color: palette.$white;
+
+        &:nth-child(even) {
+            background-color: color.mix(palette.$white, palette.$vellum, 15%);
+        }
     }
 
     th {
         background-color: palette.$ink;
         color: palette.$vellum;
     }
+
+    tfoot {
+        tr {
+            background-color: palette.$ink;
+            color: palette.$white;
+        }
+
+    }
+
+
+
 }

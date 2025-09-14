@@ -17,11 +17,11 @@ main {
     }
 
     .col {
-        padding: 0 variables.$base-spacing;
+        padding: 0 (variables.$base-spacing * 2) (variables.$base-spacing * 2) (variables.$base-spacing * 2);
     }
 
     div.title-container {
-        padding: 0 variables.$base-spacing;
+        padding: (variables.$base-spacing * 2);
     }
 }
 

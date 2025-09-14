@@ -1,29 +1,29 @@
-@use '../base/variables';
+@use '../base/variables' as variables;
+@use '../base/palette' as palette;
+@use 'sass:math';
+@use "../mixins/buttonise";
+@use "../mixins/inputs";
 
-form {
+form:not(.unstyle) {
     display: flex;
     flex-direction: column;
 
-    > div > div {
-        flex: 1;
+    > div {
         display: flex;
         flex-direction: column;
-
-
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 0 0 2rem 0;
     }
-    label {
-        display: flex;
-        flex: 1;
-        font-family: 'Pirata';
-        font-size: 1.5rem;
+    > div > div {
+        margin-bottom: variables.$base-spacing;
+        display: block;
     }
-    input {
-        display: flex;
-        border: 0.5rem solid transparent;
-        border-image: url('../../../images/eroded-frame-whiteinner.svg');
-        border-image-slice: 33%;
-        background-color: #f7f5f2ff;
-        flex: 1;
+
+    @include inputs.styleInputs();
+
+    button, submit {
+        @include buttonise.buttonize(palette.$crimson, );
     }
 }
 

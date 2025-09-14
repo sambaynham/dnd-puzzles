@@ -2,8 +2,7 @@
 
 namespace App\Form;
 
-use App\Dto\UserDto;
-use App\Entity\User;
+use App\Dto\User\UserDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -51,6 +50,7 @@ class RegistrationForm extends AbstractType
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'I agree to abide to the code of conduct',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([

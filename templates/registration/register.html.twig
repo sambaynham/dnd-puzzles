@@ -1,11 +1,18 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+    <div class="row halves">
+        <div class="col">
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
+            {{ form(registrationForm) }}
+        </div>
+        <div class="col">
+            <p>Before registering, please read our <a href="{{ path('app.pages.coc') }}">Code of Conduct</a></p>
+        </div>
 
-    <h1>Register</h1>
 
-    {{ form(registrationForm) }}
+    </div>
+
 
 {% endblock %}

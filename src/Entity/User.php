@@ -17,7 +17,7 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     /**
      * @var Collection<int, Game>
      */
-    #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'GamesMaster', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'gamesMaster', orphanRemoval: true)]
     private Collection $gamesMastered;
 
     /**

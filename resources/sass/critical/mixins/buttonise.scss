@@ -3,9 +3,8 @@
 @use "../base/variables";
 @use 'sass:math';
 
-@mixin buttonize($primaryColor, $hoverColor, $gemBorderWidth, $textColor, $fontFamily: 'Crimson Text')
+@mixin buttonize($primaryColor, $hoverColor: color.adjust($primaryColor, $lightness: 1%), $gemBorderWidth : 0.125rem, $textColor: palette.$white, $fontFamily: 'Crimson Text')
 {
-
     box-shadow: 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.25), 0 0 0.25rem color.scale(palette.$ink, $alpha: -25%);
     position: relative;
     z-index: 1;

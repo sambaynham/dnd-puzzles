@@ -7,36 +7,39 @@
     z-index: 10000;
     width: variables.$desktopMaxViewportWidth;
     margin: 0 math.div((100 - variables.$desktopMaxViewportWidth), 2);
+    padding: variables.$base-spacing;
 
-    span.flash {
-        display: block;
-        background-color: palette.$offWhite;
-        padding: variables.$base-spacing;
-        margin-bottom: variables.$base-spacing;
-        border-radius: 0.25rem;
-        border: 1px solid palette.$green;
-        position: relative;
 
-        button {
-            position: absolute;
-            top:  math.div(variables.$base-spacing,2);
-            right: math.div(variables.$base-spacing,2);
-            border: none;
-            box-shadow: none;
-            background-color: transparent;
-            color: initial;
 
-        }
+}
 
-        &.flash-error {
-            background-color: palette.$pink;
-            border-color: palette.$red;
+span.flash {
+    display: block;
+    background-color: palette.$offWhite;
+    padding: variables.$base-spacing;
+    margin-bottom: variables.$base-spacing;
+    border-radius: 0.25rem;
+    border: 1px solid palette.$green;
+    position: relative;
 
-        }
+    button {
+        position: absolute;
+        top:  math.div(variables.$base-spacing,2);
+        right: math.div(variables.$base-spacing,2);
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        color: initial;
 
-        &.flash-warning {
-            background-color: palette.$orange;
-        }
     }
 
+    &.flash-error {
+        background-color: palette.$pink;
+        border-color: palette.$red;
+
+    }
+
+    &.flash-warning {
+        background-color: palette.$orange;
+    }
 }

@@ -4,12 +4,11 @@ namespace App\Controller;
 
 use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;
-use App\Dto\UserDto;
+use App\Dto\User\UserDto;
 use App\Entity\User;
 use App\Form\LoginType;
 use App\Form\RegistrationForm;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

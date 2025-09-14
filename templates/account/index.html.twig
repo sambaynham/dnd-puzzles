@@ -23,6 +23,7 @@
         </div>
         <div class="col">
             <h2>My Games</h2>
+            {% embed 'games/partials/_games.html.twig' with {user: user} %}{% endembed %}
         </div>
     </div>
 {% endblock %}
