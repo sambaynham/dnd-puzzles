@@ -4,7 +4,7 @@
         "module": "esnext",
         "lib": ["esnext", "DOM", "DOM.Iterable"],
         "declaration": true,
-	    "outDir": "public/js",
+	    "outDir": "public/dist/js",
         "declarationMap": true,
         "inlineSources": true,
         "rootDir": "./resources",

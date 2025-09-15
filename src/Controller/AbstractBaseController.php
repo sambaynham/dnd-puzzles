@@ -11,7 +11,7 @@ abstract class AbstractBaseController extends AbstractController
 {
     final public function populatePageVars(array $pageVars, Request $request): array {
         $route = $request->get('_route');
-        $pageVars['siteName'] = 'The Paradox Portfolio';
+        $pageVars['siteName'] = 'The Conundrum Codex';
         $pageVars['nav'] = [
             [
                 'route' => 'app.puzzles.index',

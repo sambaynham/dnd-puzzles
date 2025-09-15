@@ -41,7 +41,7 @@ header {
     height: $mobile-header-height;
     padding: variables.$base-spacing;
     border-bottom: 0.125rem solid transparent;
-    border-image: url("../../../images/gold-bead.svg") 20%;
+    border-image: url("/dist/images/gold-bead.svg") 20%;
 
     .search-form {
         display: none;
@@ -211,7 +211,7 @@ header {
                 bottom: 0 - variables.$base-spacing;
 
                 border-bottom: 0.25rem solid transparent;
-                border-image: url('../../../images/eroded-line.svg');
+                border-image: url('/dist/images/eroded-line.svg');
                 border-image-slice: 33%;
             }
 
@@ -222,12 +222,13 @@ header {
                 background: linear-gradient(-45deg, #00ff48, #ee7752, #e73c7e, #23a6d5, #23d5ab);
                 background-size: 400% 400%;
                 animation: gradient 15s ease infinite;
-                mask-image: url('../../../images/penrose-mask.svg');
+                mask-image: url('/dist/images/penrose-mask.svg');
                 mask-size: contain;
                 mask-repeat: no-repeat;
                 mask-position: center;
                 height: $fullsizeLogoHeight;
                 position: relative;
+                margin-right: variables.$base-spacing;
 
 
                 &:after {
@@ -240,7 +241,7 @@ header {
                     top: 0;
                     left: 0;
                     z-index: 1;
-                    background-image: url('../../../images/penrose-overlay.svg')
+                    background-image: url('/dist/images/penrose-overlay.svg')
                 }
             }
             a.brand {
@@ -301,7 +302,7 @@ header {
                     display: flex;
                     flex-direction: row;
                     border: 0.5rem solid transparent;
-                    border-image: url('../../../images/eroded-frame-whiteinner.svg');
+                    border-image: url('/dist/images/eroded-frame-whiteinner.svg');
                     border-image-slice: 33%;
                     position: relative;
                     padding: math.div(variables.$base-spacing, 4);
@@ -329,6 +330,7 @@ header {
                         flex-basis: 90%;
                         padding: 0;
                         font-size: 1rem;
+                        background-color: #f7f5f2;
                     }
 
                     button {
@@ -340,7 +342,7 @@ header {
                         flex-basis: 10%;
                         &:after {
                             content: " ";
-                            background-image: url('../../../images/magnifier-ink.svg');
+                            background-image: url('/dist/images/magnifier-ink.svg');
                             background-size: contain;
                             background-repeat: no-repeat;
                             background-position: center;

@@ -9,9 +9,9 @@
     input,textarea {
         display: flex;
         border: 0.25rem solid transparent;
-        border-image: url('../../../images/eroded-frame-whiteinner.svg');
+        border-image: url('/dist/images/eroded-frame-whiteinner.svg');
         border-image-slice: 33%;
-        background-color: #f7f5f2ff;
+        background-color: #f7f5f2;
         padding: variables.$base-spacing;
         flex: 1;
         width: 100%;

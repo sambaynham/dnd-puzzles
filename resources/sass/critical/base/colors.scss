@@ -29,7 +29,7 @@ body {
         width: 12.5rem;
         bottom: 5vw;
         right: 1vw;
-        mask-image: url('../../images/decorative_corner.svg');
+        mask-image: url('/dist/images/decorative_corner.svg');
         mask-repeat: no-repeat;
         mask-position: right bottom;
     }
@@ -39,7 +39,7 @@ body {
         left: 5vw;
         top: 0;
         width: 3rem;
-        mask-image: url('../../images/pattern.svg');
+        mask-image: url('/dist/images/pattern.svg');
         mask-repeat: repeat-y;
         mask-size: contain;
 
@@ -47,7 +47,7 @@ body {
     }
     main {
         border: 1rem solid transparent;
-        border-image: url('../../../images/paper-sheet-brown-shadow.svg');
+        border-image: url('/dist/images/paper-sheet-brown-shadow.svg');
         border-image-slice: 7.5%;
         position: relative;
 

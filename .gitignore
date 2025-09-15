@@ -8,10 +8,7 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-/public/js
-/public/css
+
 node_modules
 .idea
-/public/fonts
-/public/images
-/public/audio
+/public/dist/

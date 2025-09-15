@@ -4,20 +4,21 @@ import terser  from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy'
 import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
+import clean from '@rollup-extras/plugin-clean';
 
 const copyConfig = {
   targets: [
   	{
         src: 'resources/images',
-        dest: 'public'
+        dest: 'public/dist'
     },
     {
         src: 'resources/fonts',
-        dest: 'public'
+        dest: 'public/dist'
     },
     {
         src: 'resources/audio',
-        dest: 'public'
+        dest: 'public/dist'
     },
   ]
 };
@@ -39,7 +40,7 @@ const config = [
 
         input: 'resources/typescript/app.ts',
         output: {
-            dir: './public/js/',
+            dir: './public/dist/js/',
             format: 'es',
             watch: [
                 'resources/typescript/'
@@ -50,6 +51,7 @@ const config = [
             copy(copyConfig),
             typescript(),
             resolve(),
+            clean(),
             summary(),
         ],
         preserveEntrySignatures: false,
@@ -57,7 +59,7 @@ const config = [
     {
         input: 'resources/typescript/puzzles/hammer/hammerBoot.ts',
         output: {
-            dir: './public/js/',
+            dir: './public/dist/js/',
             format: 'es',
         },
 
@@ -70,7 +72,7 @@ const config = [
     {
         input: 'resources/typescript/puzzles/lightforge/lightforgeBoot.ts',
         output: {
-            dir: './public/js/',
+            dir: './public/dist/js/',
 
             format: 'es',
         },
@@ -84,7 +86,7 @@ const config = [
     {
         input: 'resources/sass/critical.scss',
         output: {
-            dir: './public/css/'
+            dir: './public/dist/css/'
         },
         plugins: [
             scss({
@@ -101,7 +103,7 @@ const config = [
     {
         input: 'resources/sass/puzzles/lightforge.scss',
         output: {
-            dir: './public/css/puzzles'
+            dir: './public/dist/css/puzzles'
         },
         plugins: [
             scss({
@@ -116,7 +118,7 @@ const config = [
     {
         input: 'resources/sass/puzzles/hammer.scss',
         output: {
-            dir: './public/css/puzzles'
+            dir: './public/dist/css/puzzles'
         },
         plugins: [
             scss({
