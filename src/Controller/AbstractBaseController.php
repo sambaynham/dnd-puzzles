@@ -14,6 +14,11 @@ abstract class AbstractBaseController extends AbstractController
         $pageVars['siteName'] = 'The Conundrum Codex';
         $pageVars['nav'] = [
             [
+                'route' => 'app.pages.home',
+                'label' => 'Home',
+                'active' => false
+            ],
+            [
                 'route' => 'app.puzzles.index',
                 'label' => 'Puzzles',
                 'active' => false

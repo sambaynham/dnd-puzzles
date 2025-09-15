@@ -14,6 +14,10 @@ main {
         flex: 1;
         display: flex;
         flex-direction: column;
+
+        img {
+            width: 100%;
+        }
     }
 
     .col {
@@ -34,8 +38,28 @@ main {
             flex-direction: row;
 
             &.three-quarters {
-                :first-child {
+                .col:first-child {
                     flex-basis: 75%;
+                }
+            }
+
+            &.two-thirds-one-third {
+                .col:first-child {
+                    flex-basis: 66.666%;
+                }
+                .col:last-child {
+                    flex-basis: 33.333%;
+                    flex-shrink: 1;
+                }
+            }
+
+            &.flush {
+                .col:first-child {
+                    padding-left: 0;
+                }
+
+                .col:last-child {
+                    padding-right: 0;
                 }
             }
         }

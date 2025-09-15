@@ -6,7 +6,7 @@
 @use 'sass:math';
 @use "sass:color";
 
-$fullsizeLogoHeight: 4rem;
+$fullsizeLogoHeight: 3.5rem;
 
 @keyframes glint {
     from {
@@ -66,9 +66,6 @@ header {
         display: none;
     }
 
-    span.tagline {
-        display: none;
-    }
     button.nav-toggle {
         background-color: palette.$crimson;
         background: radial-gradient(circle at 50% 100%, palette.$crimson, color.adjust(palette.$crimson, $lightness: -15%, $space: hsl));
@@ -175,7 +172,7 @@ header {
         margin: 0 auto;
         height: auto;
         border-bottom: none;
-        padding: 3rem 0 0 0;
+        padding: (variables.$base-spacing * 2) 0 0 0;
         button.nav-toggle {
             display: none;
         }
@@ -242,7 +239,8 @@ header {
                     top: 0;
                     left: 0;
                     z-index: 1;
-                    background-image: url('/dist/images/penrose-overlay.svg')
+                    background-image: url('/dist/images/penrose-overlay.svg');
+                    mix-blend-mode: multiply;
                 }
             }
             a.brand {
@@ -262,7 +260,7 @@ header {
                 font-weight: 800;
                 font-size: 2.5rem;
                 border: none;
-                margin-bottom: (variables.$base-spacing * 3);
+                //margin-bottom: (variables.$base-spacing * 3);
 
                 &:hover {
                     border: none;
@@ -281,17 +279,6 @@ header {
                 }
             }
 
-            span.tagline {
-                display: block;
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                font-weight: bold;
-            }
-
-
-
-
             .right {
                 display: flex;
                 flex: 1;
@@ -302,7 +289,7 @@ header {
                 form.search-form {
                     display: flex;
                     flex-direction: row;
-                    border: 0.5rem solid transparent;
+                    border: 0.25rem solid transparent;
                     border-image: url('/dist/images/eroded-frame-whiteinner.svg');
                     border-image-slice: 33%;
                     position: relative;
@@ -362,9 +349,10 @@ header {
                     text-align: left;
                     margin: 0;
                     display: flex;
-                    flex-direction: column;
-                    padding: 0 0.5rem;
+                    flex-direction: row;
+                    padding: 0;
                     overflow: initial;
+                    margin-top: variables.$base-spacing;
 
                     .user-greeting {
                         flex: 1;
@@ -384,12 +372,9 @@ header {
                         display: flex;
                         flex-direction: row;
 
-
                         a {
                             flex: 1;
                             flex-grow: 0;
-                            font-size: 1em;
-                            line-height: 1em;
                             padding: 0;
                             height: auto;
                             margin-right: variables.$base-spacing;
@@ -415,7 +400,7 @@ header {
                 justify-items: left;
                 justify-content: left;
                 margin: 0 auto;
-                margin-top: (variables.$base-spacing * 2);
+                margin-top: (variables.$base-spacing * 1.5);
                 overflow: initial;
                 a {
                     position: relative;
