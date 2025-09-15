@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PuzzleController extends AbstractBaseController
 {
-    #[Route('/', name: 'app.puzzles.index')]
+    #[Route('/puzzles', name: 'app.puzzles.index')]
     public function index(Request $request): Response
     {
         $pageVars = [

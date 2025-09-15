@@ -58,6 +58,7 @@ header {
         top: 1vh;
         left: 50%;
         margin-left: 0 - math.div(($mobile-header-height - 2), 2);
+        background-image: url('/dist/images/penrose.svg');
 
     }
 

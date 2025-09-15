@@ -34,6 +34,19 @@ const terserOptions = {
         },
     },
 }
+function myExample() {
+    return {
+        name: 'my-example', // this name will show up in logs and errors
+        resolveId(source) {
+
+            return null; // other ids should be handled as usually
+        },
+        load(id) {
+
+            return null;
+        }
+    };
+}
 
 const config = [
     {
@@ -41,10 +54,7 @@ const config = [
         input: 'resources/typescript/app.ts',
         output: {
             dir: './public/dist/js/',
-            format: 'es',
-            watch: [
-                'resources/typescript/'
-            ]
+            format: 'es'
         },
 
         plugins: [
@@ -89,6 +99,7 @@ const config = [
             dir: './public/dist/css/'
         },
         plugins: [
+            myExample(),
             scss({
                 fileName: 'critical.css',
                 outputStyle: 'compressed',
@@ -97,6 +108,7 @@ const config = [
                     'resources/sass/critical/'
                 ],
             }),
+
             summary()
         ]
     },
@@ -136,6 +148,7 @@ const config = [
 if (process.env.NODE_ENV !== 'development') {
   config[0].plugins.push(terser(terserOptions));
   config[1].plugins.push(terser(terserOptions));
+  config[2].plugins.push(terser(terserOptions));
 }
 
 export default config;

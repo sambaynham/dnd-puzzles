@@ -10,6 +10,14 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PageController extends AbstractBaseController
 {
+
+    #[Route('/', name: 'app.pages.home')]
+    public function index(Request $request): Response {
+        $pageVars =[
+            'pageTitle' => 'Welcome to the Conundrum Codex!'
+        ];
+        return $this->render('pages/index.html.twig', $this->populatePageVars($pageVars, $request));
+    }
     #[Route('/contributing', name: 'app.pages.contributing')]
     public function contributing(Request $request): Response {
         $pageVars =[
