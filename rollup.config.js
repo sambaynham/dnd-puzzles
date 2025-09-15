@@ -15,10 +15,10 @@ const copyConfig = {
         src: 'resources/fonts',
         dest: 'public'
     },
-      {
-          src: 'resources/audio',
-          dest: 'public'
-      },
+    {
+        src: 'resources/audio',
+        dest: 'public'
+    },
   ]
 };
 
@@ -41,6 +41,9 @@ const config = [
         output: {
             dir: './public/js/',
             format: 'es',
+            watch: [
+                'resources/typescript/'
+            ]
         },
 
         plugins: [

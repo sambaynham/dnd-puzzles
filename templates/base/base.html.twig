@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<!-- 853.74 to beat -->
-<!-- 476.5 -->
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{{ pageTitle }} | {{ siteName }}</title>
+
         {% embed 'base/partials/preloads.html.twig' %}{% endembed %}
+        <script src="//unpkg.com/@ungap/custom-elements"></script>
         <link rel="icon" href="/images/myotr-logo.svg">
         <link rel="stylesheet" href="/css/critical.css">
         <script src="/js/app.js"></script>
@@ -17,7 +17,7 @@
         {% embed 'base/partials/alerts.html.twig' %}{% endembed %}
         <main>
             <div class="title-container">
-                <h1 is="drop-cap">{{ pageTitle }}</h1>
+                <h1 class="drop-cap">{{ pageTitle }}</h1>
             </div>
             {% block body %}{% endblock %}
         </main>

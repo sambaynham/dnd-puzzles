@@ -16,5 +16,4 @@ export default class HammerFiringButton extends HTMLButtonElement {
             }
         })
     }
-
 }
