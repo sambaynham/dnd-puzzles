@@ -400,8 +400,10 @@ header {
                 justify-items: left;
                 justify-content: left;
                 margin: 0 auto;
+                padding: 0 variables.$base-spacing;
                 margin-top: (variables.$base-spacing * 1.5);
                 overflow: initial;
+
                 a {
                     position: relative;
                     color: palette.$ink;
@@ -412,6 +414,11 @@ header {
                     flex-grow: 0;
                     flex-shrink: 1;
                     margin-right: variables.$base-spacing;
+                    padding: 0;
+                    padding-right: 2rem;
+                    padding-left: 0;
+
+
 
                     &:hover {
                         color: palette.$crimson;
@@ -434,6 +441,26 @@ header {
                         margin-left: -0.125rem;
                         margin-top: 0.125rem;
                         background-size: 500%;
+                    }
+
+                    &:after {
+                        content: " ";
+                        display: block;
+                        position: absolute;
+                        width: 0.5rem;
+                        height: 0.5rem;
+                        top: 0.5rem;
+                        right: 0.5rem;
+                        background: linear-gradient(palette.$crimson, color.adjust(palette.$crimson, $lightness: -15%, $space: hsl));
+                        pointer-events: none;
+                        border: 0.25rem outset rgba(255, 255, 255, 0.25);
+                        transform: rotate(45deg);
+                    }
+
+                    &:last-child {
+                        &:after {
+                            display: none;
+                        }
                     }
                 }
             }

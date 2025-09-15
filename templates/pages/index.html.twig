@@ -1,20 +1,46 @@
 {% extends 'base/base-minimal.html.twig' %}
 {% block body %}
 
-    <div class="row flush">
+    <div class="row flush two-thirds-one-third">
         <div class="col">
-            <div class="roundel">
-                <h1 class="drop-cap">Welcome!</h1>
+            <div class="rounded panel">
+                <img src="/dist/images/hero.webp" alt="A puzzled party of adventurers poring over a scroll" class="panel-backer">
+                <h2 class="panel-heading">
+                    Welcome to {{ siteName }}
+                </h2>
+                <div class="panel-body">
+                    <p>{{ siteName }} is a community-driven site where Online Games-Masters can share interactive puzzles with their players.</p>
+                    <a href="{{ path('app.auth.register') }}" class="btn btn-secondary">Get Started</a>
+                </div>
             </div>
         </div>
         <div class="col">
-            <div class="roundel">
-                <h1 class="drop-cap">Welcome!</h1>
+            <div class="rounded panel">
+                <img src="/dist/images/dryad.webp" alt="A puzzled party of adventurers poring over a scroll" class="panel-backer">
+                <h2 class="panel-heading">
+                    Latest News
+                </h2>
+                <div class="panel-body">
+                    <p>Work in Progress</p>
+                    <p>This site is in its very earliest stages, and should not be relied upon for regular play.</p>
+                </div>
             </div>
 
         </div>
+
+    </div>
+    <div class="row flush">
         <div class="col">
-            <img src="/dist/images/hero.webp" alt="A puzzled party of adventurers poring over a scroll">
+            <hr />
         </div>
+    </div>
+    <div class="row flush">
+        <div class="col">
+            <h1 class="drop-cap">About</h1>
+            <p>{{ siteName }} is designed to help online games-masters of tabletop RPGs set engaging interactive puzzles remotely.</p>
+            <p>We're community drive, and offer many different types of puzzles that can be customised to meet the needs of your game and setting.</p>
+            <p></p>
+        </div>
+
     </div>
 {% endblock %}
