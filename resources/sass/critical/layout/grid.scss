@@ -16,7 +16,8 @@ main {
         flex-direction: column;
 
         img {
-            width: 100%;
+            max-height: 100%;
+            max-width: initial;
         }
     }
 
@@ -34,6 +35,12 @@ main {
         max-width: variables.$desktopMaxViewportWidth;
         margin-top: (variables.$base-spacing * 2);
 
+        .row, .col {
+            img {
+                max-height: initial;
+                max-width: 100%;
+            }
+        }
         .row {
             flex-direction: row;
 
