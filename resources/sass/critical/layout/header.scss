@@ -415,7 +415,7 @@ header {
                     flex-shrink: 1;
                     margin-right: variables.$base-spacing;
                     padding: 0;
-                    padding-right: 2rem;
+                    padding-right: 1.5rem;
                     padding-left: 0;
 
 
@@ -447,14 +447,12 @@ header {
                         content: " ";
                         display: block;
                         position: absolute;
-                        width: 0.5rem;
-                        height: 0.5rem;
-                        top: 0.5rem;
-                        right: 0.5rem;
-                        background: linear-gradient(palette.$crimson, color.adjust(palette.$crimson, $lightness: -15%, $space: hsl));
-                        pointer-events: none;
-                        border: 0.25rem outset rgba(255, 255, 255, 0.25);
-                        transform: rotate(45deg);
+                        width: 1rem;
+                        height: 1rem;
+                        top: 0.25rem;
+                        right: 0rem;
+                        background-image: url('/dist/images/eroded-star.svg');
+                        background-size: contain;
                     }
 
                     &:last-child {

@@ -1,0 +1,10 @@
+img {
+    transition: opacity 200ms ease-in-out;
+    opacity: 0;
+}
+
+body.loaded {
+    img {
+        opacity: 1;
+    }
+}
