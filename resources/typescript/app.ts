@@ -30,7 +30,7 @@ import {SlideShow} from "./components/SlideShow/SlideShow";
         customElementRegistry.define('tooltip-element', ToolTip, {extends: 'span'});
         customElementRegistry.define('motd-span', MessageOfTheDay, {extends: 'span'})
         customElementRegistry.define('flash-alert', FlashAlert, {extends: 'span'});
-        customElementRegistry.define('slideshow-list', SlideShow, {extends: 'ul'});
+        customElementRegistry.define('slideshow-element', SlideShow, {extends: 'div'});
     }
 })();
 

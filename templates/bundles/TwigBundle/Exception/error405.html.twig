@@ -1,0 +1,11 @@
+{% extends 'base/base-error.html.twig' %}
+{% set pageTitle = '405 - Method not allowed' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1 class="drop-cap">Error 405 - Method Not Allowed</h1>
+            <p>You can’t use ‘Sing Bard Song’ in combat.</p>
+            <a href="{{ path('app.page.home') }}">Back to Homepage</a>
+        </div>
+    </div>
+{% endblock %}

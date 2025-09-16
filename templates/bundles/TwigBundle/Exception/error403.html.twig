@@ -1,0 +1,11 @@
+{% extends 'base/base-error.html.twig' %}
+{% set pageTitle = '403 - Forbidden' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1 class="drop-cap">Error 403 - Forbidden</h1>
+            <p>You shall not pass!</p>
+            <a href="{{ path('app.page.home') }}">Back to Homepage</a>
+        </div>
+    </div>
+{% endblock %}

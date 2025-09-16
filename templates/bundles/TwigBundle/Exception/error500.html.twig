@@ -1,0 +1,11 @@
+{% extends 'base/base-error.html.twig' %}
+{% set pageTitle = '500 - Server Error' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1 class="drop-cap">Error 500 - Server Error</h1>
+            <p>The server rolled a natural 1 on its saving throw.</p>
+            <a href="{{ path('app.page.home') }}">Back to Homepage</a>
+        </div>
+    </div>
+{% endblock %}

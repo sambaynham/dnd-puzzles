@@ -6,5 +6,5 @@ hr {
     background-image: url("/dist/images/eroded-line.svg");
     background-size: contain;
     background-position: left;
-    margin: (variables.$base-spacing * 2) 0;
+    margin: variables.$base-spacing 0;
 }

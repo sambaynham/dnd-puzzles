@@ -1,0 +1,11 @@
+{% extends 'base/base-error.html.twig' %}
+{% set pageTitle = '422 - Malformed Entity' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1 class="drop-cap">Error 422 - Malformed Entity</h1>
+            <p>Well, you may certainly <em>try</em></p>
+            <a href="{{ path('app.page.home') }}">Back to Homepage</a>
+        </div>
+    </div>
+{% endblock %}

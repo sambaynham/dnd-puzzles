@@ -41,4 +41,12 @@ class PageController extends AbstractBaseController
         ];
         return $this->render('pages/terms.html.twig', $this->populatePageVars($pageVars, $request));
     }
+
+    #[Route('/credits', name: 'app.pages.credits')]
+    public function credits(Request $request): Response {
+        $pageVars =[
+            'pageTitle' => 'Credits'
+        ];
+        return $this->render('pages/credits.html.twig', $this->populatePageVars($pageVars, $request));
+    }
 }

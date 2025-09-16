@@ -1,36 +1,31 @@
-export class SlideShow extends HTMLUListElement{
+export class SlideShow extends HTMLDivElement {
 
+
+    private pager: HTMLElement;
     constructor(
-        private items: NodeListOf<HTMLLIElement>,
-        private slideShowPager: HTMLUListElement
     ) {
         super();
-        this.items = this.querySelectorAll('li');
-        this.slideShowPager = document.createElement('ul');
-        this.slideShowPager.classList.add('slideshow-pager');
+        let pager: HTMLElement|null = this.querySelector('nav.slideshow-pager');
+
+        if (pager === null) {
+            throw new Error('Slideshows require a pager');
+        }
+
+        this.pager = pager;
     }
+
     connectedCallback(): void {
-
-
-
-
-        this.items.forEach((item: HTMLLIElement) => {
-            let pagerItem:HTMLLIElement = document.createElement('li');
-            if (item.dataset.delta === undefined) {
-                throw new Error('Delta must be defined');
-            }
-            pagerItem.dataset.delta = item.dataset.delta;
-            pagerItem.innerHTML = item.dataset.delta;
-
-            this.slideShowPager.appendChild(pagerItem);
-        });
-
-        this.appendChild(this.slideShowPager);
-
-        this.arrangeItems();
-    }
-
-    private arrangeItems(): void {
-
+        this.pager.querySelectorAll('a').forEach((a: HTMLAnchorElement) => {
+            a.addEventListener('click', (e: MouseEvent) => {
+                a.classList.add('active');
+                e.preventDefault();
+                let targetSlide = this.querySelector(`${a.getAttribute('href')}`);
+                targetSlide?.scrollIntoView(
+                    {
+                        behavior: "smooth"
+                    }
+                );
+            })
+        })
     }
 }

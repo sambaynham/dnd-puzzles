@@ -1,4 +1,7 @@
 @use '../base/variables';
+body,html {
+    margin-top: 0;
+}
 
 header {
     margin: variables.$base-spacing 0;

@@ -4,33 +4,35 @@
     <div class="row flush two-thirds-one-third">
         <div class="col">
             <div class="rounded panel">
-                <ul class="slideshow" is="slideshow-list">
-                    <li data-delta="1">
-                        <img src="/dist/images/hero.webp" alt="A puzzled party of adventurers poring over a scroll" class="slide-backer">
-                        <h2 class="slide-heading">
-                            Welcome to {{ siteName }}
-                        </h2>
-                        <div class="slide-body">
-                            <p>{{ siteName }} is a community-driven site where Online Games-Masters can share interactive puzzles with their players.</p>
-                            <a href="{{ path('app.auth.register') }}" class="btn btn-secondary">Get Started</a>
-                        </div>
-                    </li>
-                    <li data-delta="2">
-                        <img src="/dist/images/hero2.jpg" alt="A happy adventurer looks out over a vista" class="slide-backer">
-                        <h2 class="slide-heading">
-                            Some other item
-                        </h2>
-                        <div class="slide-body">
-                            <p>Lorem ipsum dolor sit amet ad conspectitur adelescing</p>
-                            <a href="{{ path('app.auth.register') }}" class="btn btn-secondary">Get Started</a>
-                        </div>
-                    </li>
-                </ul>
-
+                {{ component(
+                    'Slideshow',
+                    {
+                        'name':  'heroslide',
+                        'slides' : [
+                        {
+                            'imgSrc': '/dist/images/hero.webp',
+                            'imgAlt': 'A puzzled party of adventurers poring over a scroll',
+                            'slideHeading': 'Welcome to the Conundrum Codex',
+                            'slideBody': 'The Conundrum Codex is a community-driven site where Online Games-Masters can share interactive puzzles with their players.',
+                            'cta': {
+                                'route': 'app.auth.register',
+                                'label': 'Get Started'
+                            }
+                        },
+                        {
+                            'imgSrc': '/dist/images/hero2.jpg',
+                            'imgAlt': 'A happy adventurer looks out over a vista',
+                            'slideHeading': 'Some other item',
+                            'slideBody': 'The Conundrum Codex is a community-driven site where Online Games-Masters can share interactive puzzles with their players.',
+                        }
+                    ]
+                    }
+                ) }}
             </div>
         </div>
         <div class="col">
             <div class="rounded panel">
+
             <!--    <img src="/dist/images/dryad.webp" alt="A puzzled party of adventurers poring over a scroll" class="panel-backer">
                 <h2 class="panel-heading">
                     Latest News

@@ -1,0 +1,24 @@
+<div class="slideshow" is="slideshow-element" id="{{ name }}">
+    <ul class="slideshow-slides">
+        {% for delta,slide in slides %}
+            <li id="{{ name }}-{{ delta }}" class="slideshow-slide">
+                <img src="{{ slide.imgSrc }}" alt="{{ slide.imgAlt }}" class="slide-backer">
+                <h2 class="slide-heading">
+                    {{ slide.slideHeading }}
+                </h2>
+                <div class="slide-body">
+                    {{ slide.slideBody }}
+                    {% if slide.cta is defined %}
+                        <a href="{{ path(slide.cta.route) }}" class="btn btn-secondary">{{ slide.cta.label }}</a>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <nav class="slideshow-pager">
+        {% for delta,slide in slides %}
+            <a href="#{{ name }}-{{ delta }}">{{ delta }}</a>
+        {% endfor %}
+    </nav>
+</div>
+
