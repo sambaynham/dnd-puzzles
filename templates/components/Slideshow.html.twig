@@ -1,15 +1,19 @@
 <div class="slideshow" is="slideshow-element" id="{{ name }}">
     <ul class="slideshow-slides">
         {% for delta,slide in slides %}
-            <li id="{{ name }}-{{ delta }}" class="slideshow-slide">
+            <li id="{{ name }}-{{ delta }}" class="slideshow-slide {% if delta == 0 %}active{% endif %}">
+
                 <img src="{{ slide.imgSrc }}" alt="{{ slide.imgAlt }}" class="slide-backer">
                 <h2 class="slide-heading">
-                    {{ slide.slideHeading }}
+                   {{ slide.slideHeading }}
                 </h2>
                 <div class="slide-body">
                     {{ slide.slideBody }}
                     {% if slide.cta is defined %}
-                        <a href="{{ path(slide.cta.route) }}" class="btn btn-secondary">{{ slide.cta.label }}</a>
+                        <div class="slideshow-cta">
+                            <a href="{{ path(slide.cta.route) }}" class="btn btn-secondary">{{ slide.cta.label }}</a>
+                        </div>
+
                     {% endif %}
                 </div>
             </li>
@@ -17,7 +21,7 @@
     </ul>
     <nav class="slideshow-pager">
         {% for delta,slide in slides %}
-            <a href="#{{ name }}-{{ delta }}">{{ delta }}</a>
+            <a class="{% if delta == 0 %}active{% endif %}" href="#{{ name }}-{{ delta }}">{{ delta }}</a>
         {% endfor %}
     </nav>
 </div>

@@ -1,7 +1,7 @@
 {% extends 'base/base-minimal.html.twig' %}
 {% block body %}
 
-    <div class="row flush two-thirds-one-third">
+    <div class="row flush three-quarters-one-quarter">
         <div class="col">
             <div class="rounded panel">
                 {{ component(
@@ -31,17 +31,14 @@
             </div>
         </div>
         <div class="col">
-            <div class="rounded panel">
+            <h2>Browse Puzzles</h2>
+            <h3 class="centerline">Categories</h3>
+            <nav class="puzzle-categories lozenges">
+                {%  for category in categories %}
+                    <a href="{{ path('app.puzzles.category.show', {'categorySlug': category.getSlug}) }}">{{ category.getLabel }}</a>
+                {% endfor %}
+            </nav>
 
-            <!--    <img src="/dist/images/dryad.webp" alt="A puzzled party of adventurers poring over a scroll" class="panel-backer">
-                <h2 class="panel-heading">
-                    Latest News
-                </h2>
-                <div class="panel-body">
-                    <p>Work in Progress</p>
-                    <p>This site is in its very earliest stages, and should not be relied upon for regular play.</p>
-                </div>-->
-            </div>
 
         </div>
 

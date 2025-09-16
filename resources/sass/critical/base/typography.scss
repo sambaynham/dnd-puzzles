@@ -79,7 +79,7 @@ h2 {
 }
 
 h3 {
-    font-size: 1.17em;	/* 1.17*16 = 18.72 */
+    font-size: 1.33em;	/* 1.17*16 = 18.72 */
 }
 
 h4 {
@@ -94,6 +94,40 @@ h6 {
     font-size: 0.75em;	/* 0.75*16 = 12 */
 }
 
+h1,h2,h3,h4,h5,h6 {
+    &.centerline {
+        text-align: center;
+        position: relative;
+        text-shadow: 0 0 0.25rem palette.$vellum, 0 0 0.125rem palette.$vellum;
+        text-transform: uppercase;
+
+        &:before {
+            content: " ";
+            display: block;
+            height: 0.125rem;
+            position: absolute;
+            background: palette.$goldFX;
+            top: 50%;
+            margin-top: -0.0625rem;
+            width: 100%;
+            left: 0;
+            z-index: -1;
+        }
+
+        &:after {
+            display: block;
+            position: absolute;
+            content: " ";
+            background: radial-gradient(ellipse at 50% 50%, palette.$vellum, transparent);
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+        }
+
+    }
+}
 @media only screen and (min-width: 1080px) {
     h1 {
         position: relative;

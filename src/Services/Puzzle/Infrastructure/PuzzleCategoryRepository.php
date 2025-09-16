@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Services\Puzzle\Infrastructure;
 
-use App\Entity\PuzzleCategory;
+use App\Services\Puzzle\Domain\PuzzleCategory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

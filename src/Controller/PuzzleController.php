@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +11,10 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PuzzleController extends AbstractBaseController
 {
+
+    public function __construct(private PuzzleServiceInterface $puzzleService) {
+    }
+
     #[Route('/puzzles', name: 'app.puzzles.index')]
     public function index(Request $request): Response
     {
@@ -32,5 +37,18 @@ final class PuzzleController extends AbstractBaseController
             ]
         ];
         return $this->render('puzzles/index.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[Route('/puzzles/categories/{categorySlug}', name: 'app.puzzles.category.show')]
+    public function category(string $categorySlug, Request $request): Response {
+        $category = $this->puzzleService->getCategoryBySlug($categorySlug);
+        if (!$category) {
+            throw $this->createNotFoundException('Category not found');
+        }
+        $pageVars = [
+            'pageTitle' => $category->getLabel(),
+            'category' => $category,
+        ];
+        return $this->render('puzzles/categories/category.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

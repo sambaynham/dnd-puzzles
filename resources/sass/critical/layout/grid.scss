@@ -62,6 +62,15 @@ main {
                     flex-shrink: 1;
                 }
             }
+            &.three-quarters-one-quarter {
+                .col:first-child {
+                    flex-basis: 75%;
+                }
+                .col:last-child {
+                    flex-basis: 25%;
+                    flex-shrink: 1;
+                }
+            }
 
             &.flush {
                 .col:first-child {
