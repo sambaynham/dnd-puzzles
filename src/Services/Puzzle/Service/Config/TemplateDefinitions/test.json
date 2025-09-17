@@ -1,0 +1,43 @@
+{
+    "name": "Test Switch Puzzle Template",
+    "slug": "switches",
+    "description": "This is a test description of a puzzle.",
+    "category": "switches",
+    "type": "test",
+    "tags": [
+        "fun",
+        "test"
+    ],
+    "creator": "sam.baynham@gmail.com",
+    "credits": [
+        {
+            "name": "Sam Baynham",
+            "email": "sam.baynham@gmail.com",
+            "created": "Code, Styling"
+        },
+        {
+            "name": "Betsy Ogilvy",
+            "created": "Art"
+        }
+    ],
+    "configOptions": [
+        {
+            "configName": "clue",
+            "label": "Clue",
+            "type": "text",
+            "helpText": " A clue that will be presented to the player."
+        },
+        {
+            "configName": "switches",
+            "label": "Switches",
+            "type": "stringArray",
+            "helpText": "An array of switch names which will be used to generate switches on the screen."
+        },
+        {
+            "configName": "solution",
+            "label": "Solution",
+            "type": "stringArray",
+            "helpText": "An array of the switch names above containing only valid selections."
+        }
+    ]
+}

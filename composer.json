@@ -27,6 +27,7 @@
         "symfony/form": "7.3.*",
         "symfony/framework-bundle": "7.3.*",
         "symfony/http-foundation": "7.3.*",
+        "symfony/json-streamer": "7.3.*",
         "symfony/mailer": "7.3.*",
         "symfony/property-access": "7.3.*",
         "symfony/property-info": "7.3.*",
