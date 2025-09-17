@@ -2,6 +2,7 @@
 
 namespace App\Services\Puzzle\Service\Factory;
 
+use App\Services\Puzzle\Service\Factory\Exceptions\InvalidConfigOptionDefinitionException;
 use App\Services\Puzzle\Service\Factory\Exceptions\PuzzleTemplateRegistryBuildException;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use App\Services\Puzzle\Service\PuzzleTemplateRegistry;
@@ -24,6 +25,16 @@ class PuzzleTemplateRegistryFactory
         'credits' => 'array',
         'configOptions' => 'configOptions'
     ];
+    private const array REQUIRED_CONFIG_OPTION_FIELDS = [
+        'configName',
+        'label',
+        'type'
+    ];
+
+    private const array KNOWN_CONFIG_OPTION_TYPES = [
+        'text',
+        'stringArray'
+    ];
 
     public static function createPuzzleTemplateRegister(): PuzzleTemplateRegistryInterface {
         $finder = new Finder();
@@ -34,15 +45,12 @@ class PuzzleTemplateRegistryFactory
         if ($finder->hasResults()) {
             foreach ($finder as $file) {
                 $result = json_decode($file->getContents(), true );
-                try {
-                    self::validateDefinition($result);
-                } catch (PuzzleTemplateRegistryBuildException $e) {
-                    dump($e->getMessage());
-                    die('OH NOES');
-                }
-
+                self::validateDefinition($result);
+                //Now build the results.
             }
         }
+
+
         die('I got here');
     }
 
@@ -79,17 +87,30 @@ class PuzzleTemplateRegistryFactory
                         break;
                     case 'configOptions':
 
-                        self::validateConfigOption($value);
+                        self::validateConfigOptions($value);
                         break;
                     default:
                         throw new PuzzleTemplateRegistryBuildException(sprintf("Unknown field type %s specified", $fieldType));
-                        break;
                 }
             }
         }
     }
 
-    public static function validateConfigOption(array $configOptionDefinition): void {
-        dd($configOptionDefinition);
+    /**
+     * @param array $configOptionDefinitions
+     * @return void
+     * @throws InvalidConfigOptionDefinitionException
+     */
+    public static function validateConfigOptions(array $configOptionDefinitions): void {
+        foreach ($configOptionDefinitions as $configOptionDefinition) {
+            foreach (self::REQUIRED_CONFIG_OPTION_FIELDS as $fieldName) {
+                if (!isset($configOptionDefinition[$fieldName])) {
+                    throw new InvalidConfigOptionDefinitionException(sprintf("Invalid config option. The subfield '%s' is required", $fieldName));
+                }
+                if (!in_array($configOptionDefinition['type'], self::KNOWN_CONFIG_OPTION_TYPES)) {
+                    throw new InvalidConfigOptionDefinitionException(sprintf("Invalid Config option. The type '%s' is not known", $configOptionDefinition['type']));
+                }
+            }
+        }
     }
 }
