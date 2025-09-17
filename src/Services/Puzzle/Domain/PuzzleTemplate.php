@@ -2,32 +2,39 @@
 
 namespace App\Services\Puzzle\Domain;
 
-use App\Entity\AbstractDomainEntity;
 use App\Entity\User;
-use App\Services\Puzzle\Infrastructure\PuzzleTemplateRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PuzzleTemplateRepository::class)]
-class PuzzleTemplate extends AbstractDomainEntity
+class PuzzleTemplate
 {
     public function __construct(
-        #[ORM\Column(length: 255)]
+        private string $slug,
         private string $title,
-
-        #[ORM\Column(length: 1024)]
         private string $description,
-
-        #[ORM\ManyToMany(targetEntity: PuzzleCategory::class)]
         private array $puzzleCategories,
-
-        #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'puzzlesAuthored')]
-        private User $author,
-
-        #[ORM\Column(type: 'json')]
+        private string $authorEmail,
         private array $configuration = [],
-        ? int $id = null
     ) {
-        parent::__construct($id);
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    public function getAuthorEmail(): string
+    {
+        return $this->authorEmail;
+    }
+
+    public function setAuthorEmail(string $authorEmail): void
+    {
+        $this->authorEmail = $authorEmail;
     }
 
     public function getDescription(): string
@@ -54,16 +61,6 @@ class PuzzleTemplate extends AbstractDomainEntity
         $this->title = $title;
 
         return $this;
-    }
-
-    public function getAuthor(): User
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(User $author): void
-    {
-        $this->author = $author;
     }
 
     public function getConfiguration(): array
