@@ -1,7 +1,7 @@
 @use '../base/variables';
 @use '../base/palette';
 @use 'sass:math';
-$slideshowHeight: 33vh;
+$slideshowHeight: 40vh;
 
 .slideshow {
     position: relative;
@@ -60,6 +60,14 @@ $slideshowHeight: 33vh;
                 z-index: 1;
                 background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 75%, rgba(0, 0, 0, 0) 100%);
                 color: palette.$white;
+            }
+
+            .slideshow-cta {
+                margin-top: variables.$base-spacing;
+
+                a {
+                    margin: 0;
+                }
             }
         }
 
