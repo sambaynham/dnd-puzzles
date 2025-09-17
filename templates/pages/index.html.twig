@@ -1,7 +1,7 @@
 {% extends 'base/base-minimal.html.twig' %}
 {% block body %}
 
-    <div class="row flush two-thirds-one-third">
+    <div class="row flush three-quarters-one-quarter">
         <div class="col">
             <div class="rounded panel">
                 {{ component(
@@ -33,7 +33,7 @@
         <div class="col">
             <h2>Browse Puzzles</h2>
             <h3 class="centerline">Categories</h3>
-            <nav class="puzzle-categories lozenges">
+            <nav class="puzzle-categories lozenges grid">
                 {%  for category in categories %}
                     <a href="{{ path('app.puzzles.category.show', {'categorySlug': category.getSlug}) }}">{{ category.getLabel }}</a>
                 {% endfor %}
