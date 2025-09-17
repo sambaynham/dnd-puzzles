@@ -5,16 +5,37 @@ namespace App\Services\Puzzle\Domain;
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
-class PuzzleTemplate
+readonly class PuzzleTemplate
 {
+    /**
+     * @param string $slug
+     * @param string $title
+     * @param string $description
+     * @param string $category
+     * @param string $authorEmail
+     * @param array<PuzzleCredit $credits
+     * @param array<ConfigOptionDefinition> $configuration
+     */
     public function __construct(
         private string $slug,
         private string $title,
+        private \DateTimeImmutable $createdAt,
         private string $description,
-        private array $puzzleCategories,
+        private string $category,
         private string $authorEmail,
-        private array $configuration = [],
+        private array $credits = [],
+        private array  $configuration = [],
     ) {
+    }
+
+    public function getCategory(): string
+    {
+        return $this->category;
+    }
+
+    public function getCredits(): array
+    {
+        return $this->credits;
     }
 
     public function getSlug(): string
@@ -22,54 +43,36 @@ class PuzzleTemplate
         return $this->slug;
     }
 
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
-    }
 
     public function getAuthorEmail(): string
     {
         return $this->authorEmail;
     }
 
-    public function setAuthorEmail(string $authorEmail): void
-    {
-        $this->authorEmail = $authorEmail;
-    }
 
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    public function getPuzzleCategories(): string
     {
-        $this->description = $description;
+        return $this->category;
     }
-
-    public function getPuzzleCategories(): array
-    {
-        return $this->puzzleCategories;
-    }
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): static
-    {
-        $this->title = $title;
-
-        return $this;
-    }
 
     public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
-    public function setConfiguration(array $configuration): void
+    public function getCreatedAt(): \DateTimeImmutable
     {
-        $this->configuration = $configuration;
+        return $this->createdAt;
     }
+
 }

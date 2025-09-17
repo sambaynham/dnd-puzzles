@@ -1,9 +1,10 @@
 {
-    "name": "Test Switch Puzzle Template",
+    "title": "Test Switch Puzzle Template",
     "slug": "switches",
     "description": "This is a test description of a puzzle.",
     "category": "switches",
     "type": "test",
+    "created": "2025-09-17",
     "tags": [
         "fun",
         "test"
