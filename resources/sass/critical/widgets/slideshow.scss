@@ -22,9 +22,12 @@
 
             transition: opacity 0.5s ease-in-out;
             opacity: 0;
+            pointer-events: none;
 
             &.active {
                 opacity: 1;
+                pointer-events: all;
+                z-index: 2;
             }
 
             img.slide-backer {
