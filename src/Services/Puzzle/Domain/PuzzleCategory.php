@@ -19,9 +19,17 @@ class PuzzleCategory extends AbstractDomainEntity
         #[ORM\Column(length: 255, unique: true)]
         private readonly string $label,
 
-        ?int                    $id = null
+        #[ORM\Column(length: 1024)]
+        private readonly string $description,
+
+        ?int $id = null
     ) {
         parent::__construct($id);
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
     }
 
 

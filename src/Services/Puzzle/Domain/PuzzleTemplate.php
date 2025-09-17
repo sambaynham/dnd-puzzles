@@ -2,39 +2,48 @@
 
 namespace App\Services\Puzzle\Domain;
 
+use App\Entity\AbstractDomainEntity;
 use App\Entity\User;
 use App\Services\Puzzle\Infrastructure\PuzzleTemplateRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PuzzleTemplateRepository::class)]
-#[ORM\HasLifecycleCallbacks]
-class PuzzleTemplate
+class PuzzleTemplate extends AbstractDomainEntity
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    public function __construct(
+        #[ORM\Column(length: 255)]
+        private string $title,
 
-    #[ORM\Column(length: 255)]
-    private ?string $title = null;
+        #[ORM\Column(length: 1024)]
+        private string $description,
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+        #[ORM\ManyToMany(targetEntity: PuzzleCategory::class)]
+        private array $puzzleCategories,
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+        #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'puzzlesAuthored')]
+        private User $author,
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'puzzlesAuthored')]
-    private User $author;
-
-    #[ORM\Column]
-    private array $configuration = [];
-
-    public function getId(): ?int
-    {
-        return $this->id;
+        #[ORM\Column(type: 'json')]
+        private array $configuration = [],
+        ? int $id = null
+    ) {
+        parent::__construct($id);
     }
 
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getPuzzleCategories(): array
+    {
+        return $this->puzzleCategories;
+    }
     public function getTitle(): ?string
     {
         return $this->title;
@@ -45,17 +54,6 @@ class PuzzleTemplate
         $this->title = $title;
 
         return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
     }
 
     public function getAuthor(): User
@@ -76,16 +74,5 @@ class PuzzleTemplate
     public function setConfiguration(array $configuration): void
     {
         $this->configuration = $configuration;
-    }
-
-    #[ORM\PrePersist]
-    public function prePersist(): void
-    {
-        $this->createdAt = new \DateTimeImmutable();
-        $this->updatedAt = new \DateTimeImmutable();
-    }
-    #[ORM\PreUpdate]
-    public function preUpdate(): void {
-        $this->updatedAt = new \DateTimeImmutable();
     }
 }

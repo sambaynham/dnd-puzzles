@@ -46,7 +46,7 @@ final class PuzzleController extends AbstractBaseController
             throw $this->createNotFoundException('Category not found');
         }
         $pageVars = [
-            'pageTitle' => $category->getLabel(),
+            'pageTitle' => sprintf('%s Puzzles', $category->getLabel(),),
             'category' => $category,
         ];
         return $this->render('puzzles/categories/category.html.twig', $this->populatePageVars($pageVars, $request));
