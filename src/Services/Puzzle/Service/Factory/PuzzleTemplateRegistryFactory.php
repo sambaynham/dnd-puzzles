@@ -37,13 +37,16 @@ class PuzzleTemplateRegistryFactory
 
     private const array KNOWN_CONFIG_OPTION_TYPES = [
         'text',
-        'stringArray'
+        'stringArray',
+        'dieRoll'
     ];
 
     /**
-     * @throws PuzzleTemplateRegistryBuildException
+     * @throws PuzzleTemplateRegistryBuildException|\DateMalformedStringException
      */
-    public static function createPuzzleTemplateRegister(): PuzzleTemplateRegistryInterface {
+    public static function createPuzzleTemplateRegistry(): PuzzleTemplateRegistryInterface {
+
+        $registryContent = [];
         $finder = new Finder();
         $finder->files()->in(sprintf('%s/../%s', __DIR__, self::CONFIG_DIR))->name('*.json');
         if (!$finder->hasResults()) {
@@ -63,13 +66,13 @@ class PuzzleTemplateRegistryFactory
                     credits: self::mapCredits($result['credits']),
                     configuration: self::mapConfigOptions($result['configOptions'])
                 );
-                dd($template);
+
+                $registryContent[$template->getSlug()] = $template;
+
 
             }
         }
-
-
-        die('I got here');
+        return new PuzzleTemplateRegistry(templates: $registryContent);
     }
 
     public static function mapCredits(array $credits): array {
@@ -94,6 +97,7 @@ class PuzzleTemplateRegistryFactory
                 helpText: $configOptionDefinition['helpText'] ?? null
             );
         }
+
         return $configOptions;
 
     }
@@ -162,6 +166,26 @@ class PuzzleTemplateRegistryFactory
 
                 if (!in_array($configOptionDefinition['type'], self::KNOWN_CONFIG_OPTION_TYPES)) {
                     throw new InvalidConfigOptionDefinitionException(sprintf("Invalid Config option. The type '%s' is not known", $configOptionDefinition['type']));
+                }
+                switch ($type) {
+                    case 'configName':
+                        if (!preg_match(self::SLUG_REGEX, $configOptionDefinition['configName'])) {
+                            throw new InvalidConfigOptionDefinitionException("Slugs may only contain lowercase letters, numbers and underscores.");
+                        }
+                        break;
+                    case 'string':
+
+                        if (!is_string($configOptionDefinition[$fieldName])) {
+                            throw new InvalidConfigOptionDefinitionException(sprintf("%s must be a string", $fieldName));
+                        }
+                        break;
+                    case 'type':
+                        if (!in_array($configOptionDefinition[$fieldName], self::KNOWN_CONFIG_OPTION_TYPES)) {
+                            throw new InvalidConfigOptionDefinitionException(sprintf("Invalid Config option. The type '%s' is not known", $configOptionDefinition[$fieldName]));
+                        }
+                        break;
+                    default:
+                        throw new InvalidConfigOptionDefinitionException(sprintf("Unknown field type %s specified", $type));
                 }
             }
         }

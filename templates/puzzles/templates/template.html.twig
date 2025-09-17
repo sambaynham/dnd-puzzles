@@ -1,0 +1,50 @@
+{% extends 'base/base.html.twig' %}
+{% block body %}
+<div class="row three-quarters-one-quarter">
+    <div class="col">
+        <h2>Description</h2>
+        {{ template.description }}
+        <hr />
+        <h2>Configurable Options</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Label</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for configOption in template.configuration %}
+                    <tr>
+                        <td>
+                            {{ configOption.label }}
+                        </td>
+                        <td>
+                            {{ configOption.helpText }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr/>
+        <a class="btn btn-secondary" href="">Create a puzzle with this template</a>
+
+    </div>
+    <div class="col">
+        <h2>Author</h2>
+        <a href="mailto:{{ template.authorEmail }}">{{ template.authorEmail }}</a>
+        <h2>Contributors</h2>
+        <ul>
+            {% for credit in template.getCredits %}
+                {% if credit.email %}
+                    <li><a href="mailto:{{ credit.email }}">{{ credit.name }}</a> - {{ credit.created }}</li>
+                {% else %}
+                    <li>{{ credit.name }} - {{ credit.created }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+    </div>
+
+</div>
+{% endblock %}

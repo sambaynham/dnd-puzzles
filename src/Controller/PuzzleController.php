@@ -39,16 +39,17 @@ final class PuzzleController extends AbstractBaseController
         return $this->render('puzzles/index.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-    #[Route('/puzzles/categories/{categorySlug}', name: 'app.puzzles.category.show')]
-    public function category(string $categorySlug, Request $request): Response {
-        $category = $this->puzzleService->getCategoryBySlug($categorySlug);
-        if (!$category) {
-            throw $this->createNotFoundException('Category not found');
+    #[Route('/puzzles/templates/{templateSlug}', name: 'app.puzzles.template.show')]
+    public function template(string $templateSlug, Request $request): Response {
+        $template = $this->puzzleService->getTemplateBySlug($templateSlug);
+
+        if (!$template) {
+            throw $this->createNotFoundException('Template not found');
         }
         $pageVars = [
-            'pageTitle' => sprintf('%s Puzzles', $category->getLabel(),),
-            'category' => $category,
+            'pageTitle' => $template->getTitle(),
+            'template' => $template,
         ];
-        return $this->render('puzzles/categories/category.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('puzzles/templates/template.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Services\Puzzle\Service\Interfaces;
 
 use App\Services\Puzzle\Domain\PuzzleCategory;
+use App\Services\Puzzle\Domain\PuzzleTemplate;
 
 interface PuzzleServiceInterface
 {
     /**
-     * @return iterable<PuzzleCategory>
+     * @return iterable<PuzzleTemplate>
      */
-    public function getCategories(): iterable;
+    public function getTemplates(): iterable;
 
-    public function getCategoryBySlug(string $categorySlug): ?PuzzleCategory;
+    public function getTemplateBySlug(string $categorySlug): ?PuzzleTemplate;
 }

@@ -1,7 +1,7 @@
 {
-    "title": "Test Switch Puzzle Template",
+    "title": "Switches",
     "slug": "switches",
-    "description": "This is a test description of a puzzle.",
+    "description": "In a switch puzzle, players set certain switches on and off to win.",
     "category": "switches",
     "type": "test",
     "created": "2025-09-17",
@@ -27,6 +27,12 @@
             "label": "Clue",
             "type": "text",
             "helpText": " A clue that will be presented to the player."
+        },
+        {
+            "configName": "failure",
+            "label": "Failure",
+            "type": "dieRoll",
+            "helpText": "The die that will be rolled for damage if the players get the solution wrong."
         },
         {
             "configName": "switches",

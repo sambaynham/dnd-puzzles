@@ -18,7 +18,7 @@ class PageController extends AbstractBaseController
     public function index(Request $request): Response {
         $pageVars =[
             'pageTitle' => 'Welcome to the Conundrum Codex!',
-            'categories' => $this->puzzleService->getCategories()
+            'templates' => $this->puzzleService->getTemplates()
         ];
         return $this->render('pages/index.html.twig', $this->populatePageVars($pageVars, $request));
     }

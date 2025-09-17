@@ -31,11 +31,11 @@
             </div>
         </div>
         <div class="col">
-            <h2>Browse Puzzles</h2>
-            <h3 class="centerline">Categories</h3>
+            <h2>Create a Puzzle</h2>
+            <h3 class="centerline">Templates</h3>
             <nav class="puzzle-categories lozenges grid">
-                {%  for category in categories %}
-                    <a href="{{ path('app.puzzles.category.show', {'categorySlug': category.getSlug}) }}">{{ category.getLabel }}</a>
+                {%  for template in templates %}
+                    <a href="{{ path('app.puzzles.template.show', {templateSlug: template.getSlug}) }}">{{ template.getTitle }}</a>
                 {% endfor %}
             </nav>
 

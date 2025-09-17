@@ -20,4 +20,4 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface:
-        factory: ['App\Services\Puzzle\Service\Factory\PuzzleTemplateRegistryFactory', 'createPuzzleTemplateRegister']
+        factory: ['App\Services\Puzzle\Service\Factory\PuzzleTemplateRegistryFactory', 'createPuzzleTemplateRegistry']

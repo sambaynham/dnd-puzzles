@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Puzzle\Service;
 
 use App\Services\Puzzle\Domain\PuzzleCategory;
+use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Infrastructure\PuzzleCategoryRepository;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
@@ -15,13 +16,14 @@ class PuzzleService implements PuzzleServiceInterface
         private PuzzleTemplateRegistryInterface $templateRegistry
     ) {}
 
-    public function getCategories(): iterable
+
+    public function getTemplates(): iterable
     {
-//        return $this->puzzleCategoryRepository->findAll();
+        return $this->templateRegistry->getTemplates();
     }
 
-    public function getCategoryBySlug(string $categorySlug): ?PuzzleCategory
+    public function getTemplateBySlug(string $categorySlug): ?PuzzleTemplate
     {
-//        return $this->puzzleCategoryRepository->findOneBy(['slug' => $categorySlug]);
+        return $this->templateRegistry->getTemplate($categorySlug);
     }
 }
