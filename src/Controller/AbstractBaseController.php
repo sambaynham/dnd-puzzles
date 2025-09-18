@@ -19,7 +19,7 @@ abstract class AbstractBaseController extends AbstractController
                 'active' => false
             ],
             [
-                'route' => 'app.puzzles.index',
+                'route' => 'app.puzzles.template.index',
                 'label' => 'Puzzle Templates',
                 'active' => false
             ],
@@ -41,6 +41,15 @@ abstract class AbstractBaseController extends AbstractController
             if ($navItem['route'] === $route) {
                 $navItem['active'] = true;
             }
+        }
+        if (!isset($pageVars['breadcrumbs'])) {
+            $pageVars['breadcrumbs'] = [
+                [
+                    'route' => 'app.pages.home',
+                    'label' => 'Home',
+                    'active' => false
+                ]
+            ];
         }
         return $pageVars;
     }

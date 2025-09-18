@@ -1,0 +1,32 @@
+{% extends 'base/base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Author</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for template in templates %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('app.puzzles.template.show', {'templateSlug': template.getSlug}) }}">{{ template.getTitle }}</a>
+                            </td>
+                            <td>
+                                {{ template.getDescription }}
+                            </td>
+                            <td>
+                                <a href="mailto:{{ template.authorEmail }}">{{ template.authorEmail }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

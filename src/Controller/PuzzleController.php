@@ -39,8 +39,31 @@ final class PuzzleController extends AbstractBaseController
         return $this->render('puzzles/index.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
+
+
+    #[Route('/puzzles/templates', name: 'app.puzzles.template.index')]
+    public function templateIndex(Request $request): Response {
+        $pageVars = [
+            'pageTitle' => 'Puzzle Templates',
+            'templates' => $this->puzzleService->getTemplates(),
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.pages.home',
+                    'label' => 'Home',
+                    'active' => false
+                ],
+                [
+                    'route' => 'app.puzzles.template.index',
+                    'label' => 'Templates',
+                    'active' => true
+                ]
+            ]
+        ];
+        return $this->render('puzzles/templates/index.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
     #[Route('/puzzles/templates/{templateSlug}', name: 'app.puzzles.template.show')]
-    public function template(string $templateSlug, Request $request): Response {
+    public function templateGet(string $templateSlug, Request $request): Response {
         $template = $this->puzzleService->getTemplateBySlug($templateSlug);
 
         if (!$template) {

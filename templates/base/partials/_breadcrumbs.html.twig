@@ -1,0 +1,5 @@
+<nav class="breadcrumbs">
+    {% for breadcrumb in breadcrumbs %}
+        <a href="{{ path(breadcrumb.route) }}">{{ breadcrumb.label }}</a>
+    {% endfor %}
+</nav>

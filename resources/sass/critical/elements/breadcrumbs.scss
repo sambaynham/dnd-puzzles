@@ -1,0 +1,33 @@
+@use '../base/palette';
+@use '../base/variables';
+@use 'sass:color';
+@use 'sass:math';
+
+
+nav.breadcrumbs {
+    display: none;
+}
+
+@media (min-width: 1080px) {
+    nav.breadcrumbs {
+        display: flex;
+        flex-direction: row;
+        a {
+            flex: 1;
+            border: none;
+            flex-grow: 0;
+            position: relative;
+
+            &:hover {
+                color: color.adjust(palette.$crimson, $lightness: 12.5%);
+            }
+            &:not(:last-child):after {
+                content: "/";
+                display: inline;
+                margin: 0 math.div(variables.$base-spacing, 2);
+
+            }
+        }
+    }
+
+}

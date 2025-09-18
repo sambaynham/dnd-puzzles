@@ -99,6 +99,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
             return new PuzzleTemplateRegistry(templates: $registryContent);
         });
     }
+
     public static function mapCredits(array $credits): array {
         $creditArray = [];
         foreach ($credits as $credit) {
