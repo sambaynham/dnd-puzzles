@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Puzzle\Service\Factory;
 
 use App\Services\Puzzle\Domain\ConfigOptionDefinition;
@@ -9,10 +11,20 @@ use App\Services\Puzzle\Service\Factory\Exceptions\InvalidConfigOptionDefinition
 use App\Services\Puzzle\Service\Factory\Exceptions\PuzzleTemplateRegistryBuildException;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use App\Services\Puzzle\Service\PuzzleTemplateRegistry;
+use Psr\Cache\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Finder\Finder;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 
-class PuzzleTemplateRegistryFactory
+#[AutoconfigureTag('kernel.cache_warmer')]
+class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
 {
+    private const int DEFAULT_CACHE_TTL = 31556952;
+
+    private const string CACHE_KEY = 'puzzleTemplateRegistry';
+
     public const string CONFIG_DIR = 'Config/TemplateDefinitions';
 
     private const string SLUG_REGEX = '/^[a-z0-9_]+$/';
@@ -41,40 +53,52 @@ class PuzzleTemplateRegistryFactory
         'dieRoll'
     ];
 
+    public function __construct(private readonly CacheInterface $cache) {
+
+    }
     /**
      * @throws PuzzleTemplateRegistryBuildException|\DateMalformedStringException
+     * @throws InvalidArgumentException
      */
-    public static function createPuzzleTemplateRegistry(): PuzzleTemplateRegistryInterface {
-
-        $registryContent = [];
-        $finder = new Finder();
-        $finder->files()->in(sprintf('%s/../%s', __DIR__, self::CONFIG_DIR))->name('*.json');
-        if (!$finder->hasResults()) {
-            throw new PuzzleTemplateRegistryBuildException("Could not build Template registry: No json files present");
+    public function createPuzzleTemplateRegistry(bool $forceRefresh = false): PuzzleTemplateRegistryInterface {
+        if ($forceRefresh) {
+            $this->cache->delete(self::CACHE_KEY);
         }
-        if ($finder->hasResults()) {
-            foreach ($finder as $file) {
-                $result = json_decode($file->getContents(), true );
-                self::validateDefinition($result);
-                $template = new PuzzleTemplate(
-                    slug: $result['slug'],
-                    title: $result['title'],
-                    createdAt: new \DateTimeImmutable($result['created']),
-                    description: $result['description'],
-                    category: $result['category'],
-                    authorEmail: $result['creator'],
-                    credits: self::mapCredits($result['credits']),
-                    configuration: self::mapConfigOptions($result['configOptions'])
-                );
-
-                $registryContent[$template->getSlug()] = $template;
-
-
-            }
-        }
-        return new PuzzleTemplateRegistry(templates: $registryContent);
+        return $this->buildRegistry();
     }
 
+    private function buildRegistry(): PuzzleTemplateRegistry {
+        return $this->cache->get(self::CACHE_KEY, function (ItemInterface $item) {
+            $item->expiresAfter(self::DEFAULT_CACHE_TTL);
+            $registryContent = [];
+            $finder = new Finder();
+            $finder->files()->in(sprintf('%s/../%s', __DIR__, self::CONFIG_DIR))->name('*.json');
+            if (!$finder->hasResults()) {
+                throw new PuzzleTemplateRegistryBuildException("Could not build Template registry: No json files present");
+            }
+            if ($finder->hasResults()) {
+                foreach ($finder as $file) {
+                    $result = json_decode($file->getContents(), true );
+                    self::validateDefinition($result);
+                    $template = new PuzzleTemplate(
+                        slug: $result['slug'],
+                        title: $result['title'],
+                        createdAt: new \DateTimeImmutable($result['created']),
+                        description: $result['description'],
+                        category: $result['category'],
+                        authorEmail: $result['creator'],
+                        credits: self::mapCredits($result['credits']),
+                        configuration: self::mapConfigOptions($result['configOptions'])
+                    );
+
+                    $registryContent[$template->getSlug()] = $template;
+
+
+                }
+            }
+            return new PuzzleTemplateRegistry(templates: $registryContent);
+        });
+    }
     public static function mapCredits(array $credits): array {
         $creditArray = [];
         foreach ($credits as $credit) {
@@ -189,5 +213,17 @@ class PuzzleTemplateRegistryFactory
                 }
             }
         }
+    }
+
+    public function isOptional(): bool
+    {
+        return false;
+    }
+
+    public function warmUp(string $cacheDir, ?string $buildDir = null): array
+    {
+        $this->cache->delete(self::CACHE_KEY);
+        $this->buildRegistry();
+        return [];
     }
 }

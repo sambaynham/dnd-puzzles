@@ -20,7 +20,7 @@ abstract class AbstractBaseController extends AbstractController
             ],
             [
                 'route' => 'app.puzzles.index',
-                'label' => 'Puzzles',
+                'label' => 'Puzzle Templates',
                 'active' => false
             ],
             [
