@@ -8,33 +8,53 @@ use App\Dto\Game\CreateGameDto;
 use App\Entity\Game;
 use App\Entity\User;
 use App\Form\CreateGameType;
+use App\Repository\GameRepository;
 use App\ValueResolver\GameSlugResolver;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 final class GamesController extends AbstractBaseController
 {
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly ValidatorInterface $validator
+        private readonly ValidatorInterface $validator,
+        private readonly  GameRepository $gameRepository
     ) {
 
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/games', name: 'app.games.index')]
     public function index(Request $request): Response
     {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new UnauthorizedHttpException('login');
+        }
         $pageVars = [
             'pageTitle' => 'My Games',
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.games.index',
+                    'label' => 'My Games',
+                    'active' => true
+                ]
+            ],
+            'gamesMastered' => $user->getGamesMastered(),
+            'gamesMember' => $user->getGames()
         ];
         return $this->render('games/index.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-    #[Route('/create', name: 'app.games.create')]
+    #[IsGranted('ROLE_USER')]
+    #[Route('/games/create', name: 'app.games.create')]
     public function create(Request $request): Response
     {
         $user = $this->getUser();
@@ -52,7 +72,6 @@ final class GamesController extends AbstractBaseController
                 description: $dto->description,
                 gamesMaster: $user,
             );
-            $violations = [];
             $success = true;
             try {
                 $this->validator->validate($game);
@@ -68,6 +87,7 @@ final class GamesController extends AbstractBaseController
                 $this->entityManager->persist($game);
                 $this->entityManager->flush();
                 $this->addFlash('success', 'Game created successfully.');
+//                $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);
             }
 
         }
@@ -78,35 +98,12 @@ final class GamesController extends AbstractBaseController
         return $this->render('games/create.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-    #[Route('/games/{slug}/play', name: 'app.games.manage')]
-    public function manage(
-        #[MapEntity(class: Game::class,resolver: GameSlugResolver::class)]
-        Game $game,
-        Request $request
-    ): Response {
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            throw $this->createAccessDeniedException('You must be logged in to manage a game.');
-        }
-        if ($game->getGamesMaster() !== $user) {
-            throw $this->createAccessDeniedException('You are not the games master of this game.');
-        }
-        $pageVars = [
-            'pageTitle' => sprintf("Manage %s", $game->getName()),
-            'game' => $game,
-        ];
-        return $this->render('games/manage.html.twig', $this->populatePageVars($pageVars, $request));
-    }
 
-    #[Route('/games/{slug}/play', name: 'app.games.play')]
-    public function play(
-        #[MapEntity(class: Game::class,resolver: GameSlugResolver::class)]
-        Game $game,
+    #[IsGranted('ROLE_USER')]
+    #[Route('games/{slug}/manage/', name: 'app.games.manage')]
+    public function manage(
+        string $slug,
         Request $request
-    ): Response {
-        $pageVars = [
-            'pageTitle' => 'Create a Game',
-        ];
-        return $this->render('games/play.html.twig', $this->populatePageVars($pageVars, $request));
+    ) {
     }
 }

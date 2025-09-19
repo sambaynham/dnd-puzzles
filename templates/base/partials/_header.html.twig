@@ -16,7 +16,7 @@
                 {% if app.user %}
                     <span class="user-greeting">Logged in as <a href="{{ path('app.user.account') }}">{{ app.user.userName }}</a></span>
                     <span class="user-options">
-                        <a class="" href="#">Logout</a>
+                        <a class="" href="{{ path('app.auth.logout') }}">Logout</a>
                         <a class="" href="{{ path('app.user.account') }}">Account</a>
                     </span>
                 {% else %}

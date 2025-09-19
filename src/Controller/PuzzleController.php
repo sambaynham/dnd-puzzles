@@ -48,11 +48,6 @@ final class PuzzleController extends AbstractBaseController
             'templates' => $this->puzzleService->getTemplates(),
             'breadcrumbs' => [
                 [
-                    'route' => 'app.pages.home',
-                    'label' => 'Home',
-                    'active' => false
-                ],
-                [
                     'route' => 'app.puzzles.template.index',
                     'label' => 'Templates',
                     'active' => true
@@ -72,6 +67,19 @@ final class PuzzleController extends AbstractBaseController
         $pageVars = [
             'pageTitle' => $template->getTitle(),
             'template' => $template,
+
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.puzzles.template.index',
+                    'label' => 'Templates',
+                    'active' => false
+                ],
+                [
+                    'label' => $template->getTitle(),
+                    'active' => true
+                ]
+            ]
+
         ];
         return $this->render('puzzles/templates/template.html.twig', $this->populatePageVars($pageVars, $request));
     }

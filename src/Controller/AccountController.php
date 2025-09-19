@@ -16,6 +16,7 @@ final class AccountController extends AbstractBaseController
     #[Route('/account', name: 'app.user.account')]
     public function index(Request $request): Response
     {
+        
         $user = $this->getUser();
         if (!$user instanceof User) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');

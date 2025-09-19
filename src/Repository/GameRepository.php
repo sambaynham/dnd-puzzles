@@ -11,33 +11,32 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class GameRepository extends ServiceEntityRepository
 {
+
+    private const string CHARACTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    private const int SLUG_LENGTH = 16;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Game::class);
     }
 
-    //    /**
-    //     * @return Game[] Returns an array of Game objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getRandomUnusedSlug(): string {
+        $randomString = '';
 
-    //    public function findOneBySomeField($value): ?Game
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        for ($i = 0; $i < self::SLUG_LENGTH; $i++) {
+            $randomString .= self::CHARACTERS[random_int(0, strlen(SELF::CHARACTERS) - 1)];
+        }
+
+        if (null !== $this->findOneBySlug($randomString)) {
+            return $this->getRandomUnusedSlug();
+        }
+        return $randomString;
+    }
+
+    public function findOneBySlug(string $slug): ? Game {
+        return $this->findOneBy([
+            'slug' => $slug
+        ]);
+    }
 }

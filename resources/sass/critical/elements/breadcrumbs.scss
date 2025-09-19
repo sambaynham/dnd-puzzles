@@ -13,7 +13,7 @@ nav.breadcrumbs {
         display: flex;
         flex-direction: row;
         padding: (variables.$base-spacing * 2) (variables.$base-spacing * 2) 0 (variables.$base-spacing * 2);
-        a {
+        > a, > span {
             flex: 1;
             border: none;
             flex-grow: 0;

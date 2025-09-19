@@ -1,3 +1,48 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
+    <div class="row">
+        <div class="col">
+            <h2>Games I run</h2>
+            <div class="accordion" is="accordion-list">
+                {% if gamesMastered is not empty %}
+                    {% for gameMastered in gamesMastered %}
+                        <div class="accordion-entry" is="accordion-entry">
+                            <h3 class="accordion-header">{{ gameMastered.getName }}</h3>
+                            <div class="accordion-body">
+                                <dl>
+                                    <dt>Slug</dt>
+                                    <dd>{{ gameMastered.getSlug }}</dd>
+                                </dl>
+                                <div class="btn-group">
+                                    <a href="" class="btn btn-primary">
+                                        Manage
+                                    </a>
+                                    <a href="" class="btn btn-blue">
+                                        Play
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="accordion-empty-message">
+                        You are not currently the Games Master for any games. Why not create one?
+                    </div>
+                {% endif %}
+
+            </div>
+            <a class="btn btn-secondary" href="{{ path('app.games.create') }}">Create a Game</a>
+        </div>
+        <div class="col">
+            <h2>Games I'm a member of</h2>
+            <div class="accordion">
+                {% if gamesMember is not empty %}
+                {% else %}
+                    <div class="accordion-empty-message">
+                        You are not currently a member of any games.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

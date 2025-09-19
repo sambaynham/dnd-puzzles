@@ -7,6 +7,8 @@ import MessageOfTheDay from "./components/MessageOfTheDay";
 import {FlashAlert} from "./components/FlashAlert";
 import {initialiseDropCaps} from "./behaviours/dropCap";
 import {SlideShow} from "./components/SlideShow/SlideShow";
+import AccordionList from "./components/Accordion/AccordionList";
+import {AccordionEntry} from "./components/Accordion/AccordionEntry";
 
 
 (()=> {
@@ -31,6 +33,8 @@ import {SlideShow} from "./components/SlideShow/SlideShow";
         customElementRegistry.define('motd-span', MessageOfTheDay, {extends: 'span'})
         customElementRegistry.define('flash-alert', FlashAlert, {extends: 'span'});
         customElementRegistry.define('slideshow-element', SlideShow, {extends: 'div'});
+        customElementRegistry.define('accordion-list', AccordionList, {extends: 'div'});
+        customElementRegistry.define('accordion-entry', AccordionEntry, {extends: 'div'});
     }
 })();
 

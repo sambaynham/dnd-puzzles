@@ -40,12 +40,6 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         #[ORM\Column]
         private array $roles = [],
 
-        #[ORM\OneToMany(
-            targetEntity: PuzzleTemplate::class,
-            mappedBy: 'author',
-            orphanRemoval: false,
-        )]
-        private Collection $puzzlesAuthored = new ArrayCollection(),
         ?int $id = null
     ) {
         parent::__construct($id);
@@ -66,15 +60,6 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         $this->username = $username;
     }
 
-    public function getPuzzlesAuthored(): Collection
-    {
-        return $this->puzzlesAuthored;
-    }
-
-    public function setPuzzlesAuthored(Collection $puzzlesAuthored): void
-    {
-        $this->puzzlesAuthored = $puzzlesAuthored;
-    }
 
 
     /**

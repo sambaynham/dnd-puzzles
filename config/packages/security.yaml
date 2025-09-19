@@ -23,7 +23,7 @@ security:
                 enable_csrf: true
                 use_referer: true
             logout:
-                path: app_logout
+                path: app.auth.logout
                 # where to redirect after logout
                 # target: app_any_route
                 # where to redirect after logout

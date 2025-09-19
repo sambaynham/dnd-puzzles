@@ -25,7 +25,14 @@ class PageController extends AbstractBaseController
     #[Route('/contributing', name: 'app.pages.contributing')]
     public function contributing(Request $request): Response {
         $pageVars =[
-            'pageTitle' => 'Contributing'
+            'pageTitle' => 'Contributing',
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.pages.contributing',
+                    'label' => 'Contributing',
+                    'active' => true
+                ]
+            ]
         ];
         return $this->render('pages/contributing.html.twig', $this->populatePageVars($pageVars, $request));
     }
@@ -33,7 +40,14 @@ class PageController extends AbstractBaseController
     #[Route('/about', name: 'app.pages.about')]
     public function about(Request $request): Response {
         $pageVars =[
-            'pageTitle' => 'About'
+            'pageTitle' => 'About',
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.pages.about',
+                    'label' => 'About',
+                    'active' => true
+                ]
+            ]
         ];
         return $this->render('pages/about.html.twig', $this->populatePageVars($pageVars, $request));
     }
@@ -41,7 +55,15 @@ class PageController extends AbstractBaseController
     #[Route('/coc', name: 'app.pages.coc')]
     public function terms(Request $request): Response {
         $pageVars =[
-            'pageTitle' => 'Code of Conduct'
+
+            'pageTitle' => 'Code of Conduct',
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.pages.coc',
+                    'label' => 'Contributing',
+                    'active' => true
+                ]
+            ]
         ];
         return $this->render('pages/terms.html.twig', $this->populatePageVars($pageVars, $request));
     }
@@ -49,7 +71,14 @@ class PageController extends AbstractBaseController
     #[Route('/credits', name: 'app.pages.credits')]
     public function credits(Request $request): Response {
         $pageVars =[
-            'pageTitle' => 'Credits'
+            'pageTitle' => 'Credits',
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.pages.credits',
+                    'label' => 'Credits',
+                    'active' => true
+                ]
+            ]
         ];
         return $this->render('pages/credits.html.twig', $this->populatePageVars($pageVars, $request));
     }
