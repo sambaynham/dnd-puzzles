@@ -11,7 +11,7 @@ main {
     display: flex;
     flex-direction: column;
 
-    margin: 0 auto variables.$base-spacing auto ;
+    margin: 0 auto variables.$base-spacing auto;
 
     .row, .col {
         flex: 1;
@@ -36,7 +36,7 @@ main {
 @media only screen and (min-width: 1080px) {
     main {
         max-width: variables.$desktopMaxViewportWidth;
-        margin-top: (variables.$base-spacing * 2);
+        padding-top: (variables.$base-spacing * 2);
 
         .row, .col {
             img {

@@ -1,15 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-GB">
     {% embed 'base/partials/_head.html.twig' %}{% endembed %}
     <body>
         <main>
-            <div class="row">
-                <div class="col">
-                    <h1 class="drop-cap">Error 401 - Unauthorised</h1>
-                    <p>Who goes there?</p>
-                    <em>You must Log in to view this page.</em>
-                </div>
-            </div>
+            {% block body %}{% endblock %}
         </main>
     </body>
 </html>

@@ -1,12 +1,11 @@
 {% extends 'base/base-error.html.twig' %}
-{% set pageTitle = '401 - Unauthorised.' %}
+{% set pageTitle = '401 - Unauthorise' %}
 {% block body %}
     <div class="row">
         <div class="col">
-            <h1 class="drop-cap">Error 401 - Unauthorised</h1>
-            <p>Who goes there?</p>
-            <em>You must Log in to view this page.</em>
-            <a href="{{ path('app.page.home') }}">Back to Homepage</a>
+            <h1 class="drop-cap">Error 401 - Forbidden</h1>
+            <p>You shall not pass!</p>
+            <a href="{{ path('app.pages.home') }}">Back to Homepage</a>
         </div>
     </div>
 {% endblock %}
