@@ -1,3 +1,36 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
+    <div class="row">
+        <div class="col">
+            <h2>Puzzles</h2>
+            <div class="accordion" is="accordion-list">
+                {% if game.getPuzzleInstances is not empty %}
+                    {% for puzzleInstance in game.getPuzzleInstances %}
+
+                    {% endfor %}
+                {% else %}
+                    <div class="accordion-empty-message">
+                        There are no puzzles in your game!
+                    </div>
+                {% endif %}
+            </div>
+            <a href="" class="btn btn-secondary">Add a Puzzle</a>
+        </div>
+        <div class="col">
+            <h2>Players</h2>
+            <div class="accordion" is="accordion-list">
+                {% if game.getPlayers is not empty %}
+                    {% for player in game.getPlayers %}
+
+                    {% endfor %}
+                {% else %}
+                    <div class="accordion-empty-message">
+                        There are no players in your game!
+                    </div>
+                {% endif %}
+            </div>
+            <a href="{{ path('app.games.invite', {'slug': game.getSlug}) }}" class="btn btn-blue">Invite Players</a>
+        </div>
+    </div>
+
 {% endblock %}

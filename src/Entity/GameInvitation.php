@@ -16,8 +16,11 @@ class GameInvitation
     #[ORM\Column(length: 64)]
     private ?string $invitationCode = null;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ? string $email = null;
+
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'gameInvitations')]
@@ -26,6 +29,18 @@ class GameInvitation
 
     #[ORM\Column]
     private ?\DateTimeImmutable $expiresAt = null;
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+
 
     public function getId(): ?int
     {

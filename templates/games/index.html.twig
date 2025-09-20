@@ -14,7 +14,7 @@
                                     <dd>{{ gameMastered.getSlug }}</dd>
                                 </dl>
                                 <div class="btn-group">
-                                    <a href="" class="btn btn-primary">
+                                    <a href="{{ path('app.games.manage', {'slug': gameMastered.getSlug}) }}" class="btn btn-primary">
                                         Manage
                                     </a>
                                     <a href="" class="btn btn-blue">

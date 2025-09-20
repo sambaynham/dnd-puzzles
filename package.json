@@ -23,7 +23,6 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.3",
     "@symfony/stimulus-bridge": "^3.2.0 || ^4.0.0",
-    "@symfony/ux-live-component": "file:vendor/symfony/ux-live-component/assets",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "@web/dev-server": "^0.1.31",

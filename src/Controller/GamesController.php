@@ -5,13 +5,17 @@ namespace App\Controller;
 use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\Dto\Game\CreateGameDto;
+use App\Dto\InvitePlayerDto;
 use App\Entity\Game;
 use App\Entity\User;
 use App\Form\CreateGameType;
+use App\Form\InvitePlayerType;
 use App\Repository\GameRepository;
+use App\Services\Puzzle\Infrastructure\CodeGenerator;
 use App\ValueResolver\GameSlugResolver;
 use Doctrine\ORM\EntityManagerInterface;
 
+use Random\RandomException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -87,12 +91,23 @@ final class GamesController extends AbstractBaseController
                 $this->entityManager->persist($game);
                 $this->entityManager->flush();
                 $this->addFlash('success', 'Game created successfully.');
-//                $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);
+                return $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);
             }
 
         }
         $pageVars = [
             'pageTitle' => 'Create a Game',
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.games.index',
+                    'label' => 'My Games',
+                    'active' => false
+                ],
+                [
+                    'label' => 'Create a game',
+                    'active' => true
+                ]
+            ],
             'form' => $form
         ];
         return $this->render('games/create.html.twig', $this->populatePageVars($pageVars, $request));
@@ -102,8 +117,68 @@ final class GamesController extends AbstractBaseController
     #[IsGranted('ROLE_USER')]
     #[Route('games/{slug}/manage/', name: 'app.games.manage')]
     public function manage(
-        string $slug,
+        Game $game,
         Request $request
     ) {
+        $title = sprintf('Manage %s', $game->getName());
+        $pageVars = [
+            'pageTitle' => $title,
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.games.index',
+                    'label' => 'My Games',
+                    'active' => false
+                ],
+                [
+                    'label' => $title,
+                    'active' => true
+                ],
+            ],
+            'game' => $game,
+        ];
+        return $this->render('games/manage.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    /**
+     * @throws RandomException
+     */
+    #[IsGranted('ROLE_USER')]
+    #[Route('games/{slug}/manage/invitations', name: 'app.games.invite')]
+    public function invite(
+        Game $game,
+        Request $request
+    ) {
+
+        $dto = new InvitePlayerDto();
+        $dto->game = $game;
+        $dto->invitationCode = CodeGenerator::generateRandomCode(8);
+        $dto->invitationText = 'Hi, I\'d like you to join my game on conundrumcodex.com';
+        $form = $this->createForm(InvitePlayerType::class, $dto );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            die('I got here');
+        }
+        $pageVars = [
+            'pageTitle' => sprintf('Invite players to %s', $game->getName()),
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.games.index',
+                    'label' => 'My Games',
+                    'active' => false
+                ],
+                [
+                    'label' => sprintf('Manage %s', $game->getName()),
+                    'active' => false
+                ],
+                [
+                    'label' => 'Invite Players',
+                    'active' => true
+                ],
+            ],
+            'game' => $game,
+            'form' => $form
+        ];
+        return $this->render('games/invite.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

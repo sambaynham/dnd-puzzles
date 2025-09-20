@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Game;
+use App\Services\Puzzle\Infrastructure\CodeGenerator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,9 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class GameRepository extends ServiceEntityRepository
 {
 
-    private const string CHARACTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-    private const int SLUG_LENGTH = 16;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -22,16 +21,12 @@ class GameRepository extends ServiceEntityRepository
     }
 
     public function getRandomUnusedSlug(): string {
-        $randomString = '';
 
-        for ($i = 0; $i < self::SLUG_LENGTH; $i++) {
-            $randomString .= self::CHARACTERS[random_int(0, strlen(SELF::CHARACTERS) - 1)];
-        }
-
-        if (null !== $this->findOneBySlug($randomString)) {
+        $randomSlug = CodeGenerator::generateRandomCode();
+        if (null !== $this->findOneBySlug($randomSlug)) {
             return $this->getRandomUnusedSlug();
         }
-        return $randomString;
+        return $randomSlug;
     }
 
     public function findOneBySlug(string $slug): ? Game {

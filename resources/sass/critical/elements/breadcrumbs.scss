@@ -10,14 +10,15 @@ nav.breadcrumbs {
 
 @media (min-width: 1080px) {
     nav.breadcrumbs {
-        display: flex;
-        flex-direction: row;
+        display: inline;
         padding: (variables.$base-spacing * 2) (variables.$base-spacing * 2) 0 (variables.$base-spacing * 2);
+        justify-content: left;
+
         > a, > span {
-            flex: 1;
+
             border: none;
-            flex-grow: 0;
             position: relative;
+
 
             &:hover {
                 color: color.adjust(palette.$crimson, $lightness: 12.5%);

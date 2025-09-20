@@ -19,6 +19,12 @@ class Game extends AbstractDomainEntity
     #[ORM\OneToMany(targetEntity: GameInvitation::class, mappedBy: 'game', orphanRemoval: true)]
     private Collection $gameInvitations;
 
+    /**
+     * @var Collection<int, PuzzleInstance>
+     */
+    #[ORM\OneToMany(targetEntity: PuzzleInstance::class, mappedBy: 'game', orphanRemoval: true)]
+    private Collection $puzzleInstances;
+
     public function __construct(
         #[ORM\Column(length: 255)]
         private string $name,
@@ -33,6 +39,7 @@ class Game extends AbstractDomainEntity
         #[ORM\JoinColumn(nullable: false)]
         private User $gamesMaster,
 
+
         #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'games')]
         private ?Collection $players = null,
 
@@ -40,6 +47,7 @@ class Game extends AbstractDomainEntity
     ) {
         parent::__construct($id);
         $this->gameInvitations = new ArrayCollection();
+        $this->puzzleInstances = new ArrayCollection();
     }
 
     public function getSlug(): string
@@ -111,22 +119,48 @@ class Game extends AbstractDomainEntity
         return $this->gameInvitations;
     }
 
-    public function addGameInvitation(GameInvitation $gameInvitation): static
+    public function addGameInvitation(GameInvitation $gameInvitation): void
     {
         if (!$this->gameInvitations->contains($gameInvitation)) {
             $this->gameInvitations->add($gameInvitation);
             $gameInvitation->setGame($this);
         }
-
-        return $this;
     }
 
-    public function removeGameInvitation(GameInvitation $gameInvitation): static
+    public function removeGameInvitation(GameInvitation $gameInvitation): void
     {
         if ($this->gameInvitations->removeElement($gameInvitation)) {
             // set the owning side to null (unless already changed)
             if ($gameInvitation->getGame() === $this) {
                 $gameInvitation->setGame(null);
+            }
+        }
+    }
+
+    /**
+     * @return Collection<int, PuzzleInstance>
+     */
+    public function getPuzzleInstances(): Collection
+    {
+        return $this->puzzleInstances;
+    }
+
+    public function addPuzzleInstances(PuzzleInstance $puzzleInstancesB): static
+    {
+        if (!$this->puzzleInstances->contains($puzzleInstancesB)) {
+            $this->puzzleInstances->add($puzzleInstancesB);
+            $puzzleInstancesB->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removePuzzleInstances(PuzzleInstance $puzzleInstances): static
+    {
+        if ($this->puzzleInstances->removeElement($puzzleInstances)) {
+            // set the owning side to null (unless already changed)
+            if ($puzzleInstances->getGame() === $this) {
+                $puzzleInstances->setGame(null);
             }
         }
 

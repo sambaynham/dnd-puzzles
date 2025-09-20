@@ -1,0 +1,11 @@
+{% extends 'base/base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h2>Getting started</h2>
+            <ol>
+                <li>Create an account <a href="{{ path('app.auth.register') }}"> here</a></li>
+            </ol>
+        </div>
+    </div>
+{% endblock %}

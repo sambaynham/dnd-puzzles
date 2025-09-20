@@ -82,4 +82,18 @@ class PageController extends AbstractBaseController
         ];
         return $this->render('pages/credits.html.twig', $this->populatePageVars($pageVars, $request));
     }
+    #[Route('/tutorial', name: 'app.pages.tutorial')]
+    public function tutorial(Request $request): Response {
+        $pageVars =[
+            'pageTitle' => 'Tutorial',
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.pages.tutorial',
+                    'label' => 'Tutorial',
+                    'active' => true
+                ]
+            ]
+        ];
+        return $this->render('pages/tutorial.html.twig', $this->populatePageVars($pageVars, $request));
+    }
 }

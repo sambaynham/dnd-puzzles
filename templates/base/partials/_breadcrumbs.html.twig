@@ -1,6 +1,6 @@
 <nav class="breadcrumbs">
     {% for breadcrumb in breadcrumbs %}
-        {% if breadcumb.route is defined %}
+        {% if breadcrumb.route is defined %}
             <a href="{{ path(breadcrumb.route) }}">{{ breadcrumb.label }}</a>
         {% else %}
             <span>{{ breadcrumb.label }}</span>
