@@ -1,6 +1,6 @@
 <footer>
-    <aside>
-        Report an Issue
+    <aside class="copy">
+        Website assets are &copy;<a href="{{ path('app.pages.credits') }}">their original creators</a> or licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY</a> {{ date().format('Y') }}. Source code licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL v3</a>.
     </aside>
     <aside>
         <a href="{{ path('app.pages.coc') }}">Code of Conduct</a>
@@ -11,4 +11,9 @@
     <aside>
         <a href="{{ path('app.pages.credits') }}">Credits</a>
     </aside>
+    {% if not hideBugReportLink %}
+        <aside>
+            <a href="{{ path('app.bugs.report', {'referringUri': app.request.requesturi|url_encode }) }}">Report a bug</a>
+        </aside>
+    {% endif %}
 </footer>

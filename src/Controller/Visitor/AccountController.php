@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\Visitor;
 
+use App\Controller\AbstractBaseController;
 use App\Entity\User;
-
 use App\Form\JoinGameType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ final class AccountController extends AbstractBaseController
     #[Route('/account', name: 'app.user.account')]
     public function index(Request $request): Response
     {
-        
+
         $user = $this->getUser();
         if (!$user instanceof User) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');

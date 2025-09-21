@@ -2,8 +2,10 @@
 
 @use "../base/variables";
 @use "../base/palette";
+
+$footer-height: 5vh;
 main {
-    margin-bottom: 10vh;
+    margin-bottom: ($footer-height * 2);
 }
 footer {
     padding:  variables.$base-spacing math.div(100vw - variables.$desktopMaxViewportWidth, 2);
@@ -12,7 +14,7 @@ footer {
     flex-direction: row;
     color: palette.$white;
     position: fixed;
-    height: 5vh;
+    height: $footer-height;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -22,6 +24,10 @@ footer {
     aside {
         flex: 1;
         margin: 0 1rem 0 0;
+
+        &.copy {
+            flex-basis: 50%;
+        }
 
         a {
             color: palette.$white !important;

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Visitor;
 
 use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;
+use App\Controller\AbstractBaseController;
 use App\Dto\User\UserDto;
 use App\Entity\User;
 use App\Form\LoginType;

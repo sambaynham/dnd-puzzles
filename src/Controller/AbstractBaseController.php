@@ -50,6 +50,7 @@ abstract class AbstractBaseController extends AbstractController
             'label' => 'Home',
             'active' => false
         ]);
+        $pageVars['hideBugReportLink'] = $pageVars['hideBugReportLink'] ?? false;
         return $pageVars;
     }
 }

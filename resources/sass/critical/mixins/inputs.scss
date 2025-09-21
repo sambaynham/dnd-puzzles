@@ -1,4 +1,6 @@
 @use '../base/variables';
+@use 'sass:math';
+
 @mixin styleInputs() {
     label {
         display: flex;
@@ -12,7 +14,7 @@
         border-image: url('/dist/images/eroded-frame-whiteinner.svg');
         border-image-slice: 33%;
         background-color: #f7f5f2;
-        padding: variables.$base-spacing;
+        padding: math.div(variables.$base-spacing, 2);
         flex: 1;
         width: 100%;
     }

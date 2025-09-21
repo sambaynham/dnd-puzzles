@@ -1,26 +1,24 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Visitor;
 
 use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;
+use App\Controller\AbstractBaseController;
 use App\Dto\Game\CreateGameDto;
-use App\Dto\InvitePlayerDto;
+use App\Dto\Game\InvitePlayerDto;
 use App\Entity\Game;
 use App\Entity\User;
 use App\Form\CreateGameType;
 use App\Form\InvitePlayerType;
 use App\Repository\GameRepository;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
-use App\ValueResolver\GameSlugResolver;
 use Doctrine\ORM\EntityManagerInterface;
-
 use Random\RandomException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class GamesController extends AbstractBaseController

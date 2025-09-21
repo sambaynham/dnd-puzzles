@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Dto;
+namespace App\Dto\Game;
 
 use App\Entity\Game;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator as CustomAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class InvitePlayerDto
 {

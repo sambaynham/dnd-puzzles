@@ -2,15 +2,10 @@
 
 namespace App\Form;
 
-use App\Dto\InvitePlayerDto;
-use App\Entity\Game;
-use App\Entity\GameInvitation;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Dto\Game\InvitePlayerDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -52,7 +47,6 @@ class InvitePlayerType extends AbstractType
                     'help' => 'Your players will use this code to join your game. It expires after 24 hours.',
                     'attr' => [
                         'readonly'=>true,
-
                     ]
                 ])
             ->add('invitationText', TextType::class, [
