@@ -45,6 +45,7 @@ abstract class AbstractBaseController extends AbstractController
         if (!isset($pageVars['breadcrumbs'])) {
             $pageVars['breadcrumbs'] = [];
         }
+        $pageVars['heroImagePath'] = $pageVars['heroImagePath'] ?? '/dist/images/hero3.webp';
         $pageVars['hideBugReportLink'] = $pageVars['hideBugReportLink'] ?? false;
         return $pageVars;
     }

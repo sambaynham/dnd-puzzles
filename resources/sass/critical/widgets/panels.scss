@@ -13,11 +13,17 @@
     display: flex;
     flex-direction: column;
 
-
-    &.rounded {
-        border-radius: 0.25rem;
-        overflow: hidden;
+    &:before {
+        position: absolute;
+        content: " ";
+        background-color: palette.$vellum;
+        display: block;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
     }
+
 
     .panel-heading {
         flex: 1;
@@ -25,8 +31,8 @@
         padding: variables.$base-spacing;
         position: relative;
         z-index: 1;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 75%, rgba(0, 0, 0, 0) 100%);
-        color: palette.$white;
+        flex-grow: 0;
+
     }
 
     img.panel-backer {
@@ -38,15 +44,11 @@
     }
 
     .panel-body {
-        min-height: 10vh;
-        padding: variables.$base-spacing;
-        margin-top: 25vh;
+        padding: 0 variables.$base-spacing variables.$base-spacing variables.$base-spacing;
         position: relative;
         z-index: 1;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 75%, rgba(0, 0, 0, 0) 100%);
-        padding-top: 2rem;
-        color: palette.$white;
         width: 100%;
+
     }
 }
 

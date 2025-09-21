@@ -12,35 +12,29 @@ body {
     p,ul,li {
         text-shadow: palette.$bleedingInk;
     }
-
-
-    main.normal {
-        //border: 1rem solid transparent;
-        //border-image: url('/dist/images/paper-sheet-brown-shadow.svg');
-        //border-image-slice: 7.5%;
-        position: relative;
-
-        h1:first-child {
-            margin-top: 0;
-        }
-
-        /*&:before {
-            content: " ";
-            display: block;
-            position: absolute;
-            background-color: palette.$offWhite;
-            top: 0rem;
-            left: 0rem;
-            right: 0rem;
-            bottom: 0rem;
-            z-index: -1;
-        }*/
-    }
 }
+
+$mainBorderHeight: 0.125rem;
 @media only screen and (min-width: 1080px) {
     body {
         main {
-            border-width: variables.$base-spacing;
+            background-color: palette.$vellum;
+            position: relative;
+            margin-top: $mainBorderHeight * 10;
+            &:before {
+                content: " ";
+                height: $mainBorderHeight;
+                width: 100%;
+                background-image: url('/dist/images/gold-bead.svg');
+                background-size: contain;
+                background-repeat: repeat-x;
+                position: absolute;
+                top: 0 - $mainBorderHeight;
+                left: 0;
+                right: 0;
+            }
+
+
         }
     }
 }

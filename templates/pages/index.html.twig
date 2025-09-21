@@ -1,6 +1,5 @@
 {% extends 'base/base.html.twig' %}
-{% block body %}
-
+{% block hero %}
     <div class="row flush three-quarters-one-quarter">
         <div class="col">
             <div class="rounded panel">
@@ -15,9 +14,9 @@
                             'slideHeading': 'Welcome to the Conundrum Codex',
                             'slideBody': 'The Conundrum Codex is a community-driven site where Online Games-Masters can share interactive puzzles with their players.',
                             'cta': {
-                                'route': 'app.auth.register',
-                                'label': 'Get Started'
-                            }
+                            'route': 'app.auth.register',
+                            'label': 'Get Started'
+                        }
                         },
                         {
                             'imgSrc': '/dist/images/hero2.jpg',
@@ -31,26 +30,24 @@
             </div>
         </div>
         <div class="col">
-            <h2>Create a Puzzle</h2>
-            <h3 class="centerline">Templates</h3>
-            <nav class="puzzle-categories lozenges grid">
-                {%  for template in templates %}
-                    <a href="{{ path('app.puzzles.template.show', {templateSlug: template.getSlug}) }}">{{ template.getTitle }}</a>
-                {% endfor %}
-            </nav>
+            <div class="panel rounded">
+                <h2 class="panel-heading">Create a Puzzle</h2>
+                <div class="panel-body">
+                    <h3 class="centerline">Templates</h3>
+                    <nav class="puzzle-categories lozenges grid">
+                        {%  for template in templates %}
+                            <a href="{{ path('app.puzzles.template.show', {templateSlug: template.getSlug}) }}">{{ template.getTitle }}</a>
+                        {% endfor %}
+                    </nav>
+                </div>
 
-
-        </div>
-
-    </div>
-    <div class="row flush">
-        <div class="col">
-            <hr />
+            </div>
         </div>
     </div>
+{% endblock %}
+{% block body %}
     <div class="row flush">
         <div class="col">
-            <h1 class="drop-cap">About</h1>
             <p>{{ siteName }} is designed to help online games-masters of tabletop RPGs set engaging interactive puzzles remotely.</p>
             <p>We're community drive, and offer many different types of puzzles that can be customised to meet the needs of your game and setting.</p>
             <p></p>

@@ -11,17 +11,24 @@ nav.breadcrumbs {
 @media (min-width: 1080px) {
     nav.breadcrumbs {
         position: relative;
-        border-top: 0.125rem solid transparent;
-        border-bottom: 0.125rem solid transparent;
-        display: inline;
+
+        display: flex;
         font-family: "Pirata", serif;
         padding: 0 (variables.$base-spacing * 2);
-        margin: variables.$base-spacing 0;
+        margin: variables.$base-spacing variables.$desktopDefaultViewportPadding;
+        box-shadow: 0 0 0.5rem color.adjust(palette.$ink, $alpha: 0.0675), 0 0 0.125rem color.adjust(palette.$ink, $alpha: 0.125), 0 0 0.0675rem color.adjust(palette.$ink, $alpha: 0.25);
+        border-radius: 0.25rem;
+        background-color: palette.$vellum;
+        background: linear-gradient(to top, palette.$vellum, color.adjust(palette.$vellum, $lightness: 20%));
+        background-size: 100% auto;
+
         > a, > span {
 
             border: none;
             position: relative;
-
+            flex: 1;
+            justify-items: left;
+            align-items: center;
 
             &:hover {
                 color: color.adjust(palette.$crimson, $lightness: 12.5%);

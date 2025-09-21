@@ -6,7 +6,7 @@
 @use 'sass:math';
 @use "sass:color";
 
-$fullsizeLogoHeight: 3.5rem;
+$fullsizeLogoHeight: 2rem;
 
 @keyframes glint {
     from {
@@ -38,7 +38,7 @@ img.hero {
     display: none;
 }
 header {
-    background-color: palette.$charcoal;
+    background: linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 20%));
     margin: 0;
     position: relative;
     height: $mobile-header-height;
@@ -77,7 +77,6 @@ header {
         width: ($mobile-header-height - 2vh);
         position: absolute;
         top: 1vh;
-
         transition: background 200ms ease-in-out;
         border-radius: 0.25rem;
         color: transparent;
@@ -174,41 +173,73 @@ header {
         width: 100%;
         top: 0;
         left: 0;
+        z-index: -999;
     }
 
     .header-container {
         background-color: transparent;
         position: relative;
         z-index: 99999;
-        padding: variables.$base-spacing 0;
+        padding: (variables.$base-spacing * 2) 0;
     }
     header {
         position: relative;
-        background-color: palette.$charcoal;
-        background: linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 20%));
+
         border-radius: 0.25rem;
         z-index: 9999;
         display: flex;
         flex-direction: row;
         width: variables.$desktopMaxViewportWidth;
         margin: 0 variables.$desktopDefaultViewportPadding;
-        padding: variables.$base-spacing;
+        padding: 0;
         height: auto;
         align-items: center;
-        border: 0.05rem solid red;
-        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+        border: 1px solid color.adjust(palette.$charcoal, $lightness: -10%);
+        box-shadow: 0 0 1.5rem color.adjust(palette.$ink, $alpha: -.5), 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.8), 0 0 0.25rem color.adjust(palette.$ink, $alpha: -0.9);
+
 
         a.brand {
             width: auto;
             margin: initial;
             flex: 1;
-            position: static;
+            position: relative;
+            left: initial;
+            right: initial;
+            top: initial;
+            bottom: initial;
             background-image: none;
-
             font-family: "Pirata", serif;
             height: auto;
-            flex-basis: 20%;
-            color: palette.$gold;
+            flex-basis: 15%;
+            color: palette.$white;
+            border: none;
+            border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
+            padding: variables.$base-spacing;
+            padding-left: (variables.$base-spacing + $fullsizeLogoHeight);
+
+            &:before, &:after {
+                content: " ";
+                display: block;
+                position: absolute;
+                top: math.div(variables.$base-spacing, 2);
+                left: math.div(variables.$base-spacing, 2);
+                width: $fullsizeLogoHeight;
+                height: $fullsizeLogoHeight;
+
+            }
+            &:before {
+                background: linear-gradient(33deg, cyan, magenta);
+                background-size: 200% 200%;
+                animation: gradient 5s ease infinite;
+                mask: url("/dist/images/penrose-mask.svg");
+                mask-size: contain;
+                mask-repeat: no-repeat;
+            }
+            &:after {
+                background-image: url('/dist/images/penrose-overlay.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
         }
 
         button.nav-toggle {
@@ -232,26 +263,74 @@ header {
             background-color: transparent;
             flex-direction: row;
             flex-basis: 60%;
+            padding: variables.$base-spacing;
+            border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
+
+            a {
+                color: palette.$white;
+                border: none;
+
+                text-shadow: 0 0 0.25rem transparent;
+                transition: all 150ms ease-in-out;
+                transition-property: color, text-shadow;
+
+                &:hover, &:active {
+                    text-shadow: 0 0 0.25rem cyan;
+                }
+                &:hover {
+                    color: white;
+                }
+            }
         }
 
 
         .header-right {
             flex: 1;
-            flex-basis: 20%;
             display: flex;
             flex-direction: row;
             justify-content: right;
-            align-items: end;
+            align-items: center;
 
             .search-form {
                 display: flex;
                 flex: 1;
                 flex-direction: row;
+                border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
+                padding: 0;
 
+                input {
+                    padding: math.div(variables.$base-spacing, 2) variables.$base-spacing;
+                    border: none;
+                    background-color: transparent;
+                    color: palette.$white;
+
+                }
+                button {
+                    border: none;
+                    padding: variables.$base-spacing;
+                    background-color: transparent;
+                    color: transparent;
+                    position: relative;
+
+                    &:before {
+                        position: absolute;
+                        content: " ";
+                        display: block;
+                        top: 0;
+                        left: 0;
+                        bottom: 0;
+                        right: 0;
+                        background-image: url('/dist/images/magnifier-white.svg');
+                        background-size: 33%;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                    }
+                }
             }
             button#user-nav-toggle {
+                width: 3rem;
                 background: none;
-                background-color: cyan;
+                padding: variables.$base-spacing;
                 display: block;
                 flex: 1;
                 right: initial;
@@ -260,6 +339,8 @@ header {
                 height: auto;
                 font-size: 0;
                 position: static;
+                border-radius: 0;
+
 
                 &:after {
                     display: none;
@@ -270,9 +351,16 @@ header {
                     left: initial;
                     bottom: initial;
                     right: initial;
-                    font-size: 1.5rem;
-                    line-height: 1.5rem;
+                    font-size: 1rem;
+                    line-height: 1rem;
                     position: static;
+                    color: palette.$white;
+                }
+
+                &.open {
+                    &:before {
+                        color: palette.$crimson;
+                    }
                 }
             }
 
@@ -281,16 +369,38 @@ header {
                 position: absolute;
                 padding: variables.$base-spacing;
                 top: 100%;
+                margin-top: variables.$base-spacing;
+                border: 1px solid palette.$charcoal;
                 right: 0;
                 width: auto;
                 left: auto;
                 transition: opacity 200ms ease-in-out;
                 opacity: 0;
                 pointer-events: none;
+                border-radius: 0.25rem;
+
+                justify-items: left;
+                justify-content: left;
+
+                .user-options {
+                    display: flex;
+                    flex-direction: row;
+                    a {
+                        padding: 0 variables.$base-spacing;
+                        &:first-child {
+                            padding-left: 0;
+                        }
+
+                        &:last-child {
+                            padding-right: 0;
+                        }
+                    }
+                }
 
                 &.open {
                     opacity: 1;
                     pointer-events: all;
+
                 }
             }
         }

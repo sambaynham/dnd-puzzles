@@ -8,89 +8,108 @@ header {
     margin: variables.$base-spacing 0;
 }
 
+div.rounded {
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
 main {
-    div.content {
+
+    display: flex;
+    flex-direction: column;
+    background-color: palette.$vellum;
+    margin: 0 auto;
+
+    .row, .col {
+        flex: 1;
         display: flex;
         flex-direction: column;
-        background-color: palette.$vellum;
 
-        margin: 0 auto variables.$base-spacing auto;
-
-        .row, .col {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-
-            img {
-                max-height: 100%;
-                max-width: initial;
-            }
-        }
-
-        .col {
-            padding: 0 (variables.$base-spacing * 2) (variables.$base-spacing * 2) (variables.$base-spacing * 2);
-        }
-
-        div.title-container {
-            padding: (variables.$base-spacing * 2) (variables.$base-spacing * 2) 0 (variables.$base-spacing * 2);
+        img {
+            max-height: 100%;
+            max-width: initial;
         }
     }
 
+    .col {
+        padding: 0 (variables.$base-spacing * 2) (variables.$base-spacing * 2) (variables.$base-spacing * 2);
+    }
+
+    div.title-container {
+        padding: (variables.$base-spacing * 2) (variables.$base-spacing * 2) 0 (variables.$base-spacing * 2);
+    }
 }
 
 @media only screen and (min-width: 1080px) {
-    main {
 
-        .row {
-            max-width: variables.$desktopMaxViewportWidth;
+        div.hero {
+
+            .row {
+                .col {
+                    min-height: 33vh;
+                    .panel {
+                        min-height: 100%;
+                    }
+                }
+            }
+        }
+
+        div.content {
+            min-height: 75vh;
+        }
+        div.hero, div.content {
+            background-color: transparent;
             margin: 0 variables.$desktopDefaultViewportPadding;
-        }
+            padding: variables.$base-spacing 0;
 
-        background-color: palette.$vellum;
-        .row, .col {
-            img {
-                max-height: initial;
-                max-width: 100%;
+            .row, .col {
+                img {
+                    max-height: initial;
+                    max-width: 100%;
+                }
+            }
+
+            .row {
+                display: flex;
+                flex-direction: row;
+                .col {
+                    padding: 0 variables.$base-spacing;
+
+                    &:first-child {
+                        padding-left: 0;
+                    }
+
+                    &:last-child {
+                        padding-right: 0;
+                    }
+                }
+
+                &.three-quarters {
+                    .col:first-child {
+                        flex-basis: 75%;
+                    }
+                }
+
+                &.two-thirds-one-third {
+                    .col:first-child {
+                        flex-basis: 66.666%;
+                    }
+
+                    .col:last-child {
+                        flex-basis: 33.333%;
+                        flex-shrink: 1;
+                    }
+                }
+
+                &.three-quarters-one-quarter {
+                    .col:first-child {
+                        flex-basis: 75%;
+                    }
+
+                    .col:last-child {
+                        flex-basis: 25%;
+                        flex-shrink: 1;
+                    }
+                }
             }
         }
-        .row {
-            flex-direction: row;
-
-            &.three-quarters {
-                .col:first-child {
-                    flex-basis: 75%;
-                }
-            }
-
-            &.two-thirds-one-third {
-                .col:first-child {
-                    flex-basis: 66.666%;
-                }
-                .col:last-child {
-                    flex-basis: 33.333%;
-                    flex-shrink: 1;
-                }
-            }
-            &.three-quarters-one-quarter {
-                .col:first-child {
-                    flex-basis: 75%;
-                }
-                .col:last-child {
-                    flex-basis: 25%;
-                    flex-shrink: 1;
-                }
-            }
-
-            &.flush {
-                .col:first-child {
-                    padding-left: 0;
-                }
-
-                .col:last-child {
-                    padding-right: 0;
-                }
-            }
-        }
-    }
-
 }
