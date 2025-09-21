@@ -2,14 +2,21 @@
 <html lang="en-GB">
     {% embed 'base/partials/_head.html.twig' %}{% endembed %}
     <body>
+        <img src="/dist/images/hero2.jpg" class="hero">
         {% embed 'base/partials/_header.html.twig' %}{% endembed %}
         {% embed 'base/partials/_alerts.html.twig' %}{% endembed %}
-        <main class="normal">
-            {% embed 'base/partials/_breadcrumbs.html.twig' %}{% endembed %}
-            <div class="title-container">
-                <h1 class="drop-cap">{{ pageTitle }}</h1>
-            </div>
-            {% block body %}{% endblock %}
+        <div class="hero">
+
+        </div>
+        <main>
+
+                <div class="title-container row">
+                    <h1 class="drop-cap">{{ pageTitle }}</h1>
+                </div>
+                {% embed 'base/partials/_breadcrumbs.html.twig' %}{% endembed %}
+                {% block body %}{% endblock %}
+
+
         </main>
         {% embed 'base/partials/_footer.html.twig' %}{% endembed %}
         {% block footerStyles %}

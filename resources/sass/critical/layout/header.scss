@@ -34,6 +34,9 @@ $fullsizeLogoHeight: 3.5rem;
 
 $mobile-header-height: 10vh;
 
+img.hero {
+    display: none;
+}
 header {
     background-color: palette.$charcoal;
     margin: 0;
@@ -77,6 +80,7 @@ header {
 
         transition: background 200ms ease-in-out;
         border-radius: 0.25rem;
+        color: transparent;
 
 
         &:before {
@@ -112,13 +116,13 @@ header {
             background-color: palette.$crimson;
             background: radial-gradient(circle at 50% 100%, color.adjust(palette.$crimson, $lightness: 5%, $space: hsl), palette.$crimson);
         }
+
         &.main-nav-toggle {
             left: 1vh;
             &:before {
                 content: "";
             }
         }
-
 
         &.user-nav-toggle {
             right: 1vh;
@@ -136,8 +140,6 @@ header {
         position: fixed;
         top: $mobile-header-height;
         left: 0;
-        right: 0;
-        bottom: 0;
         background-color: palette.$vellum;
         z-index: 9999;
         transition: transform 200ms ease-in-out;
@@ -166,302 +168,133 @@ header {
 
 @media (min-width: 1080px) {
 
-    header {
+    img.hero {
+        display: block;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .header-container {
         background-color: transparent;
+        position: relative;
+        z-index: 99999;
+        padding: variables.$base-spacing 0;
+    }
+    header {
+        position: relative;
+        background-color: palette.$charcoal;
+        background: linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 20%));
+        border-radius: 0.25rem;
+        z-index: 9999;
+        display: flex;
+        flex-direction: row;
         width: variables.$desktopMaxViewportWidth;
-        margin: 0 auto;
+        margin: 0 variables.$desktopDefaultViewportPadding;
+        padding: variables.$base-spacing;
         height: auto;
-        border-bottom: none;
-        padding: (variables.$base-spacing * 2) 0 0 0;
-        button.nav-toggle {
-            display: none;
-        }
+        align-items: center;
+        border: 0.05rem solid red;
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
 
-        nav.mobile-nav {
-
-            transform: initial !important;
-            position: static;
+        a.brand {
+            width: auto;
+            margin: initial;
             flex: 1;
-            display: flex;
-            flex-direction: row;
-            background-color: transparent;
-            justify-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            margin-top: (variables.$base-spacing * 2);
+            position: static;
+            background-image: none;
+
+            font-family: "Pirata", serif;
+            height: auto;
+            flex-basis: 20%;
+            color: palette.$gold;
         }
 
-        .top {
+        button.nav-toggle {
+            &#main-nav-toggle {
+                display: none;
+            }
+
+            &#user-nav-toggle {
+                display: block;
+                position: relative;
+                flex: 1;
+            }
+
+        }
+
+        nav.mobile-nav#main-nav {
+            flex: 1;
+            position: static;
+            transform: none !important;
+            width: auto;
+            background-color: transparent;
+            flex-direction: row;
+            flex-basis: 60%;
+        }
+
+
+        .header-right {
+            flex: 1;
+            flex-basis: 20%;
             display: flex;
             flex-direction: row;
-            height: auto;
-            position: relative;
-            justify-content: center;
-            justify-items: center;
+            justify-content: right;
+            align-items: end;
 
-            &:after {
-                display: block;
-                content: " ";
-                width: 100%;
-                height: 0;
-                position: absolute;
-                left: 0;
-                bottom: 0 - variables.$base-spacing;
-
-                border-bottom: 0.25rem solid transparent;
-                border-image: url('/dist/images/eroded-line.svg');
-                border-image-slice: 33%;
-            }
-
-
-            .logo {
-                display: flex;
-                width: $fullsizeLogoHeight;
-                background: linear-gradient(-45deg, #00ff48, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-                background-size: 400% 400%;
-                animation: gradient 15s ease infinite;
-                mask-image: url('/dist/images/penrose-mask.svg');
-                mask-size: contain;
-                mask-repeat: no-repeat;
-                mask-position: center;
-                height: $fullsizeLogoHeight;
-                position: relative;
-                margin-right: variables.$base-spacing;
-
-
-                &:after {
-                    content: " ";
-                    display: block;
-                    width: $fullsizeLogoHeight;
-                    height: $fullsizeLogoHeight;
-                    background-size: $fullsizeLogoHeight $fullsizeLogoHeight;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    z-index: 1;
-                    background-image: url('/dist/images/penrose-overlay.svg');
-                    mix-blend-mode: multiply;
-                }
-            }
-            a.brand {
+            .search-form {
                 display: flex;
                 flex: 1;
-                flex-basis: 80%;
-                position: relative;
-                text-align: center;
-                color: palette.$ink;
-                height: auto;
-                width: auto;
-                top: initial;
-                left: initial;
-                margin: 0;
-                background: none;
-                font-family: typography.$displayStack;
-                font-weight: 800;
-                font-size: 2.5rem;
-                border: none;
-                //margin-bottom: (variables.$base-spacing * 3);
+                flex-direction: row;
 
-                &:hover {
-                    border: none;
+            }
+            button#user-nav-toggle {
+                background: none;
+                background-color: cyan;
+                display: block;
+                flex: 1;
+                right: initial;
+                top: initial;
+                flex-grow:0;
+                height: auto;
+                font-size: 0;
+                position: static;
+
+                &:after {
+                    display: none;
                 }
 
                 &:before {
-                    content: attr(content);
-                    color: transparent;
-                    background: palette.$goldFX;
-                    background-clip: text;
-                    position: absolute;
-                    z-index: -1;
-                    margin-left: -0.125rem;
-                    margin-top: 0.125rem;
-                    background-size: 500%;
-                }
-            }
-
-            .right {
-                display: flex;
-                flex: 1;
-                flex-direction: column;
-                flex-basis: 20%;
-                justify-content: right;
-
-                form.search-form {
-                    //display: flex;
-                    flex-direction: row;
-                    border: 0.25rem solid transparent;
-                    border-image: url('/dist/images/eroded-frame-whiteinner.svg');
-                    border-image-slice: 33%;
-                    position: relative;
-                    padding: math.div(variables.$base-spacing, 4);
-
-                    &:before {
-                        content: " ";
-                        display: block;
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        top: 0;
-                        right: 0;
-                        background-color: #f7f5f2;
-                        pointer-events: none;
-                        z-index: -1;
-
-                    }
-
-                    input {
-                        flex: 1;
-                        border: none;
-                        color: black;
-                        font-family: typography.$textStack;
-                        margin-bottom: 0;
-                        flex-basis: 90%;
-                        padding: 0;
-                        font-size: 1rem;
-                        background-color: #f7f5f2;
-                    }
-
-                    button {
-                        flex: 1;
-                        background-color: transparent;
-                        border: none;
-                        color: transparent;
-                        position: relative;
-                        flex-basis: 10%;
-                        &:after {
-                            content: " ";
-                            background-image: url('/dist/images/magnifier-ink.svg');
-                            background-size: contain;
-                            background-repeat: no-repeat;
-                            background-position: center;
-                            display: block;
-                            height: 100%;
-                            width: 4rem;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                        }
-                    }
-                }
-
-                nav#user-nav {
-                    flex: 1;
-                    text-align: left;
-                    margin: 0;
-                    display: flex;
-                    flex-direction: row;
-                    padding: 0;
-                    overflow: initial;
-                    margin-top: variables.$base-spacing;
-
-                    .user-greeting {
-                        flex: 1;
-                        position: relative;
-                        display: block;
-
-                        a {
-                            font-size: 1em;
-                            padding: 0;
-                            display: inline;
-
-                        }
-                    }
-
-                    .user-options {
-                        flex: 1;
-                        display: flex;
-                        flex-direction: row;
-
-                        a {
-                            flex: 1;
-                            flex-grow: 0;
-                            padding: 0;
-                            height: auto;
-                            margin-right: variables.$base-spacing;
-                        }
-                    }
-                }
-            }
-
-
-
-        }
-        .bottom {
-            display: flex;
-            flex-direction: row;
-
-            nav {
-                transform: initial !important;
-                position: static;
-                flex: 1;
-                display: flex;
-                flex-direction: row;
-                background-color: transparent;
-                justify-items: left;
-                justify-content: left;
-                margin: 0 auto;
-                padding: 0 variables.$base-spacing;
-                margin-top: (variables.$base-spacing * 1.5);
-                overflow: initial;
-
-                a {
-                    position: relative;
-                    color: palette.$ink;
-                    font-family: 'Pirata', serif;
-                    border: none;
+                    top: initial;
+                    left: initial;
+                    bottom: initial;
+                    right: initial;
                     font-size: 1.5rem;
                     line-height: 1.5rem;
-                    flex-grow: 0;
-                    flex-shrink: 1;
-                    margin-right: variables.$base-spacing;
-                    padding: 0;
-                    padding-right: 1.5rem;
-                    padding-left: 0;
+                    position: static;
+                }
+            }
 
+            nav#user-nav {
+                transform: none;
+                position: absolute;
+                padding: variables.$base-spacing;
+                top: 100%;
+                right: 0;
+                width: auto;
+                left: auto;
+                transition: opacity 200ms ease-in-out;
+                opacity: 0;
+                pointer-events: none;
 
-
-                    &:hover {
-                        color: palette.$crimson;
-                        transition: color 200ms ease-in-out;
-
-                        &:before {
-                            animation-duration: 15s;
-                            animation-name: glint;
-                            animation-iteration-count: infinite;
-                        }
-                    }
-
-                    &:before {
-                        content: attr(content);
-                        color: transparent;
-                        background: palette.$goldFX;
-                        background-clip: text;
-                        position: absolute;
-                        z-index: -1;
-                        margin-left: -0.125rem;
-                        margin-top: 0.125rem;
-                        background-size: 500%;
-                    }
-
-                    &:after {
-                        content: " ";
-                        display: block;
-                        position: absolute;
-                        width: 1rem;
-                        height: 1rem;
-                        top: 0.25rem;
-                        right: 0rem;
-                        background-image: url('/dist/images/eroded-star.svg');
-                        background-size: contain;
-                    }
-
-                    &:last-child {
-                        &:after {
-                            display: none;
-                        }
-                    }
+                &.open {
+                    opacity: 1;
+                    pointer-events: all;
                 }
             }
         }
+
+
     }
 }

@@ -1,6 +1,8 @@
 @use "sass:color";
+@use 'sass:math';
 @use "palette";
 $desktopMaxViewportWidth: 80vw;
+$desktopDefaultViewportPadding: math.div((100vw - $desktopMaxViewportWidth), 2);
 $gemBorderWidth: 0.5rem;
 $base-spacing: 0.75rem;
 $baseBoxShadow:  0 0 calc($base-spacing/3) color.adjust(palette.$charcoal, $alpha: -0.8), 0 0 calc($base-spacing/4) color.adjust(palette.$charcoal, $alpha: -0.7);

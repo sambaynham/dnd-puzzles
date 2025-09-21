@@ -2,10 +2,14 @@
 <html lang="en-GB">
     {% embed 'base/partials/_head.html.twig' %}{% endembed %}
     <body>
+    <img src="/dist/images/hero2.webp" alt="Hero image" class="hero">
         {% embed 'base/partials/_header.html.twig' %}{% endembed %}
         {% embed 'base/partials/_alerts.html.twig' %}{% endembed %}
         <main>
-            {% block body %}{% endblock %}
+            <div class="container">
+                {% block body %}{% endblock %}
+            </div>
+
         </main>
         {% embed 'base/partials/_footer.html.twig' %}{% endembed %}
         {% block footerStyles %}

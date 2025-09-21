@@ -10,10 +10,13 @@ nav.breadcrumbs {
 
 @media (min-width: 1080px) {
     nav.breadcrumbs {
+        position: relative;
+        border-top: 0.125rem solid transparent;
+        border-bottom: 0.125rem solid transparent;
         display: inline;
-        padding: (variables.$base-spacing * 2) (variables.$base-spacing * 2) 0 (variables.$base-spacing * 2);
-        justify-content: left;
-
+        font-family: "Pirata", serif;
+        padding: 0 (variables.$base-spacing * 2);
+        margin: variables.$base-spacing 0;
         > a, > span {
 
             border: none;

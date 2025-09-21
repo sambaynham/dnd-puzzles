@@ -132,8 +132,9 @@ h1,h2,h3,h4,h5,h6 {
     h1 {
         position: relative;
         display: block;
-        font-size: 4em;		/* 2*16 = 32 */
-        line-height: 2.25em;
+        font-size: 3rem;
+        line-height: 2em;
+
         &:before {
             content: attr(content);
             color: transparent;

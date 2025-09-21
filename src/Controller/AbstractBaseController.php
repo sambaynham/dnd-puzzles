@@ -45,11 +45,6 @@ abstract class AbstractBaseController extends AbstractController
         if (!isset($pageVars['breadcrumbs'])) {
             $pageVars['breadcrumbs'] = [];
         }
-        array_unshift($pageVars['breadcrumbs'], [
-            'route' => 'app.pages.home',
-            'label' => 'Home',
-            'active' => false
-        ]);
         $pageVars['hideBugReportLink'] = $pageVars['hideBugReportLink'] ?? false;
         return $pageVars;
     }

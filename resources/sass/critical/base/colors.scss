@@ -3,7 +3,7 @@
 @use "variables";
 
 body, html {
-    background: linear-gradient(to bottom, color.adjust(palette.$vellum, $lightness: -2%, $space: hsl), color.adjust(palette.$vellum, $lightness: -10%, $space: hsl));
+
 }
 
 body {
@@ -12,50 +12,19 @@ body {
     p,ul,li {
         text-shadow: palette.$bleedingInk;
     }
-    &:before, &:after {
-        content: " ";
-        display: block;
-        position: absolute;
-        z-index: -2;
-
-        background: palette.$goldFX;
-        background-attachment: fixed;
-        background-size: 20%;
-        height: 100%;
-        opacity: 0.5;
-    }
-
-    &:after {
-        width: 12.5rem;
-        bottom: 5vw;
-        right: 1vw;
-        mask-image: url('/dist/images/decorative_corner.svg');
-        mask-repeat: no-repeat;
-        mask-position: right bottom;
-    }
-
-    &:before {
-
-        left: 5vw;
-        top: 0;
-        width: 3rem;
-        mask-image: url('/dist/images/pattern.svg');
-        mask-repeat: repeat-y;
-        mask-size: contain;
 
 
-    }
     main.normal {
-        border: 1rem solid transparent;
-        border-image: url('/dist/images/paper-sheet-brown-shadow.svg');
-        border-image-slice: 7.5%;
+        //border: 1rem solid transparent;
+        //border-image: url('/dist/images/paper-sheet-brown-shadow.svg');
+        //border-image-slice: 7.5%;
         position: relative;
 
         h1:first-child {
             margin-top: 0;
         }
 
-        &:before {
+        /*&:before {
             content: " ";
             display: block;
             position: absolute;
@@ -65,7 +34,7 @@ body {
             right: 0rem;
             bottom: 0rem;
             z-index: -1;
-        }
+        }*/
     }
 }
 @media only screen and (min-width: 1080px) {
