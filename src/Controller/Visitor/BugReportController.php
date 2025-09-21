@@ -39,8 +39,6 @@ class BugReportController extends AbstractBaseController
         }
         $form = $this->createForm(BugReportType::class, $dto);
 
-
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $bugReport = new BugReport(
@@ -50,30 +48,16 @@ class BugReportController extends AbstractBaseController
                 text: $dto->text,
                 referringUrl: strip_tags($dto->referringUrl),
             );
+            $subject = null !== $bugReport->getReferringUrl() ? sprintf("New bug reported: %s, URL %s", $bugReport->getSummary(), $bugReport->getReferringUrl()) : sprintf("New bug reported: %s", $bugReport->getSummary());
             $this->entityManager->persist($bugReport);
             $this->entityManager->flush();
             $this->bus->dispatch(new EmailMessage(
                 fromEmail: 'sender@conundrumcodex.com',
                 toEmail: 'sam@sam-baynham.dev',
-                subject: sprintf("New bug reported: %s", $bugReport->getSummary()),
+                subject: $subject,
                 body: $bugReport->getText()
             ));
-            /*
-            $email = (new Email())
-                ->from('sender@conundrumcodex.com')
-                ->to('sam@sam-baynham.dev')
-                ->subject()
-                ->text($bugReport->getText());
-                //->cc('cc@example.com')
-                //->bcc('bcc@example.com')
-                //->replyTo('fabien@example.com')
-                //->priority(Email::PRIORITY_HIGH)
 
-            $email->getHeaders()->addTextHeader('AhaSend-Sandbox', 'true');
-
-
-
-            $this->mailer->send($email);*/
             $this->addFlash('success', 'Your bug report has been sent. Someone will examine this as soon as possible. Thank you for your patience.');
             return $referringUri ? $this->redirect($referringUri) : $this->redirectToRoute('app.pages.home');
         }
