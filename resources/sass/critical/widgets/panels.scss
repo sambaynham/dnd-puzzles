@@ -14,7 +14,9 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-
+    * {
+        z-index: 1;
+    }
     &:before {
         position: absolute;
         content: " ";
@@ -24,6 +26,7 @@
         left: 0;
         bottom: 0;
         right: 0;
+        z-index: 0;
     }
 
 
@@ -52,9 +55,16 @@
         width: 100%;
 
     }
-}
 
-.paper {
+    &.page {
+        background: none;
+        border: variables.$base-spacing solid transparent;
+        border-image: url('/dist/images/paper-sheet-brown-shadow.svg') 33%;
+        box-shadow: none;
 
-
+        &:before {
+            background: none;
+            background-color: palette.$vellum;
+        }
+    }
 }

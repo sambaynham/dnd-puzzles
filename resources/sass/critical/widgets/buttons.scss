@@ -9,7 +9,7 @@
 
 
     &.btn-secondary {
-        @include buttonise.buttonize(palette.$green, color.adjust(palette.$green, $lightness: 2%), variables.$gemBorderWidth, palette.$white);
+        @include buttonise.buttonize(palette.$green, color.adjust(palette.$green, $lightness: 10%), variables.$gemBorderWidth, palette.$white);
     }
 
     &.btn-blue {

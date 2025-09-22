@@ -1,4 +1,4 @@
-{% extends 'base/base.html.twig' %}
+{% extends 'base/base-minimal.html.twig' %}
 {% block hero %}
     <div class="row flush three-quarters-one-quarter">
         <div class="col">
@@ -48,9 +48,14 @@
 {% block body %}
     <div class="row flush">
         <div class="col">
-            <p>{{ siteName }} is designed to help online games-masters of tabletop RPGs set engaging interactive puzzles remotely.</p>
-            <p>We're community drive, and offer many different types of puzzles that can be customised to meet the needs of your game and setting.</p>
-            <p></p>
+            <div class="panel page">
+                <h1 class="panel-heading">{{ pageTitle }}</h1>
+                <div class="panel-body">
+                    <p>{{ siteName }} is designed to help online games-masters of tabletop RPGs set engaging interactive puzzles remotely.</p>
+                    <p>We're community driven, and offer many different types of puzzles that can be customised to meet the needs of your game and setting.</p>
+                </div>
+
+            </div>
         </div>
 
     </div>

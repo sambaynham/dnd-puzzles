@@ -19,8 +19,11 @@
         <main>
 
             <div class="content">
-                <h1 class="drop-cap">{{ pageTitle }}</h1>
-                {% block body %}{% endblock %}
+                <div class="panel page">
+                    <h1 class="drop-cap">{{ pageTitle }}</h1>
+                    {% block body %}{% endblock %}
+                </div>
+
             </div>
         </main>
         {% embed 'base/partials/_footer.html.twig' %}{% endembed %}

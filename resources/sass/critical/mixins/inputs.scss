@@ -18,6 +18,7 @@
         padding: math.div(variables.$base-spacing, 2);
         flex: 1;
         width: 100%;
+
         &:focus {
             outline: none;
             box-shadow: 0 0 0.5rem palette.$keyColor;

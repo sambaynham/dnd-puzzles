@@ -17,41 +17,32 @@ body {
 $mainBorderHeight: 0.125rem;
 @media only screen and (min-width: 1080px) {
     body {
+        position: relative;
+        &:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            width: 5vh;
+            height: 100%;
+            background: palette.$goldFX;
+            top: 0;
+            right: 5vh;
+            mask: url('/dist/images/pattern.svg');
+            mask-size: contain;
+            mask-repeat: repeat-y;
+            background-attachment: fixed;
+
+            z-index: -1;
+
+        }
+
         main {
-            background-color: palette.$vellum;
-            background: linear-gradient(to top, color.adjust(palette.$vellum, $lightness: -10%), palette.$vellum );
+
             position: relative;
             margin-top: $mainBorderHeight * 10;
+            background-color: transparent;
 
-            &:before {
-                content: " ";
-                height: $mainBorderHeight;
-                width: 100%;
-                background: palette.$goldFX;
-                background-attachment: fixed;
-                position: absolute;
-                top: 0 - $mainBorderHeight;
-                left: 0;
-                right: 0;
-            }
 
-            &:after {
-                content: " ";
-                display: block;
-                position: absolute;
-                width: 5vh;
-                height: 100%;
-                background: palette.$goldFX;
-                top: 0;
-                right: 5vh;
-                mask: url('/dist/images/pattern.svg');
-                mask-size: contain;
-                mask-repeat: repeat-y;
-                background-attachment: fixed;
-
-                z-index: 0;
-
-            }
 
 
         }
