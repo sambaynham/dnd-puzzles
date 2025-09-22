@@ -20,7 +20,7 @@
     text-decoration: none;
     text-align: center;
     margin: math.div(variables.$base-spacing, 2);
-    border: math.div($gemBorderWidth, 2) solid transparent;
+    border: math.div($gemBorderWidth, 3) solid transparent;
     border-image: palette.$goldFX 33%;
 
     &:before {
