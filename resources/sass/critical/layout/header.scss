@@ -7,6 +7,9 @@
 @use "sass:color";
 
 $fullsizeLogoHeight: 2rem;
+$mobile-header-height: 10vh;
+
+$headerShadow: 0 0 1.5rem color.adjust(palette.$ink, $alpha: -.5), 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.8), 0 0 0.25rem color.adjust(palette.$ink, $alpha: -0.9);
 
 @keyframes glint {
     from {
@@ -32,13 +35,13 @@ $fullsizeLogoHeight: 2rem;
 }
 
 
-$mobile-header-height: 10vh;
+
 
 img.hero {
     display: none;
 }
 header {
-    background: linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 20%));
+    background: radial-gradient(ellipse at 50% 100%, palette.$keyColor, color.adjust(palette.$keyColor, $lightness: -33%) 75%);
     margin: 0;
     position: relative;
     height: $mobile-header-height;
@@ -46,28 +49,66 @@ header {
     border-bottom: 0.125rem solid transparent;
     border-image: url("/dist/images/gold-bead.svg") 20%;
 
+    &:after {
+        content: " ";
+        display: block;
+        background: linear-gradient(to top, black 0%, black 50%, white 51%, black 100%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom :0;
+        right: 0;
+        z-index: 999;
+        mix-blend-mode: screen;
+        opacity: 0.1;
+        pointer-events: none;
+
+    }
+
+
+
     .search-form {
         display: none;
     }
     a.brand {
-        color: transparent;
-        width: $mobile-header-height - 2;
-        height: $mobile-header-height - 2;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        display: block;
-        position: absolute;
-        top: 1vh;
-        left: 50%;
-        margin-left: 0 - math.div(($mobile-header-height - 2), 2);
-        background-image: url('/dist/images/penrose.svg');
-
-    }
-
-    .logo {
         display: none;
     }
+
+
+    div.logo {
+        display: block;
+        width: $mobile-header-height - 1vh;
+        height: $mobile-header-height - 1vh;
+        position: absolute;
+        left: 50%;
+        margin-left: 0 - math.div($mobile-header-height, 2);
+        top: 0.5vh;
+
+        &:before, &:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: $mobile-header-height - 1vh;
+            height: $mobile-header-height - 1vh;
+
+        }
+        &:before {
+            background: linear-gradient(33deg, cyan, magenta);
+            background-size: 200% 200%;
+            animation: gradient 3s ease-in-out infinite;
+            mask: url("/dist/images/penrose-mask.svg");
+            mask-size: contain;
+            mask-repeat: no-repeat;
+        }
+        &:after {
+            background-image: url('/dist/images/penrose-overlay.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }
+
 
     button.nav-toggle {
         background-color: palette.$crimson;
@@ -80,6 +121,7 @@ header {
         transition: background 200ms ease-in-out;
         border-radius: 0.25rem;
         color: transparent;
+        z-index: 9999;
 
 
         &:before {
@@ -143,13 +185,15 @@ header {
         z-index: 9999;
         transition: transform 200ms ease-in-out;
         overflow-y: scroll;
-
+        width: 100%;
+        height: 100vh - $mobile-header-height;
         &#main-nav {
             transform: translateX(-100%);
         }
 
         &#user-nav {
             transform: translateX(100%);
+
         }
 
         &.open {
@@ -184,7 +228,6 @@ header {
     }
     header {
         position: relative;
-
         border-radius: 0.25rem;
         z-index: 9999;
         display: flex;
@@ -195,10 +238,29 @@ header {
         height: auto;
         align-items: center;
         border: 1px solid color.adjust(palette.$charcoal, $lightness: -10%);
-        box-shadow: 0 0 1.5rem color.adjust(palette.$ink, $alpha: -.5), 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.8), 0 0 0.25rem color.adjust(palette.$ink, $alpha: -0.9);
+        box-shadow: $headerShadow;
+
+        div.logo {
+            display: block;
+            position: relative;
+            left: 0;
+            top :0;
+            height: $fullsizeLogoHeight;
+            width: $fullsizeLogoHeight;
+            margin: math.div(variables.$base-spacing, 2);
+            &:before, &:after {
+                top: 0;
+                left: 0;
+                height: $fullsizeLogoHeight;
+                width: $fullsizeLogoHeight;
+            }
+        }
+
+
 
 
         a.brand {
+            display: block;
             width: auto;
             margin: initial;
             flex: 1;
@@ -211,35 +273,13 @@ header {
             font-family: "Pirata", serif;
             height: auto;
             flex-basis: 15%;
-            color: palette.$white;
+            color: red;
             border: none;
             border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
-            padding: variables.$base-spacing;
-            padding-left: (variables.$base-spacing + $fullsizeLogoHeight);
+            padding: 0 variables.$base-spacing;
+            font-size: 1.125rem;
+            @include goldtext.goldText();
 
-            &:before, &:after {
-                content: " ";
-                display: block;
-                position: absolute;
-                top: math.div(variables.$base-spacing, 2);
-                left: math.div(variables.$base-spacing, 2);
-                width: $fullsizeLogoHeight;
-                height: $fullsizeLogoHeight;
-
-            }
-            &:before {
-                background: linear-gradient(33deg, cyan, magenta);
-                background-size: 200% 200%;
-                animation: gradient 5s ease infinite;
-                mask: url("/dist/images/penrose-mask.svg");
-                mask-size: contain;
-                mask-repeat: no-repeat;
-            }
-            &:after {
-                background-image: url('/dist/images/penrose-overlay.svg');
-                background-size: contain;
-                background-repeat: no-repeat;
-            }
         }
 
         button.nav-toggle {
@@ -263,23 +303,22 @@ header {
             background-color: transparent;
             flex-direction: row;
             flex-basis: 60%;
-            padding: variables.$base-spacing;
+
             border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
+            height: auto;
 
             a {
+                padding: variables.$base-spacing;
                 color: palette.$white;
                 border: none;
 
-                text-shadow: 0 0 0.25rem transparent;
-                transition: all 150ms ease-in-out;
-                transition-property: color, text-shadow;
-
+                transition: all 300ms ease-in-out;
+                transition-property: text-shadow;
+                text-shadow: 0 0 0 color.adjust(palette.$keyColor, $lightness: 33%);
                 &:hover, &:active {
-                    text-shadow: 0 0 0.25rem cyan;
+                    text-shadow: 0 0 0.5rem color.adjust(palette.$keyColor, $lightness: 33%);
                 }
-                &:hover {
-                    color: white;
-                }
+
             }
         }
 
@@ -299,10 +338,23 @@ header {
                 padding: 0;
 
                 input {
-                    padding: math.div(variables.$base-spacing, 2) variables.$base-spacing;
+                    padding: math.div(variables.$base-spacing, 2);
+                    margin: math.div(variables.$base-spacing, 2);
                     border: none;
-                    background-color: transparent;
-                    color: palette.$white;
+                    border-radius: 0.125rem;
+                    background-color: palette.$offWhite;
+                    box-shadow: inset 0 0 0.5rem black;
+                    position:relative;
+                    z-index: 9999;
+                    &:focus {
+                        outline: none;
+                        box-shadow: 0 0 0.5rem color.adjust(palette.$keyColor,$lightness: 20%);
+                    }
+
+                    color: palette.$ink;
+                    &::placeholder {
+                        color: palette.$ink;
+                    }
 
                 }
                 button {
@@ -355,11 +407,14 @@ header {
                     line-height: 1rem;
                     position: static;
                     color: palette.$white;
+                    text-shadow: 0 0 0.5rem transparent;
+                    transition: text-shadow 150ms ease-in-out;
                 }
 
-                &.open {
+                &.open, &:hover {
                     &:before {
-                        color: palette.$crimson;
+
+                        text-shadow: 0 0 0.5rem color.adjust(palette.$keyColor, $lightness: 33%);
                     }
                 }
             }
@@ -369,8 +424,9 @@ header {
                 position: absolute;
                 padding: variables.$base-spacing;
                 top: 100%;
+                height: auto;
                 margin-top: variables.$base-spacing;
-                border: 1px solid palette.$charcoal;
+                border: 1px solid color.adjust(palette.$vellum, $lightness: -25%);
                 right: 0;
                 width: auto;
                 left: auto;
@@ -378,10 +434,9 @@ header {
                 opacity: 0;
                 pointer-events: none;
                 border-radius: 0.25rem;
-
                 justify-items: left;
                 justify-content: left;
-
+                box-shadow: $headerShadow;
                 .user-options {
                     display: flex;
                     flex-direction: row;

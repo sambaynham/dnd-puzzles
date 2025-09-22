@@ -41,75 +41,75 @@ main {
 
 @media only screen and (min-width: 1080px) {
 
-        div.hero {
+    div.hero {
 
-            .row {
-                .col {
-                    min-height: 33vh;
-                    .panel {
-                        min-height: 100%;
-                    }
+        .row {
+            .col {
+                min-height: 33vh;
+                .panel {
+                    min-height: 100%;
                 }
             }
         }
+    }
 
-        div.content {
-            min-height: 75vh;
+    div.content {
+        min-height: 80vh;
+    }
+    div.hero, div.content {
+        background-color: transparent;
+        margin: 0 variables.$desktopDefaultViewportPadding;
+        padding: variables.$base-spacing 0;
+
+        .row, .col {
+            img {
+                max-height: initial;
+                max-width: 100%;
+            }
         }
-        div.hero, div.content {
-            background-color: transparent;
-            margin: 0 variables.$desktopDefaultViewportPadding;
-            padding: variables.$base-spacing 0;
 
-            .row, .col {
-                img {
-                    max-height: initial;
-                    max-width: 100%;
+        .row {
+            display: flex;
+            flex-direction: row;
+            .col {
+                padding: 0 variables.$base-spacing;
+
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                &:last-child {
+                    padding-right: 0;
                 }
             }
 
-            .row {
-                display: flex;
-                flex-direction: row;
-                .col {
-                    padding: 0 variables.$base-spacing;
+            &.three-quarters {
+                .col:first-child {
+                    flex-basis: 75%;
+                }
+            }
 
-                    &:first-child {
-                        padding-left: 0;
-                    }
-
-                    &:last-child {
-                        padding-right: 0;
-                    }
+            &.two-thirds-one-third {
+                .col:first-child {
+                    flex-basis: 66.666%;
                 }
 
-                &.three-quarters {
-                    .col:first-child {
-                        flex-basis: 75%;
-                    }
+                .col:last-child {
+                    flex-basis: 33.333%;
+                    flex-shrink: 1;
+                }
+            }
+
+            &.three-quarters-one-quarter {
+                .col:first-child {
+                    flex-basis: 75%;
                 }
 
-                &.two-thirds-one-third {
-                    .col:first-child {
-                        flex-basis: 66.666%;
-                    }
-
-                    .col:last-child {
-                        flex-basis: 33.333%;
-                        flex-shrink: 1;
-                    }
-                }
-
-                &.three-quarters-one-quarter {
-                    .col:first-child {
-                        flex-basis: 75%;
-                    }
-
-                    .col:last-child {
-                        flex-basis: 25%;
-                        flex-shrink: 1;
-                    }
+                .col:last-child {
+                    flex-basis: 25%;
+                    flex-shrink: 1;
                 }
             }
         }
+    }
 }

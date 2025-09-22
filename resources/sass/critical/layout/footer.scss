@@ -7,7 +7,7 @@ footer {
     padding:  variables.$base-spacing math.div(100vw - variables.$desktopMaxViewportWidth, 2);
     background-color: palette.$charcoal;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     color: palette.$white;
     width: 100%;
     box-shadow: variables.$baseBoxShadow;
@@ -26,5 +26,10 @@ footer {
         a {
             color: palette.$white !important;
         }
+    }
+}
+@media only screen and (min-width: 1080px) {
+    footer {
+        flex-direction: row;
     }
 }

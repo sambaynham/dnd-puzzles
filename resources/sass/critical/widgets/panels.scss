@@ -1,5 +1,6 @@
 @use "../base/palette";
 @use '../base/variables';
+@use 'sass:color';
 
 .panel {
     align-self: stretch;
@@ -16,7 +17,7 @@
     &:before {
         position: absolute;
         content: " ";
-        background-color: palette.$vellum;
+        background: linear-gradient(to top, color.adjust(palette.$vellum, $lightness: -10%), palette.$vellum );
         display: block;
         top: 0;
         left: 0;
