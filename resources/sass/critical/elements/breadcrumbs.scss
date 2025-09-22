@@ -15,8 +15,8 @@ nav.breadcrumbs {
         display: flex;
         font-family: "Pirata", serif;
         padding: 0 (variables.$base-spacing * 2);
-        margin: variables.$base-spacing variables.$desktopDefaultViewportPadding;
-        box-shadow: 0 0 0.5rem color.adjust(palette.$ink, $alpha: 0.0675), 0 0 0.125rem color.adjust(palette.$ink, $alpha: 0.125), 0 0 0.0675rem color.adjust(palette.$ink, $alpha: 0.25);
+        margin: 0 variables.$desktopDefaultViewportPadding;
+        box-shadow: variables.$baseBoxShadow;
         border-radius: 0.25rem;
         background-color: palette.$vellum;
         background: linear-gradient(to top, palette.$vellum, color.adjust(palette.$vellum, $lightness: 20%));

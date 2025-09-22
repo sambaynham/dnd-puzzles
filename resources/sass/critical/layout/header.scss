@@ -9,7 +9,7 @@
 $fullsizeLogoHeight: 2rem;
 $mobile-header-height: 10vh;
 
-$headerShadow: 0 0 1.5rem color.adjust(palette.$ink, $alpha: -.5), 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.8), 0 0 0.25rem color.adjust(palette.$ink, $alpha: -0.9);
+
 
 @keyframes glint {
     from {
@@ -224,7 +224,7 @@ header {
         background-color: transparent;
         position: relative;
         z-index: 99999;
-        padding: (variables.$base-spacing * 2) 0;
+        padding: (variables.$base-spacing * 2) 0 variables.$base-spacing 0;
     }
     header {
         position: relative;
@@ -238,7 +238,7 @@ header {
         height: auto;
         align-items: center;
         border: 1px solid color.adjust(palette.$charcoal, $lightness: -10%);
-        box-shadow: $headerShadow;
+        box-shadow: variables.$baseBoxShadow;
 
         div.logo {
             display: block;
@@ -436,7 +436,7 @@ header {
                 border-radius: 0.25rem;
                 justify-items: left;
                 justify-content: left;
-                box-shadow: $headerShadow;
+                box-shadow: variables.$baseBoxShadow;
                 .user-options {
                     display: flex;
                     flex-direction: row;

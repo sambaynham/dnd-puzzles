@@ -5,7 +5,7 @@
 
 @mixin buttonize($primaryColor, $hoverColor: color.adjust($primaryColor, $lightness: 1%), $gemBorderWidth : 0.125rem, $textColor: palette.$white, $fontFamily: 'Crimson Text')
 {
-    box-shadow: 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.25), 0 0 0.25rem color.scale(palette.$ink, $alpha: -25%);
+    box-shadow: variables.$baseBoxShadow;
     position: relative;
     z-index: 1;
     color: $textColor;
@@ -21,9 +21,7 @@
     text-align: center;
     margin: math.div(variables.$base-spacing, 2);
     border: math.div($gemBorderWidth, 2) solid transparent;
-    border-image: palette.$goldFX;
-    border-image-slice: 33%;
-
+    border-image: palette.$goldFX 33%;
 
     &:before {
         content: "";
