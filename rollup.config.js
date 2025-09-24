@@ -34,19 +34,6 @@ const terserOptions = {
         },
     },
 }
-function myExample() {
-    return {
-        name: 'my-example', // this name will show up in logs and errors
-        resolveId(source) {
-
-            return null; // other ids should be handled as usually
-        },
-        load(id) {
-
-            return null;
-        }
-    };
-}
 
 const config = [
     {
@@ -67,39 +54,11 @@ const config = [
         preserveEntrySignatures: false,
     },
     {
-        input: 'resources/typescript/puzzles/hammer/hammerBoot.ts',
-        output: {
-            dir: './public/dist/js/',
-            format: 'es',
-        },
-
-        plugins: [
-            typescript(),
-            resolve()
-        ],
-        preserveEntrySignatures: false,
-    },
-    {
-        input: 'resources/typescript/puzzles/lightforge/lightforgeBoot.ts',
-        output: {
-            dir: './public/dist/js/',
-
-            format: 'es',
-        },
-
-        plugins: [
-            typescript(),
-            resolve()
-        ],
-        preserveEntrySignatures: false,
-    },
-    {
         input: 'resources/sass/critical.scss',
         output: {
             dir: './public/dist/css/'
         },
         plugins: [
-            myExample(),
             scss({
                 fileName: 'critical.css',
                 outputStyle: 'compressed',
@@ -112,43 +71,13 @@ const config = [
             summary()
         ]
     },
-    {
-        input: 'resources/sass/puzzles/lightforge.scss',
-        output: {
-            dir: './public/dist/css/puzzles'
-        },
-        plugins: [
-            scss({
-                fileName: 'lightforge.css',
-                outputStyle: 'compressed',
-                watch: ['resources/sass/puzzles/lightforge.scss']
 
-            }),
-            summary()
-        ]
-    },
-    {
-        input: 'resources/sass/puzzles/hammer.scss',
-        output: {
-            dir: './public/dist/css/puzzles'
-        },
-        plugins: [
-            scss({
-                fileName: 'hammer.css',
-                outputStyle: 'compressed',
-                watch: ['resources/sass/puzzles/hammer.scss']
-            }),
-            summary()
-        ]
-    }
 ];
 
 
 
 if (process.env.NODE_ENV !== 'development') {
-  config[0].plugins.push(terser(terserOptions));
-  config[1].plugins.push(terser(terserOptions));
-  config[2].plugins.push(terser(terserOptions));
+  // config[0].plugins.push(terser(terserOptions));
 }
 
 export default config;

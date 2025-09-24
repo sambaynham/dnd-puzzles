@@ -1,66 +1,69 @@
-@use "sass:color";
-@use "palette";
-@use "variables";
+@use 'sass:color';
+@use 'palette';
+/**
+* Effects
+ */
+$baseBoxShadow: 0 0.25 5rem rgba(0, 0, 0, 0.5), 0 0.25 2.5rem rgba(0, 0, 0, 0.5), 0 0.25 1.25rem rgba(0, 0, 0, 0.5);
 
-body, html {
-
-}
+$parallaxHeight: 20rem;
 
 body {
+    background: palette.$midnightBlue linear-gradient(to top, color.adjust(palette.$midnightBlue, $lightness: -5%), palette.$midnightBlue) no-repeat bottom;
+    color: palette.$skyBlue;
+    min-height: 100vh;
+}
+
+.col {
     position: relative;
-    color: palette.$ink;
-    p,ul,li {
-        text-shadow: palette.$bleedingInk;
+    color: palette.$midnightBlue;
+    box-shadow: $baseBoxShadow;
+    border: 4vh solid transparent;
+    border-image: url('/dist/images/deco-frame.svg');
+    border-image-slice: 40%;
+
+    &:before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: -4vh;
+        left: -4vh;
+        bottom: -4vh;
+        right: -4vh;
+        z-index: -1;
+        background: palette.$lavender linear-gradient(to top, color.adjust(palette.$lavender, $lightness: -5%), palette.$lavender) no-repeat bottom;
     }
+
 }
+header {
+    background: palette.$lavender linear-gradient(to top, color.adjust(palette.$midnightBlue, $lightness: -10%), palette.$midnightBlue);
+}
+/*
+header {
+    position: relative;
+    padding-top: $parallaxHeight;
 
-$mainBorderHeight: 0.125rem;
-@media only screen and (min-width: 1080px) {
-    body {
-        position: relative;
+    &:before, &:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        bottom: -0.5rem;
+        left: 0;
+        right: 0;
+        height: 100%;
+        background-size: cover;
+        background-position: bottom;
+        background-repeat: no-repeat;
 
-        &:before, &:after {
-            content: " ";
-            display: block;
-            position: absolute;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-        &:after {
-
-            width: 5vh;
-            z-index: -2;
-            background: palette.$goldFX;
-            top: 0;
-            right: 5vh;
-            mask: url('/dist/images/pattern.svg');
-            mask-size: contain;
-            mask-repeat: repeat-y;
-            background-attachment: fixed;
-
-
-
-        }
-        &:before {
-            width: 100%;
-            position: fixed;
-            background-color: magenta;
-            background: radial-gradient(circle at 50% 10%, transparent 75%, palette.$ink 80%);
-            opacity: 0.5;
-            mix-blend-mode: multiply;
-
-        }
-
-        main {
-
-            position: relative;
-            margin-top: variables.$base-spacing;
-            background-color: transparent;
-
-
-
-
-        }
     }
-}
+    &:before {
+        background-image: url('/dist/images/parallax/l2.svg');
+        z-index: -2;
+    }
+    &:after {
+        background-image: url('/dist/images/parallax/l1.svg');
+        z-index: -1;
+    }
+    background-color: palette.$lavender;
+    background: radial-gradient(circle at 50% 100%, orange 20%, pink 20.5%, #a662da 34%, color.adjust(palette.$lavender, $lightness: 5%) 34.5%);
+    color: palette.$midnightBlue;
+}*/

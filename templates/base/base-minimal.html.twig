@@ -2,10 +2,6 @@
 <html lang="en-GB">
     {% embed 'base/partials/_head.html.twig' %}{% endembed %}
     <body>
-
-        {% if heroImagePath is defined %}
-            <img src="{{ heroImagePath }}" class="hero">
-        {% endif %}
         {% embed 'base/partials/_header.html.twig' %}{% endembed %}
         {% embed 'base/partials/_alerts.html.twig' %}{% endembed %}
 

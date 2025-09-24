@@ -1,0 +1,26 @@
+$button-border-width: 5rem;
+@use 'sass:color';
+
+@use '../base/palette';
+
+button, .btn {
+    background: palette.$midnightBlue linear-gradient(to top, palette.$midnightBlue, color.adjust(palette.$midnightBlue, $lightness: 10%));
+    border: 1px solid gold;
+    border-radius: 5%;
+    position: relative;
+
+    &:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        height: 90%;
+        width: 90%;
+        top: 5%;
+        left: 5%;
+        pointer-events: none;
+        background: linear-gradient(to bottom, white, transparent);
+        mix-blend-mode: screen;
+        border-radius: 2.5%;
+        opacity: 0.125;
+    }
+}

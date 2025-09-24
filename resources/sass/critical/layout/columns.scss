@@ -1,0 +1,31 @@
+@use '../base/variables';
+
+.row {
+    display: flex;
+    flex-direction: column;
+    padding: 0 (variables.$base-column-spacing * 2);
+
+    .col {
+        flex: 1;
+        margin: variables.$base-column-spacing;
+        padding: variables.$base-column-spacing;
+
+
+    }
+}
+@media (width >= variables.$breakpoint-standard){
+    .row {
+        padding: 0 (variables.$base-column-spacing * 4);
+        flex-direction: row;
+
+        .col {
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

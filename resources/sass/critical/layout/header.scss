@@ -1,26 +1,5 @@
-@use '../base/palette';
 @use '../base/variables';
-@use "../mixins/goldtext";
-@use "../base/typography";
-@use "../mixins/buttonise";
-@use 'sass:math';
-@use "sass:color";
-
-$fullsizeLogoHeight: 2rem;
-$mobile-header-height: 10vh;
-
-
-
-@keyframes glint {
-    from {
-        background-position: 100%;
-
-    }
-
-    to {
-        background-position: 500%;
-    }
-}
+@use '../base/palette';
 
 @keyframes gradient {
     0% {
@@ -35,433 +14,171 @@ $mobile-header-height: 10vh;
 }
 
 
-
-
-img.hero {
-    display: none;
-}
 header {
-    background: radial-gradient(ellipse at 50% 100%, color.adjust(palette.$keyColor, $alpha: -0.3), color.adjust(palette.$keyColor, $lightness: -33%, $alpha: -0.3) 75%);
-    backdrop-filter: blur(0.25rem);
-    margin: 0;
-    position: relative;
-    height: $mobile-header-height;
-    padding: variables.$base-spacing;
-    border-bottom: 0.125rem solid transparent;
-    border-image: url("/dist/images/gold-bead.svg") 20%;
+    position: fixed;
+    z-index: 9999;
+    height: 10vh;
+    width: 100%;
 
-    &:after {
-        content: " ";
-        display: block;
-        background: palette.$glossGradient;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom :0;
-        right: 0;
-        z-index: 999;
-        mix-blend-mode: screen;
-        opacity: 0.1;
-        pointer-events: none;
-
-    }
-
-
-
-    .search-form {
-        display: none;
-    }
     a.brand {
-        display: none;
-    }
-
-
-    div.logo {
-        display: block;
-        width: $mobile-header-height - 1vh;
-        height: $mobile-header-height - 1vh;
         position: absolute;
         left: 50%;
-        margin-left: 0 - math.div($mobile-header-height, 2);
-        top: 0.5vh;
+        margin-left: -5vh;
+        color: transparent;
 
         &:before, &:after {
             content: " ";
             display: block;
+
+            height: 8vh;
+            width: 8vh;
             position: absolute;
+            margin: 1vh;
             top: 0;
             left: 0;
-            width: $mobile-header-height - 1vh;
-            height: $mobile-header-height - 1vh;
-
         }
         &:before {
             background: linear-gradient(33deg, cyan, magenta);
-            background-size: 200% 200%;
+            background-size: 500%;
             animation: gradient 3s ease-in-out infinite;
-            mask: url("/dist/images/penrose-mask.svg");
+            mask: url('/dist/images/penrose-mask.svg');
             mask-size: contain;
             mask-repeat: no-repeat;
         }
+
         &:after {
             background-image: url('/dist/images/penrose-overlay.svg');
             background-size: contain;
             background-repeat: no-repeat;
         }
     }
-
-
     button.nav-toggle {
-        background-color: palette.$crimson;
-        background: radial-gradient(circle at 50% 100%, palette.$crimson, color.adjust(palette.$crimson, $lightness: -15%, $space: hsl));
-        border: none;
-        height: ($mobile-header-height - 2vh);
-        width: ($mobile-header-height - 2vh);
-        position: absolute;
-        top: 1vh;
-        transition: background 200ms ease-in-out;
-        border-radius: 0.25rem;
+        height: 8vh;
+        width: 8vh;
+        margin: 1vh;
         color: transparent;
-        z-index: 9999;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
 
-
-        &:before {
-            display: block;
-            position: absolute;
-            content: " ";
-            color: palette.$white;
-            top: 1vh;
-            left: 1vh;
-            right: 1vh;
-            bottom: 1vh;
-            font-family: 'RPGAwesome', sans-serif;
-            font-size: 4vh;
-            line-height: 6vh;
-
-        }
-
-        &:after {
-            content: " ";
-            position: absolute;
-            pointer-events: none;
-            background-color: transparent;
-            top: 0;
+        &#main-nav-toggle {
             left: 0;
-            bottom: 0;
+        }
+
+        &#user-nav-toggle {
             right: 0;
-            border: 1vh outset rgba(255, 255, 255, 0.5);
-            mix-blend-mode: soft-light;
-            border-radius: 0.25rem;
         }
-
-        &.open, &:focus, &:hover {
-            background-color: palette.$crimson;
-            background: radial-gradient(circle at 50% 100%, color.adjust(palette.$crimson, $lightness: 5%, $space: hsl), palette.$crimson);
-        }
-
-        &.main-nav-toggle {
-            left: 1vh;
-            &:before {
-                content: "";
-            }
-        }
-
-        &.user-nav-toggle {
-            right: 1vh;
-
-            &:before {
-                content: "";
-            }
-        }
-
     }
-
-    nav.mobile-nav {
+    nav {
         display: flex;
         flex-direction: column;
-        position: fixed;
-        top: $mobile-header-height;
+        background-color: palette.$skyBlue;
+        height: 90vh;
+        position: absolute;
+        top: 10vh;
         left: 0;
-        background-color: palette.$vellum;
-        z-index: 9999;
-        transition: transform 200ms ease-in-out;
-        overflow-y: scroll;
-        width: 100%;
-        height: 100vh - $mobile-header-height;
+        bottom: 0;
+        right: 0;
+        transition: transform variables.$baseTransitionDuration;
+        flex-flow: column wrap;
+
+        a {
+            flex: 1;
+            flex-shrink: 1;
+            flex-grow: 0;
+            padding: (variables.$base-column-spacing * 2);
+            flex-basis: 10%;
+            color: palette.$midnightBlue;
+            font-size: 1.25rem;
+            transition: all variables.$baseTransitionDuration ease-in-out;
+            transition-property: color, background-color;
+
+            &:nth-child(odd) {
+                background-color: rgba(255, 255, 255, 0.25);
+            }
+
+            &:hover, &:active, &:focus {
+                background-color: palette.$midnightBlue;
+                color: palette.$lavender;
+            }
+
+
+        }
+
         &#main-nav {
-            transform: translateX(-100%);
+            transform: translateX(-100vw);
         }
 
         &#user-nav {
-            transform: translateX(100%);
-
+            transform: translateX(100vw);
         }
 
         &.open {
-            transform: translateX(0) !important;
+            transform: none !important;
         }
 
-        a {
-            text-align: left;
-            padding: 0 variables.$base-spacing;
-        }
     }
 
-
+    form.search-form {
+        display: none;
+    }
 }
 
-@media (min-width: 1080px) {
+main {
+    padding-top: 10vh + variables.$base-column-spacing;
+}
 
-    img.hero {
-        display: block;
-        position: fixed;
-        min-height: 100%;
-        top: 0;
-        left: 0;
-        z-index: -999;
-        object-fit: fill;
-    }
-
-    .header-container {
-        background-color: transparent;
-        position: relative;
-        z-index: 99999;
-        padding: (variables.$base-spacing * 2) 0 variables.$base-spacing 0;
-    }
+@media (width >= variables.$breakpoint-standard){
     header {
-        position: relative;
-        border-radius: 0.25rem;
-        z-index: 9999;
+        position: static;
+        background: transparent;
+        height: initial;
         display: flex;
         flex-direction: row;
-        width: variables.$desktopMaxViewportWidth;
-        margin: 0 variables.$desktopDefaultViewportPadding;
-        padding: 0;
-        height: auto;
-        align-items: center;
-        border: 1px solid color.adjust(palette.$charcoal, $lightness: -10%);
-        box-shadow: variables.$baseBoxShadow;
-
-        div.logo {
-            display: block;
-            position: relative;
-            left: 0;
-            top :0;
-            height: $fullsizeLogoHeight;
-            width: $fullsizeLogoHeight;
-            margin: math.div(variables.$base-spacing, 2);
-            &:before, &:after {
-                top: 0;
-                left: 0;
-                height: $fullsizeLogoHeight;
-                width: $fullsizeLogoHeight;
-            }
-        }
-
-
-
-
-        a.brand {
-            display: block;
-            width: auto;
-            margin: initial;
-            flex: 1;
-            position: relative;
-            left: initial;
-            right: initial;
-            top: initial;
-            bottom: initial;
-            background-image: none;
-            font-family: "Pirata", serif;
-            height: auto;
-            flex-basis: 15%;
-            color: red;
-            border: none;
-            border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
-            padding: 0 variables.$base-spacing;
-            font-size: 1.125rem;
-            @include goldtext.goldText();
-
-        }
+        background-color: magenta;
+        padding: 0 (variables.$base-column-spacing * 4);
 
         button.nav-toggle {
-            &#main-nav-toggle {
-                display: none;
-            }
-
-            &#user-nav-toggle {
-                display: block;
-                position: relative;
-                flex: 1;
-            }
-
+            display: none;
         }
 
-        nav.mobile-nav#main-nav {
-            flex: 1;
-            position: static;
-            transform: none !important;
-            width: auto;
-            background-color: transparent;
-            flex-direction: row;
-            flex-basis: 60%;
+        a.brand {
 
-            border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
-            height: auto;
-
-            a {
-                padding: variables.$base-spacing;
-                color: palette.$white;
-                border: none;
-
-                transition: all 300ms ease-in-out;
-                transition-property: text-shadow;
-                text-shadow: 0 0 0 color.adjust(palette.$keyColor, $lightness: 33%);
-                &:hover, &:active {
-                    text-shadow: 0 0 0.5rem color.adjust(palette.$keyColor, $lightness: 33%);
-                }
-
-            }
-        }
-
-
-        .header-right {
-            flex: 1;
+            position: relative;
+            left: initial;
             display: flex;
-            flex-direction: row;
-            justify-content: right;
-            align-items: center;
+            color: palette.$skyBlue;
+            font-family: 'Sulphur Point', sans-serif;
+            font-weight: 300;
+            padding-top: 15vh;
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 0 auto;
 
-            .search-form {
-                display: flex;
-                flex: 1;
-                flex-direction: row;
-                border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
-                padding: 0;
-
-                input {
-                    padding: math.div(variables.$base-spacing, 2);
-                    margin: math.div(variables.$base-spacing, 2);
-                    border: none;
-                    border-radius: 0.125rem;
-                    background-color: palette.$offWhite;
-                    box-shadow: inset 0 0 0.5rem black;
-                    position:relative;
-                    z-index: 9999;
-                    &:focus {
-                        outline: none;
-                        box-shadow: 0 0 0.5rem color.adjust(palette.$keyColor,$lightness: 20%);
-                    }
-
-                    color: palette.$ink;
-                    &::placeholder {
-                        color: palette.$ink;
-                    }
-
-                }
-                button {
-                    border: none;
-                    padding: variables.$base-spacing;
-                    background-color: transparent;
-                    color: transparent;
-                    position: relative;
-
-                    &:before {
-                        position: absolute;
-                        content: " ";
-                        display: block;
-                        top: 0;
-                        left: 0;
-                        bottom: 0;
-                        right: 0;
-                        background-image: url('/dist/images/magnifier-white.svg');
-                        background-size: 33%;
-                        background-repeat: no-repeat;
-                        background-position: center;
-                    }
-                }
-            }
-            button#user-nav-toggle {
-                width: 3rem;
-                background: none;
-                padding: variables.$base-spacing;
-                display: block;
-                flex: 1;
-                right: initial;
-                top: initial;
-                flex-grow:0;
-                height: auto;
-                font-size: 0;
-                position: static;
-                border-radius: 0;
-
-
-                &:after {
-                    display: none;
-                }
-
-                &:before {
-                    top: initial;
-                    left: initial;
-                    bottom: initial;
-                    right: initial;
-                    font-size: 1rem;
-                    line-height: 1rem;
-                    position: static;
-                    color: palette.$white;
-                    text-shadow: 0 0 0.5rem transparent;
-                    transition: text-shadow 150ms ease-in-out;
-                }
-
-                &.open, &:hover {
-                    &:before {
-
-                        text-shadow: 0 0 0.5rem color.adjust(palette.$keyColor, $lightness: 33%);
-                    }
-                }
-            }
-
-            nav#user-nav {
-                transform: none;
-                position: absolute;
-                padding: variables.$base-spacing;
-                top: 100%;
-                height: auto;
-                margin-top: variables.$base-spacing;
-                border: 1px solid color.adjust(palette.$vellum, $lightness: -25%);
-                right: 0;
-                width: auto;
-                left: auto;
-                transition: opacity 200ms ease-in-out;
-                opacity: 0;
-                pointer-events: none;
-                border-radius: 0.25rem;
-                justify-items: left;
-                justify-content: left;
-                box-shadow: variables.$baseBoxShadow;
-                .user-options {
-                    display: flex;
-                    flex-direction: row;
-                    a {
-                        padding: 0 variables.$base-spacing;
-                        &:first-child {
-                            padding-left: 0;
-                        }
-
-                        &:last-child {
-                            padding-right: 0;
-                        }
-                    }
-                }
-
-                &.open {
-                    opacity: 1;
-                    pointer-events: all;
-
-                }
+            &:before, &:after {
+                left: 33%;
+                top: 5vh;
             }
         }
 
+        nav#main-nav {
+            transform: none;
+            flex-direction: row;
+            height: auto;
+            position: sticky;
+            top: initial;
+            left: initial;
+            bottom: initial;
+            right: initial;
+            a {
+
+            }
+        }
+        .header-right {
+            form.search-form {
+                display: block;
+            }
+        }
 
     }
 }
