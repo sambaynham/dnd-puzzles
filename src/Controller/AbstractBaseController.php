@@ -45,8 +45,16 @@ abstract class AbstractBaseController extends AbstractController
         if (!isset($pageVars['breadcrumbs'])) {
             $pageVars['breadcrumbs'] = [];
         }
-        $pageVars['heroImagePath'] = $pageVars['heroImagePath'] ?? '/dist/images/hero3.webp';
+        $pageVars['heroImagePath'] = $this->getRandomHeroImagePath();
         $pageVars['hideBugReportLink'] = $pageVars['hideBugReportLink'] ?? false;
         return $pageVars;
+    }
+
+    private function getRandomHeroImagePath(): string {
+        $paths = [
+            '/dist/images/hero3.webp',
+            '/dist/images/hero2.webp',
+        ];
+        return $paths[array_rand($paths, 1)];
     }
 }

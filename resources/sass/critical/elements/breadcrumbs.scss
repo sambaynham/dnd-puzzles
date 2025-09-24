@@ -10,28 +10,27 @@ nav.breadcrumbs {
 
 @media (min-width: 1080px) {
     nav.breadcrumbs {
-        position: relative;
-
         display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+        align-items: end;
+        border-radius: 0.25rem;
+        background-color: palette.$vellum;
+        background: linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 20%));
+        background-size: 100% auto;
         font-family: "Pirata", serif;
         padding: 0 (variables.$base-spacing * 2);
         margin: 0 variables.$desktopDefaultViewportPadding;
         box-shadow: variables.$baseBoxShadow;
-        border-radius: 0.25rem;
-        background-color: palette.$vellum;
-        background: linear-gradient(to top, palette.$vellum, color.adjust(palette.$vellum, $lightness: 20%));
-        background-size: 100% auto;
 
         > a, > span {
 
             border: none;
             position: relative;
-            flex: 1;
-            justify-items: left;
-            align-items: center;
-
+            color: palette.$offWhite;
             &:hover {
-                color: color.adjust(palette.$crimson, $lightness: 12.5%);
+                color: color.adjust(palette.$offWhite, $lightness: 12.5%);
             }
             &:not(:last-child):after {
                 content: "/";

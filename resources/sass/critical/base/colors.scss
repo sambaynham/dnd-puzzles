@@ -18,12 +18,19 @@ $mainBorderHeight: 0.125rem;
 @media only screen and (min-width: 1080px) {
     body {
         position: relative;
-        &:after {
+
+        &:before, &:after {
             content: " ";
             display: block;
             position: absolute;
-            width: 5vh;
             height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        &:after {
+
+            width: 5vh;
+            z-index: -2;
             background: palette.$goldFX;
             top: 0;
             right: 5vh;
@@ -32,14 +39,23 @@ $mainBorderHeight: 0.125rem;
             mask-repeat: repeat-y;
             background-attachment: fixed;
 
-            z-index: -1;
+
+
+        }
+        &:before {
+            width: 100%;
+            position: fixed;
+            background-color: magenta;
+            background: radial-gradient(circle at 50% 10%, transparent 75%, palette.$ink 80%);
+            opacity: 0.5;
+            mix-blend-mode: multiply;
 
         }
 
         main {
 
             position: relative;
-            margin-top: $mainBorderHeight * 10;
+            margin-top: variables.$base-spacing;
             background-color: transparent;
 
 

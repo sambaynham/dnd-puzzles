@@ -41,8 +41,8 @@ img.hero {
     display: none;
 }
 header {
-    background: radial-gradient(ellipse at 50% 100%, color.adjust(palette.$keyColor, $alpha: -0.2), color.adjust(palette.$keyColor, $lightness: -33%, $alpha: -0.2) 75%);
-    backdrop-filter: blur(0.5rem);
+    background: radial-gradient(ellipse at 50% 100%, color.adjust(palette.$keyColor, $alpha: -0.3), color.adjust(palette.$keyColor, $lightness: -33%, $alpha: -0.3) 75%);
+    backdrop-filter: blur(0.25rem);
     margin: 0;
     position: relative;
     height: $mobile-header-height;
@@ -215,10 +215,11 @@ header {
     img.hero {
         display: block;
         position: fixed;
-        width: 100%;
+        min-height: 100%;
         top: 0;
         left: 0;
         z-index: -999;
+        object-fit: fill;
     }
 
     .header-container {

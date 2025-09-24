@@ -50,6 +50,7 @@ main {
                     min-height: 100%;
                 }
             }
+
         }
     }
 
@@ -59,7 +60,7 @@ main {
     div.hero, div.content {
         background-color: transparent;
         margin: 0 variables.$desktopDefaultViewportPadding;
-        padding: variables.$base-spacing 0;
+        padding: 0;
 
         .row, .col {
             img {
@@ -71,6 +72,7 @@ main {
         .row {
             display: flex;
             flex-direction: row;
+            margin: variables.$base-spacing 0;
             .col {
                 padding: 0 variables.$base-spacing;
 

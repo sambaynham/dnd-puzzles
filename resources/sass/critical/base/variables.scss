@@ -4,7 +4,7 @@
 $desktopMaxViewportWidth: 80vw;
 $desktopDefaultViewportPadding: math.div((100vw - $desktopMaxViewportWidth), 2);
 $gemBorderWidth: 0.25rem;
-$base-spacing: 0.75rem;
+$base-spacing: 1vw;
 $baseBoxShadow: 0 0.125rem 0.5rem color.adjust(palette.$ink, $alpha: -0.5), 0 0.125rem 0.25rem color.adjust(palette.$ink, $alpha: -0.8), 0 0.125rem 0.125rem color.adjust(palette.$ink, $alpha: -0.9);
 //Misc
 $alphabet: a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z;

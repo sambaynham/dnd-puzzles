@@ -17,6 +17,8 @@
     * {
         z-index: 1;
     }
+    border-radius: 0.25rem;
+
     &:before {
         position: absolute;
         content: " ";
@@ -57,14 +59,6 @@
     }
 
     &.page {
-        background: none;
-        border: variables.$base-spacing solid transparent;
-        border-image: url('/dist/images/paper-sheet-brown-shadow.svg') 33%;
-        box-shadow: none;
-
-        &:before {
-            background: none;
-            background-color: palette.$vellum;
-        }
+        padding: variables.$base-spacing;
     }
 }

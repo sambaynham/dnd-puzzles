@@ -4,7 +4,7 @@
 @use "../base/palette";
 
 footer {
-    padding:  variables.$base-spacing math.div(100vw - variables.$desktopMaxViewportWidth, 2);
+    padding: variables.$base-spacing math.div(100vw - variables.$desktopMaxViewportWidth, 2);
     background-color: palette.$charcoal;
     display: flex;
     flex-direction: column;
@@ -13,7 +13,7 @@ footer {
     box-shadow: variables.$baseBoxShadow;
     z-index: 999;
     font-size: 0.8rem;
-    margin: 0;
+    margin: variables.$base-spacing 0 0 0;
 
     aside {
         flex: 1;
