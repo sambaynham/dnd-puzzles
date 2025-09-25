@@ -4,7 +4,7 @@ $button-border-width: 5rem;
 @use '../base/palette';
 
 button, .btn {
-    background: palette.$midnightBlue linear-gradient(to top, palette.$midnightBlue, color.adjust(palette.$midnightBlue, $lightness: 10%));
+    background: palette.$stormBlue linear-gradient(to top, palette.$stormBlue, color.adjust(palette.$stormBlue, $lightness: 10%));
     border: 1px solid gold;
     border-radius: 5%;
     position: relative;

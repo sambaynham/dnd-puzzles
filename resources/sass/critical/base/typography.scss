@@ -1,22 +1,32 @@
 @use 'variables';
 
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Sulphur+Point:wght@300;400;700&display=swap');
+@font-face {
+    font-family: 'Poiret';
+    src: url('/dist/fonts/Poiret_One/PoiretOne-Regular.woff2') format('woff2');
+    font-weight: normal;
+
+
+}
+
+@font-face {
+    font-family: 'Commissioner';
+    src: url('/dist/fonts/commissioner/Commissioner-VariableFont_FLAR,VOLM,slnt,wght.woff2') format('woff2');
+    font-weight: normal;
+}
 
 html,
 body {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    font-family: "Lato", serif;
+    font-family: "Commissioner", sans-serif;
     font-size: 11pt;
-
     margin: 0;
     padding: 0;
-
     line-height: 1.46;
 }
 
 button, input, a {
-    font-family: 'Charter', serif;
+    font-family: 'Commissioner', serif;
 }
 
 a {
@@ -26,9 +36,9 @@ a {
 }
 
 h1, h2, h3, h4, h5,  h6 {
-    font-family: "Sulphur Point", sans-serif;
-    font-weight: 300;
-    font-style: normal;
+    font-family: "Poiret", sans-serif;
+    //font-weight: 300;
+    //font-style: normal;
 }
 
 h1 {

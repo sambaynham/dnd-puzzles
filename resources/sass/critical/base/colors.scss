@@ -3,23 +3,19 @@
 /**
 * Effects
  */
-$baseBoxShadow: 0 0.25 5rem rgba(0, 0, 0, 0.5), 0 0.25 2.5rem rgba(0, 0, 0, 0.5), 0 0.25 1.25rem rgba(0, 0, 0, 0.5);
+$baseBoxShadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5), 0 0.25rem 0.125rem rgba(0, 0, 0, 0.5), 0 0.1rem 0.0625rem rgba(0, 0, 0, 0.5);
 
 $parallaxHeight: 20rem;
 
 body {
-    background: palette.$midnightBlue linear-gradient(to top, color.adjust(palette.$midnightBlue, $lightness: -5%), palette.$midnightBlue) no-repeat bottom;
+    background: palette.$stormBlue radial-gradient(circle at 50% 100%, color.adjust(palette.$stormBlue, $lightness: 10%), palette.$stormBlue) no-repeat bottom;
     color: palette.$skyBlue;
     min-height: 100vh;
 }
 
 .col {
     position: relative;
-    color: palette.$midnightBlue;
-    box-shadow: $baseBoxShadow;
-    border: 4vh solid transparent;
-    border-image: url('/dist/images/deco-frame.svg');
-    border-image-slice: 40%;
+    color: palette.$offWhite;
 
     &:before {
         content: " ";
@@ -30,12 +26,12 @@ body {
         bottom: -4vh;
         right: -4vh;
         z-index: -1;
-        background: palette.$lavender linear-gradient(to top, color.adjust(palette.$lavender, $lightness: -5%), palette.$lavender) no-repeat bottom;
+
     }
 
 }
 header {
-    background: palette.$lavender linear-gradient(to top, color.adjust(palette.$midnightBlue, $lightness: -10%), palette.$midnightBlue);
+    background: palette.$vellum linear-gradient(to bottom, palette.$vellum, color.adjust(palette.$vellum, $lightness: -5%));
 }
 /*
 header {

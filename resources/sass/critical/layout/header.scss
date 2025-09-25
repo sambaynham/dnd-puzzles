@@ -1,5 +1,8 @@
 @use '../base/variables';
 @use '../base/palette';
+@use '../base/colors';
+@use 'sass:math';
+@use 'sass:color';
 
 @keyframes gradient {
     0% {
@@ -12,46 +15,46 @@
         background-position: 0% 50%;
     }
 }
+a.brand {
+    position: absolute;
+    left: 50%;
+    margin-left: -5vh;
+    color: transparent;
+
+    &:before, &:after {
+        content: " ";
+        display: block;
+
+        height: 8vh;
+        width: 8vh;
+        position: absolute;
+        margin: 1vh;
+        top: 0;
+        left: 0;
+    }
+    &:before {
+        background: linear-gradient(33deg, cyan, magenta);
+        background-size: 500%;
+        animation: gradient 3s ease-in-out infinite;
+        mask: url('/dist/images/penrose-mask.svg');
+        mask-size: contain;
+        mask-repeat: no-repeat;
+    }
+
+    &:after {
+        background-image: url('/dist/images/penrose-overlay.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
 
 
 header {
-    position: fixed;
+    position: absolute;
     z-index: 9999;
     height: 10vh;
-    width: 100%;
+    width: 100vw;
 
-    a.brand {
-        position: absolute;
-        left: 50%;
-        margin-left: -5vh;
-        color: transparent;
-
-        &:before, &:after {
-            content: " ";
-            display: block;
-
-            height: 8vh;
-            width: 8vh;
-            position: absolute;
-            margin: 1vh;
-            top: 0;
-            left: 0;
-        }
-        &:before {
-            background: linear-gradient(33deg, cyan, magenta);
-            background-size: 500%;
-            animation: gradient 3s ease-in-out infinite;
-            mask: url('/dist/images/penrose-mask.svg');
-            mask-size: contain;
-            mask-repeat: no-repeat;
-        }
-
-        &:after {
-            background-image: url('/dist/images/penrose-overlay.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-    }
     button.nav-toggle {
         height: 8vh;
         width: 8vh;
@@ -88,7 +91,7 @@ header {
             flex-grow: 0;
             padding: (variables.$base-column-spacing * 2);
             flex-basis: 10%;
-            color: palette.$midnightBlue;
+            color: palette.$stormBlue;
             font-size: 1.25rem;
             transition: all variables.$baseTransitionDuration ease-in-out;
             transition-property: color, background-color;
@@ -98,7 +101,7 @@ header {
             }
 
             &:hover, &:active, &:focus {
-                background-color: palette.$midnightBlue;
+                background-color: palette.$stormBlue;
                 color: palette.$lavender;
             }
 
@@ -125,60 +128,151 @@ header {
 }
 
 main {
-    padding-top: 10vh + variables.$base-column-spacing;
+    padding-top: 10vh;
 }
 
 @media (width >= variables.$breakpoint-standard){
-    header {
-        position: static;
-        background: transparent;
-        height: initial;
-        display: flex;
-        flex-direction: row;
-        background-color: magenta;
-        padding: 0 (variables.$base-column-spacing * 4);
+    body {
+        overflow: auto;
+        position: relative;
+        top: 0;
+    }
 
-        button.nav-toggle {
+    div.brand-wrapper {
+        overflow: hidden;
+        position: relative;
+        height: 20vw;
+        background: radial-gradient(circle at 50% 75%, palette.$offWhite 33%, color.adjust(palette.$stormBlue, $lightness: -10%) 35%, color.adjust(palette.$stormBlue, $lightness: -50%));
+        margin: 0;
+        padding: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+
+        &:before, &:after {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: " ";
+            height: 20vw;
+            width: 100%;
+            pointer-events: none;
+            background-size: 105% auto;
+            background-repeat: no-repeat;
+            background-position: 5% 100%;
+        }
+
+        &:before {
+            background-image: url('/dist/images/parallax/l2.svg');
+        }
+        &:after {
+            background-image: url('/dist/images/parallax/l1.svg');
+        }
+    }
+    a.brand {
+        position: relative;
+        left: initial;
+        display: block;
+        font-family: 'Poiret', sans-serif;
+        font-weight: 300;
+        padding-top: 20vh;
+        text-align: center;
+        font-size: 2.5rem;
+        margin: (variables.$base-spacing * 2) auto;
+        width: 33%;
+        color: palette.$stormBlue;
+
+        &:before, &:after {
+            top: 10vh;
+            left: 50%;
+            margin-left: -4vh;
+        }
+    }
+    header {
+        display: flex;
+        height: auto;
+        position: sticky;
+        top: 0;
+        width: variables.$fullscreen-viewport-width;
+        flex-direction: row;
+        margin: 0 math.div((100vw - variables.$fullscreen-viewport-width), 2);
+        border: 1px solid color.adjust(palette.$vellum, $lightness: -5%);
+        border-radius: 1rem;
+
+        box-shadow: colors.$baseBoxShadow;
+        font-size: 1rem;
+
+        button#main-nav-toggle {
             display: none;
         }
 
-        a.brand {
-
+        button#user-nav-toggle {
             position: relative;
             left: initial;
-            display: flex;
-            color: palette.$skyBlue;
-            font-family: 'Sulphur Point', sans-serif;
-            font-weight: 300;
-            padding-top: 15vh;
-            text-align: center;
-            font-size: 2.5rem;
-            margin: 0 auto;
-
-            &:before, &:after {
-                left: 33%;
-                top: 5vh;
-            }
+            right: initial;
+            top: initial;
+            bottom: initial;
+            flex: 1;
+            height: auto;
+            margin: 0;
+            flex-basis: 5%;
+            border: none;
+            background: transparent;
         }
-
         nav#main-nav {
             transform: none;
-            flex-direction: row;
+            display: block;
             height: auto;
             position: sticky;
             top: initial;
             left: initial;
             bottom: initial;
             right: initial;
+            background-color: transparent;
+            flex-basis: 85%;
+            justify-content: start;
+            justify-items: left;
+
             a {
-
+                display: inline-block;
+                padding: math.div(variables.$base-spacing, 4) variables.$base-spacing;
+                flex-grow: 1;
+                flex-basis: 5%;
+                background-color: transparent;
+                font-size: inherit;
+                text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25), 1px 1px 0 rgba(255, 255, 255, 0.25);
+                &:hover {
+                    color: palette.$stormBlue;
+                    text-decoration: underline;
+                }
             }
         }
-        .header-right {
-            form.search-form {
-                display: block;
+        form.search-form {
+            display: flex;
+            flex-basis: 10%;
+            background: palette.$offWhite linear-gradient(to top, palette.$offWhite, color.adjust(palette.$offWhite, $lightness: -10%));
+            border-left: 1px solid color.adjust(palette.$vellum, $lightness:-20%);
+            border-right: 1px solid color.adjust(palette.$vellum, $lightness:-20%);
+
+            input {
+                flex: 1;
+                height: auto;
+                margin: 0;
+                border: none;
+                background-color: transparent;
+                padding: 0 variables.$base-spacing;
+            }
+            button {
+                background-color: transparent;
+                background: none;
+                border: none;
+                padding: 0 variables.$base-spacing;
             }
         }
+    }
 
+    main {
+        padding-top: 0;
     }
 }
