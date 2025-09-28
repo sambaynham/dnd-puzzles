@@ -71,13 +71,40 @@ const config = [
             summary()
         ]
     },
+    {
+        input: 'resources/typescript/puzzles/hammer/hammerBoot.ts',
+        output: {
+            dir: './public/dist/js/',
+            format: 'es',
+        },
+
+        plugins: [
+            typescript(),
+            resolve()
+        ],
+        preserveEntrySignatures: false,
+    },
+    {
+        input: 'resources/sass/puzzles/hammer.scss',
+        output: {
+            dir: './public/dist/css/puzzles'
+        },
+        plugins: [
+            scss({
+                fileName: 'hammer.css',
+                outputStyle: 'compressed',
+                watch: ['resources/sass/puzzles/hammer.scss']
+            }),
+            summary()
+        ]
+    }
 
 ];
 
 
 
 if (process.env.NODE_ENV !== 'development') {
-  // config[0].plugins.push(terser(terserOptions));
+  config[0].plugins.push(terser(terserOptions));
 }
 
 export default config;

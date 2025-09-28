@@ -2,25 +2,44 @@ $button-border-width: 5rem;
 @use 'sass:color';
 
 @use '../base/palette';
+@use '../base/variables';
 
-button, .btn {
-    background: palette.$stormBlue linear-gradient(to top, palette.$stormBlue, color.adjust(palette.$stormBlue, $lightness: 10%));
-    border: 1px solid gold;
-    border-radius: 5%;
+button:not(.unstyle), .btn:not(.unstyle) {
     position: relative;
+    display: inline-block;
+    font-size: 1rem;
+    color: palette.$offWhite;
+    text-decoration: none;
+    background: palette.$goldFx;
+    z-index: 1;
+    padding: 1rem;
 
-    &:after {
+    &:before, &:after {
         content: " ";
         display: block;
         position: absolute;
-        height: 90%;
-        width: 90%;
-        top: 5%;
-        left: 5%;
+        top: 0.25rem;
+        left: 0.25rem;
+        bottom :0.25rem;
+        right: 0.25rem;
         pointer-events: none;
-        background: linear-gradient(to bottom, white, transparent);
-        mix-blend-mode: screen;
-        border-radius: 2.5%;
-        opacity: 0.125;
+    }
+
+    &:before {
+        background: palette.$red radial-gradient(circle at 50% 100%, palette.$red, color.adjust(palette.$red, $lightness: -10%));
+        z-index: -1;
+        transition: background 150ms ease-in-out;
+    }
+
+    &:after {
+        border: 0.5rem outset white;
+        mix-blend-mode: soft-light;
+        opacity: 0.5;
+    }
+
+    &:hover {
+        &:before {
+            background: palette.$red radial-gradient(circle at 50% 100%, color.adjust(palette.$red, $lightness: 5%), palette.$red );
+        }
     }
 }

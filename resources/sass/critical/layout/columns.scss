@@ -48,5 +48,16 @@
                 }
             }
         }
+
+        &.three-quarters-one-quarter {
+            .col {
+                &:first-child {
+                    flex-basis: 75%;
+                }
+                &:last-child {
+                    flex-basis: 25%;
+                }
+            }
+        }
     }
 }

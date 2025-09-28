@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @use '../base/variables';
 @use '../base/palette';
 @use '../base/colors';
@@ -6,19 +8,15 @@ main {
     padding-bottom: 5vh;
 }
 footer {
-    background-color: #282828;
+    background-color: palette.$charcoal;
     display: flex;
     flex-direction: column;
     position: static;
-    box-shadow: colors.$baseBoxShadow;
+    box-shadow: colors.$baseBoxShadowUp;
+
     aside {
         flex: 1;
-        padding: variables.$base-spacing;
-
-        a {
-            color: palette.$offWhite;
-            text-decoration: underline;
-        }
+        padding: math.div(variables.$base-spacing, 4) variables.$base-spacing;
     }
 }
 

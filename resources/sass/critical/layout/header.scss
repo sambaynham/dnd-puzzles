@@ -63,13 +63,20 @@ header {
         overflow: hidden;
         position: absolute;
         top: 0;
+        border: none;
 
         &#main-nav-toggle {
             left: 0;
+            background: transparent url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iLTAuNSAwIDI1IDI1IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNMiAxMi4zMkgyMiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0yIDE4LjMySDIyIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggZD0iTTIgNi4zMjAwMUgyMiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPg==") no-repeat center;
+            background-size: contain;
         }
 
         &#user-nav-toggle {
             right: 0;
+
+
+            background: transparent url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPgo8c3ZnIHdpZHRoPSI4MDBweCIgaGVpZ2h0PSI4MDBweCIgdmlld0JveD0iMCAwIDE2IDE2IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNOCA3QzkuNjU2ODUgNyAxMSA1LjY1Njg1IDExIDRDMTEgMi4zNDMxNSA5LjY1Njg1IDEgOCAxQzYuMzQzMTUgMSA1IDIuMzQzMTUgNSA0QzUgNS42NTY4NSA2LjM0MzE1IDcgOCA3WiIgZmlsbD0iIzAwMDAwMCIvPgo8cGF0aCBkPSJNMTQgMTJDMTQgMTAuMzQzMSAxMi42NTY5IDkgMTEgOUg1QzMuMzQzMTUgOSAyIDEwLjM0MzEgMiAxMlYxNUgxNFYxMloiIGZpbGw9IiMwMDAwMDAiLz4KPC9zdmc+") no-repeat center;
+            background-size: contain;
         }
     }
     nav {
@@ -95,6 +102,7 @@ header {
             font-size: 1.25rem;
             transition: all variables.$baseTransitionDuration ease-in-out;
             transition-property: color, background-color;
+            border: none;
 
             &:nth-child(odd) {
                 background-color: rgba(255, 255, 255, 0.25);
@@ -104,7 +112,6 @@ header {
                 background-color: palette.$stormBlue;
                 color: palette.$lavender;
             }
-
 
         }
 
@@ -142,13 +149,13 @@ main {
         overflow: hidden;
         position: relative;
         height: 20vw;
-        background: radial-gradient(circle at 50% 75%, palette.$offWhite 33%, color.adjust(palette.$stormBlue, $lightness: -10%) 35%, color.adjust(palette.$stormBlue, $lightness: -50%));
+        background: radial-gradient(circle at 50% 33%, palette.$offWhite 33%, color.adjust(palette.$stormBlue, $lightness: -10%) 35%, color.adjust(palette.$stormBlue, $lightness: -50%));
         margin: 0;
         padding: 0;
         top: 0;
         left: 0;
         width: 100%;
-
+        background-attachment: fixed;
         &:before, &:after {
             display: block;
             position: absolute;
@@ -182,6 +189,10 @@ main {
         margin: (variables.$base-spacing * 2) auto;
         width: 33%;
         color: palette.$stormBlue;
+        &:hover, &:focus, &:active {
+            color: palette.$stormBlue;
+            border: none;
+        }
 
         &:before, &:after {
             top: 10vh;
@@ -198,8 +209,7 @@ main {
         flex-direction: row;
         margin: 0 math.div((100vw - variables.$fullscreen-viewport-width), 2);
         border: 1px solid color.adjust(palette.$vellum, $lightness: -5%);
-        border-radius: 1rem;
-
+        border-radius: 0.25rem;
         box-shadow: colors.$baseBoxShadow;
         font-size: 1rem;
 
@@ -217,8 +227,7 @@ main {
             height: auto;
             margin: 0;
             flex-basis: 5%;
-            border: none;
-            background: transparent;
+
         }
         nav#main-nav {
             transform: none;
@@ -242,16 +251,18 @@ main {
                 background-color: transparent;
                 font-size: inherit;
                 text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.25), 1px 1px 0 rgba(255, 255, 255, 0.25);
+
                 &:hover {
-                    color: palette.$stormBlue;
-                    text-decoration: underline;
+                    color: palette.$red;
                 }
             }
         }
         form.search-form {
             display: flex;
-            flex-basis: 10%;
-            background: palette.$offWhite linear-gradient(to top, palette.$offWhite, color.adjust(palette.$offWhite, $lightness: -10%));
+            flex-direction: row;
+
+            flex-basis: 5%;
+            background: palette.$offWhite linear-gradient(to top, palette.$white, color.adjust(palette.$white, $lightness: -10%));
             border-left: 1px solid color.adjust(palette.$vellum, $lightness:-20%);
             border-right: 1px solid color.adjust(palette.$vellum, $lightness:-20%);
 
@@ -262,14 +273,79 @@ main {
                 border: none;
                 background-color: transparent;
                 padding: 0 variables.$base-spacing;
+                outline: none;
             }
             button {
                 background-color: transparent;
-                background: none;
+                background-image: url('/dist/images/magnifier-ink.svg');
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
                 border: none;
                 padding: 0 variables.$base-spacing;
+                color: transparent;
+                border-radius: 0;
             }
         }
+        .user-nav-wrapper {
+            position: relative;
+            flex-direction: column;
+
+            nav#user-nav {
+                position: absolute;
+                top: 100%;
+                margin-top: variables.$base-spacing;
+                padding: variables.$base-spacing;
+                width: 33vh;
+                height: 10vh;
+                right: 0;
+                transform: none;
+                background: palette.$vellum linear-gradient(to bottom, palette.$vellum, color.adjust(palette.$vellum, $lightness: -10%));
+                color: palette.$stormBlue;
+                left: initial;
+                display: block;
+                border-radius: 0.25rem;
+                box-shadow: colors.$baseBoxShadow;
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 150ms ease-in-out;
+                &.open {
+                    opacity: 1;
+                    pointer-events: all;
+                }
+                &:before {
+                    content: " ";
+                    background-color: palette.$vellum;
+                    display: block;
+                    height: 3vh;
+                    width: 3vh;
+                    position: absolute;
+                    top: 0 - math.div(variables.$base-spacing, 2);
+                    right: variables.$base-spacing;
+                    transform: rotate(45deg);
+                }
+
+                span {
+                    display: block;
+                }
+                .user-options {
+                    a {
+                        font-size: 1rem;
+                        padding: 0;
+                        display: block;
+                        background-color: transparent;
+                        color: palette.$red;
+                        text-decoration: none;
+                        &:hover {
+                            text-decoration: underline;
+                        }
+
+                    }
+
+                }
+            }
+        }
+
     }
 
     main {

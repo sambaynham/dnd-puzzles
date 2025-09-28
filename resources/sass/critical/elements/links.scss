@@ -1,0 +1,15 @@
+@use '../base/palette';
+@use 'sass:color';
+
+a {
+    color: palette.$white;
+    border-bottom: 0.0657rem solid transparent;
+    transition: all 150ms ease-in-out;
+    transition-property: color, border-bottom-color;
+    font-weight: bold;
+
+    &:visited, &:hover, &:active {
+        color: color.adjust(palette.$red, $lightness: 25%);
+        border-bottom-color: color.adjust(palette.$red, $lightness: 25%);
+    }
+}

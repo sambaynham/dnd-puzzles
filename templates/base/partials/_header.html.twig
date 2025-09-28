@@ -4,7 +4,7 @@
 
 
 <header>
-    <button id="main-nav-toggle" is="nav-toggle" class="nav-toggle main-nav-toggle" data-target="main-nav" data-open="false">Show Main Nav</button>
+    <button id="main-nav-toggle" is="nav-toggle" class="nav-toggle main-nav-toggle unstyle" data-target="main-nav" data-open="false">Show Main Nav</button>
     <nav class="mobile-nav" id="main-nav">
         {% for navItem in nav %}
             <a content="{{ navItem.label }}" class="nav-item {% if navItem.active %} active{% endif %}" href="{{ path(navItem.route) }}">{{ navItem.label }}</a>
@@ -13,25 +13,29 @@
 
     <form class="search-form unstyle">
         <input name="search" placeholder="Search" id="search">
-        <button class="" type="submit">Search</button>
+        <button class="unstyle" type="submit">Search</button>
     </form>
-    <button id="user-nav-toggle" is="nav-toggle" class="nav-toggle user-nav-toggle" data-target="user-nav" data-open="false">Show User Nav</button>
 
-    <nav class="mobile-nav" id="user-nav">
-        {% if app.user %}
-            <span class="user-greeting">Logged in as <a href="{{ path('app.user.account') }}">{{ app.user.userName }}</a></span>
-            <span class="user-options">
+
+    <div class="user-nav-wrapper">
+        <button id="user-nav-toggle" is="nav-toggle" class="nav-toggle user-nav-toggle unstyle" data-target="user-nav" data-open="false">Show User Nav</button>
+        <nav class="mobile-nav" id="user-nav">
+            {% if app.user %}
+                <span class="user-greeting">Logged in as <a href="{{ path('app.user.account') }}">{{ app.user.userName }}</a></span>
+                <span class="user-options">
                     <a class="" href="{{ path('app.auth.logout') }}">Logout</a>
                     <a class="" href="{{ path('app.user.account') }}">Account</a>
             </span>
-        {% else %}
-            <span class="user-greeting">Not logged in</span>
-            <span class="user-options">
+            {% else %}
+                <span class="user-greeting">Not logged in</span>
+                <span class="user-options">
                     <a class="" href="{{ path('app.auth.login') }}">Login</a>
                 <a   class="" href="{{ path('app.auth.register') }}">Register</a>
             </span>
-        {% endif %}
-    </nav>
+            {% endif %}
+        </nav>
+    </div>
+
 </header>
 
 
