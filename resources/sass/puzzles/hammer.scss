@@ -6,8 +6,8 @@
 
 .hammer-puzzle {
     display: block;
-    width: 40rem;
-    height: 40rem;
+    width: 40vw;
+    height: 40vw;
     margin: 0 auto;
     position: relative;
     font-family: 'DethekStone', sans-serif;
@@ -39,7 +39,7 @@
         }
 
         &.active {
-            background-color: palette.$green;
+            background: palette.$green;
 
             &:hover {
                 background-color: color.adjust(palette.$green, $lightness: 30%);
@@ -156,13 +156,13 @@
 
     .hammer-ops {
         position: absolute;
-        top: -2rem;
-        left: -30rem;
-        width: 30rem;
+        top: -2vw;
+        left: -20vw;
+        width: 15vw;
 
         .hammer-output {
             display: block;
-            width: 20rem;
+            width: 100%;
             background-color: black;
             color: lime;
             height: 15rem;
@@ -181,7 +181,7 @@
         position: absolute;
         top: 6.25rem;
         right: -16rem;
-        display: block;
+        display: none;
         height: 3.5rem;
         width: 20rem;
         z-index: 999;

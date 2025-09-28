@@ -13,6 +13,7 @@ $teal: #32ccb5;
 $wyrdPurple: #953acd;
 $ink: #3b2e1f;
 $black: #282828;
+$stormBlue: #031720;
 $goldFX: repeating-linear-gradient(33deg, #d4aa00, #ffd42a, #ffffff, #ffd42a, #ffcc00);
 $silverFX: repeating-linear-gradient(33deg, #616161, #C8C8C8FF, #fff, #c8c8c8, #616161);
 $antiqueGold: #ffb328;
@@ -20,5 +21,5 @@ $bleedingInk: 0 0 0.05em color.scale($ink, $alpha: -40%), 0 0 0.0001em color.sca
 $pink: #ffd1d1;
 $orange: #ffa600;
 $red: #ff2f00;
-$keyColor: $green;
+$keyColor: $stormBlue;
 $glossGradient: linear-gradient(to top, black 0%, black 50%, white 51%, black 100%);
