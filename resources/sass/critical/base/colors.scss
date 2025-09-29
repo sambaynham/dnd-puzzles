@@ -18,7 +18,7 @@ $mainBorderHeight: 0.125rem;
 @media only screen and (min-width: 1080px) {
     body {
         position: relative;
-
+        background: radial-gradient(circle at 50% 0%, palette.$vellum, color.adjust(palette.$vellum, $lightness: -20%));
         &:before, &:after {
             content: " ";
             display: block;
@@ -40,15 +40,6 @@ $mainBorderHeight: 0.125rem;
             background-attachment: fixed;
 
 
-
-        }
-        &:before {
-            width: 100%;
-            position: fixed;
-            background-color: magenta;
-            background: radial-gradient(circle at 50% 10%, transparent 75%, palette.$ink 80%);
-            opacity: 0.5;
-            mix-blend-mode: multiply;
 
         }
 

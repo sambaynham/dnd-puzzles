@@ -31,6 +31,7 @@ export default class HammerPuzzle extends HTMLDivElement {
 
     public connectedCallback() {
         this.setupListeners();
+        this.hammerOutput.pushMessage('Invalid configuration detected. Nodes 1 and 3 are offline. Please re-route power and adjust to secondary firing levels.')
     }
 
     private setupListeners(): void {
@@ -69,6 +70,7 @@ export default class HammerPuzzle extends HTMLDivElement {
                 }
             })
             this.hammerOutput.pushMessage(message);
+
         });
 
         this.addEventListener('reset-button-clicked', ()=> {

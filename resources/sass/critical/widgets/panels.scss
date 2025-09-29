@@ -22,7 +22,7 @@
     &:before {
         position: absolute;
         content: " ";
-        background: linear-gradient(to top, color.adjust(palette.$vellum, $lightness: -10%), palette.$vellum );
+        background-color: palette.$offWhite;
         display: block;
         top: 0;
         left: 0;

@@ -4,7 +4,7 @@ export default class HammerFiringButton extends HTMLButtonElement {
     connectedCallback(): void {
         this.addEventListener('click', (e: MouseEvent) => {
             e.preventDefault();
-            if (this.getAttribute('disabled') === null) {
+            if (this.getAttribute('disabled') !== 'true') {
                 this.dispatchEvent(new CustomEvent('hammer-fired-event', {
                     bubbles: true,
                     detail: {
