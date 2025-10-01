@@ -31,16 +31,18 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         #[ORM\Column(length: 180, type: 'string', unique: true)]
         private string $email,
 
+        #[ORM\Column(type: 'string', length: 255, nullable: false)]
+        private string $username,
+
         #[ORM\Column(type: 'string', length: 255)]
         private string $password = '',
 
-        #[ORM\Column(type: 'string', length: 255, nullable: false)]
-        private string $username,
+
 
         #[ORM\Column]
         private array $roles = [],
 
-        ?int $id = null
+        ? int $id = null
     ) {
         parent::__construct($id);
         if (empty($this->roles)) {
