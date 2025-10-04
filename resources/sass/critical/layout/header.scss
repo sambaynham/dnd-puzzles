@@ -71,6 +71,8 @@ header {
             bottom: 0.5rem;
             right: 0.5rem;
             background-size: contain;
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
         }
         &#main-nav-toggle{
             left: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);;
@@ -114,8 +116,14 @@ header {
             }
         }
 
-        form, ul {
+        form, ul, > span {
             flex: 1;
+        }
+
+        span.user-greeting {
+            flex-basis: 10vh;
+            margin: math.div(variables.$base-spacing, 4);
+            line-height: 10vh;
         }
 
         form {
@@ -198,4 +206,76 @@ header {
 
 main {
     margin-top: $mobileHeaderHeight;
+}
+
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
+    header {
+        position: fixed;
+        width: variables.$desktopMaxViewportWidth;
+        margin: math.div(variables.$base-spacing, 4) auto;
+        height: initial;
+        display: flex;
+        flex-direction: row;
+        a.brand {
+            position: relative;
+            height: initial;
+            top: initial;
+            left: initial;
+            bottom: initial;
+            right: initial;
+            line-height: initial;
+            flex: 1;
+            flex-basis: 20%;
+            font-size: 1.5rem;
+        }
+
+
+        button.nav-toggle#main-nav-toggle {
+            display: none;
+        }
+
+        button.nav-toggle#user-nav-toggle {
+            flex: 1;
+            position: relative;
+            top: initial;
+            left: initial;
+            bottom: initial;
+            right: initial;
+            display: block;
+            width: auto;
+            height: auto;
+            flex-basis: 5%;
+            &:before {
+                display: none;
+            }
+            background: transparent;
+        }
+        nav#main-nav {
+            flex-direction: row-reverse;
+            position: relative;
+            display: flex;
+            transform: none !important;
+            top: initial;
+            left: initial;
+            bottom: initial;
+            right: initial;
+            height: auto;
+            width: 100%;
+
+            form {
+                margin: math.div(variables.$base-spacing, 8);
+                input {
+                    padding: math.div(variables.$base-spacing, 8);
+
+                }
+            }
+            ul {
+                display: block;
+                li {
+                    display: inline-block;
+                }
+            }
+
+        }
+    }
 }

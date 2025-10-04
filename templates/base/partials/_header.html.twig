@@ -23,15 +23,25 @@
         <nav class="mobile-nav" id="user-nav">
             {% if app.user %}
                 <span class="user-greeting">Logged in as <a href="{{ path('app.user.account') }}">{{ app.user.userName }}</a></span>
-                <span class="user-options">
-            <a class="" href="{{ path('app.auth.logout') }}">Logout</a>
-            <a class="" href="{{ path('app.user.account') }}">Account</a>
-        </span>
+                <ul class="user-menu" aria-label="User Account Navigation">
+                    <li>
+                        <a class="" href="{{ path('app.auth.logout') }}">Logout</a>
+                    </li>
+                    <li>
+                        <a class="" href="{{ path('app.user.account') }}">Account</a>
+                    </li>
+                </ul>
             {% else %}
                 <span class="user-greeting">Not logged in</span>
-                <span class="user-options">
-            <a class="" href="{{ path('app.auth.login') }}">Login</a>
-            <a class="" href="{{ path('app.auth.register') }}">Register</a>
+                <ul class="user-menu" aria-label="User Account Navigation">
+                    <li>
+                        <a class="" href="{{ path('app.auth.login') }}">Login</a>
+                    </li>
+                    <li>
+                        <a class="" href="{{ path('app.auth.register') }}">Register</a>
+                    </li>
+                </ul>
+
         </span>
             {% endif %}
         </nav>

@@ -2,6 +2,7 @@
 
 @use "../base/variables";
 @use "../base/palette";
+@use "../layout/grid";
 
 footer {
     padding: variables.$base-spacing math.div(100vw - variables.$desktopMaxViewportWidth, 2);
@@ -24,7 +25,7 @@ footer {
         }
 
         a {
-            color: palette.$white !important;
+            color: palette.$white;
         }
     }
 }

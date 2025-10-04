@@ -2,7 +2,7 @@
 @use '../base/palette';
 @use 'sass:math';
 
-$desktopMaxViewportWidth: 80vw;
+
 
 
 body,html {
@@ -14,7 +14,7 @@ main {
     flex-direction: column;
     margin: 0 auto;
     background-color: cyan;
-    width: $desktopMaxViewportWidth;
+    width: variables.$desktopMaxViewportWidth;
 
     .row, .col {
         flex: 1;
@@ -49,6 +49,7 @@ main {
 
             .col {
                 margin: 0 math.div(variables.$base-spacing, 2);
+                padding: 0;
 
                 &:first-child {
                     margin-left: 0;

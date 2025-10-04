@@ -1,3 +1,4 @@
+@use 'variables';
 @use 'fontfaces';
 @use 'palette';
 
@@ -95,6 +96,7 @@
 
 $textStack: "Crimson Text", georgia, "Times New Roman", serif;
 $displayStack: "Pirata", georgia, "Times New Roman", serif;
+
 html {
     font-family: $textStack;
     font-size: calc(.5vw + 1rem); /* the font-size can scale up as the browser window gets larger, but doesn't get hard to read when the browser window shrinks*/
@@ -512,4 +514,10 @@ th {
 thead th,
 tfoot th {
     font-size: var(--baseTitleSize); /*treat th in header/footer as h3*/
+}
+
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
+    html {
+        font-size: calc(.5vw + 0.5rem); /* the font-size can scale up as the browser window gets larger, but doesn't get hard to read when the browser window shrinks*/
+    }
 }
