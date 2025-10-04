@@ -13,15 +13,14 @@ nav.breadcrumbs {
         display: flex;
         flex-wrap: wrap;
         list-style: none;
-        padding: 0;
+
         align-items: end;
         border-radius: 0.25rem;
-        background-color: palette.$vellum;
-        background: linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 20%));
+        background: palette.$charcoal linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 20%));
         background-size: 100% auto;
         font-family: "Pirata", serif;
-        padding: 0 (variables.$base-spacing * 2);
-        margin: 0 variables.$desktopDefaultViewportPadding;
+        padding: 0 math.div(variables.$base-spacing, 2);
+        margin: math.div(variables.$base-spacing, 4) 0;
         box-shadow: variables.$baseBoxShadow;
 
         > a, > span {

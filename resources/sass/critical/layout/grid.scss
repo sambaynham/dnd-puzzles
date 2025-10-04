@@ -9,11 +9,16 @@ body,html {
     margin-top: 0;
 }
 
+body {
+    position: relative;
+    min-height: 100vh;
+}
+
 main {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    background-color: cyan;
+    //background-color: cyan;
     width: variables.$desktopMaxViewportWidth;
 
     .row, .col {
@@ -31,7 +36,7 @@ main {
         margin-bottom: math.div(variables.$base-spacing, 2);
         .col {
             padding: math.div(variables.$base-spacing, 2);
-            background-color: aliceblue;
+            //background-color: aliceblue;
             overflow-x: hidden;
         }
     }
@@ -42,6 +47,10 @@ main {
         .row {
             margin-bottom: variables.$base-spacing;
             flex-direction: row;
+
+            &.title-container {
+                margin-bottom: 0;
+            }
 
             &:last-child {
                 margin-bottom: 0;

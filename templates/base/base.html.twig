@@ -6,13 +6,14 @@
         {% embed 'base/partials/_header.html.twig' %}{% endembed %}
         {% embed 'base/partials/_alerts.html.twig' %}{% endembed %}
 
-        {% embed 'base/partials/_breadcrumbs.html.twig' %}{% endembed %}
+
         <main>
             <div class="row title-container">
                 <div class="col">
                     <h1 class="drop-cap">{{ pageTitle }}</h1>
                 </div>
             </div>
+            {% embed 'base/partials/_breadcrumbs.html.twig' %}{% endembed %}
 
             {% block body %}{% endblock %}
         </main>

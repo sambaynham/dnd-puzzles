@@ -1,0 +1,8 @@
+@use 'sass:color';
+
+@use 'palette';
+
+
+body {
+    background: palette.$vellum radial-gradient(ellipse at 50% 0%, palette.$vellum, color.adjust(palette.$vellum, $lightness: -20%));
+}

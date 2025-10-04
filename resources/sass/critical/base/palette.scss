@@ -25,4 +25,5 @@ $orange: #ffa600;
 $red: #ff2f00;
 $keyColor: $stormBlue;
 $glossGradient: linear-gradient(to top, black 0%, black 50%, white 51%, black 100%);
-$baseBoxShadow: 0.25rem 0 0.5rem color.adjust($ink, $alpha: -0.5), 0 0.125rem 0.25rem color.adjust($ink, $alpha: -0.75), 0 0.0625rem 0.125rem color.adjust($ink, $alpha: -0.9);
+$baseBoxShadow: 0 0.25rem 0.5rem color.adjust($ink, $alpha: -0.5);
+$baseInsetShadow: inset 0.25rem 0 0.5rem color.adjust($ink, $alpha: -0.5), inset 0 0.125rem 0.25rem color.adjust($ink, $alpha: -0.75), inset 0 0.0625rem 0.125rem color.adjust($ink, $alpha: -0.9);

@@ -8,10 +8,27 @@
 $mobileHeaderHeight: 10vh;
 $mobileNavButtonHeight: 8vh;
 
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+div.logo {
+    display: none;
+}
+
 header {
     position: fixed;
     height: $mobileHeaderHeight;
-    background: palette.$charcoal linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 10%));
+    background: palette.$charcoal linear-gradient(to top, palette.$stormBlue, color.adjust(palette.$stormBlue, $lightness: 10%));
     width: 100%;
     top: 0;
     left: 0;
@@ -209,24 +226,71 @@ main {
 }
 
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {
+
+    $logoHeight: 10vh;
+    $desktopHeaderHeight: 2.5vw;
+
+    main {
+        margin-top: 0;
+    }
+
+    div.logo {
+        display: block;
+        background: palette.$goldFX;
+        background-clip: text;
+        background-attachment: fixed;
+        color: transparent;
+        width: 40vh;
+        font-family: typography.$displayStack;
+        text-align: center;
+        font-size: 2.5rem;
+        padding-top: $logoHeight;
+        position: relative;
+        margin: math.div(variables.$base-spacing, 2) auto;
+
+        &:before, &:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: 0 - math.div($logoHeight, 2);
+            height: $logoHeight;
+            width: $logoHeight;
+        }
+
+        &:before {
+            background: linear-gradient(33deg, cyan, magenta);
+            background-size: 400%;
+            animation: gradient 5s ease infinite;
+            mask-image: url('/dist/images/penrose-mask.svg');
+            mask-size: contain;
+            mask-repeat: no-repeat;
+        }
+
+        &:after {
+            background-image: url('/dist/images/penrose-overlay.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    }
+
     header {
-        position: fixed;
+        top: 1vh;
+        position: sticky;
         width: variables.$desktopMaxViewportWidth;
         margin: math.div(variables.$base-spacing, 4) auto;
-        height: initial;
+        padding: 0 math.div(variables.$base-spacing, 4);
         display: flex;
         flex-direction: row;
+        border: 0.0675rem solid color.adjust(palette.$stormBlue, $lightness: -10%);
+        border-radius: 0.25rem;
+        height: $desktopHeaderHeight;
+        line-height: $desktopHeaderHeight;
+        box-shadow: palette.$baseBoxShadow;
+
         a.brand {
-            position: relative;
-            height: initial;
-            top: initial;
-            left: initial;
-            bottom: initial;
-            right: initial;
-            line-height: initial;
-            flex: 1;
-            flex-basis: 20%;
-            font-size: 1.5rem;
+            display: none;
         }
 
 
@@ -243,12 +307,15 @@ main {
             right: initial;
             display: block;
             width: auto;
-            height: auto;
+            height: 2.5rem;
             flex-basis: 5%;
             &:before {
                 display: none;
             }
             background: transparent;
+            &:hover, &:active, &.open {
+                box-shadow: none;
+            }
         }
         nav#main-nav {
             flex-direction: row-reverse;
@@ -261,9 +328,11 @@ main {
             right: initial;
             height: auto;
             width: 100%;
+            background-color: transparent;
 
             form {
                 margin: math.div(variables.$base-spacing, 8);
+                box-shadow: palette.$baseInsetShadow;
                 input {
                     padding: math.div(variables.$base-spacing, 8);
 
@@ -273,9 +342,62 @@ main {
                 display: block;
                 li {
                     display: inline-block;
+                    background-color: transparent !important;
+
+                    a {
+                        color: palette.$offWhite;
+                        padding: math.div(variables.$base-spacing, 8);
+                        &:hover, &:focus, &:active {
+                            color: color.adjust(palette.$crimson, $lightness: 25%);
+                        }
+                    }
                 }
             }
 
+        }
+
+        nav.mobile-nav#user-nav {
+            transform: none;
+            width: initial;
+            min-width: 10vw;
+            height: initial;
+            display: block;
+            position: absolute;
+            top: calc($desktopHeaderHeight + math.div(variables.$base-spacing, 4));
+            right: 0;
+            box-shadow: palette.$baseBoxShadow;
+            transition: opacity 150ms ease-in-out;
+            pointer-events: none;
+            opacity: 0;
+
+            &.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            &:before {
+                content: " ";
+                display: block;
+                background-color: palette.$vellum;
+                width: 1.5rem;
+                height: 1.5rem;
+                transform: rotate(-45deg);
+                position: absolute;
+                top: -0.5rem;
+                right: 5%;
+            }
+            span.user-greeting {
+                line-height: 1;
+            }
+
+            ul {
+                flex-direction: row;
+                height: initial;
+
+                li {
+                    background-color: transparent !important;
+                }
+            }
         }
     }
 }

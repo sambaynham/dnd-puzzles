@@ -1,6 +1,7 @@
 @use "critical/base/reset";
 @use "critical/base/typography";
 @use "critical/base/palette";
+@use "critical/base/colors";
 @use "critical/base/variables";
 
 @use "critical/elements/links.scss";
@@ -8,11 +9,12 @@
 @use "critical/layout/grid.scss";
 @use "critical/layout/header";
 @use "critical/layout/footer";
+@use "critical/elements/breadcrumbs.scss";
 /*
 @use "critical/elements/forms.scss";
 @use "critical/elements/images.scss";
 @use "critical/elements/nav.scss";
-@use "critical/elements/breadcrumbs.scss";
+
 
 @use "critical/widgets/buttons";
 @use "critical/widgets/dropCaps";
