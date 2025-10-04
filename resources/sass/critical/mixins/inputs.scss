@@ -12,10 +12,10 @@
     input,textarea {
         display: flex;
         border: 0.25rem solid transparent;
-        border-image: url('/dist/images/eroded-frame-whiteinner.svg');
-        border-image-slice: 33%;
+        border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
+
         background-color: #f7f5f2;
-        padding: math.div(variables.$base-spacing, 2);
+        padding: math.div(variables.$base-spacing, 4);
         flex: 1;
         width: 100%;
 

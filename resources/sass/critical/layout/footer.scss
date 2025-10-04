@@ -30,7 +30,11 @@ footer {
     }
 }
 @media only screen and (min-width: 1080px) {
+    $footerHeight: 5vh;
+
     footer {
+        min-height: $footerHeight;
+        line-height: $footerHeight;
         position: absolute;
         bottom: 0;
         flex-direction: row;

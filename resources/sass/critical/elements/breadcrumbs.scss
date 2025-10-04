@@ -1,7 +1,10 @@
-@use '../base/palette';
-@use '../base/variables';
 @use 'sass:color';
 @use 'sass:math';
+
+@use '../base/palette';
+@use '../base/typography';
+@use '../base/variables';
+
 
 
 nav.breadcrumbs {
@@ -10,33 +13,18 @@ nav.breadcrumbs {
 
 @media (min-width: 1080px) {
     nav.breadcrumbs {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
-
-        align-items: end;
-        border-radius: 0.25rem;
-        background: palette.$charcoal linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 20%));
-        background-size: 100% auto;
-        font-family: "Pirata", serif;
-        padding: 0 math.div(variables.$base-spacing, 2);
-        margin: math.div(variables.$base-spacing, 4) 0;
-        box-shadow: variables.$baseBoxShadow;
+        display: inline;
+        font-family: typography.$displayStack;
+        opacity :0.8;
 
         > a, > span {
-
-            border: none;
-            position: relative;
-            color: palette.$offWhite;
-            &:hover {
-                color: color.adjust(palette.$offWhite, $lightness: 12.5%);
+            color: palette.$ink;
+            &:not(:last-child) {
+                &:after {
+                    content: " / ";
+                }
             }
-            &:not(:last-child):after {
-                content: "/";
-                display: inline;
-                margin: 0 math.div(variables.$base-spacing, 2);
 
-            }
         }
     }
 

@@ -1,7 +1,7 @@
 @use "sass:color";
+
 @use "../critical/base/palette";
 @use "../critical/base/variables";
-@use "../critical/mixins/buttonise";
 @use "../critical/base/typography";
 
 .hammer-puzzle {
@@ -30,11 +30,10 @@
 
 
     .hammer-node {
-        @include buttonise.buttonize(palette.$crimson, color.adjust(palette.$crimson, $lightness: 5%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
+
 
 
         &.broken {
-            @include buttonise.buttonize(palette.$black, color.adjust(palette.$black, $lightness: 5%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
             font-size: 3rem;
         }
 
@@ -105,11 +104,10 @@
 
 
     .hammer-reset-button {
-        @include buttonise.buttonize(palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
+
 
     }
     .hammer-translate-button {
-        @include buttonise.buttonize(palette.$blue, color.adjust(palette.$blue, $lightness: 30%), variables.$gemBorderWidth, palette.$white, 'DethekStone');
     }
 
     .success-message {

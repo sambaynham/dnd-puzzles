@@ -48,6 +48,26 @@ main {
             margin-bottom: variables.$base-spacing;
             flex-direction: row;
 
+            &.bordered {
+                .col {
+                    position: relative;
+
+                    &:not(:last-child) {
+                        &:after {
+                            content: " ";
+                            display: block;
+                            width: 0.05rem;
+                            height: 100%;
+                            background: radial-gradient(circle at 50% 50%, palette.$ink 90%, transparent);
+                            top: 0;
+                            right: 0 - math.div(variables.$base-spacing, 2);
+                            position: absolute;
+                        }
+                    }
+
+                }
+            }
+
             &.title-container {
                 margin-bottom: 0;
             }
@@ -59,6 +79,7 @@ main {
             .col {
                 margin: 0 math.div(variables.$base-spacing, 2);
                 padding: 0;
+                overflow: visible;
 
                 &:first-child {
                     margin-left: 0;

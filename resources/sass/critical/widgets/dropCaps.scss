@@ -1,9 +1,11 @@
 @use "sass:color";
+@use "sass:math";
+
 @use "../base/variables";
 @use "../base/palette";
 @use "../base/typography";
 
-$dropcap-scale: 1.5em;
+$dropcap-scale: 5em;
 
 
 @media only screen and (min-width: 1080px) {
@@ -16,18 +18,15 @@ $dropcap-scale: 1.5em;
         font-family: typography.$displayStack;
         line-height: $dropcap-scale;
         text-align: center;
-        margin-right: variables.$base-spacing;
-        margin-bottom: variables.$base-spacing;
+        margin-right: math.div(variables.$base-spacing, 4);
+        margin-bottom: math.div(variables.$base-spacing, 4);
         margin-top: 0.5rem;
-
         box-shadow: variables.$baseBoxShadow;
-
         background: palette.$goldFX;
         background-size: 10%;
         background-attachment: fixed;
         color: transparent;
         text-shadow: none;
-
         position: relative;
 
         &:after {

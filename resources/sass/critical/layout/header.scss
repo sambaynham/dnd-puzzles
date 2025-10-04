@@ -21,18 +21,15 @@ $mobileNavButtonHeight: 8vh;
     }
 }
 
-div.logo {
-    display: none;
-}
-
 header {
     position: fixed;
     height: $mobileHeaderHeight;
-    background: palette.$charcoal linear-gradient(to top, palette.$stormBlue, color.adjust(palette.$stormBlue, $lightness: 10%));
+    background: palette.$stormBlue linear-gradient(to bottom, palette.$stormBlue, color.adjust(palette.$stormBlue, $lightness: -5%));
     width: 100%;
     top: 0;
     left: 0;
     right: 0;
+    z-index: 999999;
 
     a.brand {
         display: block;
@@ -150,6 +147,7 @@ header {
             box-shadow: palette.$baseBoxShadow;
             border-radius: 0.125rem;
             display: flex;
+
             input {
                 padding: math.div(variables.$base-spacing, 4);
                 border: none;
@@ -227,52 +225,11 @@ main {
 
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {
 
-    $logoHeight: 10vh;
+
     $desktopHeaderHeight: 2.5vw;
 
     main {
         margin-top: 0;
-    }
-
-    div.logo {
-        display: block;
-        background: palette.$goldFX;
-        background-clip: text;
-        background-attachment: fixed;
-        color: transparent;
-        width: 40vh;
-        font-family: typography.$displayStack;
-        text-align: center;
-        font-size: 2.5rem;
-        padding-top: $logoHeight;
-        position: relative;
-        margin: math.div(variables.$base-spacing, 2) auto;
-
-        &:before, &:after {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            margin-left: 0 - math.div($logoHeight, 2);
-            height: $logoHeight;
-            width: $logoHeight;
-        }
-
-        &:before {
-            background: linear-gradient(33deg, cyan, magenta);
-            background-size: 400%;
-            animation: gradient 5s ease infinite;
-            mask-image: url('/dist/images/penrose-mask.svg');
-            mask-size: contain;
-            mask-repeat: no-repeat;
-        }
-
-        &:after {
-            background-image: url('/dist/images/penrose-overlay.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
     }
 
     header {
@@ -313,8 +270,12 @@ main {
                 display: none;
             }
             background: transparent;
+            box-shadow: none;
             &:hover, &:active, &.open {
                 box-shadow: none;
+                &:after {
+                    background-image: url('/dist/images/icons/user-active.svg');
+                }
             }
         }
         nav#main-nav {
@@ -332,7 +293,7 @@ main {
 
             form {
                 margin: math.div(variables.$base-spacing, 8);
-                box-shadow: palette.$baseInsetShadow;
+                box-shadow: none;
                 input {
                     padding: math.div(variables.$base-spacing, 8);
 
@@ -370,22 +331,12 @@ main {
             pointer-events: none;
             opacity: 0;
 
+
             &.open {
                 opacity: 1;
                 pointer-events: all;
             }
 
-            &:before {
-                content: " ";
-                display: block;
-                background-color: palette.$vellum;
-                width: 1.5rem;
-                height: 1.5rem;
-                transform: rotate(-45deg);
-                position: absolute;
-                top: -0.5rem;
-                right: 5%;
-            }
             span.user-greeting {
                 line-height: 1;
             }

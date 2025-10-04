@@ -1,16 +1,16 @@
-<div class="logo">
+<a class="header-logo" href="/">
     <span class="logo-text" content="{{ siteName }}">{{ siteName }}</span>
-</div>
+</a>
 <header>
 
-    <button id="main-nav-toggle" is="nav-toggle" class="nav-toggle main-nav-toggle" data-target="main-nav" data-open="false">Show Main Nav</button>
+    <button id="main-nav-toggle" is="nav-toggle" class="nav-toggle main-nav-toggle unstyle" data-target="main-nav" data-open="false">Show Main Nav</button>
     <a href="/" class="brand" content="{{ siteName }}">{{ siteName }}</a>
 
 
     <nav class="mobile-nav" id="main-nav">
-        <form class="search-form">
+        <form class="search-form unstyle">
             <input name="search" placeholder="Search" id="search">
-            <button class="" type="submit">Search</button>
+            <button class="unstyle" type="submit">Search</button>
         </form>
         <ul class="main-menu" aria-label="Main navigation">
             {% for navItem in nav %}
@@ -21,7 +21,7 @@
 
     </nav>
 
-    <button id="user-nav-toggle" is="nav-toggle" class="nav-toggle user-nav-toggle" data-target="user-nav" data-open="false">Show User Nav</button>
+    <button id="user-nav-toggle" is="nav-toggle" class="nav-toggle user-nav-toggle unstyle" data-target="user-nav" data-open="false">Show User Nav</button>
     <nav class="mobile-nav" id="user-nav">
         {% if app.user %}
             <span class="user-greeting">Logged in as <a href="{{ path('app.user.account') }}">{{ app.user.userName }}</a></span>

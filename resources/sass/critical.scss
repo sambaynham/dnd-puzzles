@@ -4,29 +4,28 @@
 @use "critical/base/colors";
 @use "critical/base/variables";
 
-@use "critical/elements/links.scss";
+
 
 @use "critical/layout/grid.scss";
+@use "critical/layout/logo";
 @use "critical/layout/header";
 @use "critical/layout/footer";
-@use "critical/elements/breadcrumbs.scss";
-/*
-@use "critical/elements/forms.scss";
-@use "critical/elements/images.scss";
-@use "critical/elements/nav.scss";
 
+@use "critical/elements/links.scss";
+@use "critical/elements/rules";
+@use "critical/elements/buttons";
 
-@use "critical/widgets/buttons";
 @use "critical/widgets/dropCaps";
-@use "critical/widgets/progress-bars";
-@use "critical/widgets/panels";
-@use "critical/widgets/frames";
-@use "critical/widgets/tables";
-@use "critical/widgets/rules";
+@use "critical/elements/tables";
+@use "critical/elements/forms.scss";
+@use "critical/elements/navs.scss";
+@use "critical/elements/images.scss";
+
+
 @use "critical/widgets/puzzles";
 @use "critical/widgets/switches";
 @use "critical/widgets/tooltips";
 @use "critical/widgets/alerts";
 @use "critical/widgets/slideshow";
-*/
+
 

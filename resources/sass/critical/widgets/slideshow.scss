@@ -1,6 +1,8 @@
+@use 'sass:math';
+
 @use '../base/variables';
 @use '../base/palette';
-@use 'sass:math';
+
 $slideshowHeight: 40vh;
 
 .slideshow {
@@ -10,9 +12,11 @@ $slideshowHeight: 40vh;
     ul.slideshow-slides {
         background: linear-gradient(to bottom, palette.$charcoal, palette.$black);
         height: $slideshowHeight;
-
+        margin: 0;
+        padding: 0;
         > li {
-
+            overflow: hidden;
+            margin: 0;
             position: absolute;
             top: 0;
             left: 0;
@@ -20,10 +24,11 @@ $slideshowHeight: 40vh;
             height: 100%;
             min-height: $slideshowHeight;
             z-index: 1;
-
             transition: opacity 0.5s ease-in-out;
             opacity: 0;
             pointer-events: none;
+            box-sizing: border-box;
+            text-indent: 0;
 
             &.active {
                 opacity: 1;
@@ -33,13 +38,15 @@ $slideshowHeight: 40vh;
 
             img.slide-backer {
                 opacity: 1;
-
                 width: 100%;
+                height: auto;
+                max-height: initial;
+                max-width: initial;
             }
 
             .slide-body {
-                padding: variables.$base-spacing * 1.5;
-                font-size: variables.$base-spacing * 1.5;
+                padding: math.div(variables.$base-spacing, 1.5);
+
                 position: absolute;
                 bottom: 0;
                 z-index: 1;
