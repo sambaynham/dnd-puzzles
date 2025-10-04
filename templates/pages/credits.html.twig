@@ -3,10 +3,25 @@
     <div class="row">
         <div class="col">
             <p>{{ siteName }} would not be possible without the contributions of:</p>
-            <ul>
-                <li>Various Art by Betsy Ogilvy</li>
-                <li><em>Fantasy Landscape</em> by <a href="https://www.peppercarrot.com/en/viewer/misc__2007-01-30_Fantasy-Landscape_by-David-Revoy.html">David Revoy - CC-BY 4.0</a></li>
-            </ul>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Author</th>
+                        <th>Contribution</th>
+                        <th>License</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for credit in credits %}
+                        <tr>
+                            <td>{{ credit.author }}</td>
+                            <td>{{ credit.contribution }}</td>
+                            <td>{{ credit.license }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

@@ -1,456 +1,201 @@
-@use '../base/palette';
-@use '../base/variables';
-@use "../mixins/goldtext";
-@use "../base/typography";
-@use "../mixins/buttonise";
+@use 'sass:color';
 @use 'sass:math';
-@use "sass:color";
 
-$fullsizeLogoHeight: 2rem;
-$mobile-header-height: 10vh;
+@use '../base/variables';
+@use '../base/palette';
+@use '../base/typography';
 
+$mobileHeaderHeight: 10vh;
+$mobileNavButtonHeight: 8vh;
 
-
-@keyframes glint {
-    from {
-        background-position: 100%;
-
-    }
-
-    to {
-        background-position: 500%;
-    }
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-
-
-
-img.hero {
-    display: none;
-}
 header {
-    background: linear-gradient(palette.$keyColor, color.adjust(palette.$keyColor, $lightness: -10%));
-    backdrop-filter: blur(0.25rem);
-    margin: 0;
-    position: relative;
-    height: $mobile-header-height;
-    padding: variables.$base-spacing;
-    border-bottom: 0.125rem solid transparent;
-    border-image: url("/dist/images/gold-bead.svg") 20%;
+    position: fixed;
+    height: $mobileHeaderHeight;
+    background: palette.$charcoal linear-gradient(to top, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 10%));
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
 
-
-
-    .search-form {
-        display: none;
-    }
     a.brand {
-        display: none;
+        display: block;
+        line-height: $mobileHeaderHeight;
+        height: $mobileHeaderHeight;
+        position: absolute;
+        left: $mobileHeaderHeight;
+        right: $mobileHeaderHeight;
+        text-align: center;
+        color: transparent;
+        background: palette.$goldFX;
+        background-clip: text;
+        font-family: typography.$displayStack;
+        background-size: contain;
     }
 
-
-    div.logo {
-        display: block;
-        width: $mobile-header-height - 1vh;
-        height: $mobile-header-height - 1vh;
+    .nav-toggle {
         position: absolute;
-        left: 50%;
-        margin-left: 0 - math.div($mobile-header-height, 2);
-        top: 0.5vh;
+        background: palette.$crimson radial-gradient(circle at 50% 0%, color.adjust(palette.$crimson, $lightness: -15%), palette.$crimson);
+        height: $mobileNavButtonHeight;
+        width: $mobileNavButtonHeight;
+        border: none;
+        border-radius: 0.125rem;
+        top: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);
+        color: transparent;
+        box-shadow: inset 0 0 2.5rem transparent;
+        transition: box-shadow 150ms ease-in-out;
 
+        &.open, &:hover, &:focus {
+            box-shadow: inset 0 0 2.5rem color.adjust(palette.$crimson, $lightness: +15%);
+        }
         &:before, &:after {
             content: " ";
             display: block;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: $mobile-header-height - 1vh;
-            height: $mobile-header-height - 1vh;
-
-        }
-        &:before {
-            background: linear-gradient(33deg, cyan, magenta);
-            background-size: 200% 200%;
-            animation: gradient 3s ease-in-out infinite;
-            mask: url("/dist/images/penrose-mask.svg");
-            mask-size: contain;
-            mask-repeat: no-repeat;
-        }
-        &:after {
-            background-image: url('/dist/images/penrose-overlay.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-    }
-
-
-    button.nav-toggle {
-        background-color: palette.$crimson;
-        background: radial-gradient(circle at 50% 100%, palette.$crimson, color.adjust(palette.$crimson, $lightness: -15%, $space: hsl));
-        border: none;
-        height: ($mobile-header-height - 2vh);
-        width: ($mobile-header-height - 2vh);
-        position: absolute;
-        top: 1vh;
-        transition: background 200ms ease-in-out;
-        border-radius: 0.25rem;
-        color: transparent;
-        z-index: 9999;
-
-
-        &:before {
-            display: block;
-            position: absolute;
-            content: " ";
-            color: palette.$white;
-            top: 1vh;
-            left: 1vh;
-            right: 1vh;
-            bottom: 1vh;
-            font-family: 'RPGAwesome', sans-serif;
-            font-size: 4vh;
-            line-height: 6vh;
-
-        }
-
-        &:after {
-            content: " ";
-            position: absolute;
             pointer-events: none;
-            background-color: transparent;
+        }
+
+        &:before {
             top: 0;
             left: 0;
             bottom: 0;
             right: 0;
-            border: 1vh outset rgba(255, 255, 255, 0.5);
+            border: 0.25rem outset white;
             mix-blend-mode: soft-light;
-            border-radius: 0.25rem;
+            border-radius: 0.125rem;
         }
 
-        &.open, &:focus, &:hover {
-            background-color: palette.$crimson;
-            background: radial-gradient(circle at 50% 100%, color.adjust(palette.$crimson, $lightness: 5%, $space: hsl), palette.$crimson);
-        }
+        &:after {
 
-        &.main-nav-toggle {
-            left: 1vh;
-            &:before {
-                content: "";
+            top: 0.5rem;
+            left: 0.5rem;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            background-size: contain;
+        }
+        &#main-nav-toggle{
+            left: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);;
+            &:after {
+                background-image: url('/dist/images/icons/menu.svg');
             }
         }
 
-        &.user-nav-toggle {
-            right: 1vh;
-
-            &:before {
-                content: "";
+        &#user-nav-toggle{
+            right: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);;
+            &:after {
+                background-image: url('/dist/images/icons/user.svg');
             }
         }
-
     }
 
     nav.mobile-nav {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: $mobile-header-height;
-        left: 0;
+        padding: 0;
+        position: absolute;
         background-color: palette.$vellum;
         z-index: 9999;
-        transition: transform 200ms ease-in-out;
-        overflow-y: scroll;
-        width: 100%;
-        height: 100vh - $mobile-header-height;
+        top: $mobileHeaderHeight;
+        height: 90vh;
+        width: 100vw;
+        transition: transform 150ms ease-in-out;
+        display: flex;
+        flex-direction: column;
 
         &#main-nav {
-            transform: translateX(-100%);
+            transform: translateX(-100vw);
+
+            &.open {
+                transform: translateX(0);
+            }
         }
 
         &#user-nav {
-            transform: translateX(100%);
-
+            transform: translateX(100vw);
+            &.open {
+                transform: translateX(0);
+            }
         }
 
-        &.open {
-            transform: translateX(0) !important;
+        form, ul {
+            flex: 1;
         }
 
-        a {
-            text-align: left;
-            padding: 0 variables.$base-spacing;
+        form {
+            flex-basis: 10vh;
+            margin: math.div(variables.$base-spacing, 4);
+            background-color: palette.$offWhite;
+            box-shadow: palette.$baseBoxShadow;
+            border-radius: 0.125rem;
+            display: flex;
+            input {
+                padding: math.div(variables.$base-spacing, 4);
+                border: none;
+                background-color: transparent;
+                flex: 1;
+                flex-basis: 80%;
+            }
+            button {
+                border: none;
+                background-color: transparent;
+                flex: 1;
+                flex-basis: 20%;
+                color: transparent;
+                position: relative;
+                &:after {
+                    content: " ";
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    width: 100%;
+                    height: 100%;
+
+                    background-image: url('/dist/images/icons/magnifier.svg');
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    pointer-events: none;
+                    background-position: 50% 50%;
+
+                }
+            }
+        }
+
+        ul {
+            flex-basis: 80vh;
+            display: flex;
+            flex-direction: column;
+            list-style-type: none;
+
+            li {
+                flex: 1;
+                padding: 0;
+                margin: 0;
+                flex-basis: 10vh;
+                flex-grow: 0;
+
+                &:nth-child(even) {
+                    background-color: color.adjust(palette.$vellum, $lightness: -2.5%);
+                }
+
+                &:hover, &:focus, &:active {
+                    background-color: palette.$crimson;
+
+                    a {
+                        color: palette.$offWhite;
+                    }
+                }
+
+                a {
+                    display: block;
+                    padding: math.div(variables.$base-spacing, 4);
+                    width: 100%;
+
+                }
+            }
         }
     }
-
-
 }
 
-@media (min-width: 1080px) {
-
-    img.hero {
-        display: block;
-        position: fixed;
-        min-height: 100%;
-        top: 0;
-        left: 0;
-        z-index: -999;
-        object-fit: fill;
-        filter: sepia(50%);
-    }
-
-    .header-container {
-        background-color: transparent;
-        position: relative;
-        z-index: 99999;
-        padding: (variables.$base-spacing * 2) 0 variables.$base-spacing 0;
-    }
-    header {
-        position: relative;
-        border-radius: 0.25rem;
-        z-index: 9999;
-        display: flex;
-        flex-direction: row;
-        width: variables.$desktopMaxViewportWidth;
-        margin: 0 variables.$desktopDefaultViewportPadding;
-        padding: 0;
-        height: auto;
-        align-items: center;
-        border: 1px solid color.adjust(palette.$charcoal, $lightness: -10%);
-        box-shadow: variables.$baseBoxShadow;
-
-        div.logo {
-            display: block;
-            position: relative;
-            left: 0;
-            top :0;
-            height: $fullsizeLogoHeight;
-            width: $fullsizeLogoHeight;
-            margin: math.div(variables.$base-spacing, 4);
-            &:before, &:after {
-                top: 0;
-                left: 0;
-                height: $fullsizeLogoHeight;
-                width: $fullsizeLogoHeight;
-            }
-        }
-
-        a.brand {
-            display: block;
-            width: auto;
-            margin: initial;
-            flex: 1;
-            position: relative;
-            left: initial;
-            right: initial;
-            top: initial;
-            bottom: initial;
-            background-image: none;
-            font-family: "Pirata", serif;
-            height: auto;
-            flex-basis: 15%;
-            color: red;
-            border: none;
-            border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
-            padding: 0 variables.$base-spacing;
-            font-size: 1.125rem;
-            @include goldtext.goldText();
-
-        }
-
-        button.nav-toggle {
-            &#main-nav-toggle {
-                display: none;
-            }
-
-            &#user-nav-toggle {
-                display: block;
-                position: relative;
-                flex: 1;
-            }
-
-        }
-
-        nav.mobile-nav {
-            overflow-y: initial;
-        }
-        nav.mobile-nav#main-nav {
-            flex: 1;
-            position: static;
-            transform: none !important;
-            width: auto;
-            background-color: transparent;
-            flex-direction: row;
-            flex-basis: 60%;
-
-            border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
-            height: auto;
-
-            a {
-                padding: math.div(variables.$base-spacing, 2);
-                color: palette.$white;
-                border: none;
-
-                transition: all 300ms ease-in-out;
-                transition-property: text-shadow;
-                text-shadow: 0 0 0 color.adjust(palette.$keyColor, $lightness: 33%);
-                &:hover, &:active {
-                    text-shadow: 0 0 0.5rem color.adjust(palette.$keyColor, $lightness: 33%);
-                }
-
-            }
-        }
-
-
-        .header-right {
-            flex: 1;
-            display: flex;
-            flex-direction: row;
-            justify-content: right;
-            align-items: center;
-
-            .search-form {
-                display: flex;
-                flex: 1;
-                flex-direction: row;
-                border-right: 1px solid color.adjust(palette.$charcoal, $alpha: 0.5, $lightness: -20%);
-                padding: 0 0 0 variables.$base-spacing;
-                margin: 0;
-
-                input {
-                    padding: math.div(variables.$base-spacing, 2);
-                    margin: 0;
-                    border: none;
-                    border-radius: 0.125rem;
-                    background-color: palette.$offWhite;
-                    box-shadow: inset 0 0 0.5rem black;
-                    position:relative;
-                    z-index: 9999;
-                    color: palette.$ink;
-
-                    &:focus {
-                        outline: none;
-                        box-shadow: 0 0 0.5rem color.adjust(palette.$keyColor,$lightness: 20%);
-                    }
-
-
-                    &::placeholder {
-                        color: palette.$ink;
-                    }
-
-                }
-                button {
-                    border: none;
-                    padding: math.div(variables.$base-spacing, 4);
-                    background-color: transparent;
-                    color: transparent;
-                    position: relative;
-
-                    &:before {
-                        position: absolute;
-                        content: " ";
-                        display: block;
-                        top: 0;
-                        left: 0;
-                        bottom: 0;
-                        right: 0;
-                        background-image: url('/dist/images/magnifier-white.svg');
-                        background-size: 33%;
-                        background-repeat: no-repeat;
-                        background-position: center;
-                    }
-                }
-            }
-            button#user-nav-toggle {
-                width: 3rem;
-                background: none;
-                padding: 0 variables.$base-spacing;
-                display: block;
-                flex: 1;
-                right: initial;
-                top: initial;
-                flex-grow:0;
-                height: auto;
-                font-size: 0;
-                position: static;
-                border-radius: 0;
-
-
-                &:after {
-                    display: none;
-                }
-
-                &:before {
-                    top: initial;
-                    left: initial;
-                    bottom: initial;
-                    right: initial;
-                    font-size: 1rem;
-                    line-height: 1rem;
-                    position: static;
-                    color: palette.$white;
-                    text-shadow: 0 0 0.5rem transparent;
-                    transition: text-shadow 150ms ease-in-out;
-                }
-
-                &.open, &:hover {
-                    &:before {
-
-                        text-shadow: 0 0 0.5rem color.adjust(palette.$keyColor, $lightness: 33%);
-                    }
-                }
-            }
-
-            nav#user-nav {
-                transform: none;
-                position: absolute;
-                padding: variables.$base-spacing;
-                top: 100%;
-                height: auto;
-                margin-top: variables.$base-spacing;
-                border: 1px solid color.adjust(palette.$vellum, $lightness: -25%);
-                right: 0;
-                width: auto;
-                left: auto;
-                transition: opacity 200ms ease-in-out;
-                opacity: 0;
-                pointer-events: none;
-                border-radius: 0.25rem;
-                justify-items: left;
-                justify-content: left;
-                box-shadow: variables.$baseBoxShadow;
-                .user-options {
-                    display: flex;
-                    flex-direction: row;
-                    a {
-                        padding: 0 variables.$base-spacing;
-                        &:first-child {
-                            padding-left: 0;
-                        }
-
-                        &:last-child {
-                            padding-right: 0;
-                        }
-                    }
-                }
-
-                &.open {
-                    opacity: 1;
-                    pointer-events: all;
-
-                }
-            }
-        }
-
-
-    }
+main {
+    margin-top: $mobileHeaderHeight;
 }

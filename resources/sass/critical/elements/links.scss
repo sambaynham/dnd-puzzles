@@ -5,20 +5,13 @@ a {
     color: palette.$crimson;
     font-weight: bold;
     text-decoration: none;
-    transition: all 200ms ease-in-out;
-    transition-property: color, border-color;
-    border-bottom: 0.125em solid transparent;
-    display: inline-block;
-    width: auto;
-
+    transition: color 200ms ease-in-out;
 
     &:visited {
         color: color.adjust(palette.$crimson, $lightness: -1%);
-        border-bottom-color: color.adjust(palette.$crimson, $lightness: -1%);;
     }
 
-    &:hover {
+    &:hover, &:focus, &:active {
         color: color.adjust(palette.$crimson, $saturation: 20%, $space: hsl);
-        border-bottom-color: color.adjust(palette.$crimson, $saturation: 20%, $space: hsl);
     }
 }

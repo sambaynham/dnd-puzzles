@@ -6,22 +6,15 @@
         {% embed 'base/partials/_header.html.twig' %}{% endembed %}
         {% embed 'base/partials/_alerts.html.twig' %}{% endembed %}
 
-        {% if block('hero') is defined %}
-            <div class="hero">
-                {{ block('hero')|raw }}
-            </div>
-        {% endif %}
-
         {% embed 'base/partials/_breadcrumbs.html.twig' %}{% endembed %}
         <main>
-
-            <div class="content">
-                <div class="panel page">
+            <div class="row title-container">
+                <div class="col">
                     <h1 class="drop-cap">{{ pageTitle }}</h1>
-                    {% block body %}{% endblock %}
                 </div>
-
             </div>
+
+            {% block body %}{% endblock %}
         </main>
         {% embed 'base/partials/_footer.html.twig' %}{% endembed %}
         {% block footerStyles %}

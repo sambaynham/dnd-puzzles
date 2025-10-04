@@ -79,6 +79,18 @@ class PageController extends AbstractBaseController
                     'label' => 'Credits',
                     'active' => true
                 ]
+            ],
+            'credits' => [
+                [
+                    'author' => 'Lorc',
+                    'contribution' => 'Icons',
+                    'license' => 'https://creativecommons.org/licenses/by/3.0/'
+                ],
+                [
+                    'author' => 'Betsy Ogilvy',
+                    'contribution' => 'Various Art',
+                    'license' => 'https://creativecommons.org/licenses/by/4.0/deed.en'
+                ]
             ]
         ];
         return $this->render('pages/credits.html.twig', $this->populatePageVars($pageVars, $request));
@@ -96,5 +108,20 @@ class PageController extends AbstractBaseController
             ]
         ];
         return $this->render('pages/tutorial.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[Route('/layout', name: 'app.pages.layout')]
+    public function layout(Request $request): Response {
+        $pageVars =[
+            'pageTitle' => 'Layout',
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.pages.layout',
+                    'label' => 'Layout',
+                    'active' => true
+                ]
+            ]
+        ];
+        return $this->render('pages/layout.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }
