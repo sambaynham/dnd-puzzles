@@ -5,17 +5,26 @@
 @use "../layout/grid";
 
 footer {
+    position: relative;
     padding: variables.$base-spacing math.div(100vw - variables.$desktopMaxViewportWidth, 2);
-    background-color: palette.$charcoal;
     display: flex;
     flex-direction: column;
-    color: palette.$white;
     width: 100%;
-    box-shadow: variables.$baseBoxShadow;
     z-index: 999;
     font-size: 0.8rem;
     margin: variables.$base-spacing 0 0 0;
 
+    &:before {
+        content: " ";
+        display: block;
+        background: transparent url("/dist/images/eroded-line.svg") repeat-x;
+        background-size: 50%;
+        width: variables.$desktopMaxViewportWidth;
+        position: absolute;
+        height: 0.125rem;
+        top: 0;
+        left: math.div(100vw - variables.$desktopMaxViewportWidth, 2);
+    }
     aside {
         flex: 1;
         margin: 0 1rem 0 0;
@@ -24,9 +33,6 @@ footer {
             flex-basis: 50%;
         }
 
-        a {
-            color: palette.$white;
-        }
     }
 }
 @media only screen and (min-width: 1080px) {
@@ -38,6 +44,14 @@ footer {
         position: absolute;
         bottom: 0;
         flex-direction: row;
-        padding: math.div(variables.$base-spacing, 4) variables.$base-spacing;
+        padding: math.div(variables.$base-spacing, 4) math.div((100vw - variables.$desktopMaxViewportWidth), 2);
+        width: 100%;
+
+        aside {
+            flex: 1;
+            &.copy {
+                flex-basis: 50%;
+            }
+        }
     }
 }

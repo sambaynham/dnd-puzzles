@@ -236,15 +236,35 @@ main {
         top: 1vh;
         position: sticky;
         width: variables.$desktopMaxViewportWidth;
-        margin: math.div(variables.$base-spacing, 4) auto;
-        padding: 0 math.div(variables.$base-spacing, 4);
+        margin: math.div(variables.$base-spacing, 2) auto;
+        padding: 0;
         display: flex;
         flex-direction: row;
-        border: 0.0675rem solid color.adjust(palette.$stormBlue, $lightness: -10%);
-        border-radius: 0.25rem;
-        height: $desktopHeaderHeight;
-        line-height: $desktopHeaderHeight;
-        box-shadow: palette.$baseBoxShadow;
+        background: transparent;
+        height: initial;
+
+        &:before, &:after {
+            content: " ";
+            height: 0.33rem;
+            position: absolute;
+            display: block;
+            width: 100%;
+            left: 0;
+            background: palette.$goldFX;
+            background-size: 150%;
+            background-attachment: fixed;
+            mask-image: url("/dist/images/dividers/horizontal-divider-fancy.svg");
+            mask-size: auto 100%;
+            mask-repeat: repeat-x;
+        }
+
+        &:before {
+            top: 0 - math.div(variables.$base-spacing, 4);
+        }
+
+        &:after {
+            bottom: 0 - math.div(variables.$base-spacing, 4);
+        }
 
         a.brand {
             display: none;
@@ -292,8 +312,9 @@ main {
             background-color: transparent;
 
             form {
+                flex-basis: 16%;
                 margin: math.div(variables.$base-spacing, 8);
-                box-shadow: none;
+                box-shadow: palette.$baseInsetShadow;
                 input {
                     padding: math.div(variables.$base-spacing, 8);
 
@@ -301,13 +322,43 @@ main {
             }
             ul {
                 display: block;
+                flex-basis: 75%;
                 li {
                     display: inline-block;
                     background-color: transparent !important;
+                    margin: 0 math.div(variables.$base-spacing, 2);
+                    position: relative;
 
+                    &:after {
+                        content: " ";
+                        display: block;
+                        width: 1em;
+                        height: 100%;
+
+                        background-image: url('/dist/images/dividers/eroded-star.svg');
+                        background-size: 100% auto;
+                        background-repeat: no-repeat;
+                        background-position: 50% 50%;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        margin-right: -2em;
+                    }
+
+                    &:first-child {
+                        margin-left: 0;
+                    }
+
+                    &:last-child {
+                        margin-right: 0;
+                        &:after {
+                            display: none;
+                        }
+                    }
                     a {
-                        color: palette.$offWhite;
-                        padding: math.div(variables.$base-spacing, 8);
+                        font-family: typography.$displayStack;
+                        padding: math.div(variables.$base-spacing, 8) 0;
+
                         &:hover, &:focus, &:active {
                             color: color.adjust(palette.$crimson, $lightness: 25%);
                         }

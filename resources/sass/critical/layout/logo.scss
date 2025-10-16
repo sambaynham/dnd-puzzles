@@ -32,7 +32,7 @@ a.header-logo {
             background: palette.$goldFX;
             background-size: 50%;
             background-clip: text;
-            font-size: 2.5rem;
+            font-size: math.div($logoHeight, 2.5);
             font-family: typography.$displayStack;
             text-align: center;
 
