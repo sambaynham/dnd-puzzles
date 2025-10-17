@@ -37,6 +37,11 @@ footer {
 }
 @media only screen and (min-width: 1080px) {
     $footerHeight: 5vh;
+    body {
+        main {
+            padding-bottom: $footerHeight * 8;
+        }
+    }
 
     footer {
         min-height: $footerHeight;

@@ -1,4 +1,4 @@
-export function initialiseDropCaps() {
+export function initialiseDropCaps(): void {
         const dropCaps: NodeListOf<Element> = document.querySelectorAll('.drop-cap');
 
         dropCaps.forEach(function (dropCap: Element) {

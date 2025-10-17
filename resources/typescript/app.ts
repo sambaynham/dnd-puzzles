@@ -9,24 +9,27 @@ import {initialiseDropCaps} from "./behaviours/dropCap";
 import {SlideShow} from "./components/SlideShow/SlideShow";
 import AccordionList from "./components/Accordion/AccordionList";
 import {AccordionEntry} from "./components/Accordion/AccordionEntry";
+import {Header} from "./components/Header";
+
 
 
 (()=> {
     document.addEventListener('DOMContentLoaded', () => {
         const body: HTMLBodyElement|null = document.querySelector('body');
 
+        initialiseCustomElements();
+        initialiseDropCaps();
+
         if (null === body) {
             throw new Error('Body not found');
         }
         body.classList.add('loaded');
-        initialiseCustomElements();
-        initialiseDropCaps();
 
     });
 
     function initialiseCustomElements(): void {
         let customElementRegistry: CustomElementRegistry = window.customElements;
-
+        customElementRegistry.define('header-element', Header, {extends: 'header'});
         customElementRegistry.define('progress-bar', ProgressBar);
         customElementRegistry.define('nav-toggle', NavToggle, { extends: 'button'});
         customElementRegistry.define('tooltip-element', ToolTip, {extends: 'span'});

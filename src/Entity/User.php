@@ -37,8 +37,6 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         #[ORM\Column(type: 'string', length: 255)]
         private string $password = '',
 
-
-
         #[ORM\Column]
         private array $roles = [],
 
