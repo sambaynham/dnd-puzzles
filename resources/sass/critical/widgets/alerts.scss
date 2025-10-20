@@ -5,9 +5,9 @@
 .flash-container {
     position: absolute;
     z-index: 10000;
-    width: variables.$desktopMaxViewportWidth;
     margin: 0 math.div((100 - variables.$desktopMaxViewportWidth), 2);
-    padding: math.div(variables.$base-spacing, 4);
+    padding: 0;
+    display: block;
 
 }
 
@@ -22,13 +22,16 @@ span.flash {
 
     button {
         position: absolute;
-        top:  math.div(variables.$base-spacing,2);
-        right: math.div(variables.$base-spacing,2);
+        top:  0;
+        right: 0;
         border: none;
         box-shadow: none;
         background-color: transparent;
-        color: initial;
-
+        height: 1.5em;
+        width: 1.5em;
+        line-height: 1.5em;
+        text-align:center;
+        font-size: 1.5em;
     }
 
     &.flash-error {

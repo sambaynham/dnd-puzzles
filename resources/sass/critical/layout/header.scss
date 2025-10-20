@@ -358,7 +358,7 @@ main {
                 display: block;
                 position: absolute;
                 top: calc($desktopHeaderHeight + math.div(variables.$base-spacing, 4));
-                right: 0;
+                right: math.div((100vw - variables.$desktopMaxViewportWidth), 2);
                 box-shadow: palette.$baseBoxShadow;
                 transition: opacity 150ms ease-in-out;
                 pointer-events: none;
@@ -372,6 +372,7 @@ main {
 
                 span.user-greeting {
                     line-height: 1;
+                    display: block;
                 }
 
                 ul {

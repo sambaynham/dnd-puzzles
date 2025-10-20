@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use App\ApiResource\DiceRoll;
 use App\Repository\UserRepository;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
+use App\State\DiceStateProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
