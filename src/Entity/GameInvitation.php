@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\GameInvitationRepository;
+use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GameInvitationRepository::class)]

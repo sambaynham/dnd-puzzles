@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Services\Puzzle\Infrastructure;
 
 use App\Entity\GameInvitation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

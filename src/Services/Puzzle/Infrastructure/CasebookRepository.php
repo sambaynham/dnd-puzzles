@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Puzzle\Infrastructure;
 
-use App\Services\Puzzle\Domain\Casebook;
-
+use App\Services\Puzzle\Domain\Casebook\Casebook;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
