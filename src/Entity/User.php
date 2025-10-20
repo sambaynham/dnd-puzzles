@@ -9,9 +9,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity("email")]
 class User extends AbstractDomainEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
@@ -28,7 +30,8 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     private Collection $games;
 
     public function __construct(
-        #[ORM\Column(length: 180, type: 'string', unique: true)]
+        #[ORM\Column(length: 255, type: 'string', unique: true)]
+        #[Assert\Email]
         private string $email,
 
         #[ORM\Column(type: 'string', length: 255, nullable: false)]

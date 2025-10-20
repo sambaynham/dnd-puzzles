@@ -3,7 +3,7 @@
 namespace App\Controller\Visitor;
 
 use ApiPlatform\Validator\Exception\ValidationException;
-use ApiPlatform\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Controller\AbstractBaseController;
 use App\Dto\User\UserDto;
 use App\Entity\User;
@@ -33,6 +33,7 @@ class AuthController extends AbstractBaseController
         $form = $this->createForm(RegistrationForm::class, $userDto);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             /** @var string $plainPassword */
@@ -47,14 +48,14 @@ class AuthController extends AbstractBaseController
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
             $success = true;
-            try {
-                $this->validator->validate($user);
-            } catch (ValidationException $e) {
+            $violations = $this->validator->validate($user);
+            if (count($violations) > 0) {
                 $success = false;
-
-                $this->addFlash('error', $e->getMessage());
-
+                foreach ($violations as $violation) {
+                    $this->addFlash('error', $violation->getMessage());
+                }
             }
+
 
             if ($success) {
                 $entityManager->persist($user);
