@@ -22,13 +22,13 @@ table.table {
         background-color: palette.$white;
 
         &:nth-child(even) {
-            background-color: color.mix(palette.$white, palette.$vellum, 15%);
+            background-color: color.mix(palette.$white, palette.$vellum, 66%);
         }
     }
 
     th {
         background-color: palette.$ink;
-        color: palette.$vellum;
+        color: palette.$white;
     }
 
     tfoot {

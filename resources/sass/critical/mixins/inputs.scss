@@ -14,7 +14,7 @@
         border: 0.25rem solid transparent;
         border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
 
-        background-color: #f7f5f2;
+        background-color: palette.$white;
         padding: math.div(variables.$base-spacing, 4);
         flex: 1;
         width: 100%;
