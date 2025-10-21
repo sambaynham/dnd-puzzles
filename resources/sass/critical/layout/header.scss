@@ -98,7 +98,7 @@ body {
             &#user-nav-toggle{
                 right: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);;
                 &:after {
-                    background-image: url('/dist/images/icons/user.svg');
+                    background-image: url('/dist/images/icons/user-vellum.svg');
                 }
             }
         }
@@ -110,10 +110,11 @@ body {
             z-index: 9999;
             top: $mobileHeaderHeight;
             height: 90vh;
-            width: 100vw;
+            width: 90vw;
             transition: transform 150ms ease-in-out;
             display: flex;
             flex-direction: column;
+            box-shadow: palette.$baseBoxShadow;
 
             &#main-nav {
                 transform: translateX(-100vw);
@@ -124,6 +125,7 @@ body {
             }
 
             &#user-nav {
+                right: 0;
                 transform: translateX(100vw);
                 &.open {
                     transform: translateX(0);
@@ -247,7 +249,10 @@ main {
             height: initial;
 
 
-
+            nav.mobile-nav {
+                box-shadow: none;
+            }
+            
             a.brand {
                 display: none;
             }
@@ -273,6 +278,10 @@ main {
                 }
                 background: transparent;
                 box-shadow: none;
+
+                &:after {
+                    background-image: url('/dist/images/icons/user.svg');
+                }
                 &:hover, &:active, &.open {
                     box-shadow: none;
                     &:after {
@@ -296,7 +305,11 @@ main {
                 form {
                     flex-basis: 16%;
                     margin: math.div(variables.$base-spacing, 8);
-                    box-shadow: palette.$baseInsetShadow;
+                    box-shadow: none;
+                    border-radius: 0;
+                    border: 0.25rem solid palette.$ink;
+                    border-image: url("/dist/images/eroded-frame-whiteinner.svg") 33%;
+
                     input {
                         padding: math.div(variables.$base-spacing, 8);
 
