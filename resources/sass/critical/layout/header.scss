@@ -364,9 +364,9 @@ main {
                 pointer-events: none;
                 opacity: 0;
                 border-radius: 0.2rem;
-                border: 0.1rem solid transparent;
                 z-index: 9999;
                 background: palette.$goldFX;
+                background-attachment: fixed;
                 overflow:hidden;
 
                 &:before {
@@ -375,10 +375,10 @@ main {
                     content: " ";
                     display: block;
                     background: palette.$vellum;
-                    top: 0;
-                    left: 0;
-                    bottom: 0;
-                    right: 0;
+                    top: 0.1rem;
+                    left: 0.1rem;
+                    bottom: 0.1rem;
+                    right: 0.1rem;
                 }
 
 
