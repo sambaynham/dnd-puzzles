@@ -363,6 +363,23 @@ main {
                 transition: opacity 150ms ease-in-out;
                 pointer-events: none;
                 opacity: 0;
+                border-radius: 0.2rem;
+                border: 0.1rem solid transparent;
+                z-index: 9999;
+                background: palette.$goldFX;
+                overflow:hidden;
+
+                &:before {
+                    position: absolute;
+                    z-index: -1;
+                    content: " ";
+                    display: block;
+                    background: palette.$vellum;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                }
 
 
                 &.open {
@@ -395,10 +412,25 @@ main {
                             a {
                                 color: palette.$vellum;
 
+                                &:hover, &:focus, &:active {
+                                    color: color.adjust(palette.$crimson, $lightness: 25%);
+                                }
+
                             }
                             &:after {
-                                opacity: 0;
+                                background-image: url('/dist/images/dividers/eroded-star-vellum.svg');
                             }
+                        }
+                    }
+                }
+                button.nav-toggle#user-nav-toggle {
+                    &:after {
+                        background-image: url('/dist/images/icons/user-vellum.svg');
+
+                    }
+                    &:hover, &:focus, .active {
+                        &:after {
+                            background-image: url('/dist/images/icons/user-active.svg');
                         }
                     }
                 }
