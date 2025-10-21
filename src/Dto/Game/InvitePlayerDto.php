@@ -22,15 +22,7 @@ class InvitePlayerDto
 
     #[Assert\NotBlank()]
     #[CustomAssert\EmailAddressIsNotBlockedConstraint]
-    public ?string $emailOne = null;
-
-    #[Assert\Email()]
-    #[CustomAssert\EmailAddressIsNotBlockedConstraint]
-    public ?string $emailTwo = null;
-
-    #[Assert\Email()]
-    #[CustomAssert\EmailAddressIsNotBlockedConstraint]
-    public ?string $emailThree = null;
+    public ?string $email = null;
 
     public ? Game $game = null;
 

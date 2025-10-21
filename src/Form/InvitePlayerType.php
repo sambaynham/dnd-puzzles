@@ -17,29 +17,13 @@ class InvitePlayerType extends AbstractType
         $builder
 
             ->add(
-                'emailOne',
+                'email',
                 EmailType::class,
                 [
                     'required' => true,
                 ]
             )
-            ->add(
-                'emailTwo',
-                EmailType::class,
-                [
-                    'required' => false,
-                ]
-            )
-            ->add(
-                'emailThree',
-                EmailType::class,
-                [
-                    'required' => false,
-                    'help' => '<p>Enter your player\'s email address. If they are not already a member, they will be invited to join.</p><p>You can invite up to three players at a time.</p><br><p><strong>Important Note:</strong> Players have the option to refuse your invitation, and also to block their e-mail addresses from being invited again. If this happens too many times, your account will be banned!</strong><br><em>Do not use this form to spam people!</em></em></p>',
-                    'help_html' => true
-                ]
 
-            )
             ->add(
                 'invitationCode',
                 TextType::class,
