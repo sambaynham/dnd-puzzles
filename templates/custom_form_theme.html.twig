@@ -95,7 +95,12 @@
 {%- endblock choice_widget_options -%}
 
 {%- block checkbox_widget -%}
-    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <div class="checkbox-wrapper">
+
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        {{- form_label(form) -}}
+    </div>
+
 {%- endblock checkbox_widget -%}
 
 {%- block radio_widget -%}
@@ -364,7 +369,10 @@
 
 {%- block form_row_render -%}
     <div{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' form-group')|trim})} %}{{ block('attributes') }}{% endwith %}>
-        {{- form_label(form) -}}
+        {% if block_prefixes.1 is not defined or block_prefixes.1 != 'checkbox' %}
+            {{- form_label(form) -}}
+        {% endif %}
+
         {{- form_errors(form) -}}
         {{- form_widget(form, widget_attr) -}}
         {{- form_help(form) -}}

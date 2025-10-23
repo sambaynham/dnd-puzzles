@@ -67,7 +67,7 @@ class AuthController extends AbstractBaseController
 
         }
         $pageVars = [
-            'pageTitle' => 'Register',
+            'pageTitle' => 'Log In or Register',
             'registrationForm' => $form,
             'breadcrumbs' => [
                 [

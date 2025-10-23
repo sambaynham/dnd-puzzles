@@ -4,10 +4,8 @@ export class Header extends HTMLElement {
     }
 
     public connectedCallback(): void {
-        const headerBottom: number = this.offsetTop + this.offsetHeight;
-
         document.addEventListener('scroll', () => {
-            if (document.body.scrollTop > headerBottom || document.documentElement.scrollTop > (headerBottom / 2)) {
+            if (document.body.scrollTop > this.offsetTop || document.documentElement.scrollTop > (this.offsetTop / 2)) {
                 document.body.classList.add('scrolled');
             } else {
                 document.body.classList.remove('scrolled');

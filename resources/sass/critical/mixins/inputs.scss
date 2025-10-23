@@ -1,6 +1,9 @@
+@use 'sass:math';
+@use 'sass:color';
+
 @use '../base/variables';
 @use '../base/palette';
-@use 'sass:math';
+
 
 @mixin styleInputs() {
     label {
@@ -24,4 +27,44 @@
             box-shadow: 0 0 0.5rem palette.$keyColor;
         }
     }
+
+    .checkbox-wrapper {
+        position: relative;
+        input[type="checkbox"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+        }
+
+        label {
+            padding-left: 2rem;
+            &:before {
+                content: "";
+                height: 1.5rem;
+                width: 1.5rem;
+                display: inline-block;
+                background-color: red;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: radial-gradient(at 50% 100%, palette.$crimson, color.adjust(palette.$crimson, $lightness: +10%));
+                border: 0.2rem outset rgba(255, 255, 255, 0.5);
+                text-align: center;
+                line-height: 1.25rem;
+                color: palette.$white;
+            }
+        }
+
+        input[type="checkbox"]:checked + label {
+            &:before {
+                content: "\2714";
+                background: radial-gradient(at 50% 100%, palette.$green, color.adjust(palette.$green, $lightness: +10%));
+            }
+        }
+
+    }
+
 }

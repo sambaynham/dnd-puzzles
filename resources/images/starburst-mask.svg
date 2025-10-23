@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="185.98193mm"
+   height="185.98244mm"
+   viewBox="0 0 185.98193 185.98244"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   sodipodi:docname="starburst-mask.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.0482005"
+     inkscape:cx="293.83692"
+     inkscape:cy="373.02024"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="1080"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-12.009086,-55.508757)">
+    <path
+       id="rect1"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.264999;stroke-dasharray:0.53, 0.264999"
+       d="M 98.931429,55.508757 V 108.09779 A 40.873196,40.873196 0 0 0 80.06178,116.24252 L 54.137781,90.318518 46.817814,97.638485 72.741813,123.56248 a 40.873196,40.873196 0 0 0 -8.144206,18.86914 H 12.009086 v 12.13672 h 52.588521 a 40.873196,40.873196 0 0 0 8.144723,18.87017 l -25.923999,25.924 7.319967,7.31996 25.923999,-25.92399 a 40.873196,40.873196 0 0 0 18.869132,8.1442 v 52.58852 h 12.137241 v -52.58852 a 40.873196,40.873196 0 0 0 18.86914,-8.1442 l 25.92399,25.92399 7.31997,-7.31996 -25.924,-25.924 a 40.873196,40.873196 0 0 0 8.14472,-18.87017 h 52.58853 v -12.13672 h -52.57251 a 40.873196,40.873196 0 0 0 -8.09769,-18.93166 l 25.86147,-25.861475 -7.31997,-7.319967 -25.86147,25.861472 a 40.873196,40.873196 0 0 0 -18.93218,-8.09822 V 55.508757 Z m 6.068361,59.590163 a 33.044632,33.401554 0 0 1 33.04501,33.40106 33.044632,33.401554 0 0 1 -33.04501,33.40158 33.044632,33.401554 0 0 1 -33.044492,-33.40158 33.044632,33.401554 0 0 1 33.044492,-33.40106 z" />
+  </g>
+</svg>

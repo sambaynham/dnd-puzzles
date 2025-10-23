@@ -1,17 +1,17 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
-    <div class="row halves">
+    <div class="row bordered halves">
+        <div class="col ">
+            {% embed 'security/partials/login_form.html.twig' %}{% endembed %}
+        </div>
         <div class="col">
             {% for flash_error in app.flashes('verify_email_error') %}
                 <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
             {% endfor %}
+            <h2>Register</h2>
+            <p>Before registering, please read our <a href="{{ path('app.pages.coc') }}">Code of Conduct</a></p>
             {{ form(registrationForm) }}
         </div>
-        <div class="col">
-            <p>Before registering, please read our <a href="{{ path('app.pages.coc') }}">Code of Conduct</a></p>
-        </div>
-
-
     </div>
 
 

@@ -252,7 +252,7 @@ main {
             nav.mobile-nav {
                 box-shadow: none;
             }
-            
+
             a.brand {
                 display: none;
             }
@@ -381,6 +381,7 @@ main {
                 background: palette.$goldFX;
                 background-attachment: fixed;
                 overflow:hidden;
+                padding: math.div(variables.$base-spacing, 2);
 
                 &:before {
                     position: absolute;
@@ -418,7 +419,8 @@ main {
 
         &.scrolled {
             header {
-                background: rgba(0, 0, 0, 0.85);
+
+                background: color.adjust(palette.$ink, $alpha: -0.05);
                 nav#main-nav {
                     ul {
                         li {
