@@ -1,4 +1,4 @@
-{% if error is defined %}
+{% if error is defined and error is not null %}
     <span class="flash flash-error" is="flash-alert">{{ error.messageKey }}</span>
 {% endif %}
 

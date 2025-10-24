@@ -1,0 +1,25 @@
+
+{% extends 'base/base.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.test_text_field) }}
+            {{ form_row(form.test_email) }}
+            {{ form_row(form.test_textarea) }}
+            {{ form_row(form.test_select_type) }}
+            {{ form_row(form.test_checkbox) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.test_expanded_choice) }}
+            {{ form_row(form.test_radios) }}
+            {{ form_row(form.test_checkboxes) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.submit) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

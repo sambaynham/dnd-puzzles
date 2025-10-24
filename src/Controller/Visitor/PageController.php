@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
+use App\Form\TestFormType;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -123,5 +124,22 @@ class PageController extends AbstractBaseController
             ]
         ];
         return $this->render('pages/layout.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[Route('/forms', name: 'app.pages.forms')]
+    public function form(Request $request): Response {
+        $form = $this->createForm(TestFormType::class);
+        $pageVars =[
+            'pageTitle' => 'Layout',
+            'form' => $form,
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.pages.layout',
+                    'label' => 'Layout',
+                    'active' => true
+                ]
+            ]
+        ];
+        return $this->render('pages/form.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }
