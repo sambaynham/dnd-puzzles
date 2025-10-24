@@ -8,12 +8,20 @@ $slideshowHeight: 40vh;
 .slideshow {
     position: relative;
     min-height: $slideshowHeight;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    overflow: hidden;
+    background: palette.$goldFX;
 
     ul.slideshow-slides {
         background: linear-gradient(to bottom, palette.$charcoal, palette.$black);
         height: $slideshowHeight;
         margin: 0;
         padding: 0;
+        position: relative;
+        border-radius: 0.25rem;
+        overflow: hidden;
+
         > li {
             overflow: hidden;
             margin: 0;

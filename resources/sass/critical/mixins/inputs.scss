@@ -3,7 +3,7 @@
 
 @use '../base/variables';
 @use '../base/palette';
-
+@use '../base/typography';
 
 @mixin styleInputs() {
     label {
@@ -23,6 +23,34 @@
 
         &:focus {
             outline: none;
+            border-image: url('/dist/images/eroded-frame-whiteinner-green.svg') 33%;
+        }
+    }
+
+    .email-wrapper {
+        position: relative;
+        background-color: palette.$white;
+        border: 0.25rem solid transparent;
+        border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
+        padding-left: 3rem;
+        &:before {
+            content: "@";
+            height: 100%;
+            width: 1.5em;
+            font-size: 1.5em;
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            text-align: center;
+
+        }
+        input {
+            background-color: transparent;
+            border: none !important;
+        }
+
+        &:focus,&:active,&:hover {
             border-image: url('/dist/images/eroded-frame-whiteinner-green.svg') 33%;
         }
     }
@@ -148,7 +176,7 @@
 
         &:open,
         &:hover {
-            box-shadow: 0 0 0.5rem palette.$keyColor;
+            border-image: url('/dist/images/eroded-frame-whiteinner-green.svg') 33%;
         }
 
 

@@ -21,7 +21,7 @@
 {%- endblock form_widget_simple -%}
 
 {%- block form_widget_compound -%}
-    
+
     <div {{ block('widget_container_attributes') }}>
         {%- if form is rootform -%}
             {{ form_errors(form) }}

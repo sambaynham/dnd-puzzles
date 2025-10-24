@@ -5,74 +5,99 @@
 @use '../base/variables';
 @use '../base/palette';
 
-$logoHeight: 10vh;
+$logoHeight: 12vh;
 
-a.header-logo {
+.logo-wrapper {
     display: none;
 }
 
+
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {
 
-    a.header-logo {
+    .logo-wrapper {
         display: block;
-        color: transparent;
-        width: 40vh;
-        padding-top: $logoHeight + 2vh;
+
         position: relative;
-        margin: 0 auto math.div(variables.$base-spacing, 2) auto;
-
-        &:hover, &:focus, &:active {
-            color: transparent;
-        }
-
-        span.logo-text {
-            display: block;
-            width: 100%;
-            position: relative;
-            background: palette.$goldFX;
-            background-size: 50%;
-            background-clip: text;
-            font-size: math.div($logoHeight, 2.5);
-            font-family: typography.$displayStack;
-            text-align: center;
-
-            &:before {
-                top: 0;
-                left: 0;
-                text-shadow: 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.75), 0 0 0.25rem color.adjust(palette.$ink, $alpha: -0.75), 0 0 0.125rem color.adjust(palette.$ink, $alpha: -0.75), 0 0 0.0675rem color.adjust(palette.$ink, $alpha: -0.75);
-                content: attr(content);
-                position: absolute;
-                width: 100%;
-                display: block;
-                z-index: -1;
-
-            }
-
-        }
-        &:before, &:after {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 2vh;
-            left: 50%;
-            margin-left: 0 - math.div($logoHeight, 2);
-            height: $logoHeight;
-            width: $logoHeight;
-        }
 
         &:before {
-            background: linear-gradient(33deg, cyan, magenta);
-            background-size: 400%;
-            animation: gradient 5s ease infinite;
-            mask-image: url('/dist/images/penrose-mask.svg');
+            content: " ";
+            background: palette.$goldFX;
+            mask-image: url("/dist/images/starburst-mask.svg");
             mask-size: contain;
             mask-repeat: no-repeat;
+            mask-position: 50% 0%;
+            position: absolute;
+            top:0 ;
+            left: 0;
+            bottom: 0;
+            right:0;
+            background-attachment: fixed;
+            background-size: 150%;
+
         }
 
-        &:after {
-            background-image: url('/dist/images/penrose-overlay.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
+        a.header-logo {
+            display: block;
+            color: transparent;
+            width: 40vh;
+            padding-top: $logoHeight + 2vh;
+            position: relative;
+            margin: 0 auto math.div(variables.$base-spacing, 2) auto;
+
+            &:hover, &:focus, &:active {
+                color: transparent;
+            }
+
+            span.logo-text {
+                display: block;
+                width: 100%;
+                position: relative;
+                background: palette.$goldFX;
+                background-size: 50%;
+                background-clip: text;
+                font-size: math.div($logoHeight, 2.5);
+                font-family: typography.$displayStack;
+                text-align: center;
+
+                &:before {
+                    top: 0;
+                    left: 0;
+                    text-shadow: 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.75), 0 0 0.25rem color.adjust(palette.$ink, $alpha: -0.75), 0 0 0.125rem color.adjust(palette.$ink, $alpha: -0.75), 0 0 0.0675rem color.adjust(palette.$ink, $alpha: -0.75);
+                    content: attr(content);
+                    position: absolute;
+                    width: 100%;
+                    display: block;
+                    z-index: -1;
+
+                }
+
+            }
+            &:before, &:after {
+                content: " ";
+                display: block;
+                position: absolute;
+                top: 2vh;
+                left: 50%;
+                margin-left: 0 - math.div($logoHeight, 2);
+                height: $logoHeight;
+                width: $logoHeight;
+            }
+
+            &:before {
+                background: linear-gradient(33deg, cyan, magenta);
+                background-size: 400%;
+                animation: gradient 5s ease infinite;
+                mask-image: url('/dist/images/penrose-mask.svg');
+                mask-size: contain;
+                mask-repeat: no-repeat;
+            }
+
+            &:after {
+                background-image: url('/dist/images/penrose-overlay.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
         }
     }
+
 }
