@@ -19,10 +19,10 @@ table.table {
     }
 
     tr {
-        //background-color: palette.$white;
+        background-color: palette.$white;
 
         &:nth-child(even) {
-            //background-color: color.mix(palette.$white, palette.$vellum, 66%);
+            background-color: color.mix(palette.$white, palette.$vellum, 66%);
         }
     }
 

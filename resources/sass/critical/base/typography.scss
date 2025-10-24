@@ -227,7 +227,6 @@ q {
     quotes: var(--baseTextQuotes);
 }
 
-blockquote::before,
 q::before {
     content: open-quote;
 }
@@ -238,24 +237,22 @@ q::before {
 blockquote {
     padding: var(--baseSpacingVertical) var(--baseSpacingHorizontal);
     border-left: var(--baseQuoteBorder);
-
     margin: var(--bigSpacingVertical) var(--baseSpacingHorizontal);
+    position: relative;
+
+
+    span.cite {
+        text-align: right;
+        font-style: italic;
+        width: 100%;
+        display: inline-block;
+        &:before {
+            content: "—"
+        }
+    }
 }
 
-blockquote::before,
-blockquote::after {
-    vertical-align: -0.5em;
-    font-size: 4em;
-    line-height: 0.1em;
-}
 
-blockquote::before {
-    margin-right: var(--baseSpacingHorizontal);
-}
-
-blockquote::after {
-    content: no-close-quote;
-}
 
 q::after {
     content: close-quote;
