@@ -4,33 +4,35 @@ namespace App\ValueResolver;
 
 
 use App\Entity\Game;
+use App\Entity\GameInvitation;
 use App\Repository\GameRepository;
+use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-readonly class GameSlugResolver implements ValueResolverInterface
+readonly class GameInvitationResolver implements ValueResolverInterface
 {
-    public function __construct(private GameRepository $gameRepository)
+    public function __construct(private GameInvitationRepository $gameInvitationRepository)
     {
     }
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         // get the argument type (e.g. BookingId)
         $argumentType = $argument->getType();
-        if (!$argumentType === Game::class) {
+        if (!$argumentType === GameInvitation::class) {
             return [];
         }
 
-        $slug = $request->attributes->get('slug');
 
-        if (!is_string($slug)) {
+        $code = $request->attributes->get('invitationCode');
+
+        if (!is_string($code)) {
             return [];
         }
 
-        $game = $this->gameRepository->findOneBy(['slug' => $slug]);
-
+        $invitation = $this->gameInvitationRepository->findByInvitationCode($code);
         // create and return the value object
-        return $game ? [$game] : [];
+        return $invitation ? [$invitation] : [];
     }
 }

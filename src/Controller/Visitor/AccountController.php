@@ -7,12 +7,16 @@ namespace App\Controller\Visitor;
 use App\Controller\AbstractBaseController;
 use App\Entity\User;
 use App\Form\Game\JoinGameType;
+use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class AccountController extends AbstractBaseController
 {
+    public function __construct(private GameInvitationRepository $gameInvitationRepository) {
+
+    }
     #[Route('/account', name: 'app.user.account')]
     public function index(Request $request): Response
     {
@@ -25,7 +29,7 @@ final class AccountController extends AbstractBaseController
         $pageVars = [
             'pageTitle' => 'Account',
             'user' => $user,
-            'joinGameForm' => $joinGameForm,
+            'invitations' => $this->gameInvitationRepository->getOutstandingInvitationsForUser($user)
         ];
         return $this->render('account/index.html.twig', $this->populatePageVars($pageVars, $request));
     }

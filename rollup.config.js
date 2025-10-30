@@ -140,7 +140,25 @@ const config = [
             }),
             summary()
         ]
-    }
+    },
+    {
+        input: 'resources/sass/admin/admin.scss',
+        output: {
+            dir: './public/dist/css/'
+        },
+        plugins: [
+            scss({
+                fileName: 'admin.css',
+                outputStyle: 'compressed',
+                watch: [
+                    'resources/sass/admin/admin.scss',
+                    'resources/sass/admin/'
+                ],
+            }),
+
+            summary()
+        ]
+    },
 ];
 
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\Game;
+namespace App\Form\Game\Invitations;
 
-use App\Dto\Game\InvitePlayerDto;
+use App\Dto\Game\Invitations\InvitePlayerDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

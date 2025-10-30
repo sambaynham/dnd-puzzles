@@ -20,6 +20,7 @@
         padding: math.div(variables.$base-spacing, 4);
         flex: 1;
         width: 100%;
+        font-family: typography.$textStack;
 
         &:focus {
             outline: none;
@@ -196,7 +197,7 @@
         border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
         background-color: palette.$white;
         padding: math.div(variables.$base-spacing, 4);
-
+        font-family: typography.$textStack;
         &:open,
         &:hover {
             border-image: url('/dist/images/eroded-frame-whiteinner-green.svg') 33%;

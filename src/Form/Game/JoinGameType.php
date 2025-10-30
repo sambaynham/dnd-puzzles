@@ -2,7 +2,7 @@
 
 namespace App\Form\Game;
 
-use App\Dto\Game\InvitationRedemptionDto;
+use App\Dto\Game\Invitations\InvitationRedemptionDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

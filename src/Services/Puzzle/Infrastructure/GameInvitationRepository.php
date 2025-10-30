@@ -4,6 +4,7 @@ namespace App\Services\Puzzle\Infrastructure;
 
 use App\Entity\Game;
 use App\Entity\GameInvitation;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
@@ -66,6 +67,17 @@ class GameInvitationRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('gi');
         $qb->where($qb->expr()->lte('gi.expiresAt', ':now'));
         $qb->setParameter(':now', new \DateTimeImmutable());
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getOutstandingInvitationsForUser(User $user): array {
+        $qb = $this->createQueryBuilder('gi');
+            $qb->where($qb->expr()->gt('gi.expiresAt', ':now'))
+            ->andWhere($qb->expr()->isNull('gi.dateUsed'))
+            ->andWhere($qb->expr()->eq('gi.email', ':emailAddress'));
+
+        $qb->setParameter('now', new \DateTimeImmutable());
+        $qb->setParameter(':emailAddress', $user->getEmail());
         return $qb->getQuery()->getResult();
     }
 }

@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: GameInvitationRepository::class)]
+#[UniqueEntity(fields: ['invitationCode'], message: 'There is already an invitation with this code. Please choose another one.')]
 class GameInvitation extends AbstractDomainEntity
 {
     public function __construct(
-        #[ORM\Column(length: 64)]
+        #[ORM\Column(length: 64, unique:true)]
         private string $invitationCode,
 
         #[ORM\Column(type: 'string')]

@@ -1,0 +1,19 @@
+@use 'sass:math';
+@use '../../critical/base/variables';
+@use '../../critical/base/palette';
+
+nav.admin-navbar {
+    display: flex;
+    flex-direction: row;
+    padding: 0 math.div((100vw - variables.$desktopMaxViewportWidth), 2);
+    background: palette.$charcoal;
+
+    a {
+        color: palette.$white;
+        padding: math.div(variables.$base-spacing, 4);
+
+        &:first-child {
+            padding-left: 0;
+        }
+    }
+}

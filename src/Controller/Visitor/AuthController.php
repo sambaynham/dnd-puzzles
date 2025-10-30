@@ -80,6 +80,8 @@ class AuthController extends AbstractBaseController
                     $success = false;
                     $this->addFlash('error', 'We couldn\'t find an invitation matching those details. Please check and try again.');
                 }
+            } else {
+                $invitation = null;
             }
 
 

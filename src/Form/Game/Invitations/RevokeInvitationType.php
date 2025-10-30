@@ -1,31 +1,28 @@
 <?php
 
-namespace App\Form\Game;
+namespace App\Form\Game\Invitations;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RedeemInvitationType extends AbstractType
+class RevokeInvitationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
-                'emailAddress',
-                EmailType::class,
+                'confirm',
+                CheckboxType::class,
                 [
-                    'label' => 'Confirm your e-mail address',
+                    'label' => 'I wish to revoke this invitation.',
+                    'help' => 'This action cannot be undone. If you wish to re-invite the player, a new invitation will need to be issued.',
+                    'required' => true
                 ]
             )
-            ->add(
-                'invitationCode',
-                TextType::class
-            )
-            ->add('submit', SubmitType::class, ['label' => 'Join Game'])
+            ->add('submit', SubmitType::class)
         ;
     }
 

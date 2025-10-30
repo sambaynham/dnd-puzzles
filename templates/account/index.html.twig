@@ -23,9 +23,47 @@
                         </td>
                     </tr>
                 </tbody>
-
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <h2>My Invitations</h2>
+
+            {% if invitations is not empty %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Game</th>
+                            <th>From</th>
+                            <th>Received</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invitation in invitations %}
+                            <tr>
+                                <td>{{ invitation.getGame.getName }}</td>
+                                <td>{{ invitation.getGame.getGamesMaster.getEmail }}</td>
+                                <td>{{ invitation.getCreatedAt.format('Y-m-d H:i') }}</td>
+                                <td>
+                                    <nav class="secondary">
+                                        <a href="">Accept</a>
+                                        <a href="{{ path('app.games.invite.decline', {'invitationCode': invitation.getInvitationCode}) }}">Decline</a>
+                                    </nav>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            {% else %}
+                <em>You have no outstanding invitations.</em>
+            {% endif %}
+        </div>
+    </div>
+
 
 {% endblock %}

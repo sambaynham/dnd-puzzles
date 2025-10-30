@@ -5,13 +5,17 @@ declare(strict_types=1);
 namespace App\Controller\Visitor\Games;
 
 use App\Controller\AbstractBaseController;
-use App\Dto\Game\InvitationRedemptionDto;
-use App\Dto\Game\InvitePlayerDto;
+use App\Dto\Game\Invitations\DeclineInvitationDto;
+use App\Dto\Game\Invitations\InvitationRedemptionDto;
+use App\Dto\Game\Invitations\InvitePlayerDto;
+use App\Entity\AbuseReport;
 use App\Entity\Game;
 use App\Entity\GameInvitation;
-use App\Form\Game\InvitePlayerType;
-use App\Form\Game\RedeemInvitationType;
-use App\Form\Game\RevokeInvitationType;
+use App\Entity\User;
+use App\Form\Game\Invitations\DeclineInvitationType;
+use App\Form\Game\Invitations\InvitePlayerType;
+use App\Form\Game\Invitations\RedeemInvitationType;
+use App\Form\Game\Invitations\RevokeInvitationType;
 use App\Repository\UserRepository;
 use App\Security\GameManagerVoter;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
@@ -20,7 +24,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Random\RandomException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Attribute\Route;
@@ -114,14 +118,8 @@ class GameInvitationController extends AbstractBaseController
     public function revoke(
         Game $game,
         Request $request,
-        string $invitationCode
+        GameInvitation $invitation
     ) {
-
-        $invitation = $this->gameInvitationRepository->findByInvitationCode($invitationCode);
-        if (!$invitation) {
-            throw new NotFoundHttpException();
-        }
-
         $form = $this->createForm(RevokeInvitationType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -154,9 +152,51 @@ class GameInvitationController extends AbstractBaseController
         return $this->render('games/invitations/revoke.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-    #[Route('games/{slug}/invitations/redeem', name: 'app.games.invite.redeem')]
+    #[Route('games/invitations/{invitationCode}/decline', name: 'app.games.invite.decline')]
+    #[IsGranted('ROLE_USER')]
+    public function decline(GameInvitation $invitation, Request $request) {
+        $user = $this->getUser();
+
+
+        if (!$user instanceof User || $user->getUserIdentifier() !== $invitation->getEmail()) {
+            throw new AccessDeniedHttpException("You may not decline invitations on someone else\'s behalf.");
+        }
+        $dto = new DeclineInvitationDto($invitation);
+        $form = $this->createForm(DeclineInvitationType::class, $dto);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $invitation->revoke();
+            $this->entityManager->persist($invitation);
+            if ($dto->reason !== 'received_in_error') {
+                $abuseReport = new AbuseReport(
+                    reportedUser: $invitation->getGame()->getGamesMaster(),
+                    reportingUser: $user,
+                    reason: $dto->reason,
+                    notes: $dto->notes,
+                );
+                $this->entityManager->persist($abuseReport);
+            }
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Invitation declined');
+            return $this->redirectToRoute('app.user.account');
+        }
+
+
+        $pageVars = [
+            'pageTitle' => 'Decline Invitation',
+            'breadcrumbs' => [
+
+            ],
+            'form' => $form
+        ];
+        return $this->render('games/invitations/decline.html.twig', $this->populatePageVars($pageVars, $request));
+
+    }
+
+    #[Route('games/invitations/redeem', name: 'app.games.invite.redeem')]
     public function redeem(
-        Game $game,
         Request $request
     ) {
         $dto = new InvitationRedemptionDto();
@@ -194,7 +234,6 @@ class GameInvitationController extends AbstractBaseController
             'breadcrumbs' => [
 
             ],
-            'game' => $game,
             'form' => $form
         ];
         return $this->render('games/invitations/redeem.html.twig', $this->populatePageVars($pageVars, $request));
