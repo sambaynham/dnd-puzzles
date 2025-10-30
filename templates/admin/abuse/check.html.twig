@@ -1,0 +1,51 @@
+{% extends '/admin/base/admin-base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>{{ pageTitle }}</h1>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Reported User</th>
+                        <td>{{ report.getReportedUser.getEmail }} <em>({{ reporteeStrikes }} strikes.)</em></td>
+                    </tr>
+                    <tr>
+                        <th>Reporting User</th>
+                        <td>{{ report.getReportingUser.getEmail }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{ report.createdAt.format('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Reason</th>
+                        <td>{{ report.getReason() }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% if report.getNotes is not null %}
+                <h3>Notes</h3>
+                <p>{{ report.getNotes }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col">
+            {{ form_start(form) }}
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Confirm Report</th>
+                        <td>{{ form_row(form.reportConfirmed) }}</td>
+                    </tr>
+                    <tr>
+                        <th>Report Reporter</th>
+                        <td>{{ form_row(form.reportReporter) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

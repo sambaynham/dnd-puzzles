@@ -27,8 +27,18 @@ form:not(.unstyle) {
 
 
         }
+        span.help-text {
+            flex: 1;
+            display: block;
+            margin-top: math.div(variables.$base-spacing, 4);
+        }
+
 
     }
+
+
+
+
 
     @include inputs.styleInputs();
 

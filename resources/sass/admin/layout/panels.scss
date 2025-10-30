@@ -1,0 +1,10 @@
+@use 'sass:math';
+@use '../../critical/base/variables';
+@use '../../critical/base/palette';
+
+.col.panel {
+    background-color: palette.$offWhite;
+    box-shadow: palette.$baseBoxShadow;
+    padding: math.div(variables.$base-spacing, 4) !important;
+    border-radius: 0.25rem;
+}

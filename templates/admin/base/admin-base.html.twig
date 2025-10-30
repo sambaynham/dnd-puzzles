@@ -18,6 +18,7 @@
         {% embed 'base/partials/_alerts.html.twig' %}{% endembed %}
         <nav class="admin-navbar">
             <a href="{{ path('admin.dashboard') }}">Dash</a>
+            <a href="{{ path('admin.users.manage') }}">User Management</a>
         </nav>
         <main>
             {% block body %}{% endblock %}

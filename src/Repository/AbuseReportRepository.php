@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\AbuseReport;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +17,19 @@ class AbuseReportRepository extends ServiceEntityRepository
         parent::__construct($registry, AbuseReport::class);
     }
 
-    //    /**
-    //     * @return AbuseReport[] Returns an array of AbuseReport objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findUnactioned(): array {
+        $qb = $this->createQueryBuilder('ar');
+        $qb->where($qb->expr()->isNull('ar.checkedDate'));
+        return $qb->getQuery()->getResult();
+    }
 
-    //    public function findOneBySomeField($value): ?AbuseReport
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function getAbuseReportsForReportedUser(User $user): array {
+        $qb = $this->createQueryBuilder('ar');
+        $qb
+            ->where($qb->expr()->eq('ar.reportedUser', ':user'))
+            ->andWhere($qb->expr()->isNotNull('ar.checkedDate'))
+            ->andWhere($qb->expr()->isNotNull('ar.confirmedDate'));
+        $qb->setParameter('user', $user);
+        return $qb->getQuery()->getResult();
+    }
 }

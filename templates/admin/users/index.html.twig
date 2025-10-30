@@ -1,0 +1,77 @@
+{% extends '/admin/base/admin-base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>{{ pageTitle }}</h1>
+            {{ form(form) }}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>E-Mail</th>
+                        <th>Name</th>
+                        <th>Roles</th>
+                        <th>Joined</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>
+                                {{ user.email }}
+                            </td>
+                            <td>
+                                {{ user.userName }}
+                            </td>
+                            <td>
+                                <ul>
+                                    {% for role in user.getRoles %}
+                                        <li>{{ role }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                {{ user.getCreatedAt.format('Y-m-d H:i:s') }}
+                            </td>
+                            <td>
+
+                                <nav class="secondary">
+                                    <a href="{{ path('admin.users.edit', {'id': user.getId}) }}">Edit</a>
+                                    {% if user != app.user %}
+                                    <a href="">Block</a>
+                                        {% else %}
+                                            <em>You may not block yourself.</em>
+                                    {% endif %}
+                                </nav>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if pager is not empty %}
+                <nav class="pagination">
+                    {% if pager.back is defined %}
+                        <a href="{{ path('admin.users.manage', {
+                        'page': pager.back,
+                        'resultsPerPage': resultsPerPage
+                    }) }}"><<</a>
+                    {% endif %}
+                    {% for pagerPage in pager.pages %}
+                        <a href="{{ path('admin.users.manage', {
+                            'page': pagerPage,
+                            'resultsPerPage': resultsPerPage
+                        }) }}" {% if currentPage == pagerPage %}class="active"{% endif %} >{{ pagerPage }}</a>
+                    {% endfor %}
+                    {% if pager.next is defined %}
+                        <a href="{{ path('admin.users.manage', {
+                            'page': pager.next,
+                            'resultsPerPage': resultsPerPage
+                        }) }}">>></a>
+                    {% endif %}
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

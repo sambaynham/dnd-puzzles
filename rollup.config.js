@@ -152,7 +152,8 @@ const config = [
                 outputStyle: 'compressed',
                 watch: [
                     'resources/sass/admin/admin.scss',
-                    'resources/sass/admin/'
+                    'resources/sass/admin/',
+                    'resources/sass/critical/'
                 ],
             }),
 

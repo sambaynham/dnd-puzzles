@@ -331,9 +331,9 @@
 {% block form_help -%}
     {%- if help -%}
         {%- set help_attr = help_attr|merge({class: (help_attr.class|default('') ~ ' help-text')|trim}) -%}
-        <{{ element|default('div') }} id="{{ id }}_help"{% with {attr: help_attr} %}{{ block('attributes') }}{% endwith %}>
+        <{{ element|default('span') }} id="{{ id }}_help"{% with {attr: help_attr} %}{{ block('attributes') }}{% endwith %}>
         {{- block('form_help_content') -}}
-        </{{ element|default('div') }}>
+        </{{ element|default('span') }}>
     {%- endif -%}
 {%- endblock form_help %}
 

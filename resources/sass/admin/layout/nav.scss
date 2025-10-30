@@ -7,7 +7,7 @@ nav.admin-navbar {
     flex-direction: row;
     padding: 0 math.div((100vw - variables.$desktopMaxViewportWidth), 2);
     background: palette.$charcoal;
-
+    margin-bottom: variables.$base-spacing;
     a {
         color: palette.$white;
         padding: math.div(variables.$base-spacing, 4);
