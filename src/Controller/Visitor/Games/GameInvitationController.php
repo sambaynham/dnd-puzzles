@@ -168,6 +168,15 @@ class GameInvitationController extends AbstractBaseController
             if (!$invitation) {
                 $this->addFlash('error', 'Sorry, we couldn\'t find a current Game Invitation matching these details. Please check and try again' );
             } else {
+                $user = $invitation->getUser();
+                if (null === $user) {
+                    $this->addFlash('success', 'Invitation found. Please register to continue: we\'ve filled in some details for you!');
+                    return $this->redirectToRoute('app.auth.register', [
+                        'emailAddress' => $invitation->getEmail(),
+                        'invitationCode' => $invitation->getInvitationCode()
+                    ]);
+                }
+                dd($user);
 //                $invitation->markUsed();
 //                $this->entityManager->persist($invitation);
                 //Here, if a user does not exist, we need to create one.

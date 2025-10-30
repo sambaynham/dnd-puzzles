@@ -3,6 +3,8 @@
 namespace App\Controller\Visitor;
 
 use ApiPlatform\Validator\Exception\ValidationException;
+use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Controller\AbstractBaseController;
 use App\Dto\User\UserDto;
@@ -22,14 +24,29 @@ class AuthController extends AbstractBaseController
 
     public function __construct(
         private ValidatorInterface $validator,
-        private readonly AuthenticationUtils $authenticationUtils) {
+        private readonly AuthenticationUtils $authenticationUtils,
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
+        private Security $security,
+        private EntityManagerInterface $entityManager,
+        private GameInvitationRepository $gameInvitationRepository
+    ) {
     }
 
     #[Route('/register', name: 'app.auth.register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
-    {
+    public function register(
+        Request $request,
+        #[MapQueryParameter] ?string $emailAddress = null,
+        #[MapQueryParameter] ?string $invitationCode = null,
+    ): Response{
+
 
         $userDto = new UserDto();
+        if (null !== $emailAddress) {
+            $userDto->emailAddress = $emailAddress;
+        }
+        if (null !== $invitationCode) {
+            $userDto->invitationCode = $invitationCode;
+        }
         $form = $this->createForm(RegistrationForm::class, $userDto);
         $form->handleRequest($request);
 
@@ -45,7 +62,7 @@ class AuthController extends AbstractBaseController
                 username: $userDto->userName
             );
 
-            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+            $user->setPassword($this->userPasswordHasher->hashPassword($user, $plainPassword));
 
             $success = true;
             $violations = $this->validator->validate($user);
@@ -57,11 +74,30 @@ class AuthController extends AbstractBaseController
             }
 
 
-            if ($success) {
-                $entityManager->persist($user);
-                $entityManager->flush();
+            if (null !== $userDto->invitationCode) {
+                $invitation = $this->gameInvitationRepository->findByInvitationCodeAndEmailAddress(invitationCode: $userDto->invitationCode, emailAddress: $userDto->emailAddress);
+                if (null === $invitation) {
+                    $success = false;
+                    $this->addFlash('error', 'We couldn\'t find an invitation matching those details. Please check and try again.');
+                }
+            }
 
-                $this->addFlash('success', 'Your account has been created. You may now log in.');
+
+            if ($success) {
+                $this->entityManager->persist($user);
+
+                $hasInvitation = false;
+                if (null !== $invitation) {
+                    $hasInvitation = true;
+                    $invitation->markUsed();
+                    $this->entityManager->persist($invitation);
+                    $game = $invitation->getGame();
+                    $game->addPlayer($user);
+                    $this->entityManager->persist($game);
+                }
+                $this->entityManager->flush();
+
+                $this->addFlash('success', $hasInvitation ? 'Your account has been created, and you\'ve been added to your game!' : 'Your account has been created. You may now log in.');
                 return $this->redirectToRoute('app.auth.login');
             }
 

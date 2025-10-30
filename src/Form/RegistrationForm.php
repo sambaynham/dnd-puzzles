@@ -53,6 +53,14 @@ class RegistrationForm extends AbstractType
                     ]),
                 ],
             ])
+            ->add(
+                'invitationCode',
+                TextType::class,
+                [
+                    'required' => false,
+                    'help' => 'Enter an invitation code to join a game as soon as you\'ve registered!'
+                ]
+            )
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'I agree to abide to the code of conduct',
                 'mapped' => false,

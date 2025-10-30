@@ -21,4 +21,7 @@ class UserDto
     #[Assert\Type('string')]
     #[Assert\Length(min: 8, max: 255)]
     public ? string $plainPassword = null;
+
+    #[Assert\Type('string')]
+    public ? string $invitationCode = null;
 }
