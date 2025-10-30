@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:color';
 
 @use '../base/variables';
 @use '../base/palette';
@@ -94,7 +95,6 @@ $slideshowHeight: 40vh;
         top: 0;
         right: 0;
         padding: math.div(variables.$base-spacing, 2);
-
         z-index: 999;
         display: flex;
         flex-direction: row;
@@ -103,14 +103,36 @@ $slideshowHeight: 40vh;
             color: transparent;
             text-shadow: none;
             height: 1rem;
-            background-color: palette.$white;
+            background: palette.$charcoal radial-gradient(circle at 50% 100%, color.adjust(palette.$charcoal, $lightness: +10%), palette.$charcoal);
             width: 1rem;
             margin-right: math.div(variables.$base-spacing, 4);
             cursor: pointer;
-            border: none;
+            position: relative;
+
+            &:before, &:after {
+                content: " ";
+                display: block;
+                position: absolute;
+            }
+            &:before {
+                background: palette.$goldFX;
+                top: -0.05rem;
+                left: -0.05rem;
+                bottom: -0.05rem;
+                right: -0.05rem;
+                z-index: -1;
+            }
+            &:after {
+                border: 0.25rem outset rgba(255, 255, 255, 0.5);
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                mix-blend-mode: soft-light;
+            }
 
             &.active {
-                background-color: palette.$crimson;
+                background: palette.$green radial-gradient(circle at 50% 100%, palette.$green, color.adjust(palette.$green, $lightness: -10%));
             }
 
             &:last-child {

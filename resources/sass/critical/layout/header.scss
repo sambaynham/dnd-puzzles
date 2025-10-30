@@ -356,7 +356,7 @@ main {
                         a {
                             font-family: typography.$displayStack;
                             padding: math.div(variables.$base-spacing, 8) 0;
-
+                            line-height: 2em;
                             &:hover, &:focus, &:active {
                                 color: color.adjust(palette.$crimson, $saturation: 20%, $lightness: 15%, $space: hsl);
                             }

@@ -6,7 +6,7 @@
     <div id="login-form">
         {% if app.user %}
             <p>You are logged in as {{ app.user.userIdentifier }}.</p>
-            <a class="btn" href="{{ path('app_logout') }}">Logout</a>
+            <a class="btn btn-danger" href="{{ path('app_logout') }}">Logout</a>
 
         {% else %}
             <h2>Log In</h2>

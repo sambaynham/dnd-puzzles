@@ -50,7 +50,7 @@
             border: none !important;
         }
 
-        &:focus,&:active,&:hover {
+        &:focus,&:active {
             border-image: url('/dist/images/eroded-frame-whiteinner-green.svg') 33%;
         }
     }
