@@ -16,6 +16,7 @@ use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use App\Security\GameManagerVoter;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
+use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Random\RandomException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -33,7 +34,7 @@ final class GamesController extends AbstractBaseController
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
-        private readonly  GameRepository $gameRepository,
+        private readonly GameInvitationRepository $gameInvitationRepository,
         private MailerInterface $mailer,
         private UserRepository $userRepository
     ) {
@@ -127,6 +128,7 @@ final class GamesController extends AbstractBaseController
         Request $request
     ) {
         $title = sprintf('Manage %s', $game->getName());
+        $invitations = $this->gameInvitationRepository->getOutstandingInvitationsForGame($game);
         $pageVars = [
             'pageTitle' => $title,
             'breadcrumbs' => [
@@ -141,6 +143,7 @@ final class GamesController extends AbstractBaseController
                 ],
             ],
             'game' => $game,
+            'invitations' => $invitations
         ];
         return $this->render('games/manage.html.twig', $this->populatePageVars($pageVars, $request));
     }

@@ -16,8 +16,7 @@ class GameManagerVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::MANAGE_GAME_ACTION])) {
+        if ($attribute != self::MANAGE_GAME_ACTION) {
             return false;
         }
 

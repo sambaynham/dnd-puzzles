@@ -2,9 +2,13 @@
 
 namespace App\Services\Puzzle\Infrastructure;
 
+use App\Entity\Game;
 use App\Entity\GameInvitation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * @extends ServiceEntityRepository<GameInvitation>
@@ -16,28 +20,18 @@ class GameInvitationRepository extends ServiceEntityRepository
         parent::__construct($registry, GameInvitation::class);
     }
 
-    //    /**
-    //     * @return GameInvitation[] Returns an array of GameInvitation objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getOutstandingInvitationsForGame(Game $game) : iterable {
 
-    //    public function findOneBySomeField($value): ?GameInvitation
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $qb = $this->createQueryBuilder('gi');
+
+        $qb->innerJoin('gi.game', 'gig')
+            ->where($qb->expr()->eq('gig.id', $game->getId()))
+            ->andWhere($qb->expr()->lt('gi.expiresAt', ':now'))
+            ->andWhere($qb->expr()->isNull('gi.dateUsed'));
+        $qb->setParameter('now', new \DateTimeImmutable());
+
+        $results = $qb->getQuery()->getArrayResult();
+        return new ArrayCollection($results);
+    }
+
 }
