@@ -111,7 +111,30 @@
             }
         }
 
+        &.required {
+            .checkbox-required-indicator {
+                display: block;
+                position: absolute;
+                color: palette.$crimson;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 1.5rem;
+                font-size: 1rem;
+                font-weight: bold;
+                font-family: "Crimson Text";
+            }
+            label {
+                &:before, &:after {
+                    left: 1rem;
+                }
+                padding-left: 3rem;
+            }
+
+        }
+
     }
+
 
     .radio-choice-wrapper {
         position: relative;

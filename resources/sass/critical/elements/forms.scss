@@ -16,7 +16,7 @@ form:not(.unstyle) {
         margin: 0 0  math.div(variables.$base-spacing, 4) 0;
 
         &.required {
-            label {
+            > label {
                 &:before {
                     content: "*";
                     margin-right: math.div(variables.$base-spacing, 8);
@@ -24,6 +24,8 @@ form:not(.unstyle) {
                     color: palette.$crimson;
                 }
             }
+
+
         }
 
     }
