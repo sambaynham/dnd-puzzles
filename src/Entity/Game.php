@@ -35,7 +35,7 @@ class Game extends AbstractDomainEntity
         #[ORM\Column(length: 1024)]
         private string $description,
 
-        #[ORM\ManyToOne(inversedBy: 'gamesMastered')]
+        #[ORM\ManyToOne(inversedBy: 'gamesMastered',fetch: 'EAGER')]
         #[ORM\JoinColumn(nullable: false)]
         private User $gamesMaster,
 

@@ -247,6 +247,9 @@ main {
             display: flex;
             flex-direction: row;
             height: initial;
+            container-type: scroll-state;
+            container-name: sticky-heading;
+
 
 
             nav.mobile-nav {

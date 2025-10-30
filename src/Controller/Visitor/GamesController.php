@@ -14,6 +14,7 @@ use App\Form\CreateGameType;
 use App\Form\InvitePlayerType;
 use App\Repository\GameRepository;
 use App\Repository\UserRepository;
+use App\Security\GameManagerVoter;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Random\RandomException;
@@ -119,7 +120,7 @@ final class GamesController extends AbstractBaseController
     }
 
 
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('games/{slug}/manage/', name: 'app.games.manage')]
     public function manage(
         Game $game,
@@ -147,7 +148,7 @@ final class GamesController extends AbstractBaseController
     /**
      * @throws RandomException
      */
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('games/{slug}/manage/invitations', name: 'app.games.invite')]
     public function invite(
         Game $game,
