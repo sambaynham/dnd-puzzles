@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Game;
 
 use App\Dto\Game\CreateGameDto;
-use App\Entity\Game;
-use App\Entity\User;
 use App\Repository\GameRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -32,13 +29,12 @@ class CreateGameType extends AbstractType
             )
             ->add(
                 'slug',
-                TextType::class,
+                HiddenType::class,
                 [
                     'attr' => [
-//                        'disabled' => true,
+
                         'value' => $this->gameRepository->getRandomUnusedSlug()
                     ],
-                    'help' => 'This is the URL of your game. It will be used to access your game. It may only contain uppercase letters and numbers.'
                 ]
             )
             ->add(

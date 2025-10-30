@@ -15,6 +15,17 @@ form:not(.unstyle) {
         justify-content: space-between;
         margin: 0 0  math.div(variables.$base-spacing, 4) 0;
 
+        &.required {
+            label {
+                &:before {
+                    content: "*";
+                    margin-right: math.div(variables.$base-spacing, 8);
+                    display: inline;
+                    color: palette.$crimson;
+                }
+            }
+        }
+
     }
 
     @include inputs.styleInputs();

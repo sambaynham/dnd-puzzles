@@ -6,24 +6,16 @@ use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\Controller\AbstractBaseController;
 use App\Dto\Game\CreateGameDto;
-use App\Dto\Game\InvitePlayerDto;
 use App\Entity\Game;
-use App\Entity\GameInvitation;
 use App\Entity\User;
-use App\Form\CreateGameType;
-use App\Form\InvitePlayerType;
-use App\Repository\UserRepository;
+use App\Form\Game\CreateGameType;
+use App\Form\Game\DeleteGameType;
 use App\Security\GameManagerVoter;
-use App\Services\Puzzle\Infrastructure\CodeGenerator;
 use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Random\RandomException;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -119,7 +111,7 @@ final class GamesController extends AbstractBaseController
 
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('games/{slug}/manage/', name: 'app.games.manage')]
+    #[Route('games/{slug}/manage', name: 'app.games.manage')]
     public function manage(
         Game $game,
         Request $request
@@ -145,5 +137,38 @@ final class GamesController extends AbstractBaseController
         return $this->render('games/manage.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
+
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('games/{slug}/delete', name: 'app.games.delete')]
+    public function delete(
+        Game $game,
+        Request $request
+    ) {
+        $title = sprintf('Really delete %s?', $game->getName());
+        $form = $this->createForm(DeleteGameType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->remove($game);
+            $this->entityManager->flush();
+            $this->addFlash('success', sprintf("Game %s delete successfully", $game->getName()));
+            return $this->redirectToRoute('app.games.index');
+        }
+        $pageVars = [
+            'pageTitle' => $title,
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.games.index',
+                    'label' => 'My Games',
+                    'active' => false
+                ],
+                [
+                    'label' => $title,
+                    'active' => true
+                ],
+            ],
+            'form' => $form
+        ];
+        return $this->render('games/delete.html.twig', $this->populatePageVars($pageVars, $request));
+    }
 
 }

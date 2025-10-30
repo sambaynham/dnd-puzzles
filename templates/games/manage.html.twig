@@ -67,5 +67,11 @@
             <a href="{{ path('app.games.invite', {'slug': game.getSlug}) }}" class="btn btn-blue">Invite Players</a>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <hr/>
+            <a href="{{ path('app.games.delete', {'slug': game.getSlug}) }}" class="btn btn-danger">Delete this Game</a>
+        </div>
+    </div>
 
 {% endblock %}

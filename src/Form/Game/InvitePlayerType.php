@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Game;
 
 use App\Dto\Game\InvitePlayerDto;
 use Symfony\Component\Form\AbstractType;

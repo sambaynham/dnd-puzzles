@@ -9,10 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CreateGameDto
 {
 
-    private const string SLUG_REGEX = '/^[A-Z0-9]+$/';
+    private const string SLUG_REGEX = '/^[a-z0-9]+$/';
 
     #[Assert\NotBlank]
-    #[Assert\Length(min: 5, max: 255)]
+    #[Assert\Length(min: 5, max: 512)]
     public ? string $name = null;
 
     #[Assert\NotBlank]

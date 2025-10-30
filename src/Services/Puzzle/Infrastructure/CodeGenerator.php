@@ -9,7 +9,7 @@ use Random\RandomException;
 class CodeGenerator
 {
 
-    private const string CHARACTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    private const string CHARACTERS = '0123456789abcdefghijklmnopqrstuvwxyz';
 
     private const int SLUG_LENGTH = 16;
 

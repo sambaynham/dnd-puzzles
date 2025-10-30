@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Controller\Visitor\Games;
 
 use App\Controller\AbstractBaseController;
+use App\Dto\Game\InvitationRedemptionDto;
 use App\Dto\Game\InvitePlayerDto;
 use App\Entity\Game;
 use App\Entity\GameInvitation;
-use App\Form\InvitePlayerType;
-use App\Form\RevokeInvitationType;
+use App\Form\Game\InvitePlayerType;
+use App\Form\Game\RedeemInvitationType;
+use App\Form\Game\RevokeInvitationType;
 use App\Repository\UserRepository;
 use App\Security\GameManagerVoter;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
@@ -109,7 +111,7 @@ class GameInvitationController extends AbstractBaseController
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('games/{slug}/invitations/{invitationCode}/revoke', name: 'app.games.invite.revoke')]
-    public function redeem(
+    public function revoke(
         Game $game,
         Request $request,
         string $invitationCode
@@ -150,5 +152,42 @@ class GameInvitationController extends AbstractBaseController
             'form' => $form
         ];
         return $this->render('games/invitations/revoke.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[Route('games/{slug}/invitations/redeem', name: 'app.games.invite.redeem')]
+    public function redeem(
+        Game $game,
+        Request $request
+    ) {
+        $dto = new InvitationRedemptionDto();
+        $form = $this->createForm(RedeemInvitationType::class, $dto);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $invitation = $this->gameInvitationRepository->findByInvitationCodeAndEmailAddress($dto->invitationCode, $dto->emailAddress);
+            if (!$invitation) {
+                $this->addFlash('error', 'Sorry, we couldn\'t find a current Game Invitation matching these details. Please check and try again' );
+            } else {
+//                $invitation->markUsed();
+//                $this->entityManager->persist($invitation);
+                //Here, if a user does not exist, we need to create one.
+            }
+            /*
+            $invitation->revoke();
+            $this->entityManager->persist($invitation);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Invitation Revoked');
+            return $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);*/
+        }
+
+        $pageVars = [
+            'pageTitle' => 'Redeem your Invitation',
+            'breadcrumbs' => [
+
+            ],
+            'game' => $game,
+            'form' => $form
+        ];
+        return $this->render('games/invitations/redeem.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

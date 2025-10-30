@@ -43,7 +43,7 @@ class ClearExpiredInvitesCommand extends Command
         }
 
         foreach ($expiredInvitations as $expiredInvitation) {
-            
+
             $io->info(sprintf('Removing invitation with code %s', $expiredInvitation->getInvitationCode()));
             $this->entityManager->remove($expiredInvitation);
         }

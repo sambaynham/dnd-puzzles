@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Game;
 
+use App\Dto\Game\InvitationRedemptionDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,7 +38,7 @@ class JoinGameType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => InvitationRedemptionDto::class,
         ]);
     }
 }

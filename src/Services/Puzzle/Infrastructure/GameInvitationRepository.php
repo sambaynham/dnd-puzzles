@@ -47,6 +47,21 @@ class GameInvitationRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    public function findByInvitationCodeAndEmailAddress(string $invitationCode, string $emailAddress): ? GameInvitation {
+        $qb = $this->createQueryBuilder('gi');
+
+        $qb ->where($qb->expr()->eq('gi.invitationCode', ':invitationCode'))
+            ->andWhere($qb->expr()->gt('gi.expiresAt', ':now'))
+            ->andWhere($qb->expr()->isNull('gi.dateUsed'))
+            ->andWhere($qb->expr()->eq('gi.email', ':emailAddress'));
+
+        $qb->setParameter('now', new \DateTimeImmutable());
+        $qb->setParameter(':invitationCode', $invitationCode);
+        $qb->setParameter(':emailAddress', $emailAddress);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
     public function getExpiredInvitations(): array {
         $qb = $this->createQueryBuilder('gi');
         $qb->where($qb->expr()->lte('gi.expiresAt', ':now'));

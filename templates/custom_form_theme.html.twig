@@ -10,7 +10,6 @@
 {%- endblock form_widget -%}
 
 {%- block form_widget_simple -%}
-
     {%- set type = type|default('text') -%}
 
     {%- if type == 'range' or type == 'color' -%}
@@ -383,7 +382,10 @@
 {%- endblock form_row -%}
 
 {%- block form_row_render -%}
-    <div{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' form-group')|trim})} %}{{ block('attributes') }}{% endwith %}>
+    <div{% with {
+        attr: row_attr|merge({
+            class: (row_attr.class|default('') ~ ' form-group' ~ ' ' ~ (required ? 'required'))|trim
+        })} %} {{ block('attributes') }}{% endwith %}>
 
         {% if block_prefixes.1 is not defined or (block_prefixes.1 != 'checkbox' )%}
             {{- form_label(form) -}}

@@ -18,8 +18,8 @@ class InvitePlayerDto
     #[Assert\NotBlank()]
     #[Assert\Length(min: 1, max: 255)]
     public ? string $invitationText = null;
-    #[Assert\Email()]
 
+    #[Assert\Email()]
     #[Assert\NotBlank()]
     #[CustomAssert\EmailAddressIsNotBlockedConstraint]
     public ?string $email = null;
