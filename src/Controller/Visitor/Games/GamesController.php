@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Visitor;
+namespace App\Controller\Visitor\Games;
 
 use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;
@@ -12,7 +12,6 @@ use App\Entity\GameInvitation;
 use App\Entity\User;
 use App\Form\CreateGameType;
 use App\Form\InvitePlayerType;
-use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use App\Security\GameManagerVoter;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
@@ -34,9 +33,7 @@ final class GamesController extends AbstractBaseController
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
-        private readonly GameInvitationRepository $gameInvitationRepository,
-        private MailerInterface $mailer,
-        private UserRepository $userRepository
+        private readonly GameInvitationRepository $gameInvitationRepository
     ) {
 
     }
@@ -148,76 +145,5 @@ final class GamesController extends AbstractBaseController
         return $this->render('games/manage.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-    /**
-     * @throws RandomException
-     */
-    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('games/{slug}/manage/invitations', name: 'app.games.invite')]
-    public function invite(
-        Game $game,
-        Request $request
-    ) {
 
-        $dto = new InvitePlayerDto();
-        $dto->game = $game;
-        $dto->invitationCode = CodeGenerator::generateRandomCode(8);
-        $dto->invitationText = 'Hi, I\'d like you to join my game on conundrumcodex.com';
-        $form = $this->createForm(InvitePlayerType::class, $dto );
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $email = $dto->email;
-            $expiration = new \DateTime();
-            $expiration->modify('+24 hours');
-            $existingUser = $this->userRepository->findOneBy(['email' => $email]);
-            $invitation = new GameInvitation(
-                invitationCode: $dto->invitationCode,
-                email: $email,
-                game: $game,
-                expiresAt:  \DateTimeImmutable::createFromMutable($expiration),
-            );
-            if ($existingUser) {
-                $invitation->setUser($existingUser);
-            }
-            $this->entityManager->persist($invitation);
-            $this->entityManager->flush();
-
-            if (null === $existingUser) {
-                $email = (new TemplatedEmail())
-                    ->from(new Address('site@conundrumcodex.com', 'Mailbot'))
-                    ->to((string) $existingUser)
-                    ->subject(sprintf('Invitation from %s', $game->getGamesMaster()->getEmail()))
-                    ->htmlTemplate('mail/invitation.html.twig')
-                    ->context([
-                        'invitation' => $invitation,
-                    ]);
-
-                $this->mailer->send($email);
-            }
-            $this->addFlash('success', 'Invitation Sent');
-            return $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);
-
-        }
-        $pageVars = [
-            'pageTitle' => sprintf('Invite player to %s', $game->getName()),
-            'breadcrumbs' => [
-                [
-                    'route' => 'app.games.index',
-                    'label' => 'My Games',
-                    'active' => false
-                ],
-                [
-                    'label' => sprintf('Manage %s', $game->getName()),
-                    'active' => false
-                ],
-                [
-                    'label' => 'Invite Players',
-                    'active' => true
-                ],
-            ],
-            'game' => $game,
-            'form' => $form
-        ];
-        return $this->render('games/invite.html.twig', $this->populatePageVars($pageVars, $request));
-    }
 }

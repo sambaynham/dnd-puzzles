@@ -11,6 +11,7 @@ table.table {
     text-align: left;
     transform: rotate(-0.125deg);
     margin-bottom: math.div(variables.$base-spacing, 2);
+    width: 100%;
 
     tr, td, th {
         border: 0.125rem solid palette.$wyrdPurple;

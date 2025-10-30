@@ -9,7 +9,12 @@ hr {
     height: 0.125rem;
     display: block;
     background: radial-gradient(circle at 50% 50%, palette.$ink 90%, transparent);
+    margin: math.div(variables.$base-spacing, 2) 0;
     &.subtle {
         height: 0.05rem;
+    }
+
+    &.hidden {
+        opacity :0;
     }
 }

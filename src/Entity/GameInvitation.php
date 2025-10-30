@@ -19,7 +19,7 @@ class GameInvitation extends AbstractDomainEntity
         #[ORM\JoinColumn(nullable: false)]
         private Game $game,
 
-        #[ORM\Column(type: 'date_immutable')]
+        #[ORM\Column(type: 'datetime_immutable')]
         private \DateTimeImmutable $expiresAt,
 
         #[ORM\ManyToOne]
@@ -71,5 +71,9 @@ class GameInvitation extends AbstractDomainEntity
 
     public function isUsed(): bool {
         return null !== $this->dateUsed;
+    }
+
+    public function revoke(): void {
+        $this->expiresAt = new \DateTimeImmutable();
     }
 }

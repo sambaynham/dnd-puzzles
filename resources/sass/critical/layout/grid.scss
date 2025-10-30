@@ -1,8 +1,7 @@
-@use '../base/variables';
-@use '../base/palette';
 @use 'sass:math';
 
-
+@use '../base/variables';
+@use '../base/palette';
 
 
 body,html {
@@ -32,6 +31,17 @@ main {
         img {
             max-height: 100%;
             max-width: initial;
+        }
+
+        .col {
+            article {
+                display: block;
+                padding: math.div(variables.$base-spacing, 4) 0;
+                &:not(:last-child) {
+                    margin-bottom: math.div(variables.$base-spacing, 2);
+                }
+
+            }
         }
     }
 
