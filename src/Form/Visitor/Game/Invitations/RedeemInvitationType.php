@@ -1,44 +1,38 @@
 <?php
 
-namespace App\Form\Game;
+namespace App\Form\Visitor\Game\Invitations;
 
-use App\Dto\Game\Invitations\InvitationRedemptionDto;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class JoinGameType extends AbstractType
+class RedeemInvitationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
-                'invitationCode',
-                TextType::class,
+                'emailAddress',
+                EmailType::class,
                 [
-                    'label' => false,
-
-                    'attr' => [
-                        'placeholder' => 'Enter invitation code'
-                    ]
+                    'label' => 'Confirm your e-mail address',
                 ]
             )
             ->add(
-                'submit',
-                SubmitType::class,
-                [
-                    'label' => 'Join game'
-                ]
+                'invitationCode',
+                TextType::class
             )
+            ->add('submit', SubmitType::class, ['label' => 'Join Game'])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => InvitationRedemptionDto::class,
+            // Configure your form options here
         ]);
     }
 }

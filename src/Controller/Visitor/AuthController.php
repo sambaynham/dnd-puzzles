@@ -2,22 +2,21 @@
 
 namespace App\Controller\Visitor;
 
-use ApiPlatform\Validator\Exception\ValidationException;
-use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
-use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Controller\AbstractBaseController;
 use App\Dto\User\UserDto;
 use App\Entity\User;
-use App\Form\LoginType;
-use App\Form\RegistrationForm;
+use App\Form\Visitor\LoginType;
+use App\Form\Visitor\RegistrationForm;
+use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AuthController extends AbstractBaseController
 {

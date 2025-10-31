@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Game;
+namespace App\Form\Visitor\Game;
 
 use App\Dto\Game\CreateGameDto;
 use App\Repository\GameRepository;

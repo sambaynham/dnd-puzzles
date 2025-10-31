@@ -47,6 +47,10 @@ main {
 
     .row {
         margin-bottom: math.div(variables.$base-spacing, 2);
+
+        &.title-row {
+            margin-bottom: math.div(variables.$base-spacing, 8);
+        }
         .col {
             padding: math.div(variables.$base-spacing, 2);
             overflow-x: hidden;

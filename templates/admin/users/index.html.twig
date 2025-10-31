@@ -2,8 +2,11 @@
 {% block body %}
     <div class="row">
         <div class="col">
-            <h1>{{ pageTitle }}</h1>
             {{ form(form) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col panel">
             <nav class="secondary-main"><span>Users</span><a href="{{ path('admin.users.roles') }}">Roles</a></nav>
             <table class="table">
                 <thead>
@@ -11,6 +14,7 @@
                         <th>E-Mail</th>
                         <th>Name</th>
                         <th>Roles</th>
+                        <th>Blocked?</th>
                         <th>Joined</th>
                         <th>Operations</th>
                     </tr>
@@ -32,18 +36,32 @@
                                 </ul>
                             </td>
                             <td>
+                                {% if user.getUserBlock is null %}
+                                    <em>Not blocked.</em>
+                                {% else %}
+                                    <strong>Blocked for {{ user.getUserBlock.getReason }}</strong><br/>
+                                    <em>Block expires {{ user.getUserBlock.isPermanent ? 'never' : user.getUserBlock.getExpirationDate.format('Y-m-d H:i:s') }}</em>
+
+                                {% endif %}
+                            </td>
+                            <td>
                                 {{ user.getCreatedAt.format('Y-m-d H:i:s') }}
                             </td>
                             <td>
+                                {% if user != app.user %}
+                                    <nav class="secondary">
 
-                                <nav class="secondary">
-                                    <a href="{{ path('admin.users.edit', {'id': user.getId}) }}">Edit</a>
-                                    {% if user != app.user %}
-                                    <a href="">Block</a>
+                                        <a href="{{ path('admin.users.edit', {'id': user.getId}) }}">Edit</a>
+                                        {% if user.getUserBlock is null %}
+                                            <a href="{{ path('admin.users.block', {'id': user.getId}) }}">Block</a>
                                         {% else %}
-                                            <em>You may not block yourself.</em>
-                                    {% endif %}
-                                </nav>
+                                            <a href="{{ path('admin.users.unblock', {'id': user.getId}) }}">Unblock</a>
+                                        {% endif %}
+
+                                    </nav>
+                                {% else %}
+                                    <em>Please use the <a href="{{ path('app.user.account') }}">Account</a> page to edit your own account.</em>
+                                {% endif %}
 
                             </td>
                         </tr>

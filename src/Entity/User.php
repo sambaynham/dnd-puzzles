@@ -34,12 +34,14 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'players')]
     private Collection $games;
 
-
-    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users', fetch: 'EAGER', indexBy: 'handle')]
+    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users', fetch: 'EAGER', indexBy: 'handle', cascade: ['persist', 'remove'])]
     private Collection $roles;
 
+    #[ORM\OneToOne(mappedBy: 'user', fetch: 'EAGER')]
+    private ?UserBlock $userBlock = null;
+
     public function __construct(
-        #[ORM\Column(length: 255, type: 'string', unique: true)]
+        #[ORM\Column(type: 'string', length: 255, unique: true)]
         #[Assert\Email]
         private string $email,
 
@@ -49,12 +51,18 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         #[ORM\Column(type: 'string', length: 255)]
         private string $password = '',
 
+
         ? int $id = null
     ) {
         parent::__construct($id);
         $this->roles = new ArrayCollection();
         $this->gamesMastered = new ArrayCollection();
         $this->games = new ArrayCollection();
+    }
+
+    public function setRoles(Collection $roles): void
+    {
+        $this->roles = $roles;
     }
 
     public function getUsername(): string
@@ -76,7 +84,7 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return $this->email;
     }
 
     /**
@@ -186,5 +194,14 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
 
     public function getHydratedRoles(): Collection {
         return $this->roles;
+    }
+
+    public function isBlocked(): bool
+    {
+        return $this->userBlock !== null;
+    }
+
+    public function getUserBlock(): ?UserBlock {
+        return $this->userBlock;
     }
 }

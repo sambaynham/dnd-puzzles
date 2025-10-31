@@ -8,7 +8,7 @@ use App\Controller\AbstractBaseController;
 use App\Dto\Abuse\AbuseReportCheckDto;
 use App\Entity\AbuseReport;
 use App\Entity\User;
-use App\Form\AbuseReportCheckType;
+use App\Form\Admin\AbuseReportCheckType;
 use App\Repository\AbuseReportRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;

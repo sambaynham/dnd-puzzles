@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Game;
+namespace App\Form\Visitor\Game;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;

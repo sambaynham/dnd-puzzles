@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Game\Invitations;
+namespace App\Form\Visitor\Game\Invitations;
 
 use App\Dto\Game\Invitations\DeclineInvitationDto;
 use Symfony\Component\Form\AbstractType;

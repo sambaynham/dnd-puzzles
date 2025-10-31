@@ -23,7 +23,7 @@ class Role extends AbstractDomainEntity
         #[ORM\ManyToMany(targetEntity: Permission::class, inversedBy: 'roles', fetch: 'EAGER', indexBy: 'handle')]
         private Collection $permissions = new ArrayCollection(),
 
-        #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'roles')]
+        #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'roles', indexBy: 'handle')]
         private Collection $users = new ArrayCollection(),
 
         ?int $id = null

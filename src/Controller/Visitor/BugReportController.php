@@ -7,15 +7,13 @@ namespace App\Controller\Visitor;
 use App\Controller\AbstractBaseController;
 use App\Dto\Bugs\BugReportDto;
 use App\Entity\BugReport;
-use App\Form\BugReportType;
+use App\Form\Visitor\BugReportType;
 use App\Message\EmailMessage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 class BugReportController extends AbstractBaseController

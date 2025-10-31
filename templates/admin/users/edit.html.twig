@@ -1,10 +1,22 @@
 {% extends '/admin/base/admin-base.html.twig' %}
 {% block body %}
-    <div class="row">
-        <div class="col">
-            <h1>{{ pageTitle }}</h1>
-
+    {{ form_start(form) }}
+    <div class="row three-quarters-one-quarter">
+        <div class="col panel">
+            <h2 class="panel-heading">
+                Basic Details
+            </h2>
+            {{ form_row(form.email) }}
+            {{ form_row(form.username) }}
+            {{ form_row(form.plainPassword) }}
+        </div>
+        <div class="col panel">
+            <h2 class="panel-heading">
+                Roles
+            </h2>
+            {{ form_row(form.roles) }}
         </div>
     </div>
+    {{ form_end(form) }}
 
 {% endblock %}

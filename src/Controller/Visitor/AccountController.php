@@ -6,7 +6,7 @@ namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
 use App\Entity\User;
-use App\Form\Game\JoinGameType;
+use App\Form\Visitor\Game\JoinGameType;
 use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

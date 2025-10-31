@@ -17,6 +17,7 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            user_checker: App\Security\UserChecker
             form_login:
                 login_path: app_login
                 check_path: app_login
@@ -26,6 +27,7 @@ security:
                 always_use_default_target_path: true
             logout:
                 path: app.auth.logout
+
                 # where to redirect after logout
                 # target: app_any_route
                 # where to redirect after logout

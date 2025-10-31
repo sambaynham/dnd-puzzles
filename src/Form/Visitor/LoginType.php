@@ -1,53 +1,60 @@
 <?php
 
-namespace App\Form\Game\Invitations;
+declare(strict_types=1);
 
-use App\Dto\Game\Invitations\InvitePlayerDto;
+namespace App\Form\Visitor;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class InvitePlayerType extends AbstractType
+
+class LoginType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
             ->add(
-                'email',
+                '_username',
                 EmailType::class,
                 [
+                    'label' => 'Email',
                     'required' => true,
+                    'attr' => [
+                        'name' => '_username'
+                    ]
                 ]
             )
-
             ->add(
-                'invitationCode',
-                TextType::class,
+                '_password',
+                PasswordType::class,
                 [
-                    'help' => 'Your players will use this code to join your game. It expires after 24 hours.',
+                    'required' => true,
                     'attr' => [
-                        'readonly'=>true,
+                        'name' => '_password'
                     ]
-                ])
-            ->add('invitationText', TextType::class, [
-                'attr' => [
-                    'max'=> 255
                 ]
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Invite players',
-            ])
+            )
+            ->add(
+                'submit',
+                SubmitType::class
+            );
         ;
+    }
+
+    public function getBlockPrefix()
+    {
+        return '';
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => InvitePlayerDto::class,
+            // Configure your form options here
         ]);
     }
 }
+

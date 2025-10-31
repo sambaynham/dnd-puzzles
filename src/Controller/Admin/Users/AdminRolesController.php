@@ -6,7 +6,7 @@ namespace App\Controller\Admin\Users;
 
 use App\Controller\AbstractBaseController;
 use App\Entity\Role;
-use App\Form\RoleEditType;
+use App\Form\Admin\RoleEditType;
 use App\Repository\RoleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +23,7 @@ class AdminRolesController extends AbstractBaseController
     }
 
     #[Route('admin/users/roles', name: 'admin.users.roles')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('assign_roles')]
     public function index(Request $request): Response {
         $pageVars = [
             'pageTitle' => 'Manage Roles',
@@ -33,7 +33,7 @@ class AdminRolesController extends AbstractBaseController
     }
 
     #[Route('admin/users/roles/{roleHandle}/edit', name: 'admin.users.roles.edit')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('assign_roles')]
     public function edit(
         Role $role,
         Request $request

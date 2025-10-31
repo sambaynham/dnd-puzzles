@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Game\Invitations;
+namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -8,20 +8,15 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RevokeInvitationType extends AbstractType
+class AdminUnblockUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(
-                'confirm',
-                CheckboxType::class,
-                [
-                    'label' => 'I wish to revoke this invitation.',
-                    'help' => 'This action cannot be undone. If you wish to re-invite the player, a new invitation will need to be issued.',
-                    'required' => true
-                ]
-            )
+            ->add('confirm', CheckboxType::class, [
+                'required' => true,
+                'label' => 'I really want to unblock this user.'
+            ])
             ->add('submit', SubmitType::class)
         ;
     }
