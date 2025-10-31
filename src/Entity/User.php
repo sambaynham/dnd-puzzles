@@ -34,6 +34,10 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'players')]
     private Collection $games;
 
+
+    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users', fetch: 'EAGER')]
+    private Collection $roles;
+
     public function __construct(
         #[ORM\Column(length: 255, type: 'string', unique: true)]
         #[Assert\Email]
@@ -45,15 +49,10 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         #[ORM\Column(type: 'string', length: 255)]
         private string $password = '',
 
-        #[ORM\Column]
-        private array $roles = [],
-
         ? int $id = null
     ) {
         parent::__construct($id);
-        if (empty($this->roles)) {
-            $this->roles = ['ROLE_USER'];
-        }
+        $this->roles = new ArrayCollection();
         $this->gamesMastered = new ArrayCollection();
         $this->games = new ArrayCollection();
     }
@@ -85,11 +84,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return array_map(function ($element) {
+            return $element->getHandle();
+        }, $this->roles->toArray());
     }
 
 

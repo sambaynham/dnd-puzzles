@@ -4,7 +4,7 @@
         <div class="col">
             <h1>{{ pageTitle }}</h1>
             {{ form(form) }}
-            <nav class="secondary-main"><span>Users</span><a href="">Roles</a></nav>
+            <nav class="secondary-main"><span>Users</span><a href="{{ path('admin.users.roles') }}">Roles</a></nav>
             <table class="table">
                 <thead>
                     <tr>

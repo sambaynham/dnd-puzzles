@@ -6,74 +6,58 @@ use App\Repository\PermissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PermissionRepository::class)]
-class Permission
+#[UniqueEntity(fields: ['handle'], message: 'There is already a permission with this handle. Please choose another one.')]
+class Permission extends AbstractDomainEntity
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    public function __construct(
+        #[ORM\Column(length: 255)]
+        private string $label,
 
-    #[ORM\Column(length: 255)]
-    private ?string $label = null;
+        #[ORM\Column(length: 255, unique:true)]
+        private readonly string $handle,
 
-    #[ORM\Column(length: 255)]
-    private ?string $handle = null;
+        #[ORM\Column(length: 255)]
+        private string $description,
 
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
+        /**
+         * @var Collection<int, Role>
+         */
+        #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'permissions')]
+        private Collection $roles = new ArrayCollection(),
 
-    /**
-     * @var Collection<int, Role>
-     */
-    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'permissions')]
-    private Collection $roles;
+        ?int $id = null
+    ){
 
-    public function __construct()
-    {
-        $this->roles = new ArrayCollection();
+        parent::__construct($id);
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return $this->label;
     }
 
-    public function setLabel(string $label): static
+    public function setLabel(string $label): void
     {
         $this->label = $label;
-
-        return $this;
     }
 
-    public function getHandle(): ?string
+    public function getHandle(): string
     {
         return $this->handle;
     }
 
-    public function setHandle(string $handle): static
-    {
-        $this->handle = $handle;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
     /**
@@ -84,22 +68,19 @@ class Permission
         return $this->roles;
     }
 
-    public function addRole(Role $role): static
+    public function addRole(Role $role): void
     {
         if (!$this->roles->contains($role)) {
             $this->roles->add($role);
             $role->addPermission($this);
         }
-
-        return $this;
     }
 
-    public function removeRole(Role $role): static
+    public function removeRole(Role $role): void
     {
         if ($this->roles->removeElement($role)) {
             $role->removePermission($this);
         }
-
-        return $this;
     }
 }
+

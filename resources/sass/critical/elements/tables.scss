@@ -16,6 +16,7 @@ table.table {
     tr, td, th {
         border: 0.125rem solid palette.$wyrdPurple;
         padding: math.div(variables.$base-spacing, 4);
+        vertical-align: top;
         @include inputs.styleInputs();
 
     }

@@ -1,0 +1,50 @@
+{% extends '/admin/base/admin-base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>{{ pageTitle }}</h1>
+            <nav class="secondary-main"><a href="{{ path('admin.users.manage') }}">Users</a><span>Roles</span></nav>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Handle</th>
+                        <th>Name</th>
+                        <th>Permissions</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if roles is empty %}
+                        <tr>
+                            <td colspan="3">
+                                <em>No Roles on system.</em>
+                            </td>
+                        </tr>
+                    {% else %}
+                        {% for role in roles %}
+                            <tr>
+                                <td>
+                                    {{ role.handle }}
+                                </td>
+                                <td>
+                                    {{ role.name }}
+                                </td>
+                                <td>
+                                    <ul>
+                                        {% for permission in role.getPermissions %}
+                                            <li>{{ permission.label }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    <a href="{{ path('admin.users.roles.edit', {'roleHandle': role.getHandle}) }}">Edit</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

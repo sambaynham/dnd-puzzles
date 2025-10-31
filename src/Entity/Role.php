@@ -6,59 +6,50 @@ use App\Repository\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: RoleRepository::class)]
-class Role
+#[UniqueEntity(fields: ['handle'], message: 'There is already a permission with this handle. Please choose another one.')]
+class Role extends AbstractDomainEntity
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    public function __construct(
+        #[ORM\Column(length: 255)]
+        private string $name,
 
-    #[ORM\Column(length: 255)]
-    private ?string $handle = null;
+        #[ORM\Column(length: 255, unique: true)]
+        private readonly string $handle,
 
-    /**
-     * @var Collection<int, Permission>
-     */
-    #[ORM\ManyToMany(targetEntity: Permission::class, inversedBy: 'roles')]
-    private Collection $permissions;
+        #[ORM\ManyToMany(targetEntity: Permission::class, inversedBy: 'roles')]
+        private Collection $permissions = new ArrayCollection(),
 
-    public function __construct()
+        #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'roles')]
+        private Collection $users = new ArrayCollection(),
+
+        ?int $id = null
+    )
     {
-        $this->permissions = new ArrayCollection();
+        parent::__construct($id);
     }
 
-    public function getId(): ?int
+    public function getUsers(): Collection
     {
-        return $this->id;
+        return $this->users;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
-    public function getHandle(): ?string
+    public function getHandle(): string
     {
         return $this->handle;
-    }
-
-    public function setHandle(string $handle): static
-    {
-        $this->handle = $handle;
-
-        return $this;
     }
 
     /**
@@ -69,19 +60,15 @@ class Role
         return $this->permissions;
     }
 
-    public function addPermission(Permission $permission): static
+    public function addPermission(Permission $permission): void
     {
         if (!$this->permissions->contains($permission)) {
             $this->permissions->add($permission);
         }
-
-        return $this;
     }
 
-    public function removePermission(Permission $permission): static
+    public function removePermission(Permission $permission): void
     {
         $this->permissions->removeElement($permission);
-
-        return $this;
     }
 }

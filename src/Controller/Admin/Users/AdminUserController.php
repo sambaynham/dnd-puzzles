@@ -18,6 +18,7 @@ class AdminUserController extends AbstractBaseController
 {
     public function __construct(private UserRepository $userRepository) {
     }
+
     #[Route('admin/users', name: 'admin.users.manage')]
     #[IsGranted('ROLE_ADMIN')]
     public function index(
