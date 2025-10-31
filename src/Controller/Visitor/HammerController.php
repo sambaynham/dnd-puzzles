@@ -14,6 +14,6 @@ final class HammerController extends AbstractBaseController
         $pageVars =[
             'pageTitle' => 'The Hammer of Tharmekhûl'
         ];
-        return $this->render('puzzles/hammer.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/puzzles/hammer.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

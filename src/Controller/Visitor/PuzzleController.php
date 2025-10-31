@@ -35,7 +35,7 @@ final class PuzzleController extends AbstractBaseController
 
             ]
         ];
-        return $this->render('puzzles/index.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/puzzles/index.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
 
@@ -53,7 +53,7 @@ final class PuzzleController extends AbstractBaseController
                 ]
             ]
         ];
-        return $this->render('puzzles/templates/index.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/puzzles/templates/index.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     #[Route('/puzzles/templates/{templateSlug}', name: 'app.puzzles.template.show')]
@@ -80,6 +80,6 @@ final class PuzzleController extends AbstractBaseController
             ]
 
         ];
-        return $this->render('puzzles/templates/template.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/puzzles/templates/template.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

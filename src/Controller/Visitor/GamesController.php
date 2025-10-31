@@ -50,7 +50,7 @@ final class GamesController extends AbstractBaseController
             'gamesMastered' => $user->getGamesMastered(),
             'gamesMember' => $user->getGames()
         ];
-        return $this->render('games/index.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/games/index.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     #[IsGranted('ROLE_USER')]
@@ -106,7 +106,7 @@ final class GamesController extends AbstractBaseController
             ],
             'form' => $form
         ];
-        return $this->render('games/create.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/games/create.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
 

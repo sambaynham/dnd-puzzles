@@ -53,7 +53,7 @@ class ResetPasswordController extends AbstractBaseController
             'requestForm' => $form,
 
         ];
-        return $this->render('reset_password/request.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/reset_password/request.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     /**
@@ -72,7 +72,7 @@ class ResetPasswordController extends AbstractBaseController
             'resetToken' => $resetToken,
         ];
 
-        return $this->render('reset_password/check_email.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/reset_password/check_email.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     /**
@@ -121,7 +121,7 @@ class ResetPasswordController extends AbstractBaseController
             return $this->redirectToRoute('app.auth.login');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
+        return $this->render('/visitor/reset_password/reset.html.twig', [
             'resetForm' => $form,
         ]);
     }

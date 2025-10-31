@@ -116,7 +116,7 @@ class AuthController extends AbstractBaseController
             ]
         ];
 
-        return $this->render('registration/register.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/registration/register.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     #[Route('/login', name: 'app.auth.login', methods: ['GET'])]
@@ -143,7 +143,7 @@ class AuthController extends AbstractBaseController
             ]
         ];
 
-        return $this->render('security/login.html.twig', $this->populatePageVars(request: $request, pageVars: $pageVars));
+        return $this->render('/visitor/security/login.html.twig', $this->populatePageVars(request: $request, pageVars: $pageVars));
     }
 
     #[Route(path: '/logout', name: 'app.auth.logout')]

@@ -66,6 +66,6 @@ class BugReportController extends AbstractBaseController
             'form' => $form,
             'hideBugReportLink' => true
         ];
-        return $this->render('bugs/report.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/bugs/report.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

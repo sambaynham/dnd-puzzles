@@ -14,6 +14,6 @@ final class LightForgeController extends AbstractBaseController
         $pageVars =[
             'pageTitle' => 'The Lightforge of Dormuid Fireglad'
         ];
-        return $this->render('puzzles/lightforge.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/puzzles/lightforge.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

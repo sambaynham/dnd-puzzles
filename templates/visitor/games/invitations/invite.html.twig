@@ -1,13 +1,19 @@
-{% extends '/base/base.html.twig' %}
+{% extends 'base/base.html.twig' %}
 {% block body %}
     {{ form_start(form) }}
     <div class="row">
+
+
         <div class="col">
-                {{ form_row(form.confirm) }}
+            {{ form_row(form.email) }}
         </div>
         <div class="col">
-            {{ form_row(form.confirm_again) }}
+            {{ form_row(form.invitationText) }}
         </div>
+        <div class="col">
+            {{ form_row(form.invitationCode) }}
+        </div>
+
     </div>
     <div class="row">
         <div class="col">

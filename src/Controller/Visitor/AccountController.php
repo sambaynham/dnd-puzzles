@@ -31,6 +31,6 @@ final class AccountController extends AbstractBaseController
             'user' => $user,
             'invitations' => $this->gameInvitationRepository->getOutstandingInvitationsForUser($user)
         ];
-        return $this->render('account/index.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/account/index.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

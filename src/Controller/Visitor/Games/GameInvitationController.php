@@ -110,7 +110,7 @@ class GameInvitationController extends AbstractBaseController
             'game' => $game,
             'form' => $form
         ];
-        return $this->render('games/invitations/invite.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('visitor/games/invitations/invite.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
@@ -149,7 +149,7 @@ class GameInvitationController extends AbstractBaseController
             ],
             'form' => $form
         ];
-        return $this->render('games/invitations/revoke.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('visitor/games/invitations/revoke.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     #[Route('games/invitations/{invitationCode}/decline', name: 'app.games.invite.decline')]
@@ -191,7 +191,7 @@ class GameInvitationController extends AbstractBaseController
             ],
             'form' => $form
         ];
-        return $this->render('games/invitations/decline.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('visitor/games/invitations/decline.html.twig', $this->populatePageVars($pageVars, $request));
 
     }
 
@@ -236,6 +236,6 @@ class GameInvitationController extends AbstractBaseController
             ],
             'form' => $form
         ];
-        return $this->render('games/invitations/redeem.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('visitor/games/invitations/redeem.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }
