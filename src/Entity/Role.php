@@ -20,7 +20,7 @@ class Role extends AbstractDomainEntity
         #[ORM\Column(length: 255, unique: true)]
         private readonly string $handle,
 
-        #[ORM\ManyToMany(targetEntity: Permission::class, inversedBy: 'roles')]
+        #[ORM\ManyToMany(targetEntity: Permission::class, inversedBy: 'roles', fetch: 'EAGER', indexBy: 'handle')]
         private Collection $permissions = new ArrayCollection(),
 
         #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'roles')]
@@ -70,5 +70,14 @@ class Role extends AbstractDomainEntity
     public function removePermission(Permission $permission): void
     {
         $this->permissions->removeElement($permission);
+    }
+
+    public function hasPermission(string $permissionHandle): bool {
+        foreach ($this->permissions as $permission) {
+            if ($permission->getHandle() === $permissionHandle) {
+                return true;
+            }
+        }
+        return false;
     }
 }

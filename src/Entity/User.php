@@ -35,7 +35,7 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     private Collection $games;
 
 
-    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users', fetch: 'EAGER')]
+    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users', fetch: 'EAGER', indexBy: 'handle')]
     private Collection $roles;
 
     public function __construct(
@@ -182,5 +182,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         }
 
         return $this;
+    }
+
+    public function getHydratedRoles(): Collection {
+        return $this->roles;
     }
 }

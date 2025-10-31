@@ -17,7 +17,7 @@ class AdminController extends AbstractBaseController
     public function __construct(private AbuseReportRepository $abuseReportRepository) {}
 
     #[Route('admin', name: 'admin.dashboard')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('admin_dash')]
     public function dashboard(Request $request): Response {
         $pageVars = [
             'pageTitle' => 'Dashboard',
