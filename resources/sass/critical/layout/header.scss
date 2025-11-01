@@ -238,19 +238,30 @@ main {
         }
 
         header {
+
+            &:before {
+                content: " ";
+                display: block;
+                background: palette.$charcoal linear-gradient(to bottom, palette.$charcoal, color.adjust(palette.$charcoal, $lightness: 3%));
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom :0;
+                right: 0;
+                transition: opacity 200ms ease-in-out;
+                opacity: 0;
+            }
             top: 0;
             position: sticky;
             margin: 0;
-            padding: math.div(variables.$base-spacing, 8) math.div((100vw - variables.$desktopMaxViewportWidth), 2);
+            padding: 0 math.div((100vw - variables.$desktopMaxViewportWidth), 2);
             background: linear-gradient(to bottom, transparent, transparent);
             transition: background 200ms ease-in-out;
             display: flex;
             flex-direction: row;
             height: initial;
-            container-type: scroll-state;
-            container-name: sticky-heading;
-
-
 
             nav.mobile-nav {
                 box-shadow: none;
@@ -274,7 +285,7 @@ main {
                 right: initial;
                 display: block;
                 width: auto;
-                height: 2.5rem;
+                height: 100%;
                 flex-basis: 5%;
                 &:before {
                     display: none;
@@ -306,8 +317,8 @@ main {
                 background-color: transparent;
 
                 form {
+                    margin: 0;
                     flex-basis: 16%;
-                    margin: math.div(variables.$base-spacing, 8);
                     box-shadow: none;
                     border-radius: 0;
                     border: 0.25rem solid palette.$ink;
@@ -315,17 +326,25 @@ main {
 
                     input {
                         padding: math.div(variables.$base-spacing, 8);
-
+                    }
+                    button {
+                        display: none;
                     }
                 }
                 ul {
-                    display: block;
+                    flex-direction: row;
                     flex-basis: 75%;
+                    justify-items: left;
+                    justify-content: left;
                     li {
-                        display: inline-block;
                         background-color: transparent !important;
                         margin: 0 math.div(variables.$base-spacing, 2);
                         position: relative;
+                        flex: 1;
+                        flex-grow: 0;
+                        white-space: nowrap;
+                        display: inline-flex;
+                        align-items: center;
 
                         &:after {
                             content: " ";
@@ -355,8 +374,8 @@ main {
                         }
                         a {
                             font-family: typography.$displayStack;
-                            padding: math.div(variables.$base-spacing, 8) 0;
-                            line-height: 2em;
+                            padding: 0;
+                            flex: 1;
                             &:hover, &:focus, &:active {
                                 color: color.adjust(palette.$crimson, $saturation: 20%, $lightness: 15%, $space: hsl);
                             }
@@ -367,11 +386,12 @@ main {
             }
 
             nav.mobile-nav#user-nav {
+                display: block;
                 transform: none;
                 width: initial;
                 min-width: 10vw;
                 height: initial;
-                display: block;
+
                 position: absolute;
                 top: calc($desktopHeaderHeight + math.div(variables.$base-spacing, 4));
                 right: math.div((100vw - variables.$desktopMaxViewportWidth), 2);
@@ -422,8 +442,9 @@ main {
 
         &.scrolled {
             header {
-
-                background: color.adjust(palette.$ink, $alpha: -0.05);
+                &:before {
+                    opacity: 0.9;
+                }
                 nav#main-nav {
                     ul {
                         li {
