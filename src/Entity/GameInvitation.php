@@ -17,6 +17,9 @@ class GameInvitation extends AbstractDomainEntity
         #[ORM\Column(type: 'string')]
         private string $email,
 
+        #[ORM\Column(type: 'string')]
+        private string $invitationMessage,
+
         #[ORM\ManyToOne(inversedBy: 'gameInvitations')]
         #[ORM\JoinColumn(nullable: false)]
         private Game $game,
@@ -34,6 +37,16 @@ class GameInvitation extends AbstractDomainEntity
         ? int $id = null
     ) {
         parent::__construct($id);
+    }
+
+    public function getInvitationMessage(): string
+    {
+        return $this->invitationMessage;
+    }
+
+    public function setInvitationMessage(string $invitationMessage): void
+    {
+        $this->invitationMessage = $invitationMessage;
     }
 
     public function markUsed(): void {

@@ -2,7 +2,7 @@
 
 @use "../base/variables";
 @use "../base/palette";
-@use "../layout/grid";
+@use "flex";
 
 footer {
     position: relative;

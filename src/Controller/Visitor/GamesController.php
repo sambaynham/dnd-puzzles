@@ -134,7 +134,7 @@ final class GamesController extends AbstractBaseController
             'game' => $game,
             'invitations' => $invitations
         ];
-        return $this->render('games/manage.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/games/manage.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
 
@@ -168,7 +168,7 @@ final class GamesController extends AbstractBaseController
             ],
             'form' => $form
         ];
-        return $this->render('games/delete.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/games/delete.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
 }

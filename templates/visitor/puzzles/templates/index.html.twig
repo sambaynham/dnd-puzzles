@@ -1,32 +1,22 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
     <div class="row">
-        <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Author</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for template in templates %}
-                        <tr>
-                            <td>
-                                <a href="{{ path('app.puzzles.template.show', {'templateSlug': template.getSlug}) }}">{{ template.getTitle }}</a>
-                            </td>
-                            <td>
-                                {{ template.getDescription }}
-                            </td>
-                            <td>
-                                <a href="mailto:{{ template.authorEmail }}">{{ template.authorEmail }}</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="grid">
+            {% for template in templates %}
+                <article class="card">
+<!--                    <img class="card-backer" src="/dist/images/wavepool.gif">-->
+                    <h2 class="card-title">{{ template.getTitle }}</h2>
+                    <div class="card-body">
+                        <div class="credit">
+                            <strong>By: </strong><a href="mailto:{{ template.authorEmail }}">{{ template.authorEmail }}</a>
+                        </div>
+                        {{ template.getDescription }}
+                    </div>
+                    <div class="card-footer">
+                        <a href="" class="btn">Add to Game</a>
+                    </div>
+                </article>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
-

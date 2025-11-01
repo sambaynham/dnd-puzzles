@@ -4,7 +4,8 @@
 @use "critical/base/colors";
 @use "critical/base/variables";
 
-@use "critical/layout/grid.scss";
+@use "critical/layout/flex";
+@use "critical/layout/grid";
 @use "critical/layout/logo";
 @use "critical/layout/header";
 @use "critical/layout/footer";
@@ -18,6 +19,7 @@
 @use "critical/elements/forms.scss";
 @use "critical/elements/navs.scss";
 @use "critical/elements/images.scss";
+@use "critical/elements/lists.scss";
 
 
 @use "critical/widgets/puzzles";
@@ -25,5 +27,6 @@
 @use "critical/widgets/tooltips";
 @use "critical/widgets/alerts";
 @use "critical/widgets/slideshow";
+@use "critical/widgets/cards";
 
 

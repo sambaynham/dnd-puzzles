@@ -18,6 +18,7 @@ use App\Form\Visitor\Game\Invitations\RedeemInvitationType;
 use App\Form\Visitor\Game\Invitations\RevokeInvitationType;
 use App\Repository\UserRepository;
 use App\Security\GameManagerVoter;
+use App\Security\InvitationOwnerVoter;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
 use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -49,7 +50,6 @@ class GameInvitationController extends AbstractBaseController
         Game $game,
         Request $request
     ) {
-
         $dto = new InvitePlayerDto();
         $dto->game = $game;
         $dto->invitationCode = CodeGenerator::generateRandomCode(8);
@@ -65,8 +65,9 @@ class GameInvitationController extends AbstractBaseController
             $invitation = new GameInvitation(
                 invitationCode: $dto->invitationCode,
                 email: $email,
+                invitationMessage: $dto->invitationText,
                 game: $game,
-                expiresAt:  \DateTimeImmutable::createFromMutable($expiration),
+                expiresAt: \DateTimeImmutable::createFromMutable($expiration),
             );
             if ($existingUser) {
                 $invitation->setUser($existingUser);
@@ -113,10 +114,9 @@ class GameInvitationController extends AbstractBaseController
         return $this->render('visitor/games/invitations/invite.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[IsGranted(InvitationOwnerVoter::MANAGE_INVITATION_ACTION, 'invitation')]
     #[Route('games/{slug}/invitations/{invitationCode}/revoke', name: 'app.games.invite.revoke')]
     public function revoke(
-        Game $game,
         Request $request,
         GameInvitation $invitation
     ) {
@@ -127,25 +127,13 @@ class GameInvitationController extends AbstractBaseController
             $this->entityManager->persist($invitation);
             $this->entityManager->flush();
             $this->addFlash('success', 'Invitation Revoked');
-            return $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);
+            return $this->redirectToRoute('app.games.manage', ['slug' => $invitation->getGame()->getSlug()]);
         }
 
         $pageVars = [
             'pageTitle' => sprintf('Really revoke %s\'s  invitation?', $invitation->getEmail()),
             'breadcrumbs' => [
-                [
-                    'route' => 'app.games.index',
-                    'label' => 'My Games',
-                    'active' => false
-                ],
-                [
-                    'label' => sprintf('Manage %s', $game->getName()),
-                    'active' => false
-                ],
-                [
-                    'label' => 'Invite Players',
-                    'active' => true
-                ],
+
             ],
             'form' => $form
         ];

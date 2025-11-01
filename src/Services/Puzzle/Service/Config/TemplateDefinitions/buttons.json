@@ -1,0 +1,50 @@
+{
+    "title": "Buttons",
+    "slug": "buttons",
+    "description": "In a button puzzle, players must press buttons in the correct order in order to win",
+    "category": "buttons",
+    "type": "test",
+    "created": "2025-09-17",
+    "tags": [
+        "fun",
+        "test"
+    ],
+    "creator": "sam.baynham@gmail.com",
+    "credits": [
+        {
+            "name": "Sam Baynham",
+            "email": "sam.baynham@gmail.com",
+            "created": "Code, Styling"
+        },
+        {
+            "name": "Betsy Ogilvy",
+            "created": "Art"
+        }
+    ],
+    "configOptions": [
+        {
+            "configName": "clue",
+            "label": "Clue",
+            "type": "text",
+            "helpText": " A clue that will be presented to the player."
+        },
+        {
+            "configName": "failure",
+            "label": "Failure",
+            "type": "dieRoll",
+            "helpText": "The die that will be rolled for damage if the players get the solution wrong."
+        },
+        {
+            "configName": "buttons",
+            "label": "Buttons",
+            "type": "stringArray",
+            "helpText": "An array of button names which will be used to generate buttons on the screen."
+        },
+        {
+            "configName": "solution",
+            "label": "Solution",
+            "type": "stringArray",
+            "helpText": "An array of the switch names above containing only valid selections."
+        }
+    ]
+}

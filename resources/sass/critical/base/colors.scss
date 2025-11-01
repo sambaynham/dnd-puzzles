@@ -4,5 +4,5 @@
 
 
 body {
-    background: palette.$vellum radial-gradient(circle at 50% 50%, palette.$vellum, color.adjust(palette.$vellum, $saturation: +100%, $lightness: -20%) 99%);
+    background: palette.$vellum radial-gradient(circle at 50% 50%, palette.$vellum 66%, color.adjust(palette.$vellum, $saturation: +50%, $lightness: -20%) 100%);
 }
