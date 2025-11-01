@@ -2,7 +2,7 @@
 
 namespace App\Form\Visitor\Game\Invitations;
 
-use App\Dto\Game\Invitations\InvitePlayerDto;
+use App\Dto\Visitor\Game\Invitations\InvitePlayerDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

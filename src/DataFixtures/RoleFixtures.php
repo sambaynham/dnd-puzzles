@@ -49,6 +49,11 @@ class RoleFixtures extends Fixture
             'label' => 'Administer Roles',
             'description' => 'Created, update and edit roles and permissions.'
         ],
+
+        'manage_bugs' => [
+            'label' => 'Manage Bugs',
+            'description' => 'Manage Bug Reports.'
+        ],
     ];
 
     private const array ROLES = [

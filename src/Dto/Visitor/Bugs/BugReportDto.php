@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Bugs;
+namespace App\Dto\Visitor\Bugs;
 
 class BugReportDto
 {

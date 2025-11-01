@@ -2,7 +2,7 @@
 
 namespace App\Form\Visitor;
 
-use App\Dto\Bugs\BugReportDto;
+use App\Dto\Visitor\Bugs\BugReportDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

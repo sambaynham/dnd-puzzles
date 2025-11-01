@@ -16,28 +16,12 @@ class BugReportRepository extends ServiceEntityRepository
         parent::__construct($registry, BugReport::class);
     }
 
-    //    /**
-    //     * @return BugReport[] Returns an array of BugReport objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('b')
-    //            ->andWhere('b.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('b.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?BugReport
-    //    {
-    //        return $this->createQueryBuilder('b')
-    //            ->andWhere('b.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findUnactioned(): array {
+        $qb  = $this->createQueryBuilder('br');
+        return $qb
+            ->where($qb->expr()->isNull('br.actionedAt'))
+            ->andWhere($qb->expr()->isNull('br.closedAt'))
+            ->getQuery()
+            ->getResult();
+    }
 }

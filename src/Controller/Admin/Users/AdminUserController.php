@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Users;
 
 use App\Controller\AbstractBaseController;
-use App\Dto\User\AdminUserDto;
-use App\Dto\User\UserBlockDto;
-use App\Dto\User\UserDto;
+use App\Dto\Admin\User\AdminUserDto;
+use App\Dto\Visitor\User\UserBlockDto;
 use App\Entity\User;
 use App\Entity\UserBlock;
 use App\Form\Admin\AdminBlockUserType;
+use App\Form\Admin\AdminUnblockUserType;
 use App\Form\Admin\AdminUserEditType;
 use App\Form\Admin\AdminUserSearchType;
-use App\Form\AdminUnblockUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +21,6 @@ use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AdminUserController extends AbstractBaseController

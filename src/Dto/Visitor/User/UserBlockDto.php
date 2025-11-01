@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\User;
+namespace App\Dto\Visitor\User;
 
 use App\Entity\User;
-
 use Symfony\Component\Validator\Constraints as Assert;
+
 class UserBlockDto
 {
     public function __construct(

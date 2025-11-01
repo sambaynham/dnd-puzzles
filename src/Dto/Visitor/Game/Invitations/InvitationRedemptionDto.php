@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Game\Invitations;
+namespace App\Dto\Visitor\Game\Invitations;
 
 use App\Validator as CustomAssert;
 use Symfony\Component\Validator\Constraints as Assert;

@@ -3,7 +3,7 @@
 namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
-use App\Dto\User\UserDto;
+use App\Dto\Visitor\User\RegisterUserDto;
 use App\Entity\User;
 use App\Form\Visitor\LoginType;
 use App\Form\Visitor\RegistrationForm;
@@ -39,7 +39,7 @@ class AuthController extends AbstractBaseController
     ): Response{
 
 
-        $userDto = new UserDto();
+        $userDto = new RegisterUserDto();
         if (null !== $emailAddress) {
             $userDto->emailAddress = $emailAddress;
         }

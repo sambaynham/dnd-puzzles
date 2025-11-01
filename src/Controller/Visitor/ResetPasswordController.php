@@ -4,7 +4,7 @@ namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
 use App\Entity\User;
-use App\Form\Visitor\ChangePasswordFormType;
+use App\Form\Visitor\Account\ChangePasswordFormType;
 use App\Form\Visitor\ResetPasswordRequestFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Visitor\Games;
 
 use App\Controller\AbstractBaseController;
-use App\Dto\Game\Invitations\DeclineInvitationDto;
-use App\Dto\Game\Invitations\InvitationRedemptionDto;
-use App\Dto\Game\Invitations\InvitePlayerDto;
+use App\Dto\Visitor\Game\Invitations\DeclineInvitationDto;
+use App\Dto\Visitor\Game\Invitations\InvitationRedemptionDto;
+use App\Dto\Visitor\Game\Invitations\InvitePlayerDto;
 use App\Entity\AbuseReport;
 use App\Entity\Game;
 use App\Entity\GameInvitation;

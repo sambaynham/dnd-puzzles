@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Controller\AbstractBaseController;
-use App\Dto\Abuse\AbuseReportCheckDto;
+use App\Dto\Admin\Abuse\AbuseReportCheckDto;
 use App\Entity\AbuseReport;
 use App\Entity\User;
 use App\Form\Admin\AbuseReportCheckType;

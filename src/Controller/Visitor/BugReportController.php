@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
-use App\Dto\Bugs\BugReportDto;
+use App\Dto\Visitor\Bugs\BugReportDto;
 use App\Entity\BugReport;
 use App\Form\Visitor\BugReportType;
 use App\Message\EmailMessage;

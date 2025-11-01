@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Visitor\Game\Invitations;
 
-use App\Dto\Game\Invitations\DeclineInvitationDto;
+use App\Dto\Visitor\Game\Invitations\DeclineInvitationDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

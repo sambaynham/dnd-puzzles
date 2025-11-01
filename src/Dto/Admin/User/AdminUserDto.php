@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dto\User;
+namespace App\Dto\Admin\User;
 
 use App\Entity\User;
 use App\Validator as CustomAssert;

@@ -21,9 +21,6 @@ class BugReport extends AbstractDomainEntity
         #[Assert\NotBlank]
         private string $reporterName,
 
-
-
-
         #[ORM\Column(length: 255)]
         #[Assert\NotBlank]
         #[Assert\Email]
@@ -36,6 +33,12 @@ class BugReport extends AbstractDomainEntity
         #[ORM\Column(length: 255, nullable: true)]
         #[Assert\Url]
         private ? string $referringUrl = null,
+
+        #[ORM\Column(length: 255, nullable: true, type: Types::DATETIME_IMMUTABLE)]
+        private ? \DateTimeImmutable $actionedAt = null,
+
+        #[ORM\Column(length: 255, nullable: true, type: Types::DATETIME_IMMUTABLE)]
+        private ? \DateTimeImmutable $closedAt = null,
 
         ?int $id = null
     ) {
@@ -90,5 +93,29 @@ class BugReport extends AbstractDomainEntity
     public function setText(string $text): void
     {
         $this->text = $text;
+    }
+
+    public function markActioned(): void {
+        $this->actionedAt = new \DateTimeImmutable();
+    }
+
+    public function getActionedAt(): \DateTimeImmutable {
+        return $this->actionedAt;
+    }
+
+    public function isActioned(): bool {
+        return $this->actionedAt !== null;
+    }
+
+    public function isClosed(): bool {
+        return $this->closedAt !== null;
+    }
+
+    public function getClosedAt(): ?\DateTimeImmutable {
+        return $this->closedAt;
+    }
+
+    public function close(): void {
+        $this->closedAt = new \DateTimeImmutable();
     }
 }

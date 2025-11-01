@@ -1,0 +1,44 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>User</th>
+        <th>Reported By</th>
+        <th>Date</th>
+        <th>Reason</th>
+        <th>Notes?</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if abuseReports is not empty %}
+        {% for abuseReport in abuseReports %}
+            <tr>
+                <td>
+                    {{ abuseReport.getReportedUser.getEmail }}
+                </td>
+                <td>
+                    {{ abuseReport.getReportingUser.getEmail }}
+                </td>
+                <td>
+                    {{ abuseReport.getCreatedAt.format('Y-m-d H:i:s') }}
+                </td>
+                <td>
+                    {{ abuseReport.getReason }}
+                </td>
+                <td>
+                    {% if abuseReport.getNotes is not null %}
+                        Yes
+                    {%  else %}
+                        No
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('admin.abuse.check', {'id': abuseReport.getId }) }}" class="btn btn-primary">Check</a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <td colspan="6"><em>No unactioned reports</em></td>
+    {% endif %}
+    </tbody>
+</table>

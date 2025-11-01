@@ -2,9 +2,7 @@
 
 namespace App\Form\Admin;
 
-use App\Dto\User\UserBlockDto;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Dto\Visitor\User\UserBlockDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

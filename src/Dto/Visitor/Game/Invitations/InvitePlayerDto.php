@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Game\Invitations;
+namespace App\Dto\Visitor\Game\Invitations;
 
 use App\Entity\Game;
 use App\Validator as CustomAssert;

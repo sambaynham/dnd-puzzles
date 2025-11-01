@@ -5,7 +5,7 @@ namespace App\Controller\Visitor;
 use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\Controller\AbstractBaseController;
-use App\Dto\Game\CreateGameDto;
+use App\Dto\Visitor\Game\CreateGameDto;
 use App\Entity\Game;
 use App\Entity\User;
 use App\Form\Visitor\Game\CreateGameType;

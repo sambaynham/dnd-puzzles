@@ -2,7 +2,7 @@
 
 namespace App\Form\Visitor\Game;
 
-use App\Dto\Game\CreateGameDto;
+use App\Dto\Visitor\Game\CreateGameDto;
 use App\Repository\GameRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

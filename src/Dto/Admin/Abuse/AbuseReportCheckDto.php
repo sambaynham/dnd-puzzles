@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Abuse;
+namespace App\Dto\Admin\Abuse;
 
 use App\Entity\AbuseReport;
 

@@ -11,8 +11,8 @@ nav.lozenges {
     margin: math.div(variables.$base-spacing, 2) 0;
 
     a {
-        padding: math.div(variables.$base-spacing, 2);
-        margin-right: math.div(variables.$base-spacing, 2);
+        padding: math.div(variables.$base-spacing, 4);
+        margin-right: math.div(variables.$base-spacing, 4);
         color: palette.$ink;
         font-weight: 800;
         font-size: 1rem;

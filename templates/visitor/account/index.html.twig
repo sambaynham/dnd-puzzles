@@ -17,7 +17,8 @@
                         <td>{{ user.email }}</td>
                         <td>
                             <nav class="secondary">
-                                <a href="">Change these details</a>
+                                <a href="{{ path('app.user.account.edit') }}">Change these details</a>
+                                <a href="{{ path('app.user.account.change-password') }}">Change Password</a>
                                 <a href="{{ path('app.auth.logout') }}">Logout</a>
                             </div>
                         </td>
