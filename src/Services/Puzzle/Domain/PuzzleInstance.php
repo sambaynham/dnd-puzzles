@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Services\Puzzle\Domain;
 
-use App\Repository\PuzzleInstanceRepository;
+use App\Services\Game\Domain\Game;
+use App\Services\Puzzle\Infrastructure\PuzzleInstanceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PuzzleInstanceRepository::class)]

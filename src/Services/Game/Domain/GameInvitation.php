@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Services\Game\Domain;
 
-use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
+use App\Entity\AbstractDomainEntity;
+use App\Entity\User;
+use App\Services\Game\Infrastructure\GameInvitationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 

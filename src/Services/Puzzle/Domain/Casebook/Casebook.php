@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Puzzle\Domain\Casebook;
 
 use App\Entity\AbstractDomainEntity;
-use App\Services\Puzzle\Infrastructure\CasebookRepository;
+use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

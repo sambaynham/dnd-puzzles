@@ -1,0 +1,51 @@
+{% extends '/admin/base/admin-base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col panel">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Quotation</th>
+                    <th>Citation</th>
+
+                    <th>Operations</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if quotations is empty %}
+                    <tr>
+                        <td colspan="3">
+                            <em>No quotations on system.</em>
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for quotation in quotations %}
+                        <tr>
+                            <td>{{ quotation.getId }}</td>
+                            <td>
+                                {{ quotation.quotation }}
+                            </td>
+                            <td>
+                                {{ quotation.citation }}
+                            </td>
+                            <td>
+                                <nav class="secondary">
+                                    <a href="{{ path('admin.quotations.edit', {'id': quotation.getId}) }}">Edit</a>
+                                    <a href="{{ path('admin.quotations.delete', {'id': quotation.getId}) }}">Delete</a>
+                                </nav>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+            <div class="btn-container">
+                <a class="btn" href="{{ path('admin.quotations.add') }}">Add a new quotation</a>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

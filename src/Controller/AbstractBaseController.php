@@ -4,33 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Services\Quotation\Service\QuotationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractBaseController extends AbstractController
 {
-    private const array QUOTATIONS = [
-        [
-            'text' => 'Fight fire with Fireball',
-            'citation' => 'Evocation Magic, a Primer'
-        ],
-        [
-            'text' => 'I\'d quite like to rage now, if that\'s alright with you.',
-            'citation' => 'Bloodfang the unfailingly polite'
-        ],
-        [
-            'text' => 'Hot mindflayers in your area are waiting to eat you!',
-            'citation' => 'Jourval the Obvious'
-        ],
-        [
-            'text' => 'We\'re three miles underground, Ugthruk. It was not \'just the wind\'. Check again.',
-            'citation' => 'Dregthorth Rogues-bane'
-        ],
-        [
-            'text' => 'The more vowels you have in your name, the more Elvish you are. Random punctuation never hurt either.',
-            'citation' => 'Anduri\'eauől the Unpronounceable'
-        ]
-    ];
+    public function __construct(protected QuotationService $quotationService) {}
+
 
     final public function populatePageVars(array $pageVars, Request $request): array {
         $route = $request->get('_route');
@@ -71,10 +52,7 @@ abstract class AbstractBaseController extends AbstractController
         $pageVars['heroImagePath'] = $this->getRandomHeroImagePath();
         $pageVars['hideBugReportLink'] = $pageVars['hideBugReportLink'] ?? false;
 
-        $quotation = self::QUOTATIONS[array_rand(self::QUOTATIONS)];
-
-        $pageVars['quotation'] = $quotation['text'];
-        $pageVars['citation'] = $quotation['citation'];
+        $pageVars['quotation'] = $this->quotationService->getRandomQuotation();
         return $pageVars;
     }
 

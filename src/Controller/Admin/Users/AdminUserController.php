@@ -14,6 +14,7 @@ use App\Form\Admin\AdminUnblockUserType;
 use App\Form\Admin\AdminUserEditType;
 use App\Form\Admin\AdminUserSearchType;
 use App\Repository\UserRepository;
+use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +31,9 @@ class AdminUserController extends AbstractBaseController
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly ValidatorInterface $validator,
         private readonly EntityManagerInterface $entityManager,
-
+        QuotationService $quotationService
     ) {
+        parent::__construct($quotationService);
     }
 
     #[Route('admin/users', name: 'admin.users.manage')]

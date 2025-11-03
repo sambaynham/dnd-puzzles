@@ -6,10 +6,11 @@ namespace App\Controller\Admin;
 
 use App\Controller\AbstractBaseController;
 use App\Dto\Admin\Abuse\AbuseReportCheckDto;
-use App\Entity\AbuseReport;
 use App\Entity\User;
 use App\Form\Admin\AbuseReportCheckType;
-use App\Repository\AbuseReportRepository;
+use App\Services\Abuse\Domain\AbuseReport;
+use App\Services\Abuse\Infrastructure\AbuseReportRepository;
+use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,14 +20,14 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class AdminAbuseReportsController extends AbstractBaseController
 {
     public function __construct(
-        private AbuseReportRepository $abuseReportRepository,
         private EntityManagerInterface $entityManager,
-
+        QuotationService $quotationService
     ){
+        parent::__construct($quotationService);
     }
 
     #[Route('admin/abusereports/{id}/check', name: 'admin.abuse.check')]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('block_users')]
     public function index(
         AbuseReport $report,
         Request $request

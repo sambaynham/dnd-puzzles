@@ -3,8 +3,7 @@
 namespace App\Services\Puzzle\Domain\Casebook;
 
 use App\Entity\AbstractDomainEntity;
-use App\Repository\CasebookSubjectRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Services\Puzzle\Infrastructure\Casebook\CasebookSubjectRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 

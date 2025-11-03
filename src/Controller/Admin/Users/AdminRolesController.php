@@ -8,6 +8,7 @@ use App\Controller\AbstractBaseController;
 use App\Entity\Role;
 use App\Form\Admin\RoleEditType;
 use App\Repository\RoleRepository;
+use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +19,10 @@ class AdminRolesController extends AbstractBaseController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private RoleRepository $roleRepository
+        private RoleRepository $roleRepository,
+        QuotationService $quotationService
     ) {
+        parent::__construct($quotationService);
     }
 
     #[Route('admin/users/roles', name: 'admin.users.roles')]

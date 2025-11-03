@@ -3,7 +3,7 @@
 namespace App\Services\Puzzle\Domain\Casebook;
 
 use App\Entity\AbstractDomainEntity;
-use App\Repository\CasebookSubjectClueRepository;
+use App\Services\Puzzle\Infrastructure\Casebook\CasebookSubjectClueRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CasebookSubjectClueRepository::class)]

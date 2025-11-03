@@ -8,9 +8,6 @@ use App\Controller\AbstractBaseController;
 use App\Dto\Visitor\Game\Invitations\DeclineInvitationDto;
 use App\Dto\Visitor\Game\Invitations\InvitationRedemptionDto;
 use App\Dto\Visitor\Game\Invitations\InvitePlayerDto;
-use App\Entity\AbuseReport;
-use App\Entity\Game;
-use App\Entity\GameInvitation;
 use App\Entity\User;
 use App\Form\Visitor\Game\Invitations\DeclineInvitationType;
 use App\Form\Visitor\Game\Invitations\InvitePlayerType;
@@ -19,8 +16,12 @@ use App\Form\Visitor\Game\Invitations\RevokeInvitationType;
 use App\Repository\UserRepository;
 use App\Security\GameManagerVoter;
 use App\Security\InvitationOwnerVoter;
+use App\Services\Abuse\Domain\AbuseReport;
+use App\Services\Game\Domain\Game;
+use App\Services\Game\Domain\GameInvitation;
+use App\Services\Game\Infrastructure\GameInvitationRepository;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
-use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
+use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Random\RandomException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -37,8 +38,10 @@ class GameInvitationController extends AbstractBaseController
         private readonly EntityManagerInterface $entityManager,
         private MailerInterface $mailer,
         private UserRepository $userRepository,
-        private GameInvitationRepository $gameInvitationRepository
+        private GameInvitationRepository $gameInvitationRepository,
+        QuotationService $quotationService
     ) {
+        parent::__construct($quotationService);
     }
 
     /**

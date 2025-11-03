@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repository;
+namespace App\Services\Puzzle\Infrastructure\Casebook;
 
-use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
+use App\Services\Puzzle\Domain\Casebook\CasebookSubjectNote;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<CasebookSubject>
+ * @extends ServiceEntityRepository<CasebookSubjectNote>
  */
-class CasebookSubjectRepository extends ServiceEntityRepository
+class CasebookSubjectNoteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CasebookSubject::class);
+        parent::__construct($registry, CasebookSubjectNote::class);
     }
 
     //    /**
-    //     * @return CasebookSubject[] Returns an array of CasebookSubject objects
+    //     * @return CasebookSubjectNote[] Returns an array of CasebookSubjectNote objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class CasebookSubjectRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?CasebookSubject
+    //    public function findOneBySomeField($value): ?CasebookSubjectNote
     //    {
     //        return $this->createQueryBuilder('c')
     //            ->andWhere('c.exampleField = :val')

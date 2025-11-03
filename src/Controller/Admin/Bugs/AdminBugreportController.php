@@ -6,9 +6,10 @@ namespace App\Controller\Admin\Bugs;
 
 use App\Controller\AbstractBaseController;
 use App\Dto\Admin\ActionBugReportDto;
-use App\Entity\BlockedEmailAddress;
-use App\Entity\BugReport;
 use App\Form\Admin\ActionBugReportType;
+use App\Services\BlockedEmailAddress\Domain\BlockedEmailAddress;
+use App\Services\BugReport\Domain\BugReport;
+use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,10 @@ class AdminBugreportController extends AbstractBaseController
 
     public function __construct(
         private EntityManagerInterface $entityManager,
-    ) {}
+        QuotationService $quotationService
+    ) {
+        parent::__construct($quotationService);
+    }
 
     #[Route('/bugs{id}/action', name: 'admin.bugs.action')]
     #[IsGranted('manage_bugs')]

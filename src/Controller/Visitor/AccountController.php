@@ -11,7 +11,8 @@ use App\Entity\User;
 use App\Form\Visitor\Account\ChangePasswordType;
 use App\Form\Visitor\Account\UserEditType;
 use App\Form\Visitor\Game\JoinGameType;
-use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,9 @@ final class AccountController extends AbstractBaseController
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
         private readonly UserPasswordHasherInterface $passwordHasher,
+        QuotationService $quotationService
     ) {
+        parent::__construct($quotationService);
     }
 
     #[Route('/account', name: 'app.user.account')]

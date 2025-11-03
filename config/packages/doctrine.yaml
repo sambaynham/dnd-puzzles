@@ -24,12 +24,48 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+
             Puzzle:
                 type: attribute
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Services/Puzzle/Domain'
                 prefix: 'App\Services\Puzzle\Domain'
                 alias: Puzzle
+
+            Quotation:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Services/Quotation/Domain'
+                prefix: 'App\Services\Quotation\Domain'
+                alias: Quotation
+
+            Abuse:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Services/Abuse/Domain'
+                prefix: 'App\Services\Abuse\Domain'
+                alias: Abuse
+
+            BlockedEmailAddress:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Services/BlockedEmailAddress/Domain'
+                prefix: 'App\Services\BlockedEmailAddress\Domain'
+                alias: BlockedEmailAddress
+
+            BugReport:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Services/BugReport/Domain'
+                prefix: 'App\Services\BugReport\Domain'
+                alias: BugReport
+
+            Game:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Services/Game/Domain'
+                prefix: 'App\Services\Game\Domain'
+                alias: BugReport
         controller_resolver:
             auto_mapping: false
 

@@ -3,7 +3,8 @@
 namespace App\Form\Visitor\Game;
 
 use App\Dto\Visitor\Game\CreateGameDto;
-use App\Repository\GameRepository;
+use App\Services\Game\Infrastructure\GameRepository;
+use App\Services\Game\Service\GameService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreateGameType extends AbstractType
 {
-    public function __construct(private GameRepository $gameRepository) {
+    public function __construct(private GameService $gameService) {
 
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -33,7 +34,7 @@ class CreateGameType extends AbstractType
                 [
                     'attr' => [
 
-                        'value' => $this->gameRepository->getRandomUnusedSlug()
+                        'value' => $this->gameService->getRandomUnusedSlug()
                     ],
                 ]
             )

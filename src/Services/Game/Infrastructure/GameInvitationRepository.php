@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Services\Puzzle\Infrastructure;
+namespace App\Services\Game\Infrastructure;
 
-use App\Entity\Game;
-use App\Entity\GameInvitation;
 use App\Entity\User;
+use App\Services\Game\Domain\Game;
+use App\Services\Game\Domain\GameInvitation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 

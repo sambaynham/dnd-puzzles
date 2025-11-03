@@ -6,9 +6,10 @@ namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
 use App\Dto\Visitor\Bugs\BugReportDto;
-use App\Entity\BugReport;
 use App\Form\Visitor\BugReportType;
 use App\Message\EmailMessage;
+use App\Services\BugReport\Domain\BugReport;
+use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,8 +22,11 @@ class BugReportController extends AbstractBaseController
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly MessageBusInterface $bus
-    ) {}
+        private readonly MessageBusInterface $bus,
+        QuotationService $quotationService
+    ) {
+        parent::__construct($quotationService);
+    }
 
     /**
      * @throws ExceptionInterface

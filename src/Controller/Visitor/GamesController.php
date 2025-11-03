@@ -6,12 +6,13 @@ use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\Controller\AbstractBaseController;
 use App\Dto\Visitor\Game\CreateGameDto;
-use App\Entity\Game;
 use App\Entity\User;
 use App\Form\Visitor\Game\CreateGameType;
 use App\Form\Visitor\Game\DeleteGameType;
 use App\Security\GameManagerVoter;
-use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Domain\Game;
+use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,9 +26,10 @@ final class GamesController extends AbstractBaseController
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
-        private readonly GameInvitationRepository $gameInvitationRepository
+        private readonly GameInvitationRepository $gameInvitationRepository,
+        QuotationService $quotationService
     ) {
-
+        parent::__construct($quotationService);
     }
 
     #[IsGranted('ROLE_USER')]

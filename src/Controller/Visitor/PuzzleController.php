@@ -4,6 +4,7 @@ namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
+use App\Services\Quotation\Service\QuotationService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -11,7 +12,11 @@ use Symfony\Component\Routing\Attribute\Route;
 final class PuzzleController extends AbstractBaseController
 {
 
-    public function __construct(private PuzzleServiceInterface $puzzleService) {
+    public function __construct(
+        private PuzzleServiceInterface $puzzleService,
+        QuotationService $quotationService
+    ) {
+        parent::__construct($quotationService);
     }
 
     #[Route('/puzzles', name: 'app.puzzles.index')]

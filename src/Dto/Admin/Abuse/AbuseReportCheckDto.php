@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dto\Admin\Abuse;
 
-use App\Entity\AbuseReport;
+use App\Services\Abuse\Domain\AbuseReport;
 
 class AbuseReportCheckDto
 {

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Services\BugReport\Domain;
 
-use App\Repository\BugReportRepository;
+use App\Entity\AbstractDomainEntity;
+use App\Services\BugReport\Infrastructure\BugReportRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;

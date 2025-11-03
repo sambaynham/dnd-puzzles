@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Services\Puzzle\Infrastructure\Casebook;
 
 use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

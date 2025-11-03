@@ -7,6 +7,7 @@ namespace App\Controller\Visitor;
 use App\Controller\AbstractBaseController;
 use App\Form\Visitor\TestFormType;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
+use App\Services\Quotation\Service\QuotationService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,8 +15,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class PageController extends AbstractBaseController
 {
 
-    public function __construct(private PuzzleServiceInterface $puzzleService) {}
-
+    public function __construct(private PuzzleServiceInterface $puzzleService,
+        QuotationService $quotationService
+    ) {
+        parent::__construct($quotationService);
+    }
     #[Route('/', name: 'app.pages.home')]
     public function index(Request $request): Response {
         $pageVars =[

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dto\Visitor\Game\Invitations;
 
-use App\Entity\GameInvitation;
+use App\Services\Game\Domain\GameInvitation;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class DeclineInvitationDto

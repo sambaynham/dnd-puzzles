@@ -72,6 +72,7 @@ nav.secondary {
     a, span {
         padding: math.div(variables.$base-spacing, 4);
         position: relative;
+
         &:not(:last-child) {
             &:after {
                 content: " ";
@@ -82,7 +83,7 @@ nav.secondary {
                 background-color: transparent;
                 background: palette.$dividerGradient;
                 width: 100%;
-                height: 0.05rem;
+                height: 80%;
                 background-size: contain;
             }
         }
@@ -110,18 +111,33 @@ nav.pagination {
     nav.secondary {
 
         flex-direction: row;
+        margin-bottom: math.div(variables.$base-spacing, 4);
         a, span, em {
             padding: 0 math.div(variables.$base-spacing, 4);
+            font-weight: bold;
+
             &:not(:last-child) {
                 &:after {
                     content: " ";
                     left: initial;
                     right: 0;
-                    width: 0.1rem;
+                    width: 0.05rem;
                     height: 100%;
+                    background: linear-gradient(transparent 15%, palette.$crimson 40%,  transparent 85%);
+                    background-size: 100%;
 
                 }
             }
+
+            &.active {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    td {
+        nav.secondary {
+            margin-bottom: 0;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Puzzle\Infrastructure;
+namespace App\Services\Puzzle\Infrastructure\Casebook;
 
 use App\Services\Puzzle\Domain\Casebook\Casebook;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

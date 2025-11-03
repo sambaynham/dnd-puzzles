@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Services\BlockedEmailAddress\Domain;
 
-use App\Repository\BlockedEmailAddressRepository;
+use App\Entity\AbstractDomainEntity;
+use App\Services\BlockedEmailAddress\Infrastructure\BlockedEmailAddressRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BlockedEmailAddressRepository::class)]

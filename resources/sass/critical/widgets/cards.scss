@@ -69,7 +69,7 @@
     }
 
     .card-footer {
-        background-color: palette.$charcoal;
+        background: palette.$charcoal linear-gradient(45deg, color.adjust(palette.$charcoal, $lightness: +25%), palette.$charcoal);
         &:after {
             top: 0;
             left: 0

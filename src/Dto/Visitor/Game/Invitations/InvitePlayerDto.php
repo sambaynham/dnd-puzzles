@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dto\Visitor\Game\Invitations;
 
-use App\Entity\Game;
+use App\Services\Game\Domain\Game;
 use App\Validator as CustomAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 

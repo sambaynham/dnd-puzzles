@@ -14,13 +14,16 @@
 </head>
 
     <body>
-
+        <header>
+            <nav class="admin-navbar">
+                <a href="{{ path('app.pages.home') }}">Visitor Site</a>
+                <a href="{{ path('admin.dashboard') }}">Dash</a>
+                <a href="{{ path('admin.users.manage') }}">User Management</a>
+                <a href="{{ path('admin.quotations.manage') }}">Quotes</a>
+            </nav>
+        </header>
         {% embed 'base/partials/_alerts.html.twig' %}{% endembed %}
-        <nav class="admin-navbar">
-            <a href="{{ path('app.pages.home') }}">Visitor Site</a>
-            <a href="{{ path('admin.dashboard') }}">Dash</a>
-            <a href="{{ path('admin.users.manage') }}">User Management</a>
-        </nav>
+
         <main>
             <div class="row title-row">
                 <div class="col">

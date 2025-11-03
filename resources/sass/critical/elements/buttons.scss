@@ -9,6 +9,7 @@ $buttonRimFactor: 5;
 
 .btn, button {
     &:not(.unstyle, .sf-toolbar-toggle-button) {
+        text-align: center;
         position: relative;
         font-family: typography.$textStack;
         font-weight: bold;
@@ -22,6 +23,7 @@ $buttonRimFactor: 5;
         box-shadow: 0 0.05rem 0 color.adjust(palette.$blue, $lightness: -20%);
         text-shadow: 1px 1px 1px color.adjust(palette.$ink, $lightness: -15%);
         transition: all 200ms ease-in-out;
+        width: 100%;
 
         &:before {
             content: " ";
@@ -154,19 +156,6 @@ table {
     display: flex;
     position: relative;
 
-
-    &:before {
-        content: " ";
-        position: absolute;
-        display: block;
-        background: palette.$goldFX;
-        top: -0.1rem;
-        left: -0.1rem;
-        bottom: -0.1rem;
-        right: -0.1rem;
-        z-index: -1;
-        box-shadow: palette.$baseBoxShadow;
-    }
     .btn, button {
         margin-bottom: 0;
         flex: 1;
@@ -185,6 +174,7 @@ table {
     .btn, button {
         &:not(.unstyle, .sf-toolbar-toggle-button) {
             font-size: 1rem;
+            width: initial;
         }
     }
 }

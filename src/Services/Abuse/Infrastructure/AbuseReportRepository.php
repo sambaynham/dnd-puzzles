@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repository;
+namespace App\Services\Abuse\Infrastructure;
 
-use App\Entity\AbuseReport;
 use App\Entity\User;
+use App\Services\Abuse\Domain\AbuseReport;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

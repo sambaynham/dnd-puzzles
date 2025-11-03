@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Services\BugReport\Infrastructure;
 
-use App\Entity\BugReport;
+use App\Services\BugReport\Domain\BugReport;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

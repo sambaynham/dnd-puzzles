@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dto\Admin;
 
-use App\Entity\BugReport;
+use App\Services\BugReport\Domain\BugReport;
 
 class ActionBugReportDto
 {

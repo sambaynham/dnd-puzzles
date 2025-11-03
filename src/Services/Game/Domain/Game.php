@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Entity;
+namespace App\Services\Game\Domain;
 
-use App\Repository\GameRepository;
+use App\Entity\AbstractDomainEntity;
+use App\Entity\User;
+use App\Services\Game\Infrastructure\GameRepository;
+use App\Services\Puzzle\Domain\PuzzleInstance;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 #[UniqueEntity(fields: ['slug'], message: 'There is already a game with this slug. Please choose another one.')]
 class Game extends AbstractDomainEntity

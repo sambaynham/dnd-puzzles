@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Services\Abuse\Domain;
 
-use App\Repository\AbuseReportRepository;
+use App\Entity\AbstractDomainEntity;
+use App\Entity\User;
+use App\Services\Abuse\Infrastructure\AbuseReportRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 

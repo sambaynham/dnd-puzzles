@@ -7,7 +7,8 @@ use App\Dto\Visitor\User\RegisterUserDto;
 use App\Entity\User;
 use App\Form\Visitor\LoginType;
 use App\Form\Visitor\RegistrationForm;
-use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,8 +28,10 @@ class AuthController extends AbstractBaseController
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private Security $security,
         private EntityManagerInterface $entityManager,
-        private GameInvitationRepository $gameInvitationRepository
+        private GameInvitationRepository $gameInvitationRepository,
+        QuotationService $quotationService
     ) {
+        parent::__construct($quotationService);
     }
 
     #[Route('/register', name: 'app.auth.register')]

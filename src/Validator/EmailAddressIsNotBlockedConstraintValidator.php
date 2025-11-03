@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Validator;
 
-use App\Repository\BlockedEmailAddressRepository;
+
+use App\Services\BlockedEmailAddress\Service\BlockedEmailAddressService;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 class EmailAddressIsNotBlockedConstraintValidator extends ConstraintValidator
 {
-    public function __construct(private BlockedEmailAddressRepository $blockedEmailAddressRepository) {
+    public function __construct(private BlockedEmailAddressService $blockedEmailAddressService) {
 
     }
 
@@ -28,7 +28,7 @@ class EmailAddressIsNotBlockedConstraintValidator extends ConstraintValidator
             return;
         }
 
-        $block = $this->blockedEmailAddressRepository->findByEmail($value);
+        $block = $this->blockedEmailAddressService->findByEmail($value);
         if ($block !== null) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ emailAddress }}', $value)

@@ -4,7 +4,7 @@ namespace App\Services\Puzzle\Domain\Casebook;
 
 use App\Entity\AbstractDomainEntity;
 use App\Entity\User;
-use App\Repository\CasebookSubjectNoteRepository;
+use App\Services\Puzzle\Infrastructure\Casebook\CasebookSubjectNoteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CasebookSubjectNoteRepository::class)]

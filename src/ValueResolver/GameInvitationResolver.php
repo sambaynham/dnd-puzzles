@@ -3,10 +3,8 @@
 namespace App\ValueResolver;
 
 
-use App\Entity\Game;
-use App\Entity\GameInvitation;
-use App\Repository\GameRepository;
-use App\Services\Puzzle\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Domain\GameInvitation;
+use App\Services\Game\Infrastructure\GameInvitationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;

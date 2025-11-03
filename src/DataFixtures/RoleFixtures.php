@@ -54,6 +54,11 @@ class RoleFixtures extends Fixture
             'label' => 'Manage Bugs',
             'description' => 'Manage Bug Reports.'
         ],
+
+        'manage_quotations' => [
+            'label' => 'Manage Quotation',
+            'description' => 'Manage the quotations that appear on various pages around the site'
+        ]
     ];
 
     private const array ROLES = [
