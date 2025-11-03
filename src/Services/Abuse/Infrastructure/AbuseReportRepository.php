@@ -2,8 +2,8 @@
 
 namespace App\Services\Abuse\Infrastructure;
 
-use App\Entity\User;
 use App\Services\Abuse\Domain\AbuseReport;
+use App\Services\User\Domain\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

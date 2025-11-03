@@ -2,9 +2,6 @@
 
 namespace App\Services\Puzzle\Domain;
 
-use App\Entity\User;
-use Doctrine\ORM\Mapping as ORM;
-
 readonly class PuzzleTemplate
 {
     /**

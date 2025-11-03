@@ -6,11 +6,10 @@ namespace App\Controller\Admin;
 
 use App\Controller\AbstractBaseController;
 use App\Dto\Admin\Abuse\AbuseReportCheckDto;
-use App\Entity\User;
 use App\Form\Admin\AbuseReportCheckType;
 use App\Services\Abuse\Domain\AbuseReport;
-use App\Services\Abuse\Infrastructure\AbuseReportRepository;
 use App\Services\Quotation\Service\QuotationService;
+use App\Services\User\Domain\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -3,10 +3,10 @@
 namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
-use App\Entity\User;
 use App\Form\Visitor\Account\ChangePasswordFormType;
 use App\Form\Visitor\ResetPasswordRequestFormType;
 use App\Services\Quotation\Service\QuotationService;
+use App\Services\User\Domain\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\RedirectResponse;

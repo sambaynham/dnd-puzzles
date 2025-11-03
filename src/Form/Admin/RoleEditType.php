@@ -2,8 +2,8 @@
 
 namespace App\Form\Admin;
 
-use App\Entity\Permission;
-use App\Entity\Role;
+use App\Services\User\Domain\Permission;
+use App\Services\User\Domain\Role;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

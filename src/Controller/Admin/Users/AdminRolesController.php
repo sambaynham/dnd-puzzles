@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Users;
 
 use App\Controller\AbstractBaseController;
-use App\Entity\Role;
 use App\Form\Admin\RoleEditType;
-use App\Repository\RoleRepository;
 use App\Services\Quotation\Service\QuotationService;
+use App\Services\User\Domain\Role;
+use App\Services\User\Infrastructure\RoleRepository;
+use App\Services\User\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +19,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class AdminRolesController extends AbstractBaseController
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private RoleRepository $roleRepository,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly UserService $userService,
         QuotationService $quotationService
     ) {
         parent::__construct($quotationService);
@@ -30,7 +31,7 @@ class AdminRolesController extends AbstractBaseController
     public function index(Request $request): Response {
         $pageVars = [
             'pageTitle' => 'Manage Roles',
-            'roles' => $this->roleRepository->findAll()
+            'roles' => $this->userService->findAllRoles(),
         ];
         return $this->render('admin/users/roles/index.html.twig', $this->populatePageVars($pageVars, $request));
     }

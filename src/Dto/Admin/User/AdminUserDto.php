@@ -2,7 +2,7 @@
 
 namespace App\Dto\Admin\User;
 
-use App\Entity\User;
+use App\Services\User\Domain\User;
 use App\Validator as CustomAssert;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\Abuse\Service;
 
-use App\Entity\User;
 use App\Services\Abuse\Infrastructure\AbuseReportRepository;
+use App\Services\User\Domain\User;
 
 class AbuseReportService
 {

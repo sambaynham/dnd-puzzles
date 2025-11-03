@@ -3,7 +3,7 @@
 namespace App\Form\Admin;
 
 use App\Dto\Admin\User\AdminUserDto;
-use App\Entity\Role;
+use App\Services\User\Domain\Role;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;

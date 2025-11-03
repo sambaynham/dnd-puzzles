@@ -7,14 +7,14 @@ namespace App\Controller\Admin\Users;
 use App\Controller\AbstractBaseController;
 use App\Dto\Admin\User\AdminUserDto;
 use App\Dto\Visitor\User\UserBlockDto;
-use App\Entity\User;
-use App\Entity\UserBlock;
 use App\Form\Admin\AdminBlockUserType;
 use App\Form\Admin\AdminUnblockUserType;
 use App\Form\Admin\AdminUserEditType;
 use App\Form\Admin\AdminUserSearchType;
-use App\Repository\UserRepository;
 use App\Services\Quotation\Service\QuotationService;
+use App\Services\User\Domain\User;
+use App\Services\User\Domain\UserBlock;
+use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class AdminUserController extends AbstractBaseController
 {
     public function __construct(
-        private readonly UserRepository $userRepository,
+        private readonly UserServiceInterface $userService,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly ValidatorInterface $validator,
         private readonly EntityManagerInterface $entityManager,
@@ -48,9 +48,9 @@ class AdminUserController extends AbstractBaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $results = $this->userRepository->searchByEmailOrUserName(searchTerms: $data['search'], firstResult: ($resultsPerPage * ($page - 1)),maxResults: $resultsPerPage);
+            $results = $this->userService->findByEmailOrUserName(searchTerms: $data['search'], firstResult: ($resultsPerPage * ($page - 1)),maxResults: $resultsPerPage);
         } else {
-            $results = $this->userRepository->findAllPaginated(firstResult: ($resultsPerPage * ($page-1)), maxResults: $resultsPerPage);
+            $results = $this->userService->getUsersPaginated(firstResult: ($resultsPerPage * ($page-1)), maxResults: $resultsPerPage);
         }
 
         $pageVars = [
@@ -84,7 +84,7 @@ class AdminUserController extends AbstractBaseController
                 $user->setPassword($this->userPasswordHasher->hashPassword($user, $dto->plainPassword));
             }
             $success = true;
-            $violations = $this->validator->validate($user);
+            $violations = $this->userService->validateUser($user);
             if (count($violations) > 0) {
                 $success = false;
                 foreach ($violations as $violation) {
@@ -93,8 +93,7 @@ class AdminUserController extends AbstractBaseController
             }
 
             if ($success) {
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
+                $this->userService->saveUser($user);
                 $this->addFlash('success', 'User changes saved successfully.');
                 return $this->redirectToRoute('admin.users.manage');
             }
@@ -177,7 +176,7 @@ class AdminUserController extends AbstractBaseController
     }
 
     private function generatePager(int $page, int $resultsPerPage): array {
-        $usersCount = $this->userRepository->getUsersCount();
+        $usersCount = $this->userService->getUsersCount();
         $numPagesToGenerate = (int) ceil($usersCount / $resultsPerPage);
         $pager = [];
         $pager['pages'] =[];

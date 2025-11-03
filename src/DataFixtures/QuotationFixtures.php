@@ -2,8 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Services\Quotations\Domain\Quotation;
-use App\Services\Quotations\Infrastructure\QuotationRepository;
+use App\Services\Quotation\Domain\Quotation;
+use App\Services\Quotation\Infrastructure\QuotationRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

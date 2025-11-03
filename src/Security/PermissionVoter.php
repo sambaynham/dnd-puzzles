@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace App\Security;
 
-use App\Entity\User;
-use App\Repository\PermissionRepository;
+use App\Services\User\Domain\User;
+use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class PermissionVoter extends Voter
 {
-    public function __construct(private PermissionRepository $permissionRepository) {}
+    public function __construct(private UserServiceInterface $userService) {}
     protected function supports(string $attribute, mixed $subject): bool
     {
-
-        return null !== $this->permissionRepository->findOneByHandle($attribute);
+        return null !== $this->userService->getPermissionByHandle($attribute);
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool

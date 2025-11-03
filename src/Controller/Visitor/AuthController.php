@@ -4,12 +4,12 @@ namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
 use App\Dto\Visitor\User\RegisterUserDto;
-use App\Entity\User;
 use App\Form\Visitor\LoginType;
 use App\Form\Visitor\RegistrationForm;
-use App\Services\Game\Infrastructure\GameInvitationRepository;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
+use App\Services\User\Domain\User;
+use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,13 +24,10 @@ class AuthController extends AbstractBaseController
 {
 
     public function __construct(
-        private ValidatorInterface $validator,
         private readonly AuthenticationUtils $authenticationUtils,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
-        private Security $security,
-        private EntityManagerInterface $entityManager,
-        private GameInvitationRepository $gameInvitationRepository,
-        private GameServiceInterface $gameService,
+        private readonly UserServiceInterface $userService,
+        private readonly GameServiceInterface $gameService,
         QuotationService $quotationService
     ) {
         parent::__construct($quotationService);
@@ -42,7 +39,6 @@ class AuthController extends AbstractBaseController
         #[MapQueryParameter] ?string $emailAddress = null,
         #[MapQueryParameter] ?string $invitationCode = null,
     ): Response{
-
 
         $userDto = new RegisterUserDto();
         if (null !== $emailAddress) {
@@ -69,7 +65,7 @@ class AuthController extends AbstractBaseController
             $user->setPassword($this->userPasswordHasher->hashPassword($user, $plainPassword));
 
             $success = true;
-            $violations = $this->validator->validate($user);
+            $violations = $this->userService->validateUser($user);
             if (count($violations) > 0) {
                 $success = false;
                 foreach ($violations as $violation) {
@@ -78,7 +74,7 @@ class AuthController extends AbstractBaseController
             }
 
 
-            if (null !== $userDto->invitationCode) {
+            if ($success === true && null !== $userDto->invitationCode) {
                 $invitation = $this->gameService->findInvitationByCodeAndEmailAddress(invitationCode: $userDto->invitationCode, emailAddress: $userDto->emailAddress);
                 if (null === $invitation) {
                     $success = false;
@@ -90,18 +86,14 @@ class AuthController extends AbstractBaseController
 
 
             if ($success) {
-                $this->entityManager->persist($user);
+                $this->userService->saveUser($user);
 
                 $hasInvitation = false;
                 if (null !== $invitation) {
                     $hasInvitation = true;
-                    $invitation->markUsed();
-                    $this->entityManager->persist($invitation);
-                    $game = $invitation->getGame();
-                    $game->addPlayer($user);
-                    $this->entityManager->persist($game);
+                    $this->userService->redeemInvitationForUser($invitation, $user);
                 }
-                $this->entityManager->flush();
+
 
                 $this->addFlash('success', $hasInvitation ? 'Your account has been created, and you\'ve been added to your game!' : 'Your account has been created. You may now log in.');
                 return $this->redirectToRoute('app.auth.login');

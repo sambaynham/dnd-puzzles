@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Services\User\Domain;
 
-use App\Repository\PermissionRepository;
+use App\Entity\AbstractDomainEntity;
+use App\Services\User\Infrastructure\PermissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

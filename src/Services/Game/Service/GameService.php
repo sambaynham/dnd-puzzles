@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Game\Service;
 
-use App\Entity\User;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Domain\GameInvitation;
 use App\Services\Game\Infrastructure\GameInvitationRepository;
 use App\Services\Game\Infrastructure\GameRepository;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
+use App\Services\User\Domain\User;
 
 class GameService implements GameServiceInterface
 {

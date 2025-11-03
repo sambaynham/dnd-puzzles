@@ -3,8 +3,8 @@
 namespace App\Services\Game\Domain;
 
 use App\Entity\AbstractDomainEntity;
-use App\Entity\User;
 use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\User\Domain\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 

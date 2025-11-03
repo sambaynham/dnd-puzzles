@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Services\User\Domain;
 
-use App\Repository\UserBlockRepository;
+use App\Entity\AbstractDomainEntity;
+use App\Services\User\Infrastructure\UserBlockRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserBlockRepository::class)]

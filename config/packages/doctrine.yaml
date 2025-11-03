@@ -25,6 +25,13 @@ doctrine:
                 prefix: 'App\Entity'
                 alias: App
 
+            User:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Services/User/Domain'
+                prefix: 'App\Services\User\Domain'
+                alias: User
+
             Puzzle:
                 type: attribute
                 is_bundle: false

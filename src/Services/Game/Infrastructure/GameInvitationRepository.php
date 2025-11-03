@@ -2,9 +2,9 @@
 
 namespace App\Services\Game\Infrastructure;
 
-use App\Entity\User;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Domain\GameInvitation;
+use App\Services\User\Domain\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;

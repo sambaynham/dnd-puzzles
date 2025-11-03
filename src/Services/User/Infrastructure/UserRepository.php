@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Services\User\Infrastructure;
 
-use App\Entity\User;
+use App\Services\User\Domain\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;

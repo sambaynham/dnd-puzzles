@@ -2,15 +2,12 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Permission;
-use App\Entity\Role;
-use App\Repository\PermissionRepository;
-use App\Repository\RoleRepository;
-use App\Services\Puzzle\Domain\PuzzleCategory;
+use App\Services\User\Domain\Permission;
+use App\Services\User\Domain\Role;
+use App\Services\User\Infrastructure\PermissionRepository;
+use App\Services\User\Infrastructure\RoleRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ObjectManager;
-use http\Exception\InvalidArgumentException;
 
 class RoleFixtures extends Fixture
 {

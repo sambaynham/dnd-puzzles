@@ -3,9 +3,9 @@
 namespace App\Services\Game\Domain;
 
 use App\Entity\AbstractDomainEntity;
-use App\Entity\User;
 use App\Services\Game\Infrastructure\GameRepository;
 use App\Services\Puzzle\Domain\PuzzleInstance;
+use App\Services\User\Domain\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
