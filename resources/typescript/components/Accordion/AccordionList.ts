@@ -1,3 +1,5 @@
+import {AccordionHeadingClickDetail} from "./Types/AccordionHeadingClickDetail";
+
 export default class AccordionList extends HTMLDivElement {
 
     private entries: NodeListOf<HTMLDivElement>
@@ -7,6 +9,11 @@ export default class AccordionList extends HTMLDivElement {
         this.entries = this.querySelectorAll('.accordion-entry');
     }
     connectedCallback() {
-        console.log(this.entries);
+        this.addEventListener('accordion-heading-clicked', (event: CustomEventInit<AccordionHeadingClickDetail>) => {
+
+            if (event.detail?.target !== undefined) {
+                console.log(event.detail.target);
+            }
+        });
     }
 }

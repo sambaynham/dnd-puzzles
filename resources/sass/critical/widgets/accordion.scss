@@ -1,0 +1,60 @@
+@use 'sass:math';
+@use 'sass:color';
+
+@use '../base/variables';
+@use '../base/palette';
+
+.accordion-list {
+    background-color: cyan;
+    box-shadow: palette.$baseBoxShadow;
+
+
+    article {
+        padding: 0;
+        margin: 0;
+
+        .accordion-heading,
+        .accordion-content {
+            display: block;
+            padding: math.div(variables.$base-spacing, 2);
+        }
+        .accordion-heading {
+            background-color: magenta;
+            position: relative;
+
+            &:after {
+                content: "^";
+                display: block;
+                position: absolute;
+                background-color: yellow;
+                height: 100%;
+                line-height: 1.5em;
+                top: 0;
+                right: 0;
+                font-size: 5em;
+                text-align: right;
+                padding: 0 0.25em;
+                transform: rotate(180deg);
+                transition: transform 200ms ease-in-out;
+
+            }
+        }
+
+        .accordion-body {
+            height: 0;
+            overflow: hidden;
+        }
+
+        &.open {
+            .accordion-body {
+                height: auto;
+            }
+            .accordion-heading {
+                &:after {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+
+    }
+}

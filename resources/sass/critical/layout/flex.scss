@@ -34,7 +34,7 @@ main {
         }
 
         .col {
-            article {
+            article:not(.accordion-entry) {
                 display: block;
                 padding: math.div(variables.$base-spacing, 4) 0;
                 &:not(:last-child) {

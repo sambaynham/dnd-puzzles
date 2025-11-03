@@ -37,7 +37,7 @@ import {Header} from "./components/Header";
         customElementRegistry.define('flash-alert', FlashAlert, {extends: 'span'});
         customElementRegistry.define('slideshow-element', SlideShow, {extends: 'div'});
         customElementRegistry.define('accordion-list', AccordionList, {extends: 'div'});
-        customElementRegistry.define('accordion-entry', AccordionEntry, {extends: 'div'});
+        customElementRegistry.define('accordion-entry', AccordionEntry, {extends: 'article'});
     }
 })();
 
