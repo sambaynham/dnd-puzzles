@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Services\Game\Service;
 
+use App\Entity\User;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Domain\GameInvitation;
 use App\Services\Game\Infrastructure\GameInvitationRepository;
 use App\Services\Game\Infrastructure\GameRepository;
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
 
-class GameService
+class GameService implements GameServiceInterface
 {
     public function __construct(
         private GameRepository $gameRepository,
@@ -39,7 +41,7 @@ class GameService
         return $this->gameInvitationRepository->findByInvitationCode($invitationCode);
     }
 
-    public function findByInvitationCodeAndEmailAddress(string $invitationCode, string $emailAddress): ? GameInvitation {
+    public function findInvitationByCodeAndEmailAddress(string $invitationCode, string $emailAddress): ? GameInvitation {
         return $this->gameInvitationRepository->findByInvitationCodeAndEmailAddress($invitationCode, $emailAddress);
     }
 

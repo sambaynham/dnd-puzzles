@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\Visitor\LoginType;
 use App\Form\Visitor\RegistrationForm;
 use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -29,6 +30,7 @@ class AuthController extends AbstractBaseController
         private Security $security,
         private EntityManagerInterface $entityManager,
         private GameInvitationRepository $gameInvitationRepository,
+        private GameServiceInterface $gameService,
         QuotationService $quotationService
     ) {
         parent::__construct($quotationService);
@@ -77,7 +79,7 @@ class AuthController extends AbstractBaseController
 
 
             if (null !== $userDto->invitationCode) {
-                $invitation = $this->gameInvitationRepository->findByInvitationCodeAndEmailAddress(invitationCode: $userDto->invitationCode, emailAddress: $userDto->emailAddress);
+                $invitation = $this->gameService->findInvitationByCodeAndEmailAddress(invitationCode: $userDto->invitationCode, emailAddress: $userDto->emailAddress);
                 if (null === $invitation) {
                     $success = false;
                     $this->addFlash('error', 'We couldn\'t find an invitation matching those details. Please check and try again.');

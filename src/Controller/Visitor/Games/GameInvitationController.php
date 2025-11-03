@@ -19,7 +19,7 @@ use App\Security\InvitationOwnerVoter;
 use App\Services\Abuse\Domain\AbuseReport;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Domain\GameInvitation;
-use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
 use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,7 +38,7 @@ class GameInvitationController extends AbstractBaseController
         private readonly EntityManagerInterface $entityManager,
         private MailerInterface $mailer,
         private UserRepository $userRepository,
-        private GameInvitationRepository $gameInvitationRepository,
+        private GameServiceInterface $gameService,
         QuotationService $quotationService
     ) {
         parent::__construct($quotationService);
@@ -195,7 +195,7 @@ class GameInvitationController extends AbstractBaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $invitation = $this->gameInvitationRepository->findByInvitationCodeAndEmailAddress($dto->invitationCode, $dto->emailAddress);
+            $invitation = $this->gameService->findInvitationByCodeAndEmailAddress($dto->invitationCode, $dto->emailAddress);
             if (!$invitation) {
                 $this->addFlash('error', 'Sorry, we couldn\'t find a current Game Invitation matching these details. Please check and try again' );
             } else {

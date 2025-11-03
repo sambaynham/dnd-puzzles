@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -18,7 +19,7 @@ class ClearExpiredInvitesCommand extends Command
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private GameInvitationRepository $gameInvitationRepository
+        private GameServiceInterface $gameService
     )
     {
         parent::__construct();
@@ -33,7 +34,7 @@ class ClearExpiredInvitesCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $expiredInvitations = $this->gameInvitationRepository->getExpiredInvitations();
+        $expiredInvitations = $this->gameService->getExpiredInvitations();
 
         $count = count($expiredInvitations);
         if ($count === 0) {

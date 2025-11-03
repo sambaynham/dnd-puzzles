@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form\Visitor\Game;
 
 use App\Dto\Visitor\Game\CreateGameDto;
-use App\Services\Game\Infrastructure\GameRepository;
-use App\Services\Game\Service\GameService;
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreateGameType extends AbstractType
 {
-    public function __construct(private GameService $gameService) {
+    public function __construct(private GameServiceInterface $gameService) {
 
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void

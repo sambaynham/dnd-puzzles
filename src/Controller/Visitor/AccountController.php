@@ -11,7 +11,7 @@ use App\Entity\User;
 use App\Form\Visitor\Account\ChangePasswordType;
 use App\Form\Visitor\Account\UserEditType;
 use App\Form\Visitor\Game\JoinGameType;
-use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class AccountController extends AbstractBaseController
 {
     public function __construct(
-        private readonly GameInvitationRepository $gameInvitationRepository,
+        private readonly GameServiceInterface $gameService,
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
         private readonly UserPasswordHasherInterface $passwordHasher,
@@ -44,7 +44,7 @@ final class AccountController extends AbstractBaseController
         $pageVars = [
             'pageTitle' => 'Account',
             'user' => $user,
-            'invitations' => $this->gameInvitationRepository->getOutstandingInvitationsForUser($user)
+            'invitations' => $this->gameService->getOutstandingInvitationsForUser($user)
         ];
         return $this->render('/visitor/account/index.html.twig', $this->populatePageVars($pageVars, $request));
     }

@@ -11,7 +11,7 @@ use App\Form\Visitor\Game\CreateGameType;
 use App\Form\Visitor\Game\DeleteGameType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
-use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,11 +22,10 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class GamesController extends AbstractBaseController
 {
-
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
-        private readonly GameInvitationRepository $gameInvitationRepository,
+        private readonly GameServiceInterface $gameService,
         QuotationService $quotationService
     ) {
         parent::__construct($quotationService);
@@ -119,7 +118,7 @@ final class GamesController extends AbstractBaseController
         Request $request
     ) {
         $title = sprintf('Manage %s', $game->getName());
-        $invitations = $this->gameInvitationRepository->getOutstandingInvitationsForGame($game);
+        $invitations = $this->gameService->getOutstandingInvitationsForGame($game);
         $pageVars = [
             'pageTitle' => $title,
             'breadcrumbs' => [

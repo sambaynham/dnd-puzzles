@@ -4,16 +4,18 @@ namespace App\ValueResolver;
 
 
 use App\Services\Game\Domain\GameInvitation;
-use App\Services\Game\Infrastructure\GameInvitationRepository;
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 readonly class GameInvitationResolver implements ValueResolverInterface
 {
-    public function __construct(private GameInvitationRepository $gameInvitationRepository)
-    {
+    public function __construct(
+        private GameServiceInterface $gameService
+    ) {
     }
+
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         // get the argument type (e.g. BookingId)
@@ -22,14 +24,13 @@ readonly class GameInvitationResolver implements ValueResolverInterface
             return [];
         }
 
-
         $code = $request->attributes->get('invitationCode');
 
         if (!is_string($code)) {
             return [];
         }
 
-        $invitation = $this->gameInvitationRepository->findByInvitationCode($code);
+        $invitation = $this->gameService->findInvitationByCode($code);
         // create and return the value object
         return $invitation ? [$invitation] : [];
     }
