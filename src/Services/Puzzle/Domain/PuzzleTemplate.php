@@ -18,16 +18,17 @@ readonly class PuzzleTemplate
         private string $title,
         private \DateTimeImmutable $createdAt,
         private string $description,
-        private string $category,
+        private array $categories,
         private string $authorEmail,
+        private bool $static,
         private array $credits = [],
         private array  $configuration = [],
     ) {
     }
 
-    public function getCategory(): string
+    public function getCategories(): array
     {
-        return $this->category;
+        return $this->categories;
     }
 
     public function getCredits(): array
@@ -72,4 +73,7 @@ readonly class PuzzleTemplate
         return $this->createdAt;
     }
 
+    public function isStatic(): bool {
+        return $this->static;
+    }
 }

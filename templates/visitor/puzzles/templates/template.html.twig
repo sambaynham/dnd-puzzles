@@ -4,28 +4,31 @@
     <div class="col">
         <h2>Description</h2>
         {{ template.description }}
-        <hr />
-        <h2>Configurable Options</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Label</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for configOption in template.configuration %}
+
+        {%if template.configuration is not empty%}
+            <hr />
+            <h2>Configurable Options</h2>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            {{ configOption.label }}
-                        </td>
-                        <td>
-                            {{ configOption.helpText }}
-                        </td>
+                        <th>Label</th>
+                        <th>Notes</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for configOption in template.configuration %}
+                        <tr>
+                            <td>
+                                {{ configOption.label }}
+                            </td>
+                            <td>
+                                {{ configOption.helpText }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
         <hr/>
         <div class="btn-container">
             <a class="btn btn-secondary" href="">Create a puzzle with this template</a>

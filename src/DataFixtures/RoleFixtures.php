@@ -74,7 +74,9 @@ class RoleFixtures extends Fixture
                 'block_users',
                 'administer_games',
                 'assign_roles',
-                'administer_roles'
+                'administer_roles',
+                'manage_quotations',
+                'manage_bugs'
             ]
         ],
         'ROLE_MODERATOR' => [

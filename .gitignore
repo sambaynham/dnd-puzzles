@@ -12,3 +12,8 @@
 node_modules
 .idea
 /public/dist/
+
+###> phpunit/phpunit ###
+/phpunit.xml
+/.phpunit.cache/
+###< phpunit/phpunit ###

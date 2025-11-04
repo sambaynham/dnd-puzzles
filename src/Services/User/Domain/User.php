@@ -71,8 +71,6 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         $this->username = $username;
     }
 
-
-
     /**
      * A visual identifier that represents this user.
      *

@@ -1,0 +1,27 @@
+{
+    "title": "Casebook",
+    "slug": "casebook",
+    "description": "In a casebook puzzle, players must gather clues, revealed by the Games Master, to solve a mystery. The games master lists the suspects, and the players piece information through role-play, keeping notes in a shared journal.",
+    "categories": [
+        "logic",
+        "roleplaying",
+        "deduction"
+    ],
+    "type": "misc",
+    "created": "2025-09-17",
+    "static": true,
+    "creator": "sam.baynham@gmail.com",
+    "credits": [
+        {
+            "name": "Sam Baynham",
+            "email": "sam.baynham@gmail.com",
+            "created": "Code, Styling"
+        },
+        {
+            "name": "Betsy Ogilvy",
+            "created": "Art"
+        }
+    ],
+    "configOptions": [
+    ]
+}

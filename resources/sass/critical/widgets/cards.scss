@@ -14,13 +14,18 @@
     position: relative;
     overflow: hidden;
     background: palette.$offWhite linear-gradient(45deg, palette.$offWhite, color.adjust(palette.$offWhite, $lightness: -5%, $saturation: -100%));
-    .card-title, .card-body, .card-footer {
+
+    .card-title, .card-body, .card-footer, .card-metadata {
         padding: math.div(variables.$base-spacing, 2);
         position: relative;
     }
 
     .card-title, .card-body {
 
+    }
+
+    .card-metadata {
+        padding-bottom: 0;
     }
 
     .card-title {
@@ -68,12 +73,19 @@
         }
     }
 
+    .card-spacer {
+        display: flex;
+        background-color: rgba(0, 0, 0, 0);
+        width: 100%;
+        flex-grow: 2;
+    }
     .card-footer {
         background: palette.$charcoal linear-gradient(45deg, color.adjust(palette.$charcoal, $lightness: +25%), palette.$charcoal);
         &:after {
             top: 0;
             left: 0
         }
+
 
     }
 }

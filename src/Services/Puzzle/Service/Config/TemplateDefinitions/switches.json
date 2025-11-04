@@ -2,13 +2,12 @@
     "title": "Switches",
     "slug": "switches",
     "description": "In a switch puzzle, players set certain switches on and off to win.",
-    "category": "switches",
+    "categories": [
+        "buttons_and_switches"
+    ],
     "type": "test",
     "created": "2025-09-17",
-    "tags": [
-        "fun",
-        "test"
-    ],
+    "static": false,
     "creator": "sam.baynham@gmail.com",
     "credits": [
         {

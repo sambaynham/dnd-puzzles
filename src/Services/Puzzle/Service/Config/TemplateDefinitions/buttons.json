@@ -2,13 +2,12 @@
     "title": "Buttons",
     "slug": "buttons",
     "description": "In a button puzzle, players must press buttons in the correct order in order to win",
-    "category": "buttons",
+    "categories": [
+        "buttons_and_switches"
+    ],
     "type": "test",
     "created": "2025-09-17",
-    "tags": [
-        "fun",
-        "test"
-    ],
+    "static": false,
     "creator": "sam.baynham@gmail.com",
     "credits": [
         {

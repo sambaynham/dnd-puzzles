@@ -34,9 +34,9 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
         'created' => 'date',
         'slug' => 'slug',
         'description' => 'string',
-        'category' => 'string',
+        'categories' => 'array',
         'type' => 'string',
-        'tags' => 'array',
+        'static' => 'boolean',
         'creator' => 'email',
         'credits' => 'array',
         'configOptions' => 'configOptions'
@@ -85,10 +85,11 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                         title: $result['title'],
                         createdAt: new \DateTimeImmutable($result['created']),
                         description: $result['description'],
-                        category: $result['category'],
+                        categories: $result['categories'],
                         authorEmail: $result['creator'],
                         credits: self::mapCredits($result['credits']),
-                        configuration: self::mapConfigOptions($result['configOptions'])
+                        configuration: self::mapConfigOptions($result['configOptions']),
+                        static: $result['static']
                     );
 
                     $registryContent[$template->getSlug()] = $template;
@@ -160,12 +161,16 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                         break;
                     case 'date':
                         try {
-                            $date = new \DateTime($value);
+                            new \DateTime($value);
                         } catch (\DateMalformedStringException $e) {
                             throw new PuzzleTemplateRegistryBuildException(sprintf("%s must be a valid date", $fieldName));
                         }
                         break;
-
+                    case 'boolean':
+                        if (!is_bool($value)) {
+                            throw new PuzzleTemplateRegistryBuildException(sprintf("%s must be an boolean", $fieldName));
+                        }
+                        break;
                     case 'configOptions':
                         self::validateConfigOptions($value);
                         break;
@@ -199,7 +204,6 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                         }
                         break;
                     case 'string':
-
                         if (!is_string($configOptionDefinition[$fieldName])) {
                             throw new InvalidConfigOptionDefinitionException(sprintf("%s must be a string", $fieldName));
                         }
@@ -207,6 +211,11 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                     case 'type':
                         if (!in_array($configOptionDefinition[$fieldName], self::KNOWN_CONFIG_OPTION_TYPES)) {
                             throw new InvalidConfigOptionDefinitionException(sprintf("Invalid Config option. The type '%s' is not known", $configOptionDefinition[$fieldName]));
+                        }
+                        break;
+                    case 'boolean':
+                        if (!is_bool($configOptionDefinition[$fieldName])) {
+                            throw new InvalidConfigOptionDefinitionException(sprintf("%s must be a boolean", $fieldName));
                         }
                         break;
                     default:
