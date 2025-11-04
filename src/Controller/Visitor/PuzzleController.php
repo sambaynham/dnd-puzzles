@@ -3,6 +3,7 @@
 namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
+use App\Form\Visitor\PuzzleSearchType;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,9 +48,12 @@ final class PuzzleController extends AbstractBaseController
 
     #[Route('/puzzles/templates', name: 'app.puzzles.template.index')]
     public function templateIndex(Request $request): Response {
+        $form = $this->createForm(PuzzleSearchType::class);
         $pageVars = [
             'pageTitle' => 'Puzzle Templates',
             'templates' => $this->puzzleService->getTemplates(),
+            'form' => $form,
+            'categories' => $this->puzzleService->getAllCategories(),
             'breadcrumbs' => [
                 [
                     'route' => 'app.puzzles.template.index',

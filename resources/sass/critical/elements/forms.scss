@@ -45,3 +45,23 @@ form:not(.unstyle) {
 
 }
 
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
+    form:not(.unstyle) {
+        &.form-inline {
+            flex-direction: row;
+
+            .form-group {
+                flex-direction: row;
+                flex-grow: 2;
+                margin: 0 math.div(variables.$base-spacing, 4) 0 0;
+            }
+        }
+
+        .form-group {
+            &.inline {
+                flex-direction: row;
+            }
+        }
+    }
+
+}

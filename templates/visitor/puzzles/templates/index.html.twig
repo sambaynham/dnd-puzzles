@@ -1,6 +1,12 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
     <div class="row">
+        <div class="col">
+            <h2>Search</h2>
+            {{ form(form) }}
+        </div>
+    </div>
+    <div class="row">
         <div class="grid">
             {% for template in templates %}
                 <article class="card">

@@ -15,4 +15,6 @@ interface PuzzleServiceInterface
     public function getTemplates(): iterable;
 
     public function getTemplateBySlug(string $categorySlug): ?PuzzleTemplate;
+
+    public function getAllCategories(): array;
 }

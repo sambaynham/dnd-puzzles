@@ -13,7 +13,8 @@ use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 class PuzzleService implements PuzzleServiceInterface
 {
     public function __construct(
-        private PuzzleTemplateRegistryInterface $templateRegistry
+        private PuzzleTemplateRegistryInterface $templateRegistry,
+        private PuzzleCategoryRepository $categoryRepository
     ) {}
 
 
@@ -25,5 +26,12 @@ class PuzzleService implements PuzzleServiceInterface
     public function getTemplateBySlug(string $categorySlug): ?PuzzleTemplate
     {
         return $this->templateRegistry->getTemplate($categorySlug);
+    }
+
+    /**
+     * @return array<PuzzleCategory>
+     */
+    public function getAllCategories(): array {
+        return $this->categoryRepository->findAll();
     }
 }
