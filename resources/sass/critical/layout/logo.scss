@@ -18,7 +18,7 @@ $logoHeight: 8vh;
         display: block;
 
         position: relative;
-        margin-top: 2rem;
+        padding: 2rem;
 
         &:before {
             content: " ";
@@ -28,13 +28,12 @@ $logoHeight: 8vh;
             mask-repeat: no-repeat;
             mask-position: 50% 0%;
             position: absolute;
-            top:0 ;
+            top: 0;
             left: 0;
             bottom: 0;
             right:0;
             background-attachment: fixed;
             background-size: 150%;
-
         }
 
         a.header-logo {
@@ -43,7 +42,7 @@ $logoHeight: 8vh;
             width: 40vh;
             padding-top: $logoHeight + 2vh;
             position: relative;
-            margin: 0 auto math.div(variables.$base-spacing, 2) auto;
+            margin: 0 auto;
 
             &:hover, &:focus, &:active {
                 color: transparent;

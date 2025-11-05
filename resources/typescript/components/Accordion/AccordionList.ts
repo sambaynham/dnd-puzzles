@@ -11,9 +11,17 @@ export default class AccordionList extends HTMLDivElement {
     connectedCallback() {
         this.addEventListener('accordion-heading-clicked', (event: CustomEventInit<AccordionHeadingClickDetail>) => {
 
+
             if (event.detail?.target !== undefined) {
-                console.log(event.detail.target);
+                this.entries.forEach((listItem: HTMLElement)=> {
+                    if (event.detail !== undefined && listItem !== event.detail.target) {
+                        listItem.classList.remove('open');
+                    }
+                });
+                event.detail.target.classList.toggle('open');
             }
+
+
         });
     }
 }

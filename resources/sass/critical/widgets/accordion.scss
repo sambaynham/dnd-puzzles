@@ -5,33 +5,36 @@
 @use '../base/palette';
 
 .accordion-list {
-    background-color: cyan;
-    box-shadow: palette.$baseBoxShadow;
+
+
 
 
     article {
         padding: 0;
         margin: 0;
+        margin-bottom: math.div(variables.$base-spacing, 2);
+        box-shadow: palette.$baseBoxShadow;
 
         .accordion-heading,
         .accordion-content {
             display: block;
-            padding: math.div(variables.$base-spacing, 2);
+            padding: math.div(variables.$base-spacing, 4);
         }
         .accordion-heading {
-            background-color: magenta;
+            background: palette.$charcoal linear-gradient(45deg, color.adjust(palette.$charcoal, $lightness: +25%), palette.$charcoal);
+            color: palette.$white;
             position: relative;
+            margin-bottom: 0;
 
             &:after {
                 content: "^";
                 display: block;
                 position: absolute;
-                background-color: yellow;
                 height: 100%;
-                line-height: 1.5em;
+                line-height: 5rem;
                 top: 0;
                 right: 0;
-                font-size: 5em;
+                font-size: 3rem;
                 text-align: right;
                 padding: 0 0.25em;
                 transform: rotate(180deg);
@@ -41,13 +44,16 @@
         }
 
         .accordion-body {
-            height: 0;
+            max-height: 0;
             overflow: hidden;
+            transition: max-height 200ms ease-in-out;
+            background: palette.$offWhite linear-gradient(45deg, palette.$offWhite, color.adjust(palette.$offWhite, $lightness: -5%, $saturation: -100%));
+
         }
 
         &.open {
             .accordion-body {
-                height: auto;
+                max-height: 100vh;
             }
             .accordion-heading {
                 &:after {
