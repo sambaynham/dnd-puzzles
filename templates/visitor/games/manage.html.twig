@@ -13,8 +13,10 @@
                         There are no puzzles in your game!
                     </div>
                 {% endif %}
-                <hr class="hidden">
-                <a href="" class="btn btn-primary">Add a Puzzle</a>
+
+            </article>
+            <article>
+                <a href="" class="btn btn-primary">Add a Puzzle</a><a href="{{ path('app.games.delete', {'slug': game.getSlug}) }}" class="btn btn-danger">Delete this Game</a>
             </article>
         </div>
         <div class="col">
@@ -71,11 +73,4 @@
             <a href="{{ path('app.games.invite', {'slug': game.getSlug}) }}" class="btn btn-blue">Invite Players</a>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <hr/>
-            <a href="{{ path('app.games.delete', {'slug': game.getSlug}) }}" class="btn btn-danger">Delete this Game</a>
-        </div>
-    </div>
-
 {% endblock %}
