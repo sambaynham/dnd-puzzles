@@ -21,7 +21,7 @@
             padding: math.div(variables.$base-spacing, 4);
         }
         .accordion-heading {
-            background: palette.$charcoal linear-gradient(45deg, color.adjust(palette.$charcoal, $lightness: +25%), palette.$charcoal);
+            background: palette.$charcoalGradient;
             color: palette.$white;
             position: relative;
             margin-bottom: 0;

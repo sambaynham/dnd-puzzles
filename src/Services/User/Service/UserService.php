@@ -17,6 +17,7 @@ use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -50,7 +51,11 @@ class UserService implements UserProviderInterface, UserServiceInterface
 
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
-        return $this->userRepository->findOneBy(['email' => $identifier]);
+        $user = $this->userRepository->findOneBy(['email' => $identifier]);
+        if (!$user) {
+            throw new UserNotFoundException();
+        }
+        return $user;
     }
 
     public function saveUser(User $user): User

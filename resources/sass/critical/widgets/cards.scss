@@ -80,7 +80,7 @@
         flex-grow: 2;
     }
     .card-footer {
-        background: palette.$charcoal linear-gradient(45deg, color.adjust(palette.$charcoal, $lightness: +25%), palette.$charcoal);
+        background: palette.$charcoalGradient;
         &:after {
             top: 0;
             left: 0

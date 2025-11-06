@@ -13,6 +13,7 @@ $slideshowHeight: 40vh;
     padding: 0.125rem;
     overflow: hidden;
     background: palette.$goldFX;
+    box-shadow: palette.$baseBoxShadow;
 
     ul.slideshow-slides {
         background: linear-gradient(to bottom, palette.$charcoal, palette.$black);
