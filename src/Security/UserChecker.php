@@ -21,7 +21,7 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
-        if ($user->isBlocked()) {
+        if ($user->isBlocked() && !$user->getUserBlock()->isExpired()) {
             $block = $user->getUserBlock();
 
             $message = $block->isPermanent()

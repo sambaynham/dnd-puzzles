@@ -52,5 +52,13 @@ class UserBlock extends AbstractDomainEntity
     public function isPermanent(): bool {
         return $this->expirationDate === null;
     }
+
+    public function isExpired(): bool {
+        if ($this->isPermanent()) {
+            return false;
+        }
+        return $this->expirationDate <= new \DateTime();
+
+    }
 }
 

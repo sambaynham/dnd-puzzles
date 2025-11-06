@@ -16,6 +16,7 @@ use App\Services\User\Service\Exceptions\MissingDefaultRoleException;
 use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -54,7 +55,28 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $user = $this->userRepository->findOneBy(['email' => $identifier]);
         if (!$user) {
             throw new UserNotFoundException();
+
+
         }
+        if (null !== $user->getUserBlock()) {
+            $block = $user->getUserBlock();
+
+            $message = sprintf("Your account has been banned for %s. ", $block->getReason());
+            $expired = false;
+            if ($block->getExpirationDate()) {
+
+                if ($block->getExpirationDate() < new \DateTime()) {
+                    $expired = true;
+                }
+                $message .= sprintf("This ban will expire on %s", $block->getExpirationDate()->format('Y-m-d H:i'));
+            } else {
+                $message .= "This ban is permanent.";
+            }
+            if (false === $expired) {
+                throw new CustomUserMessageAccountStatusException($message);
+            }
+        }
+
         return $user;
     }
 
