@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PuzzleCategoryRepository::class)]
 #[UniqueEntity(fields: ['slug'], message: 'There is already a puzzle category with this slug')]
-class PuzzleCategory extends AbstractDomainEntity
+class PuzzleCategory extends AbstractDomainEntity implements \Stringable
 {
 
     public function __construct(
@@ -41,5 +41,10 @@ class PuzzleCategory extends AbstractDomainEntity
     public function getSlug(): string
     {
         return $this->slug;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getLabel();
     }
 }

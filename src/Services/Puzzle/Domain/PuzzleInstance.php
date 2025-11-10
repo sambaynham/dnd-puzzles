@@ -17,7 +17,7 @@ class PuzzleInstance
     #[ORM\Column(length: 255)]
     private ?string $instanceCode = null;
 
-    #[ORM\ManyToOne(inversedBy: 'puzzleInstancesB')]
+    #[ORM\ManyToOne(inversedBy: 'puzzleInstances')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Game $game = null;
 

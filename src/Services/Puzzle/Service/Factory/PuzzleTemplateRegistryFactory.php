@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace App\Services\Puzzle\Service\Factory;
 
 use App\Services\Puzzle\Domain\ConfigOptionDefinition;
+use App\Services\Puzzle\Domain\PuzzleCategory;
 use App\Services\Puzzle\Domain\PuzzleCredit;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
+use App\Services\Puzzle\Infrastructure\PuzzleCategoryRepository;
 use App\Services\Puzzle\Service\Factory\Exceptions\InvalidConfigOptionDefinitionException;
 use App\Services\Puzzle\Service\Factory\Exceptions\PuzzleTemplateRegistryBuildException;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use App\Services\Puzzle\Service\PuzzleTemplateRegistry;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Finder\Finder;
@@ -53,8 +57,11 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
         'dieRoll'
     ];
 
-    public function __construct(private readonly CacheInterface $cache) {
-
+    public function __construct(
+        private readonly CacheInterface $cache,
+        private readonly PuzzleCategoryRepository $puzzleCategoryRepository,
+        private EntityManagerInterface $entityManager
+    ) {
     }
     /**
      * @throws PuzzleTemplateRegistryBuildException|\DateMalformedStringException
@@ -85,11 +92,11 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                         title: $result['title'],
                         createdAt: new \DateTimeImmutable($result['created']),
                         description: $result['description'],
-                        categories: $result['categories'],
+                        categories: $this->mapCategories($result['categories']),
                         authorEmail: $result['creator'],
+                        static: $result['static'],
                         credits: self::mapCredits($result['credits']),
-                        configuration: self::mapConfigOptions($result['configOptions']),
-                        static: $result['static']
+                        configuration: self::mapConfigOptions($result['configOptions'])
                     );
 
                     $registryContent[$template->getSlug()] = $template;
@@ -235,5 +242,33 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
         $this->cache->delete(self::CACHE_KEY);
         $this->buildRegistry();
         return [];
+    }
+
+    public function mapCategories(array $categories): ArrayCollection {
+        $categoriesCollection = new ArrayCollection();
+        foreach ($categories as $categorySlug) {
+            $category = $this->puzzleCategoryRepository->findBySlug($categorySlug);
+            if (null === $category) {
+                $label = self::generateCategoryLabel($categorySlug);
+                $category = new PuzzleCategory(
+                    slug: $categorySlug,
+                    label: $label,
+                    description: $label
+                );
+                $this->entityManager->persist($category);
+
+            }
+            $categoriesCollection->add($category);
+        }
+        $this->entityManager->flush();
+        return $categoriesCollection;
+    }
+
+    private static function generateCategoryLabel(string $categorySlug): string {
+
+        $categorySlug = str_replace(search:'_', replace: ' ', subject: $categorySlug);
+        $categorySlug = ucwords($categorySlug);
+        $categorySlug = str_replace('And', 'and', $categorySlug);
+        return $categorySlug;
     }
 }

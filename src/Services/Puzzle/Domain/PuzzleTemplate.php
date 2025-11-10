@@ -2,13 +2,15 @@
 
 namespace App\Services\Puzzle\Domain;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 readonly class PuzzleTemplate
 {
     /**
      * @param string $slug
      * @param string $title
      * @param string $description
-     * @param string $category
+     * @param ArrayCollection<PuzzleCategory> $categories
      * @param string $authorEmail
      * @param array<PuzzleCredit $credits
      * @param array<ConfigOptionDefinition> $configuration
@@ -18,7 +20,7 @@ readonly class PuzzleTemplate
         private string $title,
         private \DateTimeImmutable $createdAt,
         private string $description,
-        private array $categories,
+        private ArrayCollection $categories,
         private string $authorEmail,
         private bool $static,
         private array $credits = [],
@@ -26,7 +28,7 @@ readonly class PuzzleTemplate
     ) {
     }
 
-    public function getCategories(): array
+    public function getCategories(): ArrayCollection
     {
         return $this->categories;
     }
