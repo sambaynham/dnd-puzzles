@@ -4,7 +4,7 @@
         <div class="grid">
             {% for template in templates %}
                 <article class="card">
-<!--                    <img class="card-backer" src="/dist/images/wavepool.gif">-->
+                    <!--                    <img class="card-backer" src="/dist/images/wavepool.gif">-->
                     <a href="{{ path('app.puzzles.template.show', {'templateSlug': template.getSlug }) }}"><h2 class="card-title">{{ template.getTitle }}</h2></a>
                     <div class="card-metadata">
                         <nav class="tag-list">
@@ -22,7 +22,7 @@
                     </div>
                     <span class="card-spacer"></span>
                     <div class="card-footer">
-                        <a href="{{ path('app.puzzles.template.add.step1', {'templateSlug': template.getSlug}) }}" class="btn">Add to Game</a>
+                        <a href="" class="btn">Add to Game</a>
                     </div>
                 </article>
             {% endfor %}

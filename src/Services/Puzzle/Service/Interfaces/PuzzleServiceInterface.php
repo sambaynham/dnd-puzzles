@@ -6,6 +6,7 @@ namespace App\Services\Puzzle\Service\Interfaces;
 
 use App\Services\Puzzle\Domain\PuzzleCategory;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
+use Doctrine\Common\Collections\ArrayCollection;
 
 interface PuzzleServiceInterface
 {
@@ -17,4 +18,8 @@ interface PuzzleServiceInterface
     public function getTemplateBySlug(string $categorySlug): ?PuzzleTemplate;
 
     public function getAllCategories(): array;
+
+    public function getTemplatesByCategory(PuzzleCategory $category): ArrayCollection;
+
+    public function getCategoryBySlug(string $categorySlug): ? PuzzleCategory;
 }

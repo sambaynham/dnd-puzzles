@@ -9,6 +9,7 @@ use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Infrastructure\PuzzleCategoryRepository;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class PuzzleService implements PuzzleServiceInterface
 {
@@ -18,6 +19,9 @@ class PuzzleService implements PuzzleServiceInterface
     ) {}
 
 
+    /**
+     * @return iterable<PuzzleTemplate>
+     */
     public function getTemplates(): iterable
     {
         return $this->templateRegistry->getTemplates();
@@ -33,5 +37,28 @@ class PuzzleService implements PuzzleServiceInterface
      */
     public function getAllCategories(): array {
         return $this->categoryRepository->findAll();
+    }
+
+    public function getTemplatesByCategory(PuzzleCategory $category): ArrayCollection
+    {
+
+        $collection = new ArrayCollection();
+        foreach ($this->getTemplates() as $template) {
+            foreach ($template->getCategories() as $puzzleCategory) {
+
+                if ($puzzleCategory->getSlug() === $category->getSlug()) {
+
+                    if (!$collection->contains($template)) {
+                        $collection->add($template);
+                    }
+                }
+            }
+        }
+        return $collection;
+    }
+
+    public function getCategoryBySlug(string $categorySlug): ?PuzzleCategory
+    {
+        return $this->categoryRepository->findOneBySlug($categorySlug);
     }
 }

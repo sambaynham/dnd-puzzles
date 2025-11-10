@@ -1,7 +1,55 @@
+@use 'sass:math';
+
+
+@use '../base/palette';
+
 dl {
     margin :0;
 
     dd, dt {
         padding: 0;
+    }
+}
+
+$stepIconHeight: 5vh;
+ol.step-list {
+    display: flex;
+    flex-direction: row;
+
+    counter-reset: steplist-counter;
+    li {
+
+        flex: 1;
+        counter-increment: steplist-counter;
+        text-align: center;
+        padding-top: ($stepIconHeight + 1vh);
+        position: relative;
+        text-indent: 0;
+
+        &:before {
+            font-family: 'Pirata', serif;
+            content: counter(steplist-counter);
+            display: block;
+            height: $stepIconHeight;
+            line-height: $stepIconHeight;
+            text-align: center;
+            width: $stepIconHeight;
+            font-size: 5vh;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: 0 - math.div($stepIconHeight, 2);
+            background-color: palette.$charcoal;
+            color: palette.$white;
+            border-radius: 50%;
+            box-shadow: palette.$baseBoxShadow;
+        }
+
+        &.active {
+            &:before {
+                background-color: palette.$crimson;
+
+            }
+        }
     }
 }

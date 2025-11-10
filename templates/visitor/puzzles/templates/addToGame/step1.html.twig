@@ -1,0 +1,23 @@
+{% extends 'base/base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <ol class="step-list">
+                <li class="active">
+                    Pick a game
+                </li>
+                <li>
+                    Name your Puzzle
+                </li>
+                <li>
+                    Set your Options
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}

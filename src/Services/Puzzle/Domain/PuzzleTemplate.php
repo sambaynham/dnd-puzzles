@@ -28,6 +28,9 @@ readonly class PuzzleTemplate
     ) {
     }
 
+    /**
+     * @return ArrayCollection<PuzzleCategory>
+     */
     public function getCategories(): ArrayCollection
     {
         return $this->categories;
