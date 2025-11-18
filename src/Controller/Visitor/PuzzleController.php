@@ -12,13 +12,16 @@ use Symfony\Component\HttpClient\Exception\ServerException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 final class PuzzleController extends AbstractBaseController
 {
+    private const string ADD_TO_GAME_SESSION_KEY = 'add-to-game';
 
     public function __construct(
-        private PuzzleServiceInterface $puzzleService,
-        QuotationService $quotationService
+        private readonly PuzzleServiceInterface $puzzleService,
+        private readonly SerializerInterface $serializer,
+        QuotationService $quotationService,
     ) {
         parent::__construct($quotationService);
     }
@@ -93,7 +96,7 @@ final class PuzzleController extends AbstractBaseController
         ];
         return $this->render('/visitor/puzzles/templates/template.html.twig', $this->populatePageVars($pageVars, $request));
     }
-    #[Route('/puzzles/templates/{templateSlug}/add-to-game/step-1', name: 'app.puzzles.template.add.step1')]
+    #[Route('/puzzles/templates/{templateSlug}/add-to-game', name: 'app.puzzles.template.add')]
     public function addToGame(string $templateSlug, Request $request): Response {
         $template = $this->puzzleService->getTemplateBySlug($templateSlug);
 
@@ -106,7 +109,12 @@ final class PuzzleController extends AbstractBaseController
             $form = $this->createForm(ChooseGameType::class, $dto);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                die('HELLWORLD');
+
+                $serializedDto = $this->serializer->serialize($dto, 'json',  ['groups' => 'basic']);
+                $session = $request->getSession();
+                $session->set(self::ADD_TO_GAME_SESSION_KEY, $serializedDto);
+                $this->addFlash('success', 'Puzzle added! Now to configure it.');
+                return $this->redirectToRoute('app.puzzles.template.configure', ['templateSlug' => $templateSlug]);
             }
             $pageVars = [
                 'pageTitle' => sprintf("Add a %s puzzle to game", $template->getTitle()),
@@ -118,6 +126,16 @@ final class PuzzleController extends AbstractBaseController
         }
 
         return $this->render('/visitor/puzzles/templates/addToGame/step1.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[Route('/puzzles/templates/{templateSlug}/add-to-game/configure', name: 'app.puzzles.template.configure')]
+    public function configurePuzzle(string $templateSlug, Request $request): Response {
+        $session = $request->getSession();
+        $serializedDto = $session->get(self::ADD_TO_GAME_SESSION_KEY);
+        $dto = $this->serializer->deserialize($serializedDto, ChooseGameDto::class, 'json');
+        dd($dto);
+
+
     }
 
     #[Route('/puzzles/categories/{categorySlug}', name: 'app.puzzles.categorySlug.show')]

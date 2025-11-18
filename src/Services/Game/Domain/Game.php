@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 #[UniqueEntity(fields: ['slug'], message: 'There is already a game with this slug. Please choose another one.')]
@@ -30,19 +31,23 @@ class Game extends AbstractDomainEntity
 
     public function __construct(
         #[ORM\Column(length: 255)]
+        #[Groups(['basic'])]
         private string $name,
 
+        #[Groups(['basic'])]
         #[ORM\Column(length: 255, unique: true)]
         private string $slug,
 
+        #[Groups(['extended'])]
         #[ORM\Column(length: 1024)]
         private string $description,
 
         #[ORM\ManyToOne(inversedBy: 'gamesMastered',fetch: 'EAGER')]
         #[ORM\JoinColumn(nullable: false)]
+        #[Groups(['extended'])]
         private User $gamesMaster,
 
-
+        #[Groups(['extended'])]
         #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'games')]
         private ?Collection $players = null,
 
