@@ -4,6 +4,7 @@ namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
 use App\Dto\Visitor\Game\AddPuzzle\ChooseGameDto;
+use App\Dto\Visitor\Game\AddPuzzle\AddPuzzleStepOneDto;
 use App\Form\Visitor\Game\AddPuzzle\ChooseGameType;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
@@ -110,7 +111,10 @@ final class PuzzleController extends AbstractBaseController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
 
-                $serializedDto = $this->serializer->serialize($dto, 'json',  ['groups' => 'basic']);
+                $serializedDto = $this->serializer->serialize(
+                    new AddPuzzleStepOneDto(templateSlug: $templateSlug, gameSlug: $dto->game->getSlug(), puzzleName: $dto->puzzleName),
+                    'json'
+                );
                 $session = $request->getSession();
                 $session->set(self::ADD_TO_GAME_SESSION_KEY, $serializedDto);
                 $this->addFlash('success', 'Puzzle added! Now to configure it.');
@@ -131,9 +135,9 @@ final class PuzzleController extends AbstractBaseController
     #[Route('/puzzles/templates/{templateSlug}/add-to-game/configure', name: 'app.puzzles.template.configure')]
     public function configurePuzzle(string $templateSlug, Request $request): Response {
         $session = $request->getSession();
-        $serializedDto = $session->get(self::ADD_TO_GAME_SESSION_KEY);
-        $dto = $this->serializer->deserialize($serializedDto, ChooseGameDto::class, 'json');
-        dd($dto);
+        $sessionValues = $session->get(self::ADD_TO_GAME_SESSION_KEY);
+        $options = $this->serializer->deserialize($sessionValues, AddPuzzleStepOneDto::class, 'json');
+        dd($options);
 
 
     }
