@@ -208,13 +208,15 @@ final class PuzzleController extends AbstractBaseController
         $builder = $this->createFormBuilder();
 
         foreach ($template->getConfiguration() as $configurationOption) {
+
             switch ($configurationOption->getType()) {
                 case 'text':
                     $builder->add(
                         $configurationOption->getConfigName(),
                         TextareaType::class,
                         [
-                            'label' => $configurationOption->getLabel()
+                            'label' => $configurationOption->getLabel(),
+                            'help' => $configurationOption->getHelpText()
                         ]
                     );
                     break;
@@ -223,7 +225,8 @@ final class PuzzleController extends AbstractBaseController
                         $configurationOption->getConfigName(),
                         DieRollType::class,
                         [
-                            'label' => $configurationOption->getLabel()
+                            'label' => $configurationOption->getLabel(),
+                            'help' => $configurationOption->getHelpText()
                         ]
                     );
                     break;
