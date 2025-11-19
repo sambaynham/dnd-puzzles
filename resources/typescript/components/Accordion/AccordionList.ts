@@ -8,10 +8,9 @@ export default class AccordionList extends HTMLDivElement {
         super();
         this.entries = this.querySelectorAll('.accordion-entry');
     }
+
     connectedCallback() {
         this.addEventListener('accordion-heading-clicked', (event: CustomEventInit<AccordionHeadingClickDetail>) => {
-
-
             if (event.detail?.target !== undefined) {
                 this.entries.forEach((listItem: HTMLElement)=> {
                     if (event.detail !== undefined && listItem !== event.detail.target) {
@@ -20,8 +19,6 @@ export default class AccordionList extends HTMLDivElement {
                 });
                 event.detail.target.classList.toggle('open');
             }
-
-
         });
     }
 }
