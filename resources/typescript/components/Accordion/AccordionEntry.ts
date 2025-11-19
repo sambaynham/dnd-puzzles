@@ -27,9 +27,9 @@ export class AccordionEntry extends HTMLElement {
             target: this
         };
     }
-    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    attributeChangedCallback(name: string, newValue: string) {
         if (name === 'data-active') {
-            if (newValue === true) {
+            if (newValue === 'true') {
                 this.classList.add('open')
             } else {
                 this.classList.remove('open')

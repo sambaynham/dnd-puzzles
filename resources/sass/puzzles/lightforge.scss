@@ -4,10 +4,10 @@
     background: palette.$silverFX;
     position: relative;
 
-
     div.switches {
         display: flex;
         flex-direction: row;
+
         .switch-container {
             label {
                 font-family: 'DethekStone', sans-serif;

@@ -13,15 +13,13 @@
 @use "critical/elements/links.scss";
 @use "critical/elements/rules";
 @use "critical/elements/buttons";
-
-@use "critical/widgets/dropCaps";
 @use "critical/elements/tables";
 @use "critical/elements/forms.scss";
 @use "critical/elements/navs.scss";
 @use "critical/elements/images.scss";
 @use "critical/elements/lists.scss";
 
-
+@use "critical/widgets/dropCaps";
 @use "critical/widgets/puzzles";
 @use "critical/widgets/switches";
 @use "critical/widgets/tooltips";

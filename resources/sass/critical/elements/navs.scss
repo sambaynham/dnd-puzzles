@@ -42,8 +42,7 @@ nav.lozenges {
             left: 0;
             z-index: -2;
             border: 0.25rem solid transparent;
-            border-image: url('/dist/images/eroded-frame.svg');
-            border-image-slice: 33%;
+            border-image: url('/dist/images/eroded-frame.svg') 33%;
         }
 
 

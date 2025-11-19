@@ -36,13 +36,7 @@ form:not(.unstyle) {
 
     }
 
-
-
-
-
     @include inputs.styleInputs();
-
-
 }
 
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {
@@ -63,5 +57,4 @@ form:not(.unstyle) {
             }
         }
     }
-
 }
