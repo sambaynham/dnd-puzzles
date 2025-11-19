@@ -5,14 +5,23 @@ namespace App\Controller\Visitor;
 use App\Controller\AbstractBaseController;
 use App\Dto\Visitor\Game\AddPuzzle\ChooseGameDto;
 use App\Dto\Visitor\Game\AddPuzzle\AddPuzzleStepOneDto;
+use App\Form\Type\DieRollType;
 use App\Form\Visitor\Game\AddPuzzle\ChooseGameType;
+use App\Security\GameManagerVoter;
+use App\Services\Game\Domain\Game;
+use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpClient\Exception\ServerException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
 
 final class PuzzleController extends AbstractBaseController
@@ -118,7 +127,12 @@ final class PuzzleController extends AbstractBaseController
                 $session = $request->getSession();
                 $session->set(self::ADD_TO_GAME_SESSION_KEY, $serializedDto);
                 $this->addFlash('success', 'Puzzle added! Now to configure it.');
-                return $this->redirectToRoute('app.puzzles.template.configure', ['templateSlug' => $templateSlug]);
+                return $this->redirectToRoute(
+                    'app.puzzles.template.configure',
+                    [
+                        'templateSlug' => $templateSlug,
+                        'slug' => $dto->game->getSlug()
+                    ]);
             }
             $pageVars = [
                 'pageTitle' => sprintf("Add a %s puzzle to game", $template->getTitle()),
@@ -132,12 +146,32 @@ final class PuzzleController extends AbstractBaseController
         return $this->render('/visitor/puzzles/templates/addToGame/step1.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-    #[Route('/puzzles/templates/{templateSlug}/add-to-game/configure', name: 'app.puzzles.template.configure')]
-    public function configurePuzzle(string $templateSlug, Request $request): Response {
+
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('/puzzles/templates/{templateSlug}/add-to-game/{slug}/configure', name: 'app.puzzles.template.configure')]
+    public function configurePuzzle(
+        string $templateSlug,
+        Game $game,
+        Request $request
+    ): Response {
+
         $session = $request->getSession();
         $sessionValues = $session->get(self::ADD_TO_GAME_SESSION_KEY);
         $options = $this->serializer->deserialize($sessionValues, AddPuzzleStepOneDto::class, 'json');
-        dd($options);
+
+        $template = $this->puzzleService->getTemplateBySlug($templateSlug);
+        if (null === $template) {
+            throw new NotFoundHttpException("No such template");
+        }
+
+        $form = $this->generateTemplateForm($template);
+
+        $pageVars = [
+            'pageTitle' => sprintf("Configure %s puzzle", $template->getTitle()),
+            'form' => $form
+        ];
+        return $this->render('/visitor/puzzles/templates/addToGame/configure.html.twig', $this->populatePageVars($pageVars, $request));
+
 
 
     }
@@ -168,5 +202,40 @@ final class PuzzleController extends AbstractBaseController
 
         ];
         return $this->render('/visitor/puzzles/templates/category.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    private function generateTemplateForm(PuzzleTemplate $template): FormInterface {
+        $builder = $this->createFormBuilder();
+
+        foreach ($template->getConfiguration() as $configurationOption) {
+            switch ($configurationOption->getType()) {
+                case 'text':
+                    $builder->add(
+                        $configurationOption->getConfigName(),
+                        TextareaType::class,
+                        [
+                            'label' => $configurationOption->getLabel()
+                        ]
+                    );
+                    break;
+                case 'dieRoll':
+                    $builder->add(
+                        $configurationOption->getConfigName(),
+                        DieRollType::class,
+                        [
+                            'label' => $configurationOption->getLabel()
+                        ]
+                    );
+                    break;
+                case 'stringArray':
+                    break;
+                default:
+
+                    throw new \Exception(sprintf("Unprocessable option type %s", $configurationOption->getType()));
+            }
+
+        }
+//        dd($template->getConfiguration());
+        return $builder->getForm();
     }
 }

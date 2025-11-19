@@ -10,7 +10,7 @@ export class AccordionEntry extends HTMLElement {
         if (null === headerElement) {
             throw new Error('Malformed list; no heading detected. Aborting');
         }
-        
+
         headerElement.addEventListener('click', (e:MouseEvent) => {
             e.preventDefault();
             this.dispatchEvent(new CustomEvent(
