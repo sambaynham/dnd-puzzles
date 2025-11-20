@@ -171,3 +171,180 @@
         background: palette.$darkest;
     }
 }
+
+/* Container to help show the scroll ends */
+.scroll-wrap {
+  position: relative;
+  width: 720px;
+  max-width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The medieval scroll input */
+.medieval-scroll {
+  --height: 64px;
+  --padding-x: 36px;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  width: 100%;
+  height: var(--height);
+  border: none;
+  padding: 12px calc(var(--padding-x) + 8px);
+  padding-left: calc(var(--padding-x) + 18px);
+  padding-right: calc(var(--padding-x) + 18px);
+  font-size: 20px;
+  line-height: 1;
+  color: #2c220e;
+  background:
+    /* subtle vignette / darker edges */
+    radial-gradient(120% 70% at 10% 50%, rgba(0,0,0,0.06), transparent 10%),
+    radial-gradient(120% 70% at 90% 50%, rgba(0,0,0,0.06), transparent 10%),
+    /* parchment base shading */
+    linear-gradient(180deg, #fbf1d7 0%, #f3e7c3 40%, #f0e0b8 100%),
+    /* texture overlay: your uploaded image (subtle) */
+    url("/mnt/data/773ba83b-b049-48c3-8fd9-f49acdc44384.png");
+  background-blend-mode: multiply, overlay, normal;
+  background-size: 140% 140%, 100% 100%, 30% 100%;
+  background-position: center, center, center;
+  border-radius: 8px;
+  /* outer shadow + slight lift */
+  box-shadow:
+    0 10px 25px rgba(20,16,10,0.35),
+    0 3px 6px rgba(0,0,0,0.18),
+    /* thin highlight around */
+    inset 0 1px 0 rgba(255,255,255,0.85);
+  position: relative;
+  transition: box-shadow .18s ease, transform .14s ease;
+  caret-color: #3b2b0f;
+  /* slight distressed edge using an inset gradient */
+  border: 2px solid rgba(0,0,0,0.05);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+}
+
+/* Focus style */
+.medieval-scroll:focus {
+  box-shadow:
+    0 14px 30px rgba(20,16,10,0.45),
+    0 4px 8px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    inset 0 0 30px rgba(255, 240, 180, 0.03);
+  transform: translateY(-1px);
+}
+
+/* Placeholder styling */
+.medieval-scroll::placeholder {
+  color: #89724d;
+  opacity: 0.9;
+  font-style: italic;
+}
+
+/* Create the rolled parchment ends with pseudo-elements */
+.scroll-wrap::before,
+.scroll-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(var(--padding-x) * 1.2);
+  height: calc(var(--height) * 1.5);
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,0.22));
+}
+
+/* left roll */
+.scroll-wrap::before {
+  left: -6px;
+  border-radius: 18px;
+  background:
+    /* rolled cylinder illusion: radial highlights */
+    radial-gradient(80% 80% at 30% 30%, rgba(255,255,255,0.55), transparent 18%),
+    linear-gradient(90deg, #d8c79b 0%, #f4e6b8 40%, #d9c79a 100%),
+    /* thin rim line */
+    linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.0));
+  background-blend-mode: overlay, normal, normal;
+  transform-origin: center;
+  transform: translateY(-50%) rotate(-6deg);
+  box-shadow:
+    inset -6px 0 14px rgba(0,0,0,0.18),
+    0 6px 12px rgba(0,0,0,0.2);
+  clip-path: polygon(12% 6%, 100% 0, 100% 100%, 12% 100%, 0 60%);
+}
+
+/* right roll (mirror) */
+.scroll-wrap::after {
+  right: -6px;
+  border-radius: 18px;
+  background:
+    radial-gradient(80% 80% at 70% 30%, rgba(255,255,255,0.55), transparent 18%),
+    linear-gradient(90deg, #d8c79b 0%, #f4e6b8 40%, #d9c79a 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.0));
+  background-blend-mode: overlay, normal, normal;
+  transform-origin: center;
+  transform: translateY(-50%) rotate(6deg);
+  box-shadow:
+    inset 6px 0 14px rgba(0,0,0,0.18),
+    0 6px 12px rgba(0,0,0,0.2);
+  clip-path: polygon(88% 6%, 100% 40%, 100% 60%, 88% 100%, 0 100%);
+}
+
+/* Torn bottom edge effect using inner pseudo-element on input */
+.medieval-scroll::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -10px;
+  height: 18px;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.0)),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(0,0,0,0.02) 0px,
+      rgba(0,0,0,0.02) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  filter: blur(0.6px);
+  border-radius: 6px;
+  pointer-events: none;
+  transform: translateY(6px);
+  z-index: 2;
+}
+
+/* Optional small decorative ribbons tucked under the scroll (for a more ornate look) */
+.ribbon {
+  position: absolute;
+  top: calc(50% + 10px);
+  transform: translateY(-50%);
+  width: 36px;
+  height: 22px;
+  background:
+    linear-gradient(180deg, #caa85b, #a97a2b);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+  border-radius: 4px;
+  z-index: 0;
+  left: 8%;
+}
+.ribbon.right {
+  left: auto;
+  right: 8%;
+  transform: translateY(-50%) rotate(6deg);
+}
+
+/* Make sure text doesn't overlap the decorative roll shadows */
+.scroll-wrap .medieval-scroll,
+.scroll-wrap::before,
+.scroll-wrap::after {
+  z-index: 3;
+}
+
+/* For small screens reduce padding */
+@media (max-width:480px) {
+  .medieval-scroll { font-size: 16px; --height:52px; --padding-x:22px; }
+  .scroll-wrap::before, .scroll-wrap::after { width: 38px; height: 70px; }
+}
+

@@ -9,9 +9,7 @@
 
 {% block body %}
 <div class="puzzle-container">
-    <h1>Alchemical Potions</h1>
     <div is="alchemical-potions" class="arcane-puzzle alchemical-potions" id="puzzle"></div>
-
     <div class="puzzle-controls">
         <button onclick="document.getElementById('puzzle').reset()">Reset</button>
         <button onclick="document.getElementById('puzzle').giveHint()">Hint</button>
@@ -20,13 +18,6 @@
 {% endblock %}
 
 {% block footerScripts %}
-    <script type="importmap">
-    {
-        "imports": {
-            "p5": "https://cdnjs.cloudflare.com/ajax/libs/p5.js/2.0.5/p5.esm.js"
-        }
-    }
-    </script>
     <script type="module" src="/dist/js/arcaneBoot.js"></script>
 {% endblock %}
 

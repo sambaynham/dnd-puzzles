@@ -1,5 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
 import summary from 'rollup-plugin-summary';
 import terser  from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy'
@@ -99,14 +100,12 @@ const config = [
         output: {
             dir: './public/dist/js/',
             format: 'es',
-            globals: {
-                'p5': 'p5'
-            }
         },
-        external: ['p5'],
         plugins: [
             typescript(),
-            resolve()
+            resolve(),
+            commonjs(),
+            json()
         ],
         preserveEntrySignatures: false,
     },
