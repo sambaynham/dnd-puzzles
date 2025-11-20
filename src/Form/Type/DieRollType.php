@@ -33,14 +33,17 @@ class DieRollType extends AbstractType
                     'min' => 1,
                     'max' => 10,
                     'step' => 1
-                ]
+                ],
+                'html5' => true,
+                'help' => 'How many dice should be rolled?'
             ]
         )
         ->add(
             'd',
             ChoiceType::class,
             [
-                'choices' => $choices
+                'choices' => $choices,
+                'help' => 'How many sides should each die have?'
             ]
         )
         ->add(
@@ -48,11 +51,14 @@ class DieRollType extends AbstractType
             NumberType::class,
             [
                 'required' => false,
+
                 'attr' => [
+                    'value' => 0,
                     'min' => 0,
                     'max' => 1000,
-                    'step' => 1
-                ]
+                    'step' => 1,
+                ],
+                'help' => 'Add this number to the total of rolls (optional)'
             ]
         );
 

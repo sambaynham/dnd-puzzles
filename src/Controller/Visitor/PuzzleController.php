@@ -13,6 +13,7 @@ use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
@@ -239,6 +240,7 @@ final class PuzzleController extends AbstractBaseController
 
         }
 //        dd($template->getConfiguration());
+        $builder->add('submit', SubmitType::class);
         return $builder->getForm();
     }
 }

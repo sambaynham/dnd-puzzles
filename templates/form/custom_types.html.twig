@@ -1,0 +1,42 @@
+
+
+{# templates/form/custom_types.html.twig #}
+{% block die_roll_row %}
+<div class="form-group">
+    <div class="die-roll-field">
+        {{ form_label(form) }}
+        {{ form_help(form) }}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Number of Die</th>
+                    <th>Die Sides</th>
+                    <th>Plus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {{ form_widget(form.x) }}
+                        {{ form_help(form.x) }}
+                        {{ form_errors(form.x) }}
+                    </td>
+                    <td>
+                        {{ form_widget(form.d) }}
+                        {{ form_help(form.d) }}
+                        {{ form_errors(form.d) }}
+                    </td>
+                    <td>
+                        {{ form_widget(form.p) }}
+                        {{ form_help(form.p) }}
+                        {{ form_errors(form.p) }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+</div>
+{% endblock %}
