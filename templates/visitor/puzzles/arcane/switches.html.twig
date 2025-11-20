@@ -1,5 +1,5 @@
-{% set pageTitle = 'Arcane Switches' %}
-{% set siteName = 'Arcane Switches' %}
+{% set pageTitle = 'Runic Switches' %}
+{% set siteName = 'Runic Switches' %}
 {% set nav = [] %}
 {% set hideBugReportLink = true %}
 {% extends 'base/base.html.twig' %}
@@ -8,12 +8,10 @@
 
 {% block body %}
 <div class="puzzle-container">
-    <h1>Runic Switches</h1>
     <div is="runic-switches" class="arcane-puzzle runic-switches" id="puzzle"></div>
 
     <div class="puzzle-controls">
         <button onclick="document.getElementById('puzzle').reset()">Reset</button>
-        <button onclick="document.getElementById('puzzle').giveHint()">Hint</button>
     </div>
 </div>
 {% endblock %}
