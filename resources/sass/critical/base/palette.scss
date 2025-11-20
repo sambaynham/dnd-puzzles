@@ -29,3 +29,8 @@ $baseBoxShadow: 0 0.125rem 0.25rem color.adjust($ink, $alpha: -0.5), 0.05rem 0.1
 $baseInsetShadow: inset 0 0 0.25rem color.adjust($ink, $alpha: -0.5), inset 0 0 0.125rem color.adjust($ink, $alpha: -0.75);
 $dividerGradient: $ink radial-gradient(circle at 50% 50%, transparent, $ink);
 $charcoalGradient: $charcoal linear-gradient(45deg, color.adjust($charcoal, $lightness: +25%), $charcoal);
+
+// Arcane puzzle colors (matching dnd-p5 original)
+$cream: #f5e6c5;
+$brown: #8b5a2b;
+$darkest: #080c23;

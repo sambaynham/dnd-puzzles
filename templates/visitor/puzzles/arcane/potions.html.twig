@@ -1,0 +1,36 @@
+{% set pageTitle = 'Arcane Potions' %}
+{% set siteName = 'Arcane Potions' %}
+{% set nav = [] %}
+{% set hideBugReportLink = true %}
+
+{% extends 'base/base.html.twig' %}
+
+{% block title %}Alchemical Potions{% endblock %}
+
+{% block body %}
+<div class="puzzle-container">
+    <h1>Alchemical Potions</h1>
+    <div is="alchemical-potions" class="arcane-puzzle alchemical-potions" id="puzzle"></div>
+
+    <div class="puzzle-controls">
+        <button onclick="document.getElementById('puzzle').reset()">Reset</button>
+        <button onclick="document.getElementById('puzzle').giveHint()">Hint</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block footerScripts %}
+    <script type="importmap">
+    {
+        "imports": {
+            "p5": "https://cdnjs.cloudflare.com/ajax/libs/p5.js/2.0.5/p5.esm.js"
+        }
+    }
+    </script>
+    <script type="module" src="/dist/js/arcaneBoot.js"></script>
+{% endblock %}
+
+{% block footerStyles %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/dist/css/puzzles/arcane.css">
+{% endblock %}

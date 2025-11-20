@@ -1,0 +1,173 @@
+// Arcane Lock Puzzles - p5.js based components
+// Runic Switches, Alchemical Potions, Arcane Rings
+
+@use 'sass:color';
+@use '../critical/base/palette';
+@use '../critical/base/variables';
+
+// Base styles for all p5.js puzzle components
+.arcane-puzzle {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4/3;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 4px;
+    overflow: hidden;
+
+    // Ensure canvas fills the container
+    canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+// Individual puzzle type overrides (if needed)
+.runic-switches {
+    // Runic switches specific styles
+}
+
+.alchemical-potions {
+    // Alchemical potions specific styles
+}
+
+.arcane-rings {
+    // Arcane rings specific styles
+}
+
+// Puzzle controls styling
+.puzzle-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+
+    button {
+        padding: 0.75rem 1.5rem;
+        font-family: inherit;
+        font-size: 1rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: palette.$cream;
+        background: linear-gradient(#3a3a3a, #222);
+        border: 2px solid palette.$brown;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        box-shadow:
+            0 0 8px rgba(0, 0, 0, 0.6),
+            inset 0 0 6px rgba(255, 255, 255, 0.05);
+
+        &:hover {
+            background: linear-gradient(#4a4a4a, #2a2a2a);
+            border-color: color.adjust(palette.$brown, $lightness: 10%);
+            box-shadow:
+                0 0 12px rgba(255, 200, 120, 0.3),
+                inset 0 0 8px rgba(255, 255, 255, 0.08);
+        }
+
+        &:active {
+            transform: scale(0.97);
+            background: linear-gradient(#2c2c2c, #1a1a1a);
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}
+
+// Hint counter styling
+.hint-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: palette.$gold;
+    font-size: 0.9rem;
+}
+
+// Puzzle container
+.puzzle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    min-height: 80vh;
+
+    h1 {
+        margin-bottom: 1.5rem;
+        color: palette.$gold;
+        text-shadow: 0 0 10px rgba(255, 200, 100, 0.3);
+    }
+}
+
+// Success message styling
+.puzzle-success {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem 3rem;
+    background: rgba(0, 0, 0, 0.9);
+    border: 3px solid palette.$gold;
+    border-radius: 8px;
+    color: palette.$cream;
+    text-align: center;
+    z-index: 1000;
+
+    box-shadow:
+        0 0 30px rgba(255, 200, 100, 0.5),
+        inset 0 0 20px rgba(255, 200, 100, 0.1);
+
+    h2 {
+        color: palette.$gold;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        margin-bottom: 1.5rem;
+    }
+
+    button {
+        padding: 0.5rem 1.5rem;
+        background: palette.$gold;
+        border: none;
+        border-radius: 4px;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+            background: color.adjust(palette.$gold, $lightness: 10%);
+        }
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .arcane-puzzle {
+        max-width: 100%;
+        aspect-ratio: 1/1;
+    }
+
+    .puzzle-controls {
+        flex-wrap: wrap;
+
+        button {
+            flex: 1 1 auto;
+            min-width: 120px;
+        }
+    }
+}
+
+// Dark mode / theme consistency
+@media (prefers-color-scheme: dark) {
+    .puzzle-container {
+        background: palette.$darkest;
+    }
+}

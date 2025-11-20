@@ -1,0 +1,35 @@
+{% set pageTitle = 'Arcane Switches' %}
+{% set siteName = 'Arcane Switches' %}
+{% set nav = [] %}
+{% set hideBugReportLink = true %}
+{% extends 'base/base.html.twig' %}
+
+{% block title %}Runic Switches{% endblock %}
+
+{% block body %}
+<div class="puzzle-container">
+    <h1>Runic Switches</h1>
+    <div is="runic-switches" class="arcane-puzzle runic-switches" id="puzzle"></div>
+
+    <div class="puzzle-controls">
+        <button onclick="document.getElementById('puzzle').reset()">Reset</button>
+        <button onclick="document.getElementById('puzzle').giveHint()">Hint</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block footerScripts %}
+    <script type="importmap">
+    {
+        "imports": {
+            "p5": "https://cdnjs.cloudflare.com/ajax/libs/p5.js/2.0.5/p5.esm.js"
+        }
+    }
+    </script>
+    <script type="module" src="/dist/js/arcaneBoot.js"></script>
+{% endblock %}
+
+{% block footerStyles %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/dist/css/puzzles/arcane.css">
+{% endblock %}

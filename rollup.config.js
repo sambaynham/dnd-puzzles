@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import summary from 'rollup-plugin-summary';
 import terser  from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy'
@@ -94,6 +95,22 @@ const config = [
         preserveEntrySignatures: false,
     },
     {
+        input: 'resources/typescript/puzzles/arcane/arcaneBoot.ts',
+        output: {
+            dir: './public/dist/js/',
+            format: 'es',
+            globals: {
+                'p5': 'p5'
+            }
+        },
+        external: ['p5'],
+        plugins: [
+            typescript(),
+            resolve()
+        ],
+        preserveEntrySignatures: false,
+    },
+    {
         input: 'resources/sass/critical.scss',
         output: {
             dir: './public/dist/css/'
@@ -142,6 +159,20 @@ const config = [
         ]
     },
     {
+        input: 'resources/sass/puzzles/arcane.scss',
+        output: {
+            dir: './public/dist/css/puzzles'
+        },
+        plugins: [
+            scss({
+                fileName: 'arcane.css',
+                outputStyle: 'compressed',
+                watch: ['resources/sass/puzzles/arcane.scss']
+            }),
+            summary()
+        ]
+    },
+    {
         input: 'resources/sass/admin/admin.scss',
         output: {
             dir: './public/dist/css/'
@@ -168,6 +199,7 @@ if (process.env.NODE_ENV !== 'development') {
   config[0].plugins.push(terser(terserOptions));
   config[1].plugins.push(terser(terserOptions));
   config[2].plugins.push(terser(terserOptions));
+  config[3].plugins.push(terser(terserOptions));
 }
 
 export default config;
