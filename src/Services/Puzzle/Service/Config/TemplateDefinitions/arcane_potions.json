@@ -1,0 +1,28 @@
+{
+    "title": "Alchemical Potions",
+    "slug": "arcane_potions",
+    "description": "An alchemical puzzle where players must combine and mix magical potions in the correct order to create the desired elixir. Players must carefully follow alchemical principles to succeed.",
+    "categories": [
+        "logic",
+        "arcane"
+    ],
+    "type": "arcane",
+    "created": "2025-11-20",
+    "static": true,
+    "creator": "sam.baynham@gmail.com",
+    "credits": [
+        {
+            "name": "Sam Baynham",
+            "email": "sam.baynham@gmail.com",
+            "created": "Code, Styling"
+        }
+    ],
+    "configOptions": [
+        {
+            "configName": "success_message",
+            "label": "Success Message",
+            "type": "text",
+            "helpText": "An optional message to display when the player solves the puzzle."
+        }
+    ]
+}

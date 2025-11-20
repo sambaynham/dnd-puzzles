@@ -40,4 +40,9 @@ class PuzzleInstanceRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findByInstanceCode(string $instanceCode): ?PuzzleInstance
+    {
+        return $this->findOneBy(['instanceCode' => $instanceCode]);
+    }
 }

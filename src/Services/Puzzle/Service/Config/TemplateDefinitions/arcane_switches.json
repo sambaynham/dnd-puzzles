@@ -1,0 +1,28 @@
+{
+    "title": "Runic Switches",
+    "slug": "arcane_switches",
+    "description": "A magical puzzle featuring runic switches that must be toggled in specific patterns to unlock ancient mechanisms. Each switch affects others, requiring players to think strategically.",
+    "categories": [
+        "buttons_and_switches",
+        "arcane"
+    ],
+    "type": "arcane",
+    "created": "2025-11-20",
+    "static": true,
+    "creator": "sam.baynham@gmail.com",
+    "credits": [
+        {
+            "name": "Sam Baynham",
+            "email": "sam.baynham@gmail.com",
+            "created": "Code, Styling"
+        }
+    ],
+    "configOptions": [
+        {
+            "configName": "success_message",
+            "label": "Success Message",
+            "type": "text",
+            "helpText": "An optional message to display when the player solves the puzzle."
+        }
+    ]
+}

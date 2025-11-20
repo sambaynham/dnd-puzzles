@@ -27,6 +27,12 @@ class PuzzleInstance
     #[ORM\Column(nullable: true)]
     private ?\DateTime $publicationDate = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $templateSlug = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +82,30 @@ class PuzzleInstance
     public function setPublicationDate(?\DateTime $publicationDate): static
     {
         $this->publicationDate = $publicationDate;
+
+        return $this;
+    }
+
+    public function getTemplateSlug(): ?string
+    {
+        return $this->templateSlug;
+    }
+
+    public function setTemplateSlug(string $templateSlug): static
+    {
+        $this->templateSlug = $templateSlug;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

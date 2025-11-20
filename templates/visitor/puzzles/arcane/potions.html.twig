@@ -1,15 +1,16 @@
-{% set pageTitle = 'Arcane Potions' %}
-{% set siteName = 'Arcane Potions' %}
+{% set pageTitle = pageTitle|default('Alchemical Potions') %}
+{% set siteName = 'Alchemical Potions' %}
 {% set nav = [] %}
 {% set hideBugReportLink = true %}
 
 {% extends 'base/base.html.twig' %}
 
-{% block title %}Alchemical Potions{% endblock %}
+{% block title %}{{ pageTitle }}{% endblock %}
 
 {% block body %}
 <div class="puzzle-container">
-    <div is="alchemical-potions" class="arcane-puzzle alchemical-potions" id="puzzle"></div>
+    <h1>{{ pageTitle }}</h1>
+    <div is="alchemical-potions" class="arcane-puzzle alchemical-potions" id="puzzle"{% if config is defined %} data-config="{{ config|json_encode|e('html_attr') }}"{% endif %}></div>
     <div class="puzzle-controls">
         <button onclick="document.getElementById('puzzle').reset()">Reset</button>
         <button onclick="document.getElementById('puzzle').giveHint()">Hint</button>

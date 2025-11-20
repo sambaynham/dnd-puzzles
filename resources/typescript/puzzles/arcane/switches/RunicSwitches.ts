@@ -129,7 +129,7 @@ export default class RunicSwitches extends P5Component {
 
         // Solved overlay
         if (this.solved) {
-            drawSolvedOverlay(p, w, h);
+            drawSolvedOverlay(p, w, h, this.config.success_message);
         }
 
         p.pop();

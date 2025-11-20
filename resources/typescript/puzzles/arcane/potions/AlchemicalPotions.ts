@@ -145,7 +145,7 @@ export default class AlchemicalPotions extends P5Component {
         drawInstructions(p, 'Click top of vial to remove, bottom to add. Match the target.', w, h);
 
         if (this.solved) {
-            drawSolvedOverlay(p, w, h);
+            drawSolvedOverlay(p, w, h, this.config.success_message);
         }
 
         p.pop();

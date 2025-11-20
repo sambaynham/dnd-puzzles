@@ -1,18 +1,16 @@
-{% set pageTitle = 'Arcane switches' %}
-{% set siteName = 'Arcane Switches' %}
+{% set pageTitle = pageTitle|default('Arcane Rings') %}
+{% set siteName = 'Arcane Rings' %}
 {% set nav = [] %}
 {% set hideBugReportLink = true %}
 
 
 {% extends '/base/base.html.twig' %}
 
-{% block title %}Arcane Rings{% endblock %}
+{% block title %}{{ pageTitle }}{% endblock %}
 
 {% block body %}
 <div class="puzzle-container">
-    <h1>Arcane Rings</h1>
-    <div is="arcane-rings" class="arcane-puzzle arcane-rings" id="puzzle"></div>
-
+    <div is="arcane-rings" class="arcane-puzzle arcane-rings" id="puzzle"{% if config is defined %} data-config="{{ config|json_encode|e('html_attr') }}"{% endif %}></div>
     <div class="puzzle-controls">
         <button onclick="document.getElementById('puzzle').reset()">Reset</button>
         <button onclick="document.getElementById('puzzle').giveHint()">Hint</button>

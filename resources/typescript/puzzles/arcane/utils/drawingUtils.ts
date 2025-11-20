@@ -74,7 +74,7 @@ export function drawIronCorner(p: p5, x: number, y: number, dirX: number, dirY: 
 /**
  * Draw a golden glow overlay for solved state
  */
-export function drawSolvedOverlay(p: p5, w: number, h: number): void {
+export function drawSolvedOverlay(p: p5, w: number, h: number, successMessage?: string): void {
     // Golden glow for solved
     p.noStroke();
     p.fill(255, 200, 80, 25);
@@ -86,6 +86,50 @@ export function drawSolvedOverlay(p: p5, w: number, h: number): void {
     p.strokeWeight(3);
     p.noFill();
     p.rect(2, 2, w - 4, h - 4, 4);
+
+    // Display success message if provided
+    if (successMessage) {
+        p.push();
+
+        // Semi-transparent background for text
+        p.noStroke();
+        p.fill(0, 0, 0, 180);
+        const textHeight = 60;
+        const y = h / 2 - textHeight / 2;
+        p.rect(10, y, w - 20, textHeight, 4);
+
+        // Success message text
+        p.fill(255, 220, 100);
+        p.textSize(14);
+        p.textAlign(p.CENTER, p.CENTER);
+        p.textStyle(p.NORMAL);
+
+        // Word wrap the text
+        const maxWidth = w - 40;
+        const words = successMessage.split(' ');
+        let lines: string[] = [];
+        let currentLine = '';
+
+        for (const word of words) {
+            const testLine = currentLine ? `${currentLine} ${word}` : word;
+            if (p.textWidth(testLine) > maxWidth) {
+                if (currentLine) lines.push(currentLine);
+                currentLine = word;
+            } else {
+                currentLine = testLine;
+            }
+        }
+        if (currentLine) lines.push(currentLine);
+
+        // Draw lines
+        const lineHeight = 18;
+        const startY = h / 2 - ((lines.length - 1) * lineHeight) / 2;
+        for (let i = 0; i < lines.length; i++) {
+            p.text(lines[i], w / 2, startY + i * lineHeight);
+        }
+
+        p.pop();
+    }
 }
 
 /**

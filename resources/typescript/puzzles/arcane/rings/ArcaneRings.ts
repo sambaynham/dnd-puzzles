@@ -220,7 +220,7 @@ export default class ArcaneRings extends P5Component {
         drawInstructions(p, 'Click rings to rotate. Align all sigils to the golden marker.', w, h);
 
         if (this.solved) {
-            drawSolvedOverlay(p, w, h);
+            drawSolvedOverlay(p, w, h, this.config.success_message);
         }
 
         p.pop();

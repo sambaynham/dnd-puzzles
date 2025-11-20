@@ -1,0 +1,28 @@
+{
+    "title": "Arcane Rings",
+    "slug": "arcane_rings",
+    "description": "A mystical puzzle where players must rotate and align arcane rings to unlock ancient magical seals. Each ring contains arcane symbols that must be properly aligned to complete the puzzle.",
+    "categories": [
+        "logic",
+        "arcane"
+    ],
+    "type": "arcane",
+    "created": "2025-11-20",
+    "static": true,
+    "creator": "sam.baynham@gmail.com",
+    "credits": [
+        {
+            "name": "Sam Baynham",
+            "email": "sam.baynham@gmail.com",
+            "created": "Code, Styling"
+        }
+    ],
+    "configOptions": [
+        {
+            "configName": "success_message",
+            "label": "Success Message",
+            "type": "text",
+            "helpText": "An optional message to display when the player solves the puzzle."
+        }
+    ]
+}

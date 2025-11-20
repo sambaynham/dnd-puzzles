@@ -5,13 +5,31 @@ import p5 from 'p5';
  * Manages p5 instance lifecycle and provides hooks for setup/draw.
  * Compatible with p5.js 2.0
  */
+export interface PuzzleConfig {
+    success_message?: string;
+    [key: string]: unknown;
+}
+
 export abstract class P5Component extends HTMLDivElement {
     protected p5Instance: p5 | null = null;
     protected canvasWidth: number = 0;
     protected canvasHeight: number = 0;
+    protected config: PuzzleConfig = {};
 
     connectedCallback(): void {
+        this.loadConfig();
         this.initP5();
+    }
+
+    protected loadConfig(): void {
+        const configAttr = this.getAttribute('data-config');
+        if (configAttr) {
+            try {
+                this.config = JSON.parse(configAttr);
+            } catch (e) {
+                console.error('Failed to parse puzzle config:', e);
+            }
+        }
     }
 
     disconnectedCallback(): void {

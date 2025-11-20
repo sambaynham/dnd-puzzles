@@ -11,8 +11,13 @@ use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
+use App\Services\Puzzle\Domain\PuzzleInstance;
+use App\Services\Puzzle\Infrastructure\CodeGenerator;
+use App\Services\Puzzle\Infrastructure\PuzzleInstanceRepository;
+use App\Security\GameMemberVoter;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,6 +37,8 @@ final class PuzzleController extends AbstractBaseController
     public function __construct(
         private readonly PuzzleServiceInterface $puzzleService,
         private readonly SerializerInterface $serializer,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly PuzzleInstanceRepository $puzzleInstanceRepository,
         QuotationService $quotationService,
     ) {
         parent::__construct($quotationService);
@@ -166,15 +173,29 @@ final class PuzzleController extends AbstractBaseController
         }
 
         $form = $this->generateTemplateForm($template);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $puzzleInstance = new PuzzleInstance();
+            $puzzleInstance->setTemplateSlug($templateSlug);
+            $puzzleInstance->setName($options->puzzleName);
+            $puzzleInstance->setGame($game);
+            $puzzleInstance->setInstanceCode(CodeGenerator::generateRandomCode());
+            $puzzleInstance->setConfig($form->getData());
+
+            $this->entityManager->persist($puzzleInstance);
+            $this->entityManager->flush();
+
+            $session->remove(self::ADD_TO_GAME_SESSION_KEY);
+
+            $this->addFlash('success', sprintf('Puzzle "%s" has been added to your game!', $options->puzzleName));
+            return $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);
+        }
 
         $pageVars = [
             'pageTitle' => sprintf("Configure %s puzzle", $template->getTitle()),
             'form' => $form
         ];
         return $this->render('/visitor/puzzles/templates/addToGame/configure.html.twig', $this->populatePageVars($pageVars, $request));
-
-
-
     }
 
     #[Route('/puzzles/categories/{categorySlug}', name: 'app.puzzles.categorySlug.show')]
@@ -217,7 +238,8 @@ final class PuzzleController extends AbstractBaseController
                         TextareaType::class,
                         [
                             'label' => $configurationOption->getLabel(),
-                            'help' => $configurationOption->getHelpText()
+                            'help' => $configurationOption->getHelpText(),
+                            'required' => false
                         ]
                     );
                     break;
@@ -242,5 +264,54 @@ final class PuzzleController extends AbstractBaseController
 //        dd($template->getConfiguration());
         $builder->add('submit', SubmitType::class);
         return $builder->getForm();
+    }
+
+    #[Route('/puzzle/{instanceCode}', name: 'app.puzzle.play')]
+    public function play(string $instanceCode, Request $request): Response
+    {
+        $puzzleInstance = $this->puzzleInstanceRepository->findByInstanceCode($instanceCode);
+
+        if (!$puzzleInstance) {
+            throw $this->createNotFoundException('Puzzle instance not found');
+        }
+
+        $game = $puzzleInstance->getGame();
+
+        // Check if user has access to this game
+        $this->denyAccessUnlessGranted(GameMemberVoter::PLAY_GAME_ACTION, $game);
+
+        $template = $this->puzzleService->getTemplateBySlug($puzzleInstance->getTemplateSlug());
+
+        if (!$template) {
+            throw $this->createNotFoundException('Puzzle template not found');
+        }
+
+        // Map templateSlug to template path (e.g., arcane_rings -> arcane/rings)
+        $templateSlug = $puzzleInstance->getTemplateSlug();
+        $templatePath = $this->mapSlugToTemplatePath($templateSlug);
+
+        $pageVars = [
+            'pageTitle' => $puzzleInstance->getName(),
+            'puzzleInstance' => $puzzleInstance,
+            'config' => $puzzleInstance->getConfig(),
+            'template' => $template,
+        ];
+
+        return $this->render($templatePath, $this->populatePageVars($pageVars, $request));
+    }
+
+    private function mapSlugToTemplatePath(string $templateSlug): string
+    {
+        // Transform arcane_rings to visitor/puzzles/arcane/rings.html.twig
+        $underscorePos = strpos($templateSlug, '_');
+        if ($underscorePos === false) {
+            // Fallback for slugs without underscore
+            return sprintf('/visitor/puzzles/%s.html.twig', $templateSlug);
+        }
+
+        $type = substr($templateSlug, 0, $underscorePos);
+        $name = substr($templateSlug, $underscorePos + 1);
+
+        return sprintf('/visitor/puzzles/%s/%s.html.twig', $type, $name);
     }
 }

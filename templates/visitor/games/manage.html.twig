@@ -6,7 +6,25 @@
                 <h2>Puzzles</h2>
                 {% if game.getPuzzleInstances is not empty %}
                     {% for puzzleInstance in game.getPuzzleInstances %}
+                        <div class="puzzle-instance-card">
+                            <h3>{{ puzzleInstance.name }}</h3>
+                            {{puzzleInstance.templateSlug}}
+                            {% set puzzleImage = '' %}
+                            {% if puzzleInstance.templateSlug == 'arcane_potions' %}
+                                {% set puzzleImage = '/dist/images/arcane/potions.png' %}
+                            {% elseif puzzleInstance.templateSlug == 'arcane_rings' %}
+                                {% set puzzleImage = '/dist/images/arcane/rings.png' %}
+                            {% elseif puzzleInstance.templateSlug == 'arcane_switches' %}
+                                {% set puzzleImage = '/dist/images/arcane/switches.png' %}
+                            {% endif %}
 
+                            {% if puzzleImage is not empty %}
+                            <img src="{{ puzzleImage }}" alt="{{puzzleInstance.templateSlug}}">
+                            {% endif %}
+                            <nav class="secondary">
+                                <a href="{{ path('app.puzzle.play', {'instanceCode': puzzleInstance.instanceCode}) }}" class="btn btn-primary">Play</a>
+                            </nav>
+                        </div>
                     {% endfor %}
                 {% else %}
                     <div class="accordion-empty-message">

@@ -1,14 +1,15 @@
-{% set pageTitle = 'Runic Switches' %}
+{% set pageTitle = pageTitle|default('Runic Switches') %}
 {% set siteName = 'Runic Switches' %}
 {% set nav = [] %}
 {% set hideBugReportLink = true %}
 {% extends 'base/base.html.twig' %}
 
-{% block title %}Runic Switches{% endblock %}
+{% block title %}{{ pageTitle }}{% endblock %}
 
 {% block body %}
 <div class="puzzle-container">
-    <div is="runic-switches" class="arcane-puzzle runic-switches" id="puzzle"></div>
+    <h1>{{ pageTitle }}</h1>
+    <div is="runic-switches" class="arcane-puzzle runic-switches" id="puzzle"{% if config is defined %} data-config="{{ config|json_encode|e('html_attr') }}"{% endif %}></div>
 
     <div class="puzzle-controls">
         <button onclick="document.getElementById('puzzle').reset()">Reset</button>
