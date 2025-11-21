@@ -37,13 +37,13 @@
             "configName": "switches",
             "label": "Switches",
             "type": "stringArray",
-            "helpText": "An array of switch names which will be used to generate switches on the screen."
+            "helpText": "An list of switch names which will be used to generate switches on the screen. These should be separated by commas, and each should be unique."
         },
         {
             "configName": "solution",
             "label": "Solution",
             "type": "stringArray",
-            "helpText": "An array of the switch names above containing only valid selections."
+            "helpText": "An list of the switch names above containing only valid selections. These should be separated by commas, and each should be unique."
         }
     ]
 }

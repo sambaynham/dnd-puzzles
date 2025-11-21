@@ -21,6 +21,26 @@ $mobileNavButtonHeight: 8vh;
     }
 }
 body {
+    .shade {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: black;
+        opacity: 0;
+        transition: opacity 150ms ease-in-out;
+        z-index: 9998;
+        pointer-events: none;
+    }
+
+    &.nav-open {
+        .shade {
+            opacity: 0.8;
+            pointer-events: all;
+        }
+    }
     header {
         position: fixed;
         height: $mobileHeaderHeight;
@@ -30,6 +50,7 @@ body {
         left: 0;
         right: 0;
         z-index: 999999;
+
 
         a.brand {
             display: block;

@@ -37,7 +37,7 @@
             "configName": "buttons",
             "label": "Buttons",
             "type": "stringArray",
-            "helpText": "An array of button names which will be used to generate buttons on the screen."
+            "helpText": "An list of button names which will be used to generate buttons on the screen."
         },
         {
             "configName": "solution",

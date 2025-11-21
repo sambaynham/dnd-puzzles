@@ -13,6 +13,7 @@ use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -232,6 +233,14 @@ final class PuzzleController extends AbstractBaseController
                     );
                     break;
                 case 'stringArray':
+                    $builder->add(
+                        $configurationOption->getConfigName(),
+                        TextType::class,
+                        [
+                            'label' => $configurationOption->getLabel(),
+                            'help' => $configurationOption->getHelpText(),
+                        ]
+                    );
                     break;
                 default:
 

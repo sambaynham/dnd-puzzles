@@ -7,25 +7,33 @@
         {{ form_label(form) }}
         {{ form_help(form) }}
         <table class="table">
-            <thead>
+            <tbody>
                 <tr>
                     <th>Number of Die</th>
-                    <th>Die Sides</th>
-                    <th>Plus</th>
                 </tr>
-            </thead>
-            <tbody>
                 <tr>
                     <td>
                         {{ form_widget(form.x) }}
                         {{ form_help(form.x) }}
                         {{ form_errors(form.x) }}
                     </td>
+                </tr>
+                <tr>
+                    <th>Die Sides</th>
+                </tr>
+                <tr>
+
                     <td>
                         {{ form_widget(form.d) }}
                         {{ form_help(form.d) }}
                         {{ form_errors(form.d) }}
                     </td>
+                </tr>
+                <tr>
+                    <th>Plus</th>
+                </tr>
+                <tr>
+
                     <td>
                         {{ form_widget(form.p) }}
                         {{ form_help(form.p) }}

@@ -6,6 +6,7 @@ export default class NavToggle extends HTMLButtonElement {
 
     private otherNavToggles: NodeListOf<HTMLButtonElement>;
 
+    private body: HTMLBodyElement;
 
     constructor() {
         super();
@@ -14,6 +15,11 @@ export default class NavToggle extends HTMLButtonElement {
         if (targetNav === null) {
             throw new Error('Target nav not found');
         }
+        let body = document.querySelector('body');
+        if (body === null) {
+            throw new Error("No body element found");
+        }
+        this.body = body;
         this.targetNav = targetNav;
         this.otherNavToggles = document.querySelectorAll('button.nav-toggle');
 
@@ -30,6 +36,18 @@ export default class NavToggle extends HTMLButtonElement {
                     toggle.dataset.open = 'false';
                 }
             });
+            let navOpen = false;
+            this.otherNavToggles.forEach((toggle: HTMLButtonElement) => {
+                if (toggle.dataset.open === 'true') {
+                    navOpen = true;
+                }
+            });
+            if (navOpen) {
+                this.body.classList.add('nav-open');
+            } else {
+                this.body.classList.remove('nav-open');
+            }
+
         });
     }
 
