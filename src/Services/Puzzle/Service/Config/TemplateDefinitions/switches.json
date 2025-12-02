@@ -8,6 +8,7 @@
     "type": "test",
     "created": "2025-09-17",
     "static": false,
+    "staticConfigurationRoute": null,
     "creator": "sam.baynham@gmail.com",
     "credits": [
         {

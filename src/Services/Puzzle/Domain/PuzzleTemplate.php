@@ -2,6 +2,8 @@
 
 namespace App\Services\Puzzle\Domain;
 
+use App\Services\Puzzle\Domain\Exceptions\NonStaticConfigurationAttemptException;
+use App\Services\Puzzle\Domain\Exceptions\RoutelessStaticConfigurationAttemptException;
 use Doctrine\Common\Collections\ArrayCollection;
 
 readonly class PuzzleTemplate
@@ -25,6 +27,7 @@ readonly class PuzzleTemplate
         private bool $static,
         private array $credits = [],
         private array  $configuration = [],
+        private ? string $staticConfigurationRoute = null
     ) {
     }
 
@@ -80,5 +83,14 @@ readonly class PuzzleTemplate
 
     public function isStatic(): bool {
         return $this->static;
+    }
+
+    public function getStaticConfigurationRoute(): ? string {
+        if (!$this->isStatic()) {
+            throw new NonStaticConfigurationAttemptException("This template is dynamic, and must be configured using the standard configuration route");
+        } elseif ($this->staticConfigurationRoute === null) {
+            throw new RoutelessStaticConfigurationAttemptException("This template is static, but a static configuration route has not been provided.");
+        }
+        return $this->staticConfigurationRoute;
     }
 }

@@ -129,7 +129,9 @@ final class PuzzleController extends AbstractBaseController
                 $session = $request->getSession();
                 $session->set(self::ADD_TO_GAME_SESSION_KEY, $serializedDto);
                 $this->addFlash('success', 'Puzzle added! Now to configure it.');
-                return $this->redirectToRoute(
+
+                return $template->isStatic() ? $this->redirectToRoute($template->getStaticConfigurationRoute()) :
+                    $this->redirectToRoute(
                     'app.puzzles.template.configure',
                     [
                         'templateSlug' => $templateSlug,
@@ -248,7 +250,6 @@ final class PuzzleController extends AbstractBaseController
             }
 
         }
-//        dd($template->getConfiguration());
         $builder->add('submit', SubmitType::class);
         return $builder->getForm();
     }

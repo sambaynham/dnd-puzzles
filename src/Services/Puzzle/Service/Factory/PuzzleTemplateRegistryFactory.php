@@ -18,6 +18,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
@@ -41,6 +43,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
         'categories' => 'array',
         'type' => 'string',
         'static' => 'boolean',
+        'staticConfigurationRoute' => 'route',
         'creator' => 'email',
         'credits' => 'array',
         'configOptions' => 'configOptions'
@@ -54,13 +57,15 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
     private const array KNOWN_CONFIG_OPTION_TYPES = [
         'text',
         'stringArray',
-        'dieRoll'
+        'dieRoll',
+        'route'
     ];
 
     public function __construct(
         private readonly CacheInterface $cache,
         private readonly PuzzleCategoryRepository $puzzleCategoryRepository,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private RouterInterface $router
     ) {
     }
     /**
@@ -86,7 +91,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
             if ($finder->hasResults()) {
                 foreach ($finder as $file) {
                     $result = json_decode($file->getContents(), true );
-                    self::validateDefinition($result);
+                    $this->validateDefinition($result);
                     $template = new PuzzleTemplate(
                         slug: $result['slug'],
                         title: $result['title'],
@@ -138,7 +143,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
     /**
      * @throws PuzzleTemplateRegistryBuildException
      */
-    private static function validateDefinition(array $puzzleTemplateDefinitionArray): void {
+    private function validateDefinition(array $puzzleTemplateDefinitionArray): void {
         foreach ($puzzleTemplateDefinitionArray as $key => $definition) {
             if (!in_array($key, array_keys(self::TEMPLATE_FIELDS))) {
                 throw new PuzzleTemplateRegistryBuildException(sprintf("Unknown field '%s' specified", $key));
@@ -151,6 +156,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                             throw new PuzzleTemplateRegistryBuildException(sprintf("%s must be a string", $fieldName));
                         }
                         break;
+
                     case 'slug':
                         if (!preg_match(self::SLUG_REGEX, $value)) {
                             throw new PuzzleTemplateRegistryBuildException("Slugs may only contain lowercase letters, numbers and underscores.");
@@ -181,12 +187,30 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                     case 'configOptions':
                         self::validateConfigOptions($value);
                         break;
+
+                    case 'route':
+                        if ($value === null) {
+                            if ($puzzleTemplateDefinitionArray['static'] === true) {
+                                throw new PuzzleTemplateRegistryBuildException(sprintf("The template %s is static, but no static configuration route has been provided", $puzzleTemplateDefinitionArray['title']));
+                            } else {
+                                break;
+                            }
+                        }
+                        try {
+                            $this->router->generate($value);
+                        } catch (RouteNotFoundException $e) {
+                            throw new PuzzleTemplateRegistryBuildException(sprintf("The specified static configuration route, %s, could not be found", $value));
+                        }
+
+                        break;
                     default:
                         throw new PuzzleTemplateRegistryBuildException(sprintf("Unknown field type %s specified", $fieldType));
                 }
             }
         }
     }
+
+
 
     /**
      * @param array $configOptionDefinitions
@@ -204,6 +228,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                 if (!in_array($configOptionDefinition['type'], self::KNOWN_CONFIG_OPTION_TYPES)) {
                     throw new InvalidConfigOptionDefinitionException(sprintf("Invalid Config option. The type '%s' is not known", $configOptionDefinition['type']));
                 }
+
                 switch ($type) {
                     case 'configName':
                         if (!preg_match(self::SLUG_REGEX, $configOptionDefinition['configName'])) {

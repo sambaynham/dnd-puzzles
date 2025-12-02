@@ -254,6 +254,9 @@ main {
     $desktopHeaderHeight: 2.5vw;
 
     body {
+        .shade {
+            display: none;
+        }
         main {
             margin-top: 0;
         }
