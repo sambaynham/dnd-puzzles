@@ -9,6 +9,8 @@ use App\Form\Type\DieRollType;
 use App\Form\Visitor\Game\AddPuzzle\ChooseGameType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
+use App\Services\Puzzle\Domain\Exceptions\NonStaticConfigurationAttemptException;
+use App\Services\Puzzle\Domain\Exceptions\RoutelessStaticConfigurationAttemptException;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
@@ -24,6 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 final class PuzzleController extends AbstractBaseController
@@ -108,6 +111,12 @@ final class PuzzleController extends AbstractBaseController
         ];
         return $this->render('/visitor/puzzles/templates/template.html.twig', $this->populatePageVars($pageVars, $request));
     }
+
+    /**
+     * @throws ExceptionInterface
+     * @throws RoutelessStaticConfigurationAttemptException
+     * @throws NonStaticConfigurationAttemptException
+     */
     #[Route('/puzzles/templates/{templateSlug}/add-to-game', name: 'app.puzzles.template.add')]
     public function addToGame(string $templateSlug, Request $request): Response {
         $template = $this->puzzleService->getTemplateBySlug($templateSlug);
@@ -144,7 +153,7 @@ final class PuzzleController extends AbstractBaseController
             ];
 
         } else {
-            throw new ServerException("User is of incorrect type");
+            throw new \Exception("User is of incorrect type");
         }
 
         return $this->render('/visitor/puzzles/templates/addToGame/step1.html.twig', $this->populatePageVars($pageVars, $request));
