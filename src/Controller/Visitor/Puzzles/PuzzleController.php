@@ -1,45 +1,35 @@
 <?php
 
-namespace App\Controller\Visitor;
+declare(strict_types=1);
 
-use App\Controller\AbstractBaseController;
-use App\Dto\Visitor\Game\AddPuzzle\ChooseGameDto;
+namespace App\Controller\Visitor\Puzzles;
+
 use App\Dto\Visitor\Game\AddPuzzle\AddPuzzleStepOneDto;
+use App\Dto\Visitor\Game\AddPuzzle\ChooseGameDto;
 use App\Form\Type\DieRollType;
-use App\Form\Visitor\Game\AddPuzzle\ChooseGameType;
+use App\Form\Visitor\Puzzle\AddPuzzle\ChooseGameType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Exceptions\NonStaticConfigurationAttemptException;
 use App\Services\Puzzle\Domain\Exceptions\RoutelessStaticConfigurationAttemptException;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
-use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
-use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpClient\Exception\ServerException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 
-final class PuzzleController extends AbstractBaseController
+final class PuzzleController extends AbstractPuzzleController
 {
-    private const string ADD_TO_GAME_SESSION_KEY = 'add-to-game';
+    public const string ADD_TO_GAME_SESSION_KEY = 'add-to-game';
 
-    public function __construct(
-        private readonly PuzzleServiceInterface $puzzleService,
-        private readonly SerializerInterface $serializer,
-        QuotationService $quotationService,
-    ) {
-        parent::__construct($quotationService);
-    }
+
 
     #[Route('/puzzles', name: 'app.puzzles.index')]
     public function index(Request $request): Response
@@ -139,7 +129,7 @@ final class PuzzleController extends AbstractBaseController
                 $session->set(self::ADD_TO_GAME_SESSION_KEY, $serializedDto);
                 $this->addFlash('success', 'Puzzle added! Now to configure it.');
 
-                return $template->isStatic() ? $this->redirectToRoute($template->getStaticConfigurationRoute()) :
+                return $template->isStatic() ? $this->redirectToRoute($template->getStaticConfigurationRoute(), ['gameSlug' => $dto->game->getSlug()]) :
                     $this->redirectToRoute(
                     'app.puzzles.template.configure',
                     [

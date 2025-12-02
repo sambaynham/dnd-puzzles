@@ -23,7 +23,7 @@ readonly class GameSlugResolver implements ValueResolverInterface
             return [];
         }
 
-        $slug = $request->attributes->get('slug');
+        $slug = $request->attributes->get('gameSlug');
 
         if (!is_string($slug)) {
             return [];

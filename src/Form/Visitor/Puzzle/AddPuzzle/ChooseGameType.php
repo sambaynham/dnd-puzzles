@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Form\Visitor\Game\AddPuzzle;
+namespace App\Form\Visitor\Puzzle\AddPuzzle;
 
 use App\Dto\Visitor\Game\AddPuzzle\ChooseGameDto;
-use App\Dto\Visitor\User\RegisterUserDto;
 use App\Services\Game\Domain\Game;
 use App\Services\User\Domain\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

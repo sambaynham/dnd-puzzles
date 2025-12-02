@@ -22,4 +22,6 @@ interface PuzzleServiceInterface
     public function getTemplatesByCategory(PuzzleCategory $category): ArrayCollection;
 
     public function getCategoryBySlug(string $categorySlug): ? PuzzleCategory;
+
+    public function generatePuzzleSlug(string $puzzleName, string $puzzleClass): string;
 }

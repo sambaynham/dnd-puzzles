@@ -26,4 +26,17 @@ class CasebookRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function decollideSlug(string $candidateSlug, int $attempts = 0): string {
+        if (null === $this->findBySlug($candidateSlug)) {
+            return $candidateSlug;
+        }
+        $attempts++;
+        $newCandidateSlug = sprintf("%s_%d", $candidateSlug, $attempts);
+        if (null === $this->findBySlug($newCandidateSlug)) {
+            return $candidateSlug;
+        } else {
+            return $this->decollideSlug($candidateSlug, $attempts);
+        }
+    }
 }

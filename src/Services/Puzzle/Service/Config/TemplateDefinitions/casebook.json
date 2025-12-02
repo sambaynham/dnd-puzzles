@@ -10,7 +10,7 @@
     "type": "misc",
     "created": "2025-09-17",
     "static": true,
-    "staticConfigurationRoute": "app.puzzles.static.casebook.configure",
+    "staticConfigurationRoute": "app.puzzles.static.casebook.create",
     "creator": "sam.baynham@gmail.com",
     "credits": [
         {

@@ -101,7 +101,8 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                         authorEmail: $result['creator'],
                         static: $result['static'],
                         credits: self::mapCredits($result['credits']),
-                        configuration: self::mapConfigOptions($result['configOptions'])
+                        configuration: self::mapConfigOptions($result['configOptions']),
+                        staticConfigurationRoute: $result['staticConfigurationRoute']
                     );
 
                     $registryContent[$template->getSlug()] = $template;
@@ -197,7 +198,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                             }
                         }
                         try {
-                            $this->router->generate($value);
+                            $this->router->generate($value, ['gameSlug' => 'test']);
                         } catch (RouteNotFoundException $e) {
                             throw new PuzzleTemplateRegistryBuildException(sprintf("The specified static configuration route, %s, could not be found", $value));
                         }
