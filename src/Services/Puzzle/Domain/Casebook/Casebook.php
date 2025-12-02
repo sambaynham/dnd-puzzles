@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Puzzle\Domain\Casebook;
 
 use App\Entity\AbstractDomainEntity;
+use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,6 +28,9 @@ class Casebook extends AbstractDomainEntity
 
         #[ORM\Column(length: 255, unique: true)]
         private string $slug,
+
+        #[ORM\ManyToOne(targetEntity: Game::class)]
+        private Game $game,
 
         #[ORM\Column(length: 2048)]
         private string $brief,
@@ -94,5 +98,9 @@ class Casebook extends AbstractDomainEntity
         }
 
         return $this;
+    }
+
+    public function getGame(): Game {
+        return $this->game;
     }
 }

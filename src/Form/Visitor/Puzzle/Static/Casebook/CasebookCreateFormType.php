@@ -2,6 +2,7 @@
 
 namespace App\Form\Visitor\Puzzle\Static\Casebook;
 
+use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookCreateDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -30,7 +31,7 @@ class CasebookCreateFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => CasebookCreateDto::class,
         ]);
     }
 }

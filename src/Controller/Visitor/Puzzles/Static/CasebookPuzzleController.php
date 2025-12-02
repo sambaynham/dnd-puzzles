@@ -21,7 +21,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
 {
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('/puzzles/templates/static/casebook/add-to-game/{gameSlug}/create', name: 'app.puzzles.static.casebook.create')]
-    public function configurePuzzle(
+    public function createPuzzle(
         Game $game,
         Request $request
     ): Response {
@@ -30,6 +30,18 @@ class CasebookPuzzleController extends AbstractPuzzleController
         $options = $this->serializer->deserialize($sessionValues, AddPuzzleStepOneDto::class, 'json');
         $dto = new CasebookCreateDto($options->puzzleName);
         $form = $this->createForm(CasebookCreateFormType::class, $dto);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $casebook = new Casebook(
+                name: $dto->puzzleName,
+                slug: $this->puzzleService->generatePuzzleSlug($options->puzzleName, Casebook::class),
+                game: $game,
+                brief: $dto->brief
+            );
+            $this->entityManager->persist($casebook);
+            $this->entityManager->flush();
+            $this->addFlash(type: 'success', message: "Casebook created");
+        }
         $pageVars = [
             'pageTitle' => sprintf("Set up Casebook puzzle '%s'", $options->puzzleName),
             'form' => $form
