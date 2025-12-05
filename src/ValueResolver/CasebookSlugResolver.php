@@ -6,31 +6,33 @@ namespace App\ValueResolver;
 
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
+use App\Services\Puzzle\Domain\Casebook\Casebook;
+use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-readonly class GameSlugResolver implements ValueResolverInterface
+readonly class CasebookSlugResolver implements ValueResolverInterface
 {
-    public function __construct(private GameServiceInterface $gameService)
+    public function __construct(private CasebookRepository $casebookRepository)
     {
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $argumentType = $argument->getType();
-        if ($argumentType !== Game::class) {
+        if ($argumentType !== Casebook::class) {
             return [];
         }
 
-        $slug = $request->attributes->get('gameSlug');
+        $slug = $request->attributes->get('casebookSlug');
 
         if (!is_string($slug)) {
             return [];
         }
 
-        $game = $this->gameService->findOneBySlug($slug);
+        $casebook = $this->casebookRepository->findBySlug($slug);
 
-        return $game ? [$game] : [];
+        return $casebook ? [$casebook] : [];
     }
 }

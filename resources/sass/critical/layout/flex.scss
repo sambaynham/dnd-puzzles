@@ -58,10 +58,14 @@ main {
         .col {
             padding: math.div(variables.$base-spacing, 2);
             overflow-x: hidden;
+        }
 
-
+        &.no-margin {
+            margin-bottom: 0;
         }
     }
+
+
 }
 
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {

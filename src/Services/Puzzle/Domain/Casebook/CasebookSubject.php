@@ -28,9 +28,25 @@ class CasebookSubject extends AbstractDomainEntity
         #[ORM\OneToMany(targetEntity: CasebookSubjectClue::class, mappedBy: 'casebookSubject', orphanRemoval: true)]
         private Collection $casebookSubjectClues,
 
+        /**
+         * @var Collection<int, CasebookSubjectClue>
+         */
+        #[ORM\OneToMany(targetEntity: CasebookSubjectNote::class, mappedBy: 'casebookSubject', orphanRemoval: true)]
+        private Collection $casebookSubjectNotes,
+
         ?int $id = null
     ) {
         parent::__construct($id);
+    }
+
+    public function getCasebookSubjectNotes(): Collection
+    {
+        return $this->casebookSubjectNotes;
+    }
+
+    public function setCasebookSubjectNotes(Collection $casebookSubjectNotes): void
+    {
+        $this->casebookSubjectNotes = $casebookSubjectNotes;
     }
 
     public function getDescription(): string

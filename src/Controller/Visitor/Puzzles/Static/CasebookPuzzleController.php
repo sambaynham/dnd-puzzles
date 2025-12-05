@@ -8,6 +8,8 @@ use App\Controller\Visitor\Puzzles\AbstractPuzzleController;
 use App\Controller\Visitor\Puzzles\PuzzleController;
 use App\Dto\Visitor\Game\AddPuzzle\AddPuzzleStepOneDto;
 use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookCreateDto;
+use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectDto;
+use App\Form\Visitor\Puzzle\Static\Casebook\CasebookAddSubjectType;
 use App\Form\Visitor\Puzzle\Static\Casebook\CasebookCreateFormType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
@@ -41,11 +43,44 @@ class CasebookPuzzleController extends AbstractPuzzleController
             $this->entityManager->persist($casebook);
             $this->entityManager->flush();
             $this->addFlash(type: 'success', message: "Casebook created");
+            return $this->redirectToRoute('app.puzzles.static.casebook.manage', ['gameSlug' => $game->getSlug(), 'casebookSlug' => $casebook->getSlug()]);
         }
         $pageVars = [
             'pageTitle' => sprintf("Set up Casebook puzzle '%s'", $options->puzzleName),
             'form' => $form
         ];
         return $this->render('/visitor/puzzles/templates/casebook/create.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('games/{gameSlug}/puzzles/static/casebook/{casebookSlug}/manage', name: 'app.puzzles.static.casebook.manage')]
+    public function manageCasebook(
+        Game $game,
+        Casebook $casebook,
+        Request $request
+    ): Response {
+
+        $pageVars = [
+            'pageTitle' => sprintf("Manage Casebook puzzle '%s'", $casebook->getName()),
+            'casebook' => $casebook
+        ];
+        return $this->render('/visitor/puzzles/templates/casebook/manage.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('games/{gameSlug}/puzzles/static/casebook/{casebookSlug}/manage/subjects/add', name: 'app.puzzles.static.casebook.subjects.add')]
+    public function addSubject(
+        Game $game,
+        Casebook $casebook,
+        Request $request
+    ): Response {
+
+        $dto = new CasebookSubjectDto(casebook: $casebook);
+
+        $form = $this->createForm(CasebookAddSubjectType::class, $dto);
+        $pageVars = [
+            'pageTitle' => sprintf("Add a subject to  '%s'", $casebook->getName()),
+            'form' => $form
+        ];
+        return $this->render('/visitor/puzzles/templates/casebook/subjects/add.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

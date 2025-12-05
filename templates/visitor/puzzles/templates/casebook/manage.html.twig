@@ -1,0 +1,18 @@
+{% extends 'base/base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h2>Subjects</h2>
+            {% if casebook.getCasebookSubjects is not empty %}
+            {% else %}
+                <em>Your casebook doesn't have any subjects!</em>
+            {% endif %}
+            <a class="btn btn-cta" href="{{ path('app.puzzles.static.casebook.subjects.add', {
+                'casebookSlug': casebook.getSlug,
+                'gameSlug': casebook.getGame.getSLug
+            }) }}">
+                Add a new Subject
+            </a>
+        </div>
+    </div>
+{% endblock %}

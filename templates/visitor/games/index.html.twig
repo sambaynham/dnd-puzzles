@@ -7,7 +7,7 @@
                 {% if gamesMastered is not empty %}
                     <nav class="secondary">
                     {% for gameMastered in gamesMastered %}
-                         <a href="{{ path('app.games.manage', {'slug': gameMastered.getSlug}) }}" class="">
+                         <a href="{{ path('app.games.manage', {'gameSlug': gameMastered.getSlug}) }}" class="">
                                 {{ gameMastered.getName }}
                          </a>
                     {% endfor %}

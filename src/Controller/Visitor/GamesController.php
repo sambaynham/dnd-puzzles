@@ -112,7 +112,7 @@ final class GamesController extends AbstractBaseController
 
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('games/{slug}/manage', name: 'app.games.manage')]
+    #[Route('games/{gameSlug}/manage', name: 'app.games.manage')]
     public function manage(
         Game $game,
         Request $request
