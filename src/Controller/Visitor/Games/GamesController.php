@@ -11,6 +11,7 @@ use App\Form\Visitor\Game\DeleteGameType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
+use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +28,8 @@ final class GamesController extends AbstractBaseController
         private readonly ValidatorInterface $validator,
         private readonly GameServiceInterface $gameService,
         QuotationService $quotationService
-    ) {
+    )
+    {
         parent::__construct($quotationService);
     }
 
@@ -116,7 +118,8 @@ final class GamesController extends AbstractBaseController
     public function manage(
         Game $game,
         Request $request
-    ) {
+    )
+    {
         $title = sprintf('Manage %s', $game->getName());
         $invitations = $this->gameService->getOutstandingInvitationsForGame($game);
         $pageVars = [
@@ -144,7 +147,8 @@ final class GamesController extends AbstractBaseController
     public function delete(
         Game $game,
         Request $request
-    ) {
+    )
+    {
         $title = sprintf('Really delete %s?', $game->getName());
         $form = $this->createForm(DeleteGameType::class);
         $form->handleRequest($request);
@@ -172,4 +176,11 @@ final class GamesController extends AbstractBaseController
         return $this->render('/visitor/games/delete.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
+
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('/puzzles/templates/{templateSlug}/add-to-game/{puzzleInstanceCode}/configure', name: 'app.games.puzzleinstance.manage')]
+    public function managePuzzleInstance(PuzzleTemplate $puzzleTemplate, string $puzzleInstanceCode, Request $request): Response
+    {
+
+    }
 }

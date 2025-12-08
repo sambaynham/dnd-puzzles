@@ -21,11 +21,11 @@ class Role extends AbstractDomainEntity
         #[ORM\Column(length: 255, unique: true)]
         private readonly string $handle,
 
-        #[ORM\ManyToMany(targetEntity: Permission::class, inversedBy: 'roles', fetch: 'EAGER', indexBy: 'handle')]
-        private Collection $permissions = new ArrayCollection(),
+        #[ORM\ManyToMany(targetEntity: Permission::class, fetch: 'EAGER', indexBy: 'handle')]
+        private readonly Collection $permissions = new ArrayCollection(),
 
         #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'roles', indexBy: 'handle')]
-        private Collection $users = new ArrayCollection(),
+        private readonly Collection $users = new ArrayCollection(),
 
         ?int $id = null
     )

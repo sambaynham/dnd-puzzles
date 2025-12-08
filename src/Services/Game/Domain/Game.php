@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
 #[UniqueEntity(fields: ['slug'], message: 'There is already a game with this slug. Please choose another one.')]
+#[ORM\Index(name: 'gm_id', columns: ['games_master_id'])]
 class Game extends AbstractDomainEntity
 {
 
@@ -26,7 +27,7 @@ class Game extends AbstractDomainEntity
     /**
      * @var Collection<int, PuzzleInstance>
      */
-    #[ORM\OneToMany(targetEntity: PuzzleInstance::class, mappedBy: 'game', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: PuzzleInstance::class, mappedBy: 'game', fetch: 'EAGER', orphanRemoval: true)]
     private Collection $dynamicPuzzleInstances;
 
     private Collection $staticPuzzleInstances;
@@ -44,7 +45,7 @@ class Game extends AbstractDomainEntity
         #[ORM\Column(length: 1024)]
         private string $description,
 
-        #[ORM\ManyToOne(inversedBy: 'gamesMastered',fetch: 'EAGER')]
+        #[ORM\ManyToOne(inversedBy: 'gamesMastered')]
         #[ORM\JoinColumn(nullable: false)]
         #[Groups(['extended'])]
         private User $gamesMaster,

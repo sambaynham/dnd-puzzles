@@ -13,7 +13,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Entity(
+    repositoryClass: UserRepository::class
+)]
+#[ORM\Index(name: 'username_idx', columns: ['username'])]
 #[UniqueEntity("email")]
 class User extends AbstractDomainEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -30,7 +33,7 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'players')]
     private Collection $games;
 
-    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users', fetch: 'EAGER', indexBy: 'handle', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users', cascade: ['persist', 'remove'], fetch: 'EAGER', indexBy: 'handle')]
     private Collection $roles;
 
     #[ORM\OneToOne(mappedBy: 'user', fetch: 'EAGER')]
@@ -46,7 +49,6 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
 
         #[ORM\Column(type: 'string', length: 255)]
         private string $password = '',
-
 
         ? int $id = null
     ) {

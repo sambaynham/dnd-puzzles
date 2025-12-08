@@ -25,13 +25,13 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
-final class PuzzleController extends AbstractPuzzleController
+final class PuzzleTemplateController extends AbstractPuzzleController
 {
     public const string ADD_TO_GAME_SESSION_KEY = 'add-to-game';
 
 
 
-    #[Route('/puzzles', name: 'app.puzzles.index')]
+    #[Route('/puzzles', name: 'app.templates.index')]
     public function index(Request $request): Response
     {
         $pageVars = [
@@ -160,7 +160,6 @@ final class PuzzleController extends AbstractPuzzleController
 
         $session = $request->getSession();
         $sessionValues = $session->get(self::ADD_TO_GAME_SESSION_KEY);
-        $options = $this->serializer->deserialize($sessionValues, AddPuzzleStepOneDto::class, 'json');
 
         $template = $this->puzzleService->getTemplateBySlug($templateSlug);
         if (null === $template) {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Visitor\Puzzles\Static;
 
 use App\Controller\Visitor\Puzzles\AbstractPuzzleController;
-use App\Controller\Visitor\Puzzles\PuzzleController;
+use App\Controller\Visitor\Puzzles\PuzzleTemplateController;
 use App\Dto\Visitor\Game\AddPuzzle\AddPuzzleStepOneDto;
 use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookCreateDto;
 use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectDto;
@@ -28,7 +28,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
         Request $request
     ): Response {
         $session = $request->getSession();
-        $sessionValues = $session->get(PuzzleController::ADD_TO_GAME_SESSION_KEY);
+        $sessionValues = $session->get(PuzzleTemplateController::ADD_TO_GAME_SESSION_KEY);
         $options = $this->serializer->deserialize($sessionValues, AddPuzzleStepOneDto::class, 'json');
         $dto = new CasebookCreateDto($options->puzzleName);
         $form = $this->createForm(CasebookCreateFormType::class, $dto);

@@ -6,6 +6,7 @@ namespace App\Services\Puzzle\Domain\Casebook;
 
 use App\Entity\AbstractDomainEntity;
 use App\Services\Game\Domain\Game;
+use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,8 +15,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CasebookRepository::class)]
 #[UniqueEntity(fields: ['slug'], message: 'There is already a casebook with this slug')]
-class Casebook extends AbstractDomainEntity
+class Casebook extends AbstractDomainEntity implements PuzzleInstanceInterface
 {
+    private const string TEMPLATE_SLUG = 'casebook';
+
     /**
      * @var Collection<int, CasebookSubject>
      */
@@ -34,6 +37,10 @@ class Casebook extends AbstractDomainEntity
 
         #[ORM\Column(length: 2048)]
         private string $brief,
+
+        #[ORM\Column(type: 'datetime', nullable: true)]
+        private ?\DateTimeInterface $publicationDate = null,
+
         ? int $id = null
     ) {
         parent::__construct($id);
@@ -102,5 +109,46 @@ class Casebook extends AbstractDomainEntity
 
     public function getGame(): Game {
         return $this->game;
+    }
+
+    public function getInstanceCode(): string
+    {
+        return $this->slug;
+    }
+
+    public function setInstanceCode(string $instanceCode): static
+    {
+        $this->slug = $instanceCode;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->brief;
+    }
+
+    public function setGame(Game $game): void
+    {
+        $this->game = $game;
+    }
+
+    public function getPublicationDate(): ?\DateTimeInterface
+    {
+        return $this->publicationDate;
+    }
+
+    public function setPublicationDate(\DateTimeInterface $publicationDate): void
+    {
+        $this->publicationDate = $publicationDate;
+    }
+
+    public function getTemplateSlug(): string
+    {
+        return self::TEMPLATE_SLUG;
+    }
+
+    public function isPublished(): bool
+    {
+        $date= new \DateTime();
+        return $this->publicationDate !== null && $this->publicationDate >= $date;
     }
 }

@@ -26,6 +26,10 @@ abstract class AbstractDomainEntity
         return $this->id;
     }
 
+    final public function setId(int $id) {
+        $this->id = $id;
+    }
+
     public function getCreatedAt(): ? \DateTimeImmutable {
         return $this->createdAt;
     }

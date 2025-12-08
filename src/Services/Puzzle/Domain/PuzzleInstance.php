@@ -2,37 +2,65 @@
 
 namespace App\Services\Puzzle\Domain;
 
+use App\Entity\AbstractDomainEntity;
 use App\Services\Game\Domain\Game;
+use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Infrastructure\PuzzleInstanceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PuzzleInstanceRepository::class)]
-class PuzzleInstance
+class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $instanceCode = null;
+    public function __construct(
+        #[ORM\Column(length: 255, unique: true)]
+        private string $instanceCode,
 
-    #[ORM\ManyToOne(inversedBy: 'puzzleInstances')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Game $game = null;
+        #[ORM\Column(length: 255)]
+        private string $name,
 
-    #[ORM\Column]
-    private array $config = [];
+        #[ORM\Column(length: 2048)]
+        private string $description,
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTime $publicationDate = null;
+        #[ORM\ManyToOne(inversedBy: 'dynamicPuzzleInstances')]
+        #[ORM\JoinColumn(nullable: false)]
+        private Game $game,
 
-    public function getId(): ?int
-    {
-        return $this->id;
+        #[ORM\Column(length:1024)]
+        private string $templateSlug,
+
+        #[ORM\Column(type: 'datetime', nullable: true)]
+        private ?\DateTimeInterface $publicationDate = null,
+
+        #[ORM\Column]
+        private array $config = [],
+
+        ?int $id = null
+    ){
+        parent::__construct($id);
     }
 
-    public function getInstanceCode(): ?string
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getInstanceCode(): string
     {
         return $this->instanceCode;
     }
@@ -44,16 +72,14 @@ class PuzzleInstance
         return $this;
     }
 
-    public function getGame(): ?Game
+    public function getGame(): Game
     {
         return $this->game;
     }
 
-    public function setGame(?Game $game): static
+    public function setGame(Game $game): void
     {
         $this->game = $game;
-
-        return $this;
     }
 
     public function getConfig(): array
@@ -68,15 +94,24 @@ class PuzzleInstance
         return $this;
     }
 
-    public function getPublicationDate(): ?\DateTime
+    public function getPublicationDate(): ?\DateTimeInterface
     {
         return $this->publicationDate;
     }
 
-    public function setPublicationDate(?\DateTime $publicationDate): static
+    public function setPublicationDate(\DateTimeInterface $publicationDate): void
     {
         $this->publicationDate = $publicationDate;
+    }
 
-        return $this;
+    public function getTemplateSlug(): string
+    {
+        return $this->templateSlug;
+    }
+
+    public function isPublished(): bool
+    {
+        $date= new \DateTime();
+        return $this->publicationDate !== null && $this->publicationDate >= $date;
     }
 }

@@ -33,9 +33,12 @@ class QuotationFixtures extends Fixture
         ],
         6 => [
             'text' => 'A Doppelgänger? Me? Sir, I refute the very suggestion. The notion is preposterous, not to mention slanderous. Why I\'ve never been so insulted in all my born days! You, my good fellow, shall be hearing from my solicitor. A doppelgänger, forsooth!',
-            'citation' => '\'Grugthurk the Taciturn`\''
+            'citation' => '\'Grugthurk the Taciturn\''
         ],
-
+        7 => [
+            'text' => 'Are you plagued by armour lice? Try our new wonder-potion! Dr. Burgoo\'s House of Salves, Poultices and Unguents guarantees no detectable lice after ONE application, or your money back!',
+            'citation' => '\'Honest\' Burgoo, \'Legitimate\' businessman.'
+        ]
     ];
 
     public function load(ObjectManager $manager): void

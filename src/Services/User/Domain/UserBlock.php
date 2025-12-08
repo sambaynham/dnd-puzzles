@@ -7,6 +7,8 @@ use App\Services\User\Infrastructure\UserBlockRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserBlockRepository::class)]
+#[ORM\Index(name: 'user_idx', columns: ['user_id'])]
+#[ORM\Index(name: 'expr_idx', columns: ['expiration_date'])]
 class UserBlock extends AbstractDomainEntity
 {
     public function __construct(
