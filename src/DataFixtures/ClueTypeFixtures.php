@@ -1,0 +1,36 @@
+<?php
+
+namespace App\DataFixtures;
+
+use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClueType;
+use App\Services\Puzzle\Domain\PuzzleCategory;
+use App\Services\Puzzle\Infrastructure\PuzzleCategoryRepository;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+
+class ClueTypeFixtures extends Fixture
+{
+    public function load(ObjectManager $manager): void
+    {
+        /**
+         * @var PuzzleCategoryRepository $repo
+         */
+        $repo = $manager->getRepository(CasebookSubjectClueType::class);
+        $types = [
+            'motive' => 'Motive',
+            'whereabouts' => 'Whereabouts',
+            'physical_details' => 'Physical Details',
+            'timing' => 'Timing',
+            'state_of_mind' => 'State of Mind',
+            'misc' => 'Misc'
+        ];
+        foreach ($types as $handle => $name) {
+            if (!$repo->findByHandle($handle)) {
+                $manager->persist(new CasebookSubjectClueType(name: $name, handle: $handle));
+            }
+
+        }
+
+        $manager->flush();
+    }
+}

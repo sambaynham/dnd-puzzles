@@ -12,16 +12,31 @@ class CasebookSubjectClue extends AbstractDomainEntity
     public function __construct(
         #[ORM\Column(length: 255)]
         private string $title,
+
         #[ORM\Column(length: 1024)]
         private string $body,
+
+        #[ORM\ManyToOne(targetEntity: CasebookSubjectClueType::class)]
+        private CasebookSubjectClueType $type,
+
         #[ORM\ManyToOne(inversedBy: 'casebookSubjectClues')]
         #[ORM\JoinColumn(nullable: false)]
         private CasebookSubject $casebookSubject,
+
         #[ORM\Column(nullable: true)]
         private ? \DateTimeInterface $revealedDate = null,
         ?int $id = null
     ) {
         parent::__construct($id);
+    }
+
+    public function setType(CasebookSubjectClueType $type): void {
+        $this->type = $type;
+    }
+
+    public function getType(): CasebookSubjectClueType
+    {
+        return $this->type;
     }
 
     public function getTitle(): string

@@ -39,6 +39,7 @@ class CasebookSubject extends AbstractDomainEntity
         parent::__construct($id);
     }
 
+
     public function getCasebookSubjectNotes(): Collection
     {
         return $this->casebookSubjectNotes;
