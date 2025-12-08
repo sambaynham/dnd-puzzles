@@ -25,4 +25,11 @@ class PuzzleTemplateRegistry implements PuzzleTemplateRegistryInterface
     {
         return $this->templates[$slug] ?? null;
     }
+
+    public function getStaticTemplates(): array
+    {
+        return array_filter($this->getTemplates(), function (PuzzleTemplate $template) {
+            return $template->isStatic();
+        });
+    }
 }

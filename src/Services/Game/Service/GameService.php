@@ -10,13 +10,19 @@ use App\Services\Game\Infrastructure\GameInvitationRepository;
 use App\Services\Game\Infrastructure\GameRepository;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
+use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use App\Services\User\Domain\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 class GameService implements GameServiceInterface
 {
     public function __construct(
         private GameRepository $gameRepository,
-        private GameInvitationRepository $gameInvitationRepository
+        private GameInvitationRepository $gameInvitationRepository,
+
+        #[AutowireIterator('app.static_puzzle_provider')]
+        private iterable $staticPuzzleProviders
     ) {}
 
     public function getRandomUnusedSlug(): string {
@@ -29,7 +35,21 @@ class GameService implements GameServiceInterface
     }
 
     public function findOneBySlug(string $slug): ? Game {
-        return $this->gameRepository->findOneBySlug($slug);
+        $game = $this->gameRepository->findOneBySlug($slug);
+        if ($game) {
+            $staticPuzzles = new ArrayCollection();
+            foreach ($this->staticPuzzleProviders as $provider) {
+                $staticPuzzleInstances = $provider->getStaticPuzzleInstancesForGame($game);
+                foreach ($staticPuzzleInstances as $staticPuzzleInstance) {
+                    $staticPuzzles->add($staticPuzzleInstance);
+                }
+            }
+            $game->setStaticPuzzleInstances($staticPuzzles);
+        }
+
+
+
+        return $game;
     }
 
     public function getOutstandingInvitationsForGame(Game $game): iterable

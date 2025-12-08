@@ -30,7 +30,12 @@ class QuotationFixtures extends Fixture
         5 => [
             'text' => 'The more vowels you have in your name, the more Elvish you are. Random punctuation never hurt either.',
             'citation' => 'Anduri\'eauől the Unpronounceable'
-        ]
+        ],
+        6 => [
+            'text' => 'A Doppelgänger? Me? Sir, I refute the very suggestion. The notion is preposterous, not to mention slanderous. Why I\'ve never been so insulted in all my born days! You, my good fellow, shall be hearing from my solicitor. A doppelgänger, forsooth!',
+            'citation' => '\'Grugthurk the Taciturn`\''
+        ],
+
     ];
 
     public function load(ObjectManager $manager): void

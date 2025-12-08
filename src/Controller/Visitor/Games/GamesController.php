@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Visitor;
+namespace App\Controller\Visitor\Games;
 
 use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;

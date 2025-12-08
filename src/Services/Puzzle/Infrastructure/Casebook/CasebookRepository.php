@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace App\Services\Puzzle\Infrastructure\Casebook;
 
+use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
+use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceProviderInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 /**
  * @extends ServiceEntityRepository<Casebook>
  */
-class CasebookRepository extends ServiceEntityRepository
+class CasebookRepository extends ServiceEntityRepository implements StaticPuzzleInstanceProviderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -40,5 +45,15 @@ class CasebookRepository extends ServiceEntityRepository
         } else {
             return $this->decollideSlug($candidateSlug, $attempts);
         }
+    }
+
+    public function getStaticPuzzleInstancesForGame(Game $game): Collection
+    {
+        $qb = $this->createQueryBuilder('cp')
+            ->where('g = :game')
+            ->innerJoin('cp.game', 'g')
+            ->setParameter(':game', $game);
+
+        return new ArrayCollection($qb->getQuery()->getResult());
     }
 }

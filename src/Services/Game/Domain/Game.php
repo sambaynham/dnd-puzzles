@@ -27,7 +27,9 @@ class Game extends AbstractDomainEntity
      * @var Collection<int, PuzzleInstance>
      */
     #[ORM\OneToMany(targetEntity: PuzzleInstance::class, mappedBy: 'game', orphanRemoval: true)]
-    private Collection $puzzleInstances;
+    private Collection $dynamicPuzzleInstances;
+
+    private Collection $staticPuzzleInstances;
 
     public function __construct(
         #[ORM\Column(length: 255)]
@@ -55,7 +57,8 @@ class Game extends AbstractDomainEntity
     ) {
         parent::__construct($id);
         $this->gameInvitations = new ArrayCollection();
-        $this->puzzleInstances = new ArrayCollection();
+        $this->dynamicPuzzleInstances = new ArrayCollection();
+        $this->staticPuzzleInstances = new ArrayCollection();
     }
 
     public function getSlug(): string
@@ -127,51 +130,54 @@ class Game extends AbstractDomainEntity
         return $this->gameInvitations;
     }
 
-    public function addGameInvitation(GameInvitation $gameInvitation): void
-    {
-        if (!$this->gameInvitations->contains($gameInvitation)) {
-            $this->gameInvitations->add($gameInvitation);
-            $gameInvitation->setGame($this);
-        }
-    }
-
-    public function removeGameInvitation(GameInvitation $gameInvitation): void
-    {
-        if ($this->gameInvitations->removeElement($gameInvitation)) {
-            // set the owning side to null (unless already changed)
-            if ($gameInvitation->getGame() === $this) {
-                $gameInvitation->setGame(null);
-            }
-        }
-    }
-
     /**
      * @return Collection<int, PuzzleInstance>
      */
-    public function getPuzzleInstances(): Collection
+    public function getDynamicPuzzleInstances(): Collection
     {
-        return $this->puzzleInstances;
+        return $this->dynamicPuzzleInstances;
     }
 
-    public function addPuzzleInstances(PuzzleInstance $puzzleInstancesB): static
+    public function addDynamicPuzzleInstances(PuzzleInstance $dynamicPuzzleInstance): static
     {
-        if (!$this->puzzleInstances->contains($puzzleInstancesB)) {
-            $this->puzzleInstances->add($puzzleInstancesB);
-            $puzzleInstancesB->setGame($this);
+        if (!$this->dynamicPuzzleInstances->contains($dynamicPuzzleInstance)) {
+            $this->dynamicPuzzleInstances->add($dynamicPuzzleInstance);
+            $dynamicPuzzleInstance->setGame($this);
         }
 
         return $this;
     }
 
-    public function removePuzzleInstances(PuzzleInstance $puzzleInstances): static
+    public function removeDynamicPuzzleInstances(PuzzleInstance $dynamicPuzzleInstance): static
     {
-        if ($this->puzzleInstances->removeElement($puzzleInstances)) {
+        if ($this->dynamicPuzzleInstances->removeElement($dynamicPuzzleInstance)) {
             // set the owning side to null (unless already changed)
-            if ($puzzleInstances->getGame() === $this) {
-                $puzzleInstances->setGame(null);
+            if ($dynamicPuzzleInstance->getGame() === $this) {
+                $dynamicPuzzleInstance->setGame(null);
             }
         }
 
         return $this;
+    }
+
+    public function setStaticPuzzleInstances(ArrayCollection $staticPuzzles): void
+    {
+        $this->staticPuzzleInstances = $staticPuzzles;
+    }
+
+    public function getStaticPuzzleInstances(): Collection {
+        return $this->staticPuzzleInstances;
+    }
+
+    public function getPuzzleInstances(): Collection {
+        $puzzlesInstances = new ArrayCollection();
+        foreach ($this->getDynamicPuzzleInstances() as $instance) {
+            $puzzlesInstances->add($instance);
+        }
+
+        foreach ($this->getStaticPuzzleInstances() as $instance) {
+            $puzzlesInstances->add($instance);
+        }
+        return $puzzlesInstances;
     }
 }

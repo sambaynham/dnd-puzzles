@@ -6,6 +6,10 @@
 parameters:
 
 services:
+    _instanceof:
+        # services whose classes are instances of CustomInterface will be tagged automatically
+        App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceProviderInterface:
+            tags: [ 'app.static_puzzle_provider' ]
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
