@@ -4,6 +4,7 @@ namespace App\Services\Puzzle\Domain;
 
 use App\Entity\AbstractDomainEntity;
 use App\Services\Game\Domain\Game;
+use App\Services\Puzzle\Domain\Exceptions\PuzzleTemplateNotMappedException;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Infrastructure\PuzzleInstanceRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PuzzleInstanceRepository::class)]
 class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInterface
 {
+    private ? PuzzleTemplate $puzzleTemplate;
 
     public function __construct(
         #[ORM\Column(length: 255, unique: true)]
@@ -113,5 +115,21 @@ class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInter
     {
         $date= new \DateTime();
         return $this->publicationDate !== null && $this->publicationDate >= $date;
+    }
+
+    /**
+     * @throws PuzzleTemplateNotMappedException
+     */
+    public function getTemplate(): PuzzleTemplate
+    {
+        if ($this->puzzleTemplate === null) {
+            throw new PuzzleTemplateNotMappedException();
+        }
+        return $this->puzzleTemplate;
+    }
+
+    public function setTemplate(PuzzleTemplate $puzzleTemplate): void
+    {
+        $this->puzzleTemplate = $puzzleTemplate;
     }
 }

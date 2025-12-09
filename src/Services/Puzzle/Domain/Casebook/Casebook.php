@@ -6,7 +6,11 @@ namespace App\Services\Puzzle\Domain\Casebook;
 
 use App\Entity\AbstractDomainEntity;
 use App\Services\Game\Domain\Game;
+use App\Services\Puzzle\Domain\Exceptions\MismappedPuzzleTemplateException;
+use App\Services\Puzzle\Domain\Exceptions\PuzzleTemplateNotMappedException;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
+use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceInterface;
+use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,9 +19,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CasebookRepository::class)]
 #[UniqueEntity(fields: ['slug'], message: 'There is already a casebook with this slug')]
-class Casebook extends AbstractDomainEntity implements PuzzleInstanceInterface
+class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInterface
 {
-    private const string TEMPLATE_SLUG = 'casebook';
+    public const string TEMPLATE_SLUG = 'casebook';
+
+    private ? PuzzleTemplate $puzzleTemplate = null;
 
     /**
      * @var Collection<int, CasebookSubject>
@@ -141,6 +147,12 @@ class Casebook extends AbstractDomainEntity implements PuzzleInstanceInterface
         $this->publicationDate = $publicationDate;
     }
 
+
+    /**
+     * @return string
+     * @throws MismappedPuzzleTemplateException
+     * @throws PuzzleTemplateNotMappedException
+     */
     public function getTemplateSlug(): string
     {
         return self::TEMPLATE_SLUG;
@@ -150,5 +162,24 @@ class Casebook extends AbstractDomainEntity implements PuzzleInstanceInterface
     {
         $date= new \DateTime();
         return $this->publicationDate !== null && $this->publicationDate >= $date;
+    }
+
+    public function getTemplate(): PuzzleTemplate
+    {
+        if (null === $this->puzzleTemplate) {
+            throw new PuzzleTemplateNotMappedException();
+        }
+        if (self::TEMPLATE_SLUG !== $this->puzzleTemplate->getSlug()) {
+            throw new MismappedPuzzleTemplateException();
+        }
+        return $this->puzzleTemplate;
+    }
+
+    public function setTemplate(PuzzleTemplate $puzzleTemplate): void
+    {
+        if (self::TEMPLATE_SLUG !== $puzzleTemplate->getSlug()) {
+            throw new MismappedPuzzleTemplateException();
+        }
+        $this->puzzleTemplate = $puzzleTemplate;
     }
 }

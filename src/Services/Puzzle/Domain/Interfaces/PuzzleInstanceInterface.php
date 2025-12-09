@@ -3,6 +3,7 @@
 namespace App\Services\Puzzle\Domain\Interfaces;
 
 use App\Services\Game\Domain\Game;
+use App\Services\Puzzle\Domain\PuzzleTemplate;
 
 interface PuzzleInstanceInterface
 {
@@ -26,4 +27,8 @@ interface PuzzleInstanceInterface
     public function isPublished(): bool;
 
     public function setPublicationDate(\DateTimeInterface $publicationDate): void;
+
+    public function getTemplate(): PuzzleTemplate;
+
+    public function setTemplate(PuzzleTemplate $puzzleTemplate): void;
 }

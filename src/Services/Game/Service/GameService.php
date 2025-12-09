@@ -9,6 +9,9 @@ use App\Services\Game\Domain\GameInvitation;
 use App\Services\Game\Infrastructure\GameInvitationRepository;
 use App\Services\Game\Infrastructure\GameRepository;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
+use App\Services\Puzzle\Domain\Exceptions\MismappedPuzzleTemplateException;
+use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
+use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceInterface;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use App\Services\User\Domain\User;
@@ -20,7 +23,7 @@ class GameService implements GameServiceInterface
     public function __construct(
         private GameRepository $gameRepository,
         private GameInvitationRepository $gameInvitationRepository,
-
+        private PuzzleTemplateRegistryInterface $puzzleTemplateRegistry,
         #[AutowireIterator('app.static_puzzle_provider')]
         private iterable $staticPuzzleProviders
     ) {}
@@ -41,6 +44,7 @@ class GameService implements GameServiceInterface
             foreach ($this->staticPuzzleProviders as $provider) {
                 $staticPuzzleInstances = $provider->getStaticPuzzleInstancesForGame($game);
                 foreach ($staticPuzzleInstances as $staticPuzzleInstance) {
+                    $this->mapPuzzleTemplate($staticPuzzleInstance);
                     $staticPuzzles->add($staticPuzzleInstance);
                 }
             }
@@ -73,5 +77,14 @@ class GameService implements GameServiceInterface
     public function getOutstandingInvitationsForUser(User $user): array
     {
         return $this->gameInvitationRepository->getOutstandingInvitationsForUser($user);
+    }
+
+    private function mapPuzzleTemplate(StaticPuzzleInstanceInterface $puzzleInstance): void {
+
+        $template = $this->puzzleTemplateRegistry->getTemplate($puzzleInstance->getTemplateSlug());
+        if (null === $template) {
+            throw new MismappedPuzzleTemplateException(sprintf("Could not find a template with slug %s", $puzzleInstance->getTemplateSlug()));
+        }
+        $puzzleInstance->setTemplate($template);
     }
 }

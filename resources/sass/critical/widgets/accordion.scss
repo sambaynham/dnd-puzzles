@@ -49,6 +49,10 @@
             transition: max-height 200ms ease-in-out;
             background: palette.$offWhite linear-gradient(45deg, palette.$offWhite, color.adjust(palette.$offWhite, $lightness: -5%, $saturation: -100%));
 
+
+            .accordion-footer {
+                padding: math.div(variables.$base-spacing, 4);
+            }
         }
 
         &.open {
