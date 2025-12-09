@@ -143,7 +143,7 @@ final class GamesController extends AbstractBaseController
 
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('games/{slug}/delete', name: 'app.games.delete')]
+    #[Route('games/{gameSlug}/delete', name: 'app.games.delete')]
     public function delete(
         Game $game,
         Request $request
