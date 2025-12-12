@@ -418,7 +418,6 @@ main {
                 width: initial;
                 min-width: 10vw;
                 height: initial;
-
                 position: absolute;
                 top: calc($desktopHeaderHeight + math.div(variables.$base-spacing, 4));
                 right: math.div((100vw - variables.$desktopMaxViewportWidth), 2);
@@ -457,11 +456,28 @@ main {
                 }
 
                 ul {
-                    flex-direction: row;
+                    flex-direction: column;
                     height: initial;
+                    position: relative;
+
+                    &:before {
+                        content: " ";
+                        display: block;
+                        height: 0.125rem;
+                        background: palette.$dividerGradient;
+                        background-size: contain;
+                    }
 
                     li {
+                        flex-basis: initial;
                         background-color: transparent !important;
+
+                        a {
+                            &:hover {
+                                color: palette.$crimson;
+                                text-decoration: underline;
+                            }
+                        }
                     }
                 }
             }
