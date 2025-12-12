@@ -34,9 +34,22 @@ class CasebookSubject extends AbstractDomainEntity
         #[ORM\OneToMany(targetEntity: CasebookSubjectNote::class, mappedBy: 'casebookSubject', orphanRemoval: true, cascade: ['persist'])]
         private Collection $casebookSubjectNotes,
 
+        #[ORM\Column(length: 2048)]
+        private ? string $casebookSubjectImage = null,
+
         ?int $id = null
     ) {
         parent::__construct($id);
+    }
+
+    public function getCasebookSubjectImage(): ?string
+    {
+        return $this->casebookSubjectImage;
+    }
+
+    public function setCasebookSubjectImage(?string $casebookSubjectImage): void
+    {
+        $this->casebookSubjectImage = $casebookSubjectImage;
     }
 
 

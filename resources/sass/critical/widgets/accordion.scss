@@ -22,6 +22,7 @@
             color: palette.$white;
             position: relative;
             margin-bottom: 0;
+            cursor: pointer;
 
             &:after {
                 content: "^";

@@ -19,7 +19,9 @@ use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClue;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -49,7 +51,11 @@ class CasebookPuzzleController extends AbstractPuzzleController
             $this->entityManager->persist($casebook);
             $this->entityManager->flush();
             $this->addFlash(type: 'success', message: "Casebook created");
-            return $this->redirectToRoute('app.puzzles.static.casebook.manage', ['gameSlug' => $game->getSlug(), 'casebookSlug' => $casebook->getSlug()]);
+            return $this->redirectToRoute('app.puzzles.static.casebook.edit', [
+                'gameSlug' => $game->getSlug(),
+                'templateSlug' => Casebook::TEMPLATE_SLUG,
+                'instanceCode' => $casebook->getInstanceCode(),
+            ]);
         }
         $pageVars = [
             'pageTitle' => sprintf("Set up Casebook puzzle '%s'", $options->puzzleName),
@@ -63,7 +69,8 @@ class CasebookPuzzleController extends AbstractPuzzleController
     public function addSubject(
         Game $game,
         PuzzleInstanceInterface $puzzleInstance,
-        Request $request
+        Request $request,
+        #[Autowire('%kernel.project_dir%/public/uploads/images')] string $publicImagesDirectory
     ): Response {
         if (!$puzzleInstance instanceof  Casebook) {
             throw new BadRequestException();
@@ -74,13 +81,29 @@ class CasebookPuzzleController extends AbstractPuzzleController
         $form = $this->createForm(CasebookAddSubjectType::class, $dto);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imageFile = $form->get('image')->getData();
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $this->slugger->slug($originalFilename);
+                $imageFileName = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                try {
+                    $imageFile->move($publicImagesDirectory, $imageFileName);
+                } catch (FileException $e) {
+                    die("ERROR");
+                    // ... handle exception if something happens during file upload
+                }
+            } else {
+                $imageFileName = null;
+            }
             $clues = new ArrayCollection();
             $subject = new CasebookSubject(
                 name: $dto->name,
                 description: $dto->description,
                 casebook: $puzzleInstance,
                 casebookSubjectClues: $clues,
-                casebookSubjectNotes: new ArrayCollection()
+                casebookSubjectNotes: new ArrayCollection(),
+                casebookSubjectImage: $imageFileName
             );
 
             foreach ($dto->clues as $clueEntry) {
@@ -91,11 +114,11 @@ class CasebookPuzzleController extends AbstractPuzzleController
                     casebookSubject: $subject
                 ));
             }
+
             $this->entityManager->persist($subject);
             $this->entityManager->flush();
-            dd($dto);
-            die("I GOTR HERE");
         }
+
         $pageVars = [
             'pageTitle' => sprintf("Add a subject to  '%s'", $puzzleInstance->getName()),
             'form' => $form

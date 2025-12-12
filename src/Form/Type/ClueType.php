@@ -22,13 +22,14 @@ class ClueType extends AbstractType
             'clueName',
             TextType::class,
             [
+                'help' => 'Enter a short name for your clue.'
             ]
         )
         ->add(
             'clueDescription',
             TextareaType::class,
             [
-
+                'help' => 'Enter the detailed content of the clue'
             ]
         )
         ->add(
@@ -36,7 +37,8 @@ class ClueType extends AbstractType
             EntityType::class,
             [
                 'class' => CasebookSubjectClueType::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'help' => 'Select a type for your clue.'
             ]
         );
 

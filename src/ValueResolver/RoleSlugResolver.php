@@ -18,7 +18,7 @@ readonly class RoleSlugResolver implements ValueResolverInterface
     {
         // get the argument type (e.g. BookingId)
         $argumentType = $argument->getType();
-        if (!$argumentType === Role::class) {
+        if ($argumentType !== Role::class) {
             return [];
         }
 

@@ -14,31 +14,46 @@
             </div>
         </div>
     {% else %}
-        {% for subject in casebook.getCasebookSubjects %}
-            <div class="row">
-                <div class="col">
-                    <h3>{{ subject.getName }}</h3>
-                    {{ subject.getDescription }}
-                </div>
-                <div class="col">
-                    <h3>Clues</h3>
-                    <div class="accordion-list" is="accordion-list">
-                        {% for clue in subject.getCasebookSubjectClues %}
-                            <article class="accordion-entry" id="clue-{{ clue.getId }}" is="accordion-entry">
-                                <h3 class="accordion-heading">{{ clue.getTitle }}</h3>
-                                <div class="accordion-body">
-                                    <div class="accordion-content">
-                                      {{ clue.getBody }}
+        <div class="row">
+            <div class="grid">
+                {% for subject in casebook.getCasebookSubjects %}
+                    <article class="card">
+
+                        {% if subject.getCasebookSubjectImage %}
+                            <img class="card-backer" src="/uploads/images/{{ subject.getCasebookSubjectImage }}" alt="{{ subject.getName }}">
+                        {% endif %}
+                        <h2 class="card-title">{{ subject.getName }}</h2>
+                        <div class="card-body">
+                            {{ subject.getDescription }}
+                        </div>
+                        <span class="card-spacer"></span>
+                        <div class="card-accordion-list accordion-list" is="accordion-list">
+                            {% for clue in subject.getCasebookSubjectClues %}
+                                <article class="accordion-entry" id="clue-{{ clue.getId }}" is="accordion-entry">
+                                    <h3 class="accordion-heading {% if clue.getRevealedDate is not null %}accordion-success{% endif %}">Clue - {{ clue.getTitle }} - {{ clue.getRevealedDate ? 'Revealed' : 'Not Found' }}</h3>
+                                    <div class="accordion-body">
+                                        <div class="accordion-content">
+                                            {{ clue.getBody }}
+                                        </div>
+                                        {% if clue.getRevealedDate is null %}
+                                            <div class="accordion-footer">
+
+                                                <nav class="secondary">
+                                                    <a href="">Reveal this Clue</a>
+                                                </nav>
+                                            </div>
+                                        {% endif %}
                                     </div>
-
-                                </div>
-
-                            </article>
-                        {% endfor %}
-                    </div>
-                </div>
+                                </article>
+                            {% endfor %}
+                        </div>
+                        <div class="card-footer">
+                            <a href="" class="btn">Edit</a>
+                        </div>
+                    </article>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>
     {% endif %}
     <div class="row">
         <div class="col">

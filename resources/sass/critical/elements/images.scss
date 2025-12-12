@@ -1,3 +1,5 @@
+@use '../base/variables';
+
 img {
     transition: opacity 200ms ease-in-out;
     opacity: 0;
@@ -6,5 +8,24 @@ img {
 body.loaded {
     img {
         opacity: 1;
+
+        &.portrait {
+            max-height: 100vh;
+            max-width: initial;
+            position: relative;
+            border: 1rem solid transparent;
+            border-image: url('/dist/images/eroded-frame.svg') 33%;
+        }
+    }
+}
+
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
+    body.loaded {
+        img {
+            &.portrait {
+                max-height: initial;
+                max-width: 25vw;
+            }
+        }
     }
 }

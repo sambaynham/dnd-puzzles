@@ -50,20 +50,23 @@
 {% block clue_row %}
     <div class="clue-row">
         <div class="title">
-            {{ form_widget(form.title) }}
-            {{ form_help(form.title) }}
-            {{ form_errors(form.title) }}
+            {{ form_label(form.clueName) }}
+            {{ form_widget(form.clueName) }}
+            {{ form_help(form.clueName) }}
+            {{ form_errors(form.clueName) }}
         </div>
 
         <div class="body">
-            {{ form_widget(form.body) }}
-            {{ form_help(form.body) }}
-            {{ form_errors(form.body) }}
+            {{ form_label(form.clueDescription) }}
+            {{ form_widget(form.clueDescription) }}
+            {{ form_help(form.clueDescription) }}
+            {{ form_errors(form.clueDescription) }}
         </div>
         <div class="type">
-            {{ form_widget(form.type) }}
-            {{ form_help(form.type) }}
-            {{ form_errors(form.type) }}
+            {{ form_label(form.clueType) }}
+            {{ form_widget(form.clueType) }}
+            {{ form_help(form.clueType) }}
+            {{ form_errors(form.clueType) }}
         </div>
     </div>
 {% endblock %}

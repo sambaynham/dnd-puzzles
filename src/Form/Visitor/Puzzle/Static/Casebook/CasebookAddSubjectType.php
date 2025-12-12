@@ -33,7 +33,7 @@ class CasebookAddSubjectType extends AbstractType
                     'mapped' => false,
                     'constraints' => [
                         new File(
-                            maxSize: '1024k',
+                            maxSize: '5m',
                             extensions: self::VALID_IMAGE_TYPES,
                             extensionsMessage: 'Please upload a valid image file. Valid filestypes are:',
                         )

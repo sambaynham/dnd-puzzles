@@ -12,11 +12,11 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class EmailAddressIsNotBlockedConstraintValidator extends ConstraintValidator
 {
-    public function __construct(private BlockedEmailAddressService $blockedEmailAddressService) {
+    public function __construct(private readonly BlockedEmailAddressService $blockedEmailAddressService) {
 
     }
 
-    public function validate(mixed $value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof EmailAddressIsNotBlockedConstraint) {
             throw new UnexpectedTypeException($constraint, EmailAddressIsNotBlockedConstraint::class);
@@ -35,7 +35,5 @@ class EmailAddressIsNotBlockedConstraintValidator extends ConstraintValidator
                 ->setParameter('{{ reason }}', $block->getBlockReason())
                 ->addViolation();
         }
-        return;
-
     }
 }

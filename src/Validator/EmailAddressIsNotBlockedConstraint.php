@@ -13,7 +13,6 @@ class EmailAddressIsNotBlockedConstraint extends Constraint
     public string $message = 'The email address "{{ emailAddress }}" is on the blocked list because {{ reason }}.';
     public string $mode = 'strict';
 
-    // all configurable options must be passed to the constructor
     public function __construct(?string $mode = null, ?string $message = null, ?array $groups = null, $payload = null)
     {
         parent::__construct([], $groups, $payload);
