@@ -8,6 +8,7 @@ use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Exceptions\MismappedPuzzleTemplateException;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceInterface;
+use App\Services\Puzzle\Infrastructure\PuzzleInstanceRepository;
 use App\Services\Puzzle\Service\Exceptions\TemplateNotFoundException;
 use App\Services\Puzzle\Service\Interfaces\PuzzleInstanceServiceInterface;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
@@ -26,7 +27,7 @@ class PuzzleInstanceService implements PuzzleInstanceServiceInterface
 
     public function __construct(
         private PuzzleTemplateRegistryInterface $puzzleTemplateRegistry,
-
+        private PuzzleInstanceRepository $puzzleInstanceRepository,
         #[AutowireIterator('app.static_puzzle_provider')]
         iterable $staticInstanceProviders
     ) {
@@ -43,8 +44,9 @@ class PuzzleInstanceService implements PuzzleInstanceServiceInterface
             throw new TemplateNotFoundException(sprintf("No template found %s", $templateSlug));
         }
         if (isset($this->staticInstanceProviders[$templateSlug])) {
-            die("HELLO WORLD");
+            return $this->staticInstanceProviders[$templateSlug]->getInstance($instanceCode);
         }
+        return $this->puzzleInstanceRepository->findOneBy(['instanceCode' => $instanceCode]);
     }
 
     public function saveInstance(PuzzleInstanceInterface $instance): void
@@ -60,7 +62,7 @@ class PuzzleInstanceService implements PuzzleInstanceServiceInterface
     public function getStaticPuzzleInstancesForGame(Game $game): ArrayCollection
     {
         $staticPuzzles = new ArrayCollection();
-        foreach ($this->staticPuzzleProviders as $provider) {
+        foreach ($this->staticInstanceProviders as $provider) {
             $staticPuzzleInstances = $provider->getStaticPuzzleInstancesForGame($game);
             foreach ($staticPuzzleInstances as $staticPuzzleInstance) {
                 $this->mapPuzzleTemplate($staticPuzzleInstance);

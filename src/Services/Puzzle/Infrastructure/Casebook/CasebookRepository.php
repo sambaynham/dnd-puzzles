@@ -6,6 +6,7 @@ namespace App\Services\Puzzle\Infrastructure\Casebook;
 
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
+use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceProviderInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -59,5 +60,10 @@ class CasebookRepository extends ServiceEntityRepository implements StaticPuzzle
     public function providesTemplateInstances(): string
     {
         return Casebook::TEMPLATE_SLUG;
+    }
+
+    public function getInstance(string $instanceCode): ?PuzzleInstanceInterface
+    {
+        return $this->findBySlug($instanceCode);
     }
 }

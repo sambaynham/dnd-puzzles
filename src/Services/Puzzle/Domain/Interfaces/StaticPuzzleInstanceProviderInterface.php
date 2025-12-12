@@ -16,4 +16,6 @@ interface StaticPuzzleInstanceProviderInterface
      * @return Collection<PuzzleInstanceInterface>
      */
     public function getStaticPuzzleInstancesForGame(Game $game): Collection;
+
+    public function getInstance(string $instanceCode): ? PuzzleInstanceInterface;
 }

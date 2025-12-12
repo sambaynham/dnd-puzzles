@@ -180,6 +180,7 @@ final class GamesController extends AbstractBaseController
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('/games/{gameSlug}/puzzles/{templateSlug}/{instanceCode}/manage', name: 'app.games.puzzles.instance.manage')]
     public function managePuzzleInstance(
+        Game $game,
         PuzzleTemplate $puzzleTemplate,
         PuzzleInstanceInterface $puzzleInstance,
         Request $request
