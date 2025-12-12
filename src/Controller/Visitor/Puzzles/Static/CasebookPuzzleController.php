@@ -16,6 +16,7 @@ use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -58,15 +59,18 @@ class CasebookPuzzleController extends AbstractPuzzleController
     #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/subjects/add', name: 'app.puzzles.static.casebook.subjects.add')]
     public function addSubject(
         Game $game,
-        Casebook $casebook,
+        PuzzleInstanceInterface $puzzleInstance,
         Request $request
     ): Response {
+        if (!$puzzleInstance instanceof  Casebook) {
+            throw new BadRequestException();
+        }
 
-        $dto = new CasebookSubjectDto(casebook: $casebook);
+        $dto = new CasebookSubjectDto(casebook: $puzzleInstance);
 
         $form = $this->createForm(CasebookAddSubjectType::class, $dto);
         $pageVars = [
-            'pageTitle' => sprintf("Add a subject to  '%s'", $casebook->getName()),
+            'pageTitle' => sprintf("Add a subject to  '%s'", $puzzleInstance->getName()),
             'form' => $form
         ];
         return $this->render('/visitor/puzzles/templates/casebook/subjects/add.html.twig', $this->populatePageVars($pageVars, $request));
