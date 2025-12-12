@@ -33,11 +33,11 @@
                                     <h3 class="accordion-heading {% if clue.getRevealedDate is not null %}accordion-success{% endif %}">Clue - {{ clue.getTitle }} - {{ clue.getRevealedDate ? 'Revealed' : 'Not Found' }}</h3>
                                     <div class="accordion-body">
                                         <div class="accordion-content">
+                                            <strong>{{ clue.getType.getName }}:</strong>
                                             {{ clue.getBody }}
                                         </div>
                                         {% if clue.getRevealedDate is null %}
                                             <div class="accordion-footer">
-
                                                 <nav class="secondary">
                                                     <a href="">Reveal this Clue</a>
                                                 </nav>
