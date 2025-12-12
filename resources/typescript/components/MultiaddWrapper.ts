@@ -4,10 +4,18 @@ export class MultiaddWrapper extends HTMLElement {
 
     private addMoreButton: HTMLButtonElement;
 
+    private rowWrapper: Element;
+
     constructor() {
         super();
         let prototypeString: string|undefined = this.dataset.prototype;
         let addMoreButton: HTMLButtonElement|null = this.querySelector('button.multiform-add-row-button');
+        let rowWrapper: Element|null = this.querySelector('div.rows');
+
+        if (null === rowWrapper) {
+            throw new Error('A row wrapper could not be found');
+        }
+        this.rowWrapper = rowWrapper;
 
         if (null === addMoreButton) {
             throw new Error('An add more button could not be found');
@@ -24,12 +32,12 @@ export class MultiaddWrapper extends HTMLElement {
         this.addMoreButton.addEventListener('click', (e: MouseEvent) => {
             e.preventDefault();
             let currentRows = this.querySelectorAll('div.multiadd-row');
-            this.appendChild(this.createNewRow(currentRows.length))
+            this.rowWrapper.appendChild(this.createNewRow(currentRows.length))
         });
 
         let children: NodeListOf<HTMLDivElement> = this.querySelectorAll('div.multiadd-row');
         if (children.length === 0) {
-            this.appendChild(this.createNewRow(0));
+            this.rowWrapper.appendChild(this.createNewRow(0));
         }
 
     }

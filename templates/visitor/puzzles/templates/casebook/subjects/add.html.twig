@@ -8,7 +8,9 @@
     </div>
     <div class="row">
         <div class="col">
-
+            {{ form_row(form.image) }}
+        </div>
+        <div class="col">
             {{ form_row(form.name) }}
         </div>
         <div class="col">
@@ -23,17 +25,17 @@
                 data-prototype="{{ form_widget(form.clues.vars.prototype)|e('html_attr') }}"
                 data-index="{{ form.clues|length }}"
             >
+                <div class="rows">
+                    {% for clueForm in form.clues %}
+                        <div class="multiadd-row">
+                            {{ form_errors(clueForm) }}
+                            {{ form_row(clueForm) }}
+                        </div>
+                    {% endfor %}
+                </div>
 
-                {% for clueForm in form.clues %}
-                    <div class="multiadd-row">
-                        {{ form_errors(clueForm) }}
-                        {{ form_row(clueForm) }}
-                    </div>
-                {% endfor %}
                 {{ form_row(form.add_entry) }}
             </div>
-
-
         </div>
     </div>
     {{ form_end(form) }}

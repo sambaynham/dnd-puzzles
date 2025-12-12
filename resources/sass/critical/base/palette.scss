@@ -4,7 +4,7 @@
 $charcoal: #080808;
 $vellum: #f3e0bb;
 $white: #f8f6f6;
-$offWhite: #fffdef;
+$offWhite: #f8f5ed;
 $crimson: #790000;
 $green: #049c18;
 $grey: #454141;
@@ -25,7 +25,7 @@ $orange: #ffa600;
 $red: #ff2f00;
 $keyColor: $crimson;
 $glossGradient: linear-gradient(to top, black 0%, black 50%, white 51%, black 100%);
-$baseBoxShadow: 0 0.125rem 0.25rem color.adjust($ink, $alpha: -0.5), 0.05rem 0.125rem color.adjust($ink, $alpha: -0.75);
+$baseBoxShadow: 0 0.0625rem 0.125rem color.adjust($ink, $alpha: -0.5), 0.05rem 0.0625rem color.adjust($ink, $alpha: -0.75);
 $baseInsetShadow: inset 0 0 0.25rem color.adjust($ink, $alpha: -0.5), inset 0 0 0.125rem color.adjust($ink, $alpha: -0.75);
 $dividerGradient: $ink radial-gradient(circle at 50% 50%, transparent, $ink);
 $charcoalGradient: $charcoal linear-gradient(45deg, color.adjust($charcoal, $lightness: +25%), $charcoal);

@@ -1,12 +1,47 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
-    <div class="row">
+    <div class="row title-row">
         <div class="col">
             <h2>Subjects</h2>
-            {% if casebook.getCasebookSubjects is not empty %}
-            {% else %}
+        </div>
+    </div>
+
+
+    {% if casebook.getCasebookSubjects is  empty %}
+        <div class="row">
+            <div class="col">
                 <em>Your casebook doesn't have any subjects!</em>
-            {% endif %}
+            </div>
+        </div>
+    {% else %}
+        {% for subject in casebook.getCasebookSubjects %}
+            <div class="row">
+                <div class="col">
+                    <h3>{{ subject.getName }}</h3>
+                    {{ subject.getDescription }}
+                </div>
+                <div class="col">
+                    <h3>Clues</h3>
+                    <div class="accordion-list" is="accordion-list">
+                        {% for clue in subject.getCasebookSubjectClues %}
+                            <article class="accordion-entry" id="clue-{{ clue.getId }}" is="accordion-entry">
+                                <h3 class="accordion-heading">{{ clue.getTitle }}</h3>
+                                <div class="accordion-body">
+                                    <div class="accordion-content">
+                                      {{ clue.getBody }}
+                                    </div>
+
+                                </div>
+
+                            </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col">
             <a class="btn btn-cta" href="{{ path('app.puzzles.static.casebook.subjects.add', {
                 'instanceCode': casebook.getSlug,
                 'templateSlug': casebook.getTemplate.getSlug,
@@ -16,4 +51,5 @@
             </a>
         </div>
     </div>
+
 {% endblock %}

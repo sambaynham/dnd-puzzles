@@ -6,21 +6,40 @@ namespace App\Form\Visitor\Puzzle\Static\Casebook;
 
 use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectDto;
 use App\Form\Type\ClueType;
-use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClueType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class CasebookAddSubjectType extends AbstractType
 {
+
+    public const array VALID_IMAGE_TYPES = ['jpeg', 'jpg', 'png', 'webp'];
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add(
+                'image',
+                FileType::class,
+                [
+                    'required' => false,
+                    'mapped' => false,
+                    'constraints' => [
+                        new File(
+                            maxSize: '1024k',
+                            extensions: self::VALID_IMAGE_TYPES,
+                            extensionsMessage: 'Please upload a valid image file. Valid filestypes are:',
+                        )
+                    ],
+                ]
+            )
             ->add(
                 'name',
                 TextType::class,
@@ -35,6 +54,8 @@ class CasebookAddSubjectType extends AbstractType
                     'help' => 'Add a brief overview of this subject\'s background.'
                 ]
             )
+
+
             ->add(
                 'clues',
                 CollectionType::class,
@@ -60,6 +81,7 @@ class CasebookAddSubjectType extends AbstractType
                     ]
                 ]
             )
+
             ->add(
                 'add_entry',
                 ButtonType::class,

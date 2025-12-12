@@ -14,8 +14,11 @@ use App\Form\Visitor\Puzzle\Static\Casebook\CasebookCreateFormType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
+use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
+use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClue;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,6 +72,30 @@ class CasebookPuzzleController extends AbstractPuzzleController
         $dto = new CasebookSubjectDto(casebook: $puzzleInstance);
 
         $form = $this->createForm(CasebookAddSubjectType::class, $dto);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $clues = new ArrayCollection();
+            $subject = new CasebookSubject(
+                name: $dto->name,
+                description: $dto->description,
+                casebook: $puzzleInstance,
+                casebookSubjectClues: $clues,
+                casebookSubjectNotes: new ArrayCollection()
+            );
+
+            foreach ($dto->clues as $clueEntry) {
+                $clues->add(new CasebookSubjectClue(
+                    title: $clueEntry['clueName'],
+                    body: $clueEntry['clueDescription'],
+                    type: $clueEntry['clueType'],
+                    casebookSubject: $subject
+                ));
+            }
+            $this->entityManager->persist($subject);
+            $this->entityManager->flush();
+            dd($dto);
+            die("I GOTR HERE");
+        }
         $pageVars = [
             'pageTitle' => sprintf("Add a subject to  '%s'", $puzzleInstance->getName()),
             'form' => $form

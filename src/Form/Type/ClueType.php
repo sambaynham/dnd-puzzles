@@ -19,20 +19,20 @@ class ClueType extends AbstractType
 
 
         $builder->add(
-            'title',
+            'clueName',
             TextType::class,
             [
             ]
         )
         ->add(
-            'body',
+            'clueDescription',
             TextareaType::class,
             [
 
             ]
         )
         ->add(
-            'type',
+            'clueType',
             EntityType::class,
             [
                 'class' => CasebookSubjectClueType::class,

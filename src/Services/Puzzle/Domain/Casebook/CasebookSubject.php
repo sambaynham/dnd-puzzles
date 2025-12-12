@@ -25,13 +25,13 @@ class CasebookSubject extends AbstractDomainEntity
         /**
          * @var Collection<int, CasebookSubjectClue>
          */
-        #[ORM\OneToMany(targetEntity: CasebookSubjectClue::class, mappedBy: 'casebookSubject', orphanRemoval: true)]
+        #[ORM\OneToMany(targetEntity: CasebookSubjectClue::class, mappedBy: 'casebookSubject', orphanRemoval: true, cascade: ['persist'])]
         private Collection $casebookSubjectClues,
 
         /**
          * @var Collection<int, CasebookSubjectClue>
          */
-        #[ORM\OneToMany(targetEntity: CasebookSubjectNote::class, mappedBy: 'casebookSubject', orphanRemoval: true)]
+        #[ORM\OneToMany(targetEntity: CasebookSubjectNote::class, mappedBy: 'casebookSubject', orphanRemoval: true, cascade: ['persist'])]
         private Collection $casebookSubjectNotes,
 
         ?int $id = null
