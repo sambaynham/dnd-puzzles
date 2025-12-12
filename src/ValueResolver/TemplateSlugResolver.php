@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\ValueResolver;
+
+use App\Services\Game\Domain\Game;
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
+use App\Services\Puzzle\Domain\Casebook\Casebook;
+use App\Services\Puzzle\Domain\PuzzleTemplate;
+use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;
+use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateServiceInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+
+readonly class TemplateSlugResolver implements ValueResolverInterface
+{
+    public function __construct(
+        private PuzzleTemplateServiceInterface $puzzleService
+    ) {
+    }
+
+    public function resolve(Request $request, ArgumentMetadata $argument): iterable
+    {
+        $argumentType = $argument->getType();
+        if ($argumentType !== PuzzleTemplate::class) {
+            return [];
+        }
+
+        $slug = $request->attributes->get('templateSlug');
+
+        if (!is_string($slug)) {
+            return [];
+        }
+
+        $casebook = $this->puzzleService->getTemplateBySlug($slug);
+
+        return $casebook ? [$casebook] : [];
+    }
+}

@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\Collection;
 
 interface StaticPuzzleInstanceProviderInterface
 {
+    public function providesTemplateInstances(): string;
+
     /**
      * @param Game $game
      * @return Collection<PuzzleInstanceInterface>

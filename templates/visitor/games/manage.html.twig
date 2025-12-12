@@ -80,7 +80,7 @@
 
                                     <div class="accordion-footer">
                                         <nav class="secondary">
-                                            <a class="btn" href="">Edit puzzle</a>
+                                            <a class="btn" href="{{ path('app.games.puzzles.instance.manage', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">Edit puzzle</a>
                                         </nav>
                                     </div>
                                 </div>

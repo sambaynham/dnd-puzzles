@@ -13,6 +13,7 @@ use App\Services\Puzzle\Domain\Exceptions\MismappedPuzzleTemplateException;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceInterface;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
+use App\Services\Puzzle\Service\Interfaces\PuzzleInstanceServiceInterface;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use App\Services\User\Domain\User;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,8 +25,7 @@ class GameService implements GameServiceInterface
         private GameRepository $gameRepository,
         private GameInvitationRepository $gameInvitationRepository,
         private PuzzleTemplateRegistryInterface $puzzleTemplateRegistry,
-        #[AutowireIterator('app.static_puzzle_provider')]
-        private iterable $staticPuzzleProviders
+        private PuzzleInstanceServiceInterface $puzzleInstanceService
     ) {}
 
     public function getRandomUnusedSlug(): string {
@@ -40,15 +40,8 @@ class GameService implements GameServiceInterface
     public function findOneBySlug(string $slug): ? Game {
         $game = $this->gameRepository->findOneBySlug($slug);
         if ($game) {
-            $staticPuzzles = new ArrayCollection();
-            foreach ($this->staticPuzzleProviders as $provider) {
-                $staticPuzzleInstances = $provider->getStaticPuzzleInstancesForGame($game);
-                foreach ($staticPuzzleInstances as $staticPuzzleInstance) {
-                    $this->mapPuzzleTemplate($staticPuzzleInstance);
-                    $staticPuzzles->add($staticPuzzleInstance);
-                }
-            }
-            $game->setStaticPuzzleInstances($staticPuzzles);
+
+            $game->setStaticPuzzleInstances($this->puzzleInstanceService->getStaticPuzzleInstancesForGame($game));
         }
 
 
@@ -79,12 +72,5 @@ class GameService implements GameServiceInterface
         return $this->gameInvitationRepository->getOutstandingInvitationsForUser($user);
     }
 
-    private function mapPuzzleTemplate(StaticPuzzleInstanceInterface $puzzleInstance): void {
 
-        $template = $this->puzzleTemplateRegistry->getTemplate($puzzleInstance->getTemplateSlug());
-        if (null === $template) {
-            throw new MismappedPuzzleTemplateException(sprintf("Could not find a template with slug %s", $puzzleInstance->getTemplateSlug()));
-        }
-        $puzzleInstance->setTemplate($template);
-    }
 }

@@ -11,7 +11,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
 /**
  * @extends ServiceEntityRepository<Casebook>
@@ -55,5 +54,10 @@ class CasebookRepository extends ServiceEntityRepository implements StaticPuzzle
             ->setParameter(':game', $game);
 
         return new ArrayCollection($qb->getQuery()->getResult());
+    }
+
+    public function providesTemplateInstances(): string
+    {
+        return Casebook::TEMPLATE_SLUG;
     }
 }

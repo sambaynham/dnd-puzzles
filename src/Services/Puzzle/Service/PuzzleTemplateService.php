@@ -9,11 +9,11 @@ use App\Services\Puzzle\Domain\PuzzleCategory;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;
 use App\Services\Puzzle\Infrastructure\PuzzleCategoryRepository;
-use App\Services\Puzzle\Service\Interfaces\PuzzleServiceInterface;
+use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateServiceInterface;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class PuzzleService implements PuzzleServiceInterface
+class PuzzleTemplateService implements PuzzleTemplateServiceInterface
 {
     private const string ALLOWABLE_SLUG_CHARACTER_PATTERN  = '/[^a-z_]/';
     public function __construct(

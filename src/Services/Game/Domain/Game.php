@@ -9,6 +9,7 @@ use App\Services\User\Domain\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 
@@ -22,12 +23,14 @@ class Game extends AbstractDomainEntity
      * @var Collection<int, GameInvitation>
      */
     #[ORM\OneToMany(targetEntity: GameInvitation::class, mappedBy: 'game', orphanRemoval: true)]
+    #[OrderBy(["createdAt" => "DESC"])]
     private Collection $gameInvitations;
 
     /**
      * @var Collection<int, PuzzleInstance>
      */
     #[ORM\OneToMany(targetEntity: PuzzleInstance::class, mappedBy: 'game', fetch: 'EAGER', orphanRemoval: true)]
+    #[OrderBy(["createdAt" => "DESC"])]
     private Collection $dynamicPuzzleInstances;
 
     private Collection $staticPuzzleInstances;

@@ -150,7 +150,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                 throw new PuzzleTemplateRegistryBuildException(sprintf("Unknown field '%s' specified", $key));
             }
             foreach (self::TEMPLATE_FIELDS as $fieldName => $fieldType) {
-                $value = $puzzleTemplateDefinitionArray[$fieldName];
+                $value = $puzzleTemplateDefinitionArray[$fieldName] ?? null;
                 switch ($fieldType) {
                     case 'string':
                         if (!is_string($value)) {

@@ -8,6 +8,7 @@ use App\Services\User\Infrastructure\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -25,6 +26,7 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
      * @var Collection<int, Game>
      */
     #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'gamesMaster', orphanRemoval: true)]
+    #[OrderBy(["createdAt" => "DESC"])]
     private Collection $gamesMastered;
 
     /**

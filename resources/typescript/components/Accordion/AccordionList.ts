@@ -10,6 +10,9 @@ export default class AccordionList extends HTMLDivElement {
     }
 
     connectedCallback() {
+        if (this.entries.length > 0) {
+            this.entries[0].classList.add('open');
+        }
         this.addEventListener('accordion-heading-clicked', (event: CustomEventInit<AccordionHeadingClickDetail>) => {
             if (event.detail?.target !== undefined) {
                 this.entries.forEach((listItem: HTMLElement)=> {

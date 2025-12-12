@@ -8,7 +8,7 @@ use App\Services\Puzzle\Domain\PuzzleCategory;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use Doctrine\Common\Collections\ArrayCollection;
 
-interface PuzzleServiceInterface
+interface PuzzleTemplateServiceInterface
 {
     /**
      * @return iterable<PuzzleTemplate>

@@ -53,7 +53,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
     }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('games/{gameSlug}/puzzles/static/casebook/{casebookSlug}/manage', name: 'app.puzzles.static.casebook.manage')]
+    #[Route('games/{gameSlug}/puzzles/static/casebook/{instanceSlug}/manage', name: 'app.puzzles.static.casebook.manage')]
     public function manageCasebook(
         Game $game,
         Casebook $casebook,

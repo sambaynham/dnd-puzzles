@@ -11,6 +11,7 @@ use App\Form\Visitor\Game\DeleteGameType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
+use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
@@ -90,7 +91,7 @@ final class GamesController extends AbstractBaseController
                 $this->entityManager->persist($game);
                 $this->entityManager->flush();
                 $this->addFlash('success', 'Game created successfully.');
-                return $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);
+                return $this->redirectToRoute('app.games.manage', ['gameSlug' => $game->getSlug()]);
             }
 
         }
@@ -147,8 +148,7 @@ final class GamesController extends AbstractBaseController
     public function delete(
         Game $game,
         Request $request
-    )
-    {
+    ) {
         $title = sprintf('Really delete %s?', $game->getName());
         $form = $this->createForm(DeleteGameType::class);
         $form->handleRequest($request);
@@ -178,9 +178,12 @@ final class GamesController extends AbstractBaseController
 
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('/puzzles/templates/{templateSlug}/add-to-game/{puzzleInstanceCode}/configure', name: 'app.games.puzzleinstance.manage')]
-    public function managePuzzleInstance(PuzzleTemplate $puzzleTemplate, string $puzzleInstanceCode, Request $request): Response
-    {
-
+    #[Route('/games/{gameSlug}/puzzles/{templateSlug}/{instanceCode}/manage', name: 'app.games.puzzles.instance.manage')]
+    public function managePuzzleInstance(
+        PuzzleTemplate $puzzleTemplate,
+        PuzzleInstanceInterface $puzzleInstance,
+        Request $request
+    ): Response {
+        dd("I got here");
     }
 }
