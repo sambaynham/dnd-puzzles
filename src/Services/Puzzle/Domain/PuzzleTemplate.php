@@ -27,9 +27,12 @@ readonly class PuzzleTemplate
         private bool $static,
         private array $credits = [],
         private array  $configuration = [],
-        private ? string $staticConfigurationRoute = null
+        private ? string $staticCreateRoute = null,
+        private ? string $staticEditRoute = null,
     ) {
     }
+
+
 
     /**
      * @return ArrayCollection<PuzzleCategory>
@@ -85,12 +88,27 @@ readonly class PuzzleTemplate
         return $this->static;
     }
 
-    public function getStaticConfigurationRoute(): ? string {
+    public function getStaticCreateRoute(): ? string {
+        $this->validateStatic();
+        return $this->staticCreateRoute;
+    }
+
+    public function getStaticEditRoute(): ?string
+    {
+        $this->validateStatic();
+        return $this->staticEditRoute;
+    }
+
+    /**
+     * @return void
+     * @throws NonStaticConfigurationAttemptException
+     * @throws RoutelessStaticConfigurationAttemptException
+     */
+    private function validateStatic(): void {
         if (!$this->isStatic()) {
             throw new NonStaticConfigurationAttemptException("This template is dynamic, and must be configured using the standard configuration route");
-        } elseif ($this->staticConfigurationRoute === null) {
+        } elseif ($this->staticCreateRoute === null || $this->staticEditRoute === null) {
             throw new RoutelessStaticConfigurationAttemptException("This template is static, but a static configuration route has not been provided.");
         }
-        return $this->staticConfigurationRoute;
     }
 }

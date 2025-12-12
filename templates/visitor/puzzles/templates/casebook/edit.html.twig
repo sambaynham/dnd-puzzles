@@ -8,7 +8,8 @@
                 <em>Your casebook doesn't have any subjects!</em>
             {% endif %}
             <a class="btn btn-cta" href="{{ path('app.puzzles.static.casebook.subjects.add', {
-                'casebookSlug': casebook.getSlug,
+                'instanceCode': casebook.getSlug,
+                'templateSlug': casebook.getTemplate.getSlug,
                 'gameSlug': casebook.getGame.getSLug
             }) }}">
                 Add a new Subject

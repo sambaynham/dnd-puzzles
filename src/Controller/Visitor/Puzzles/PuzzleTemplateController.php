@@ -129,7 +129,7 @@ final class PuzzleTemplateController extends AbstractPuzzleController
                 $session->set(self::ADD_TO_GAME_SESSION_KEY, $serializedDto);
                 $this->addFlash('success', 'Puzzle added! Now to configure it.');
 
-                return $template->isStatic() ? $this->redirectToRoute($template->getStaticConfigurationRoute(), ['gameSlug' => $dto->game->getSlug()]) :
+                return $template->isStatic() ? $this->redirectToRoute($template->getStaticCreateRoute(), ['gameSlug' => $dto->game->getSlug()]) :
                     $this->redirectToRoute(
                     'app.puzzles.template.configure',
                     [

@@ -185,6 +185,15 @@ final class GamesController extends AbstractBaseController
         PuzzleInstanceInterface $puzzleInstance,
         Request $request
     ): Response {
+
+        if ($puzzleTemplate->isStatic()) {
+            return $this->redirectToRoute($puzzleTemplate->getStaticEditRoute(), [
+                'gameSlug' => $game->getSlug(),
+                'templateSlug' => $puzzleTemplate->getSlug(),
+                'instanceCode' => $puzzleInstance->getInstanceCode()
+            ]);
+        }
+
         dd("I got here");
     }
 }

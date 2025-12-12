@@ -14,6 +14,8 @@ use App\Form\Visitor\Puzzle\Static\Casebook\CasebookCreateFormType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
+use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
+use App\Services\Puzzle\Domain\PuzzleTemplate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -53,21 +55,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
     }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('games/{gameSlug}/puzzles/static/casebook/{instanceSlug}/manage', name: 'app.puzzles.static.casebook.manage')]
-    public function manageCasebook(
-        Game $game,
-        Casebook $casebook,
-        Request $request
-    ): Response {
-
-        $pageVars = [
-            'pageTitle' => sprintf("Manage Casebook puzzle '%s'", $casebook->getName()),
-            'casebook' => $casebook
-        ];
-        return $this->render('/visitor/puzzles/templates/casebook/manage.html.twig', $this->populatePageVars($pageVars, $request));
-    }
-    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('games/{gameSlug}/puzzles/static/casebook/{casebookSlug}/manage/subjects/add', name: 'app.puzzles.static.casebook.subjects.add')]
+    #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/subjects/add', name: 'app.puzzles.static.casebook.subjects.add')]
     public function addSubject(
         Game $game,
         Casebook $casebook,
@@ -83,4 +71,19 @@ class CasebookPuzzleController extends AbstractPuzzleController
         ];
         return $this->render('/visitor/puzzles/templates/casebook/subjects/add.html.twig', $this->populatePageVars($pageVars, $request));
     }
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/edit', name: 'app.puzzles.static.casebook.edit')]
+    public function editInstance(
+        Game $game,
+        PuzzleTemplate $template,
+        PuzzleInstanceInterface $instance,
+        Request $request
+    ): Response {
+        $pageVars = [
+            'pageTitle' => sprintf("Edit Casebook puzzle '%s'", $instance->getName()),
+            'casebook' => $instance
+        ];
+        return $this->render('/visitor/puzzles/templates/casebook/edit.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
 }

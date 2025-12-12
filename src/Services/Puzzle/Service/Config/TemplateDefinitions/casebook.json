@@ -10,7 +10,8 @@
     "type": "misc",
     "created": "2025-09-17",
     "static": true,
-    "staticConfigurationRoute": "app.puzzles.static.casebook.create",
+    "staticCreateRoute": "app.puzzles.static.casebook.create",
+    "staticEditRoute": "app.puzzles.static.casebook.edit",
     "creator": "sam.baynham@gmail.com",
     "credits": [
         {
