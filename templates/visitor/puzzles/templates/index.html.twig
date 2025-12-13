@@ -9,7 +9,7 @@
                     <div class="card-metadata">
                         <nav class="tag-list">
                             {% for category in template.categories %}
-                                <a href="{{ path('app.puzzles.categorySlug.show', {'categorySlug' : category.getSlug }) }}">{{ category.getLabel }}</a>
+                                <a href="{{ path('app.puzzles.categorySlug.show', {'categorySlug' : category.getHandle }) }}">{{ category.getLabel }}</a>
                             {% endfor %}
                         </nav>
 

@@ -2,7 +2,7 @@
 
 namespace App\Services\Puzzle\Domain\Casebook;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Puzzle\Infrastructure\Casebook\CasebookSubjectRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,6 +22,10 @@ class CasebookSubject extends AbstractDomainEntity
         #[ORM\JoinColumn(nullable: false)]
         private Casebook $casebook,
 
+        #[ORM\ManyToOne(targetEntity: CasebookSubjectType::class)]
+        #[ORM\JoinColumn(nullable: false)]
+        private CasebookSubjectType $casebookSubjectType,
+
         /**
          * @var Collection<int, CasebookSubjectClue>
          */
@@ -40,6 +44,16 @@ class CasebookSubject extends AbstractDomainEntity
         ?int $id = null
     ) {
         parent::__construct($id);
+    }
+
+    public function getCasebookSubjectType(): CasebookSubjectType
+    {
+        return $this->casebookSubjectType;
+    }
+
+    public function setCasebookSubjectType(CasebookSubjectType $casebookSubjectType): void
+    {
+        $this->casebookSubjectType = $casebookSubjectType;
     }
 
     public function getCasebookSubjectImage(): ?string

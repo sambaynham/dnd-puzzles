@@ -24,9 +24,9 @@ class ClueTypeFixtures extends Fixture
             'state_of_mind' => 'State of Mind',
             'misc' => 'Misc'
         ];
-        foreach ($types as $handle => $name) {
+        foreach ($types as $handle => $label) {
             if (!$repo->findByHandle($handle)) {
-                $manager->persist(new CasebookSubjectClueType(name: $name, handle: $handle));
+                $manager->persist(new CasebookSubjectClueType(label: $label, handle: $handle));
             }
 
         }

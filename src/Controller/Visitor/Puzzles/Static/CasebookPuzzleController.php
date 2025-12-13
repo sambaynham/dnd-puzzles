@@ -103,7 +103,8 @@ class CasebookPuzzleController extends AbstractPuzzleController
                 casebook: $puzzleInstance,
                 casebookSubjectClues: $clues,
                 casebookSubjectNotes: new ArrayCollection(),
-                casebookSubjectImage: $imageFileName
+                casebookSubjectImage: $imageFileName,
+                casebookSubjectType: $dto->type
             );
 
             foreach ($dto->clues as $clueEntry) {

@@ -37,7 +37,7 @@ class ClueType extends AbstractType
             EntityType::class,
             [
                 'class' => CasebookSubjectClueType::class,
-                'choice_label' => 'name',
+                'choice_label' => 'label',
                 'help' => 'Select a type for your clue.'
             ]
         );

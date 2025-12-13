@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Services\Core\Domain;
 
 use Doctrine\ORM\Mapping as ORM;
+
 #[ORM\MappedSuperclass]
 #[ORM\HasLifecycleCallbacks]
 abstract class AbstractDomainEntity
@@ -23,10 +24,11 @@ abstract class AbstractDomainEntity
     ) {}
 
     final public function getId(): ?int {
-        return $this->id;
+        return $this->id ?? null;
     }
 
-    final public function setId(int $id) {
+    final public function setId(int $id): void
+    {
         $this->id = $id;
     }
 

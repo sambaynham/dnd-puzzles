@@ -279,11 +279,11 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
     public function mapCategories(array $categories): ArrayCollection {
         $categoriesCollection = new ArrayCollection();
         foreach ($categories as $categorySlug) {
-            $category = $this->puzzleCategoryRepository->findBySlug($categorySlug);
+            $category = $this->puzzleCategoryRepository->findByHandle($categorySlug);
             if (null === $category) {
                 $label = self::generateCategoryLabel($categorySlug);
                 $category = new PuzzleCategory(
-                    slug: $categorySlug,
+                    handle: $categorySlug,
                     label: $label,
                     description: $label
                 );

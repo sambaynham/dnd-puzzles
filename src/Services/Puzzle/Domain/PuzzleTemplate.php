@@ -11,11 +11,15 @@ readonly class PuzzleTemplate
     /**
      * @param string $slug
      * @param string $title
+     * @param \DateTimeImmutable $createdAt
      * @param string $description
      * @param ArrayCollection<PuzzleCategory> $categories
      * @param string $authorEmail
+     * @param bool $static
      * @param array<PuzzleCredit $credits
      * @param array<ConfigOptionDefinition> $configuration
+     * @param string|null $staticCreateRoute
+     * @param string|null $staticEditRoute
      */
     public function __construct(
         private string $slug,

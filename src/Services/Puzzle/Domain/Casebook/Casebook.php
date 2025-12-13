@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Puzzle\Domain\Casebook;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Exceptions\MismappedPuzzleTemplateException;
 use App\Services\Puzzle\Domain\Exceptions\PuzzleTemplateNotMappedException;
-use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;

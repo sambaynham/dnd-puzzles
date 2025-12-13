@@ -2,7 +2,7 @@
 
 namespace App\Services\User\Domain;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\User\Infrastructure\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -22,10 +22,10 @@ class Role extends AbstractDomainEntity
         private readonly string $handle,
 
         #[ORM\ManyToMany(targetEntity: Permission::class, fetch: 'EAGER', indexBy: 'handle')]
-        private readonly Collection $permissions = new ArrayCollection(),
+        private Collection $permissions = new ArrayCollection(),
 
         #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'roles', indexBy: 'handle')]
-        private readonly Collection $users = new ArrayCollection(),
+        private Collection $users = new ArrayCollection(),
 
         ?int $id = null
     )
@@ -80,5 +80,15 @@ class Role extends AbstractDomainEntity
             }
         }
         return false;
+    }
+
+    public function setPermissions(Collection $permissions): void
+    {
+        $this->permissions = $permissions;
+    }
+
+    public function setUsers(Collection $users): void
+    {
+        $this->users = $users;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services\Puzzle\Domain;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Exceptions\PuzzleTemplateNotMappedException;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;

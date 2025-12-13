@@ -2,7 +2,7 @@
 
 namespace App\Services\User\Domain;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\User\Infrastructure\UserBlockRepository;
 use Doctrine\ORM\Mapping as ORM;
 

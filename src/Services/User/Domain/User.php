@@ -2,7 +2,7 @@
 
 namespace App\Services\User\Domain;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Game\Domain\Game;
 use App\Services\User\Infrastructure\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;

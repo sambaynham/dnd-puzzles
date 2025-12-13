@@ -2,8 +2,8 @@
 
 namespace App\Services\BlockedEmailAddress\Domain;
 
-use App\Entity\AbstractDomainEntity;
 use App\Services\BlockedEmailAddress\Infrastructure\BlockedEmailAddressRepository;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BlockedEmailAddressRepository::class)]

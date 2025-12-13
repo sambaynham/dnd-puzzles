@@ -2,7 +2,7 @@
 
 namespace App\Services\Puzzle\Domain\Casebook;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Puzzle\Infrastructure\Casebook\CasebookSubjectNoteRepository;
 use App\Services\User\Domain\User;
 use Doctrine\ORM\Mapping as ORM;

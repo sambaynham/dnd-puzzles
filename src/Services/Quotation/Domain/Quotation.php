@@ -2,7 +2,7 @@
 
 namespace App\Services\Quotation\Domain;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Quotation\Infrastructure\QuotationRepository;
 use Doctrine\ORM\Mapping as ORM;
 

@@ -8,6 +8,7 @@ use App\Services\User\Infrastructure\PermissionRepository;
 use App\Services\User\Infrastructure\RoleRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use InvalidArgumentException;
 
 class RoleFixtures extends Fixture
 {

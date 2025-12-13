@@ -2,7 +2,7 @@
 
 namespace App\Services\Game\Domain;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Game\Infrastructure\GameInvitationRepository;
 use App\Services\User\Domain\User;
 use Doctrine\ORM\Mapping as ORM;

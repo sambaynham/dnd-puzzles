@@ -2,7 +2,7 @@
 
 namespace App\Services\Game\Domain;
 
-use App\Entity\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Game\Infrastructure\GameRepository;
 use App\Services\Puzzle\Domain\PuzzleInstance;
 use App\Services\User\Domain\User;

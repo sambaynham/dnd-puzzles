@@ -30,10 +30,10 @@
                         <div class="card-accordion-list accordion-list" is="accordion-list">
                             {% for clue in subject.getCasebookSubjectClues %}
                                 <article class="accordion-entry" id="clue-{{ clue.getId }}" is="accordion-entry">
-                                    <h3 class="accordion-heading {% if clue.getRevealedDate is not null %}accordion-success{% endif %}">Clue - {{ clue.getTitle }} - {{ clue.getRevealedDate ? 'Revealed' : 'Not Found' }}</h3>
+                                    <h3 class="accordion-heading {% if clue.getRevealedDate is not null %}accordion-success{% endif %}">Clue - {{ clue.getTitle }} - {{ clue.getRevealedDate ? 'Revealed' : 'Not Revealed' }}</h3>
                                     <div class="accordion-body">
                                         <div class="accordion-content">
-                                            <strong>{{ clue.getType.getName }}:</strong>
+                                            <strong>{{ clue.getType.getLabel }}:</strong>
                                             {{ clue.getBody }}
                                         </div>
                                         {% if clue.getRevealedDate is null %}

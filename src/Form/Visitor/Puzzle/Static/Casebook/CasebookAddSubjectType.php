@@ -6,6 +6,7 @@ namespace App\Form\Visitor\Puzzle\Static\Casebook;
 
 use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectDto;
 use App\Form\Type\ClueType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -16,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use App\Services\Puzzle\Domain\Casebook\CasebookSubjectType;
 
 class CasebookAddSubjectType extends AbstractType
 {
@@ -45,6 +47,14 @@ class CasebookAddSubjectType extends AbstractType
                 TextType::class,
                 [
                     'help' => 'What is your Casebook subject\'s name?'
+                ]
+            )
+            ->add(
+                'type',
+                EntityType::class,
+                [
+                    'class' => CasebookSubjectType::class,
+                    'choice_label' => 'label',
                 ]
             )
             ->add(

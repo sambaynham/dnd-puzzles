@@ -33,9 +33,13 @@ class PuzzleCategoryFixtures extends Fixture
                 'description' => 'In a riddle/wordplay puzzle, players must answer a question correctly'
             ]
         ];
-        foreach ($puzzleCategories as $slug => $definition) {
-            if (!$repo->findBySlug($slug)) {
-                $manager->persist(new PuzzleCategory(slug: $slug, label: $definition['label'], description: $definition['description']));
+        foreach ($puzzleCategories as $handle => $definition) {
+            if (!$repo->findByHandle($handle)) {
+                $manager->persist(new PuzzleCategory(
+                    label: $definition['label'],
+                    handle: $handle,
+                    description: $definition['description']
+                ));
             }
 
         }
