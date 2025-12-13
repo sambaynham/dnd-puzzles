@@ -181,4 +181,10 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
         }
         $this->puzzleTemplate = $puzzleTemplate;
     }
+
+    public function getSubjectsByTypeHandle(string $typeHandle): ArrayCollection {
+        return $this->casebookSubjects->filter(function (CasebookSubject $casebookSubject) use ($typeHandle) {
+            return $casebookSubject->getCasebookSubjectType()->getHandle() === $typeHandle;
+        });
+    }
 }

@@ -1,0 +1,53 @@
+{% extends 'base/base.html.twig' %}
+{% block body %}
+    <nav class="secondary">
+        <a href="{{ path('app.puzzles.static.casebook.edit', {
+            'gameSlug': game.getSlug,
+            'templateSlug': template.getSlug,
+            'instanceCode': instance.getInstanceCode
+        }) }}">Back to {{ instance.getName }}</a>
+    </nav>
+    {{ form_start(form) }}
+    <div class="row no-margin">
+        <div class="col">
+            <h2>Basic information</h2>
+        </div>
+    </div>
+    <div class="row equal-thirds">
+        <div class="col">
+            {% if subject.getCasebookSubjectImage %}
+                <img style="width: 100%;" src="/uploads/images/{{ subject.getCasebookSubjectImage }}" alt="{{ subject.getName }}" class="portrait">
+            {% endif %}
+            {{ form_row(form.image) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.name) }}
+            {{ form_row(form.type) }}
+        </div>
+        <div class="col">
+
+            {{ form_row(form.description) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_label(form.clues) }}
+            <div class="multiadd-wrapper" is="multiadd-wrapper"
+                data-prototype="{{ form_widget(form.clues.vars.prototype)|e('html_attr') }}"
+                data-index="{{ form.clues|length }}"
+            >
+                <div class="rows">
+                    {% for clueForm in form.clues %}
+                        <div class="multiadd-row">
+                            {{ form_errors(clueForm) }}
+                            {{ form_row(clueForm) }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {{ form_row(form.add_entry) }}
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

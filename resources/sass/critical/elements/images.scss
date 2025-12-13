@@ -16,6 +16,10 @@ body.loaded {
             border: 1rem solid transparent;
             border-image: url('/dist/images/eroded-frame.svg') 33%;
         }
+
+        &.thumbnail {
+            height: 10vh;
+        }
     }
 }
 

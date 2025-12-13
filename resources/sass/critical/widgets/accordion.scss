@@ -48,6 +48,16 @@
             background: palette.$offWhite linear-gradient(45deg, palette.$offWhite, color.adjust(palette.$offWhite, $lightness: -5%, $saturation: -100%));
 
 
+            .accordion-content {
+                &.accordion-columns {
+                    display: flex;
+                    flex-direction: column;
+
+                    .accordion-column {
+                        flex: 1;
+                    }
+                }
+            }
             .accordion-footer {
                 padding: math.div(variables.$base-spacing, 4);
             }
@@ -66,3 +76,24 @@
 
     }
 }
+
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
+    .accordion-list {
+        article {
+            .accordion-body {
+                .accordion-content {
+                    &.accordion-columns {
+                        flex-direction: row;
+
+                        .accordion-column {
+
+                            padding: 0 math.div(variables.$base-spacing, 4);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+

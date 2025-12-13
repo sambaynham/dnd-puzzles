@@ -1,0 +1,46 @@
+<article class="accordion-entry" id="person-{{ subject.getId }}" is="accordion-entry">
+    <h3 class="accordion-heading">{{ subject.getName }}</h3>
+    <div class="accordion-body">
+        <div class="accordion-content accordion-columns">
+            {% if subject.getCasebookSubjectImage %}
+                <div class="accordion-column">
+                    <h3>Image</h3>
+                    <img class="portrait thumbnail" src="/uploads/images/{{ subject.getCasebookSubjectImage }}" alt="{{ subject.getName }}">
+                </div>
+
+            {% endif %}
+            <div class="accordion-column">
+                <h3>Description</h3>
+                {{ subject.getDescription }}
+            </div>
+            <div class="accordion-column">
+                <h3>Clues</h3>
+                {% if subject.getCasebookSubjectClues is empty %}
+                    <em>This subject has no clues.</em>
+                {% else %}
+                    <ul class="tabular-list">
+                        {% for clue in subject.getCasebookSubjectClues %}
+                            <li>
+                                <span class="tlist-column">{{ clue.getTitle }}</span>
+                                <span class="tlist-column">{{ clue.getType.getLabel }}</span>
+                                <span class="tlist-column">{{ clue.getRevealedDate ? 'Revealed' : 'Not Revealed' }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div class="accordion-footer">
+            <a href="{{ path(
+                'app.puzzles.static.casebook.subjects.edit',
+                {
+                    'gameSlug' : game.getSlug,
+                    'templateSlug': template.getSlug,
+                    'instanceCode': casebook.getInstanceCode,
+                    'subjectId': subject.getId
+                }
+            ) }}" class="btn">Edit</a>
+        </div>
+    </div>
+
+</article>

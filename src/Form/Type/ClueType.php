@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
+use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectClueDto;
+use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClue;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClueType;
 use Predis\Command\Argument\Search\SchemaFields\TextField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -11,29 +13,28 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClueType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void {
 
-
-
         $builder->add(
-            'clueName',
+            'title',
             TextType::class,
             [
                 'help' => 'Enter a short name for your clue.'
             ]
         )
         ->add(
-            'clueDescription',
+            'body',
             TextareaType::class,
             [
                 'help' => 'Enter the detailed content of the clue'
             ]
         )
         ->add(
-            'clueType',
+            'type',
             EntityType::class,
             [
                 'class' => CasebookSubjectClueType::class,
@@ -42,5 +43,13 @@ class ClueType extends AbstractType
             ]
         );
 
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+
+        $resolver->setDefaults([
+            'data_class' => CasebookSubjectClueDto::class
+        ]);
     }
 }

@@ -166,6 +166,12 @@ main {
                     }
                 }
             }
+
+            &.equal-thirds {
+                .col {
+                    flex-basis: 33.333%;
+                }
+            }
         }
     }
 

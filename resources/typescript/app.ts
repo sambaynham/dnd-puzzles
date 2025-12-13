@@ -11,6 +11,7 @@ import AccordionList from "./components/Accordion/AccordionList";
 import {AccordionEntry} from "./components/Accordion/AccordionEntry";
 import {Header} from "./components/Header";
 import {MultiaddWrapper} from "./components/MultiaddWrapper";
+import {TabsElement} from "./components/Tabs/TabsElement";
 
 
 
@@ -40,6 +41,7 @@ import {MultiaddWrapper} from "./components/MultiaddWrapper";
         customElementRegistry.define('accordion-list', AccordionList, {extends: 'div'});
         customElementRegistry.define('accordion-entry', AccordionEntry, {extends: 'article'});
         customElementRegistry.define('multiadd-wrapper', MultiaddWrapper);
+        customElementRegistry.define('tabs-element', TabsElement);
     }
 })();
 

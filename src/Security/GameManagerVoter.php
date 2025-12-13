@@ -29,6 +29,7 @@ class GameManagerVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
+
         $user = $token->getUser();
         if ($subject instanceof Game) {
             $gamesMaster = $subject->getGamesMaster();

@@ -9,7 +9,7 @@ use App\Controller\Visitor\Puzzles\PuzzleTemplateController;
 use App\Dto\Visitor\Game\AddPuzzle\AddPuzzleStepOneDto;
 use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookCreateDto;
 use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectDto;
-use App\Form\Visitor\Puzzle\Static\Casebook\CasebookAddSubjectType;
+use App\Form\Visitor\Puzzle\Static\Casebook\CasebookSubjectType;
 use App\Form\Visitor\Puzzle\Static\Casebook\CasebookCreateFormType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
@@ -18,6 +18,7 @@ use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClue;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
+use App\Services\Puzzle\Infrastructure\Casebook\CasebookSubjectClueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -51,6 +52,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
             $this->entityManager->persist($casebook);
             $this->entityManager->flush();
             $this->addFlash(type: 'success', message: "Casebook created");
+
             return $this->redirectToRoute('app.puzzles.static.casebook.edit', [
                 'gameSlug' => $game->getSlug(),
                 'templateSlug' => Casebook::TEMPLATE_SLUG,
@@ -78,7 +80,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
 
         $dto = new CasebookSubjectDto(casebook: $puzzleInstance);
 
-        $form = $this->createForm(CasebookAddSubjectType::class, $dto);
+        $form = $this->createForm(CasebookSubjectType::class, $dto);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -90,7 +92,6 @@ class CasebookPuzzleController extends AbstractPuzzleController
                 try {
                     $imageFile->move($publicImagesDirectory, $imageFileName);
                 } catch (FileException $e) {
-                    die("ERROR");
                     // ... handle exception if something happens during file upload
                 }
             } else {
@@ -108,12 +109,16 @@ class CasebookPuzzleController extends AbstractPuzzleController
             );
 
             foreach ($dto->clues as $clueEntry) {
-                $clues->add(new CasebookSubjectClue(
-                    title: $clueEntry['clueName'],
-                    body: $clueEntry['clueDescription'],
-                    type: $clueEntry['clueType'],
-                    casebookSubject: $subject
-                ));
+                if (!$clueEntry->isBlank()) {
+                    $clues->add(new CasebookSubjectClue(
+                        title: $clueEntry->title,
+                        body: $clueEntry->body,
+                        type: $clueEntry->type,
+                        casebookSubject: $subject
+                    ));
+                }
+
+
             }
 
             $this->entityManager->persist($subject);
@@ -122,10 +127,76 @@ class CasebookPuzzleController extends AbstractPuzzleController
 
         $pageVars = [
             'pageTitle' => sprintf("Add a subject to  '%s'", $puzzleInstance->getName()),
-            'form' => $form
+            'form' => $form,
+            'game' => $game,
         ];
         return $this->render('/visitor/puzzles/templates/casebook/subjects/add.html.twig', $this->populatePageVars($pageVars, $request));
     }
+
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/subjects/{subjectId}/edit', name: 'app.puzzles.static.casebook.subjects.edit')]
+    public function editSubject(
+        Game $game,
+        PuzzleInstanceInterface $puzzleInstance,
+        PuzzleTemplate $puzzleTemplate,
+        CasebookSubject $subject,
+        CasebookSubjectClueRepository $casebookSubjectClueRepository,
+        Request $request,
+        #[Autowire('%kernel.project_dir%/public/uploads/images')] string $publicImagesDirectory
+    ): Response {
+        if (!$puzzleInstance instanceof  Casebook) {
+            throw new BadRequestException();
+        }
+
+        $dto = CasebookSubjectDto::makeFromCasebookSubject($subject);
+        $form = $this->createForm(CasebookSubjectType::class, $dto);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $subject->setName($dto->name);
+            $subject->setDescription($dto->description);
+            foreach ($dto->clues as $clueEntry) {
+                if ($clueEntry->id !== null) {
+                    $existingClue = $casebookSubjectClueRepository->find($clueEntry->id);
+                    $existingClue->setTitle($clueEntry->title);
+                    $existingClue->setBody($clueEntry->body);
+                    $existingClue->setType($clueEntry->type);
+                    $this->entityManager->persist($existingClue);
+                } else {
+                    if (!$clueEntry->isBlank()) {
+                        $newClue = new CasebookSubjectClue(
+                            title: $clueEntry->title,
+                            body: $clueEntry->body,
+                            type: $clueEntry->type,
+                            casebookSubject: $subject
+                        );
+                        $this->entityManager->persist($newClue);
+                    }
+
+                }
+            }
+
+            $this->entityManager->persist($subject);
+            $this->entityManager->flush();
+            $this->addFlash('success', sprintf("%s '%s' edited.", (string) $subject->getCasebookSubjectType(), $subject->getName()));
+            return $this->redirectToRoute('app.puzzles.static.casebook.edit', [
+                'gameSlug' => $game->getSlug(),
+                'templateSlug' => $puzzleTemplate->getSlug(),
+                'instanceCode' => $puzzleInstance->getInstanceCode(),
+            ]);
+        }
+        $pageVars =[
+            'pageTitle' => sprintf('Edit subject "%s"', $subject->getName()),
+            'form' => $form,
+            'subject' => $subject,
+            'game' => $game,
+            'template' => $puzzleTemplate,
+            'instance' => $puzzleInstance
+        ];
+        return $this->render('/visitor/puzzles/templates/casebook/subjects/edit.html.twig', $this->populatePageVars($pageVars, $request));
+
+    }
+
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/edit', name: 'app.puzzles.static.casebook.edit')]
     public function editInstance(
@@ -136,7 +207,9 @@ class CasebookPuzzleController extends AbstractPuzzleController
     ): Response {
         $pageVars = [
             'pageTitle' => sprintf("Edit Casebook puzzle '%s'", $instance->getName()),
-            'casebook' => $instance
+            'casebook' => $instance,
+            'game' => $game,
+            'template' => $template,
         ];
         return $this->render('/visitor/puzzles/templates/casebook/edit.html.twig', $this->populatePageVars($pageVars, $request));
     }

@@ -1,6 +1,8 @@
+@use 'sass:color';
 @use 'sass:math';
 
 @use '../base/palette';
+@use '../base/variables';
 @use '../base/typography';
 
 dl {
@@ -12,6 +14,30 @@ dl {
 }
 
 $stepIconHeight: 5vh;
+
+ul.tabular-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    li {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        width: 100%;
+        text-indent: initial;
+        margin: 0;
+        padding: math.div(variables.$base-spacing, 8);
+
+        &:nth-child(odd) {
+            background-color: color.adjust(palette.$stormBlue, $alpha: -0.75);
+        }
+        span {
+            flex: 1;
+        }
+    }
+}
+
 ol.step-list {
     display: flex;
     flex-direction: row;
@@ -50,6 +76,14 @@ ol.step-list {
                 background-color: palette.$crimson;
 
             }
+        }
+    }
+}
+
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
+    ul.tabular-list {
+        li {
+            flex-direction: row;
         }
     }
 }

@@ -7,8 +7,16 @@ use App\Services\Puzzle\Infrastructure\Casebook\CasebookSubjectClueRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CasebookSubjectClueRepository::class)]
-class CasebookSubjectClue extends AbstractDomainEntity
+class CasebookSubjectClue extends AbstractDomainEntity implements \ArrayAccess
 {
+
+    private const array ARRAY_ACCESSIBLE_PROPERTIES = [
+        'title',
+        'body',
+        'type',
+        'revealedDate'
+    ];
+
     public function __construct(
         #[ORM\Column(length: 255)]
         private string $title,
@@ -74,5 +82,32 @@ class CasebookSubjectClue extends AbstractDomainEntity
 
     public function reveal(): void {
         $this->revealedDate = new \DateTimeImmutable();
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return in_array($offset, self::ARRAY_ACCESSIBLE_PROPERTIES, true);
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        return match ($offset) {
+            'title' => $this->getTitle(),
+            'body' => $this->getBody(),
+            'type' => $this->getType(),
+            'revealedDate' => $this->getRevealedDate(),
+            default => null,
+        };
+
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        // TODO: Implement offsetSet() method.
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        // TODO: Implement offsetUnset() method.
     }
 }
