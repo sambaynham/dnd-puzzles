@@ -32,7 +32,7 @@
                     You have no objects in your casebook!
                 {% else %}
                     <div class="accordion-list" is="accordion-list">
-                        {% for object in casebook.getObjects %}
+                        {% for object in casebook.getSubjectsByTypeHandle('object') %}
                             {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.html.twig' with {'subject': object} %}{% endembed %}
                         {% endfor %}
                     </div>
@@ -50,7 +50,7 @@
                     You have no locations in your casebook!
                 {% else %}
                     <div class="accordion-list" is="accordion-list">
-                        {% for location in casebook.getLocations %}
+                        {% for location in casebook.getSubjectsByTypeHandle('location') %}
                             {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.html.twig' with {'subject': location} %}{% endembed %}
                         {% endfor %}
                     </div>
