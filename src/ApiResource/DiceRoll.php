@@ -15,15 +15,17 @@ use App\State\DiceStateProvider;
 
 #[ApiResource(
     uriTemplate: '/dice/{rollState}',
-    uriVariables: [
-        'rollState' => new Link(
-            fromClass: DiceRoll::class,
-            fromProperty: 'id'
-        )
-    ],
     operations: [
         new GetCollection()
     ],
+    uriVariables: [
+        'rollState' => new Link(
+            fromProperty: 'id',
+            fromClass: DiceRoll::class
+        )
+    ],
+    stateless: false,
+    security: "is_granted('ROLE_ADMIN')",
     provider: DiceStateProvider::class
 )]
 readonly class DiceRoll

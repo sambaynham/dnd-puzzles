@@ -41,5 +41,4 @@ class UserTest extends TestCase
         self::assertEmpty($user->getGames());
         self::assertEmpty($user->getGamesMastered());
     }
-
 }

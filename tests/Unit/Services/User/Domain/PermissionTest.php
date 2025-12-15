@@ -13,7 +13,7 @@ class PermissionTest extends AbstractValueObjectTestCase
 
     public function testConstruct(): void {
         $label = 'Test Label';
-        $handle = 'TEST_HANDLE';
+        $handle = 'test_handle';
         $description = 'Test Description';
         $id = 1;
         $permission = new Permission(
@@ -32,7 +32,7 @@ class PermissionTest extends AbstractValueObjectTestCase
     {
         return new Permission(
             label: $overrides['label'] ?? 'Test Label',
-            handle: $overrides['handle'] ?? 'Test Handle',
+            handle: $overrides['handle'] ?? 'test_handle',
             description: $overrides['description'] ?? 'Test Description',
             id: $overrides['id'] ?? null
         );

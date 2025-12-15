@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security;
+namespace App\Services\User\Application\Security;
 
 use App\Services\User\Domain\User as AppUser;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;

@@ -12,8 +12,15 @@ abstract class AbstractValueObjectTestCase extends TestCase
 {
 
     abstract function generateTestValueObject(array $overrides = []): AbstractValueObject;
+
     public function testInvalidHandle(): void {
         $this->expectException(InvalidHandleException::class);
         $this->generateTestValueObject(['handle' => 'This handle has spaces and &^$% characters in it']);
+    }
+
+    public function testToString(): void {
+        $testLabel = 'This is a test label';
+        $testClass = $this->generateTestValueObject(['label' => $testLabel]);
+        self::assertEquals($testLabel, (string) $testClass);
     }
 }

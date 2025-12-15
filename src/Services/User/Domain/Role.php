@@ -3,6 +3,7 @@
 namespace App\Services\User\Domain;
 
 use App\Services\Core\Domain\AbstractDomainEntity;
+use App\Services\User\Domain\Exceptions\InvalidRoleHandleException;
 use App\Services\User\Infrastructure\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,7 +14,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['handle'], message: 'There is already a permission with this handle. Please choose another one.')]
 class Role extends AbstractDomainEntity
 {
-
+    private const string ROLE_HANDLE_PREFIX = 'ROLE_';
+    /**
+     * @throws InvalidRoleHandleException
+     */
     public function __construct(
         #[ORM\Column(length: 255)]
         private string $name,
@@ -30,6 +34,9 @@ class Role extends AbstractDomainEntity
         ?int $id = null
     )
     {
+        if (substr($this->handle, 0, 5) !== self::ROLE_HANDLE_PREFIX) {
+            throw new InvalidRoleHandleException(sprintf('Role handles must begin with %s. %s is not valid', self::ROLE_HANDLE_PREFIX, $this->handle));
+        }
         parent::__construct($id);
     }
 
@@ -80,15 +87,5 @@ class Role extends AbstractDomainEntity
             }
         }
         return false;
-    }
-
-    public function setPermissions(Collection $permissions): void
-    {
-        $this->permissions = $permissions;
-    }
-
-    public function setUsers(Collection $users): void
-    {
-        $this->users = $users;
     }
 }

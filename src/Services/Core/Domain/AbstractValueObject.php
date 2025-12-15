@@ -13,7 +13,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['handle'], message: 'There is already a value object of this type with this slug')]
 abstract class AbstractValueObject extends AbstractDomainEntity implements \Stringable
 {
-
     protected const string VALID_HANDLE_REGEX = '/\A[A-Za-z0-9_]+\z/';
 
     /**
@@ -45,19 +44,9 @@ abstract class AbstractValueObject extends AbstractDomainEntity implements \Stri
         return $this->label;
     }
 
-    final public function setLabel(string $label): void
-    {
-        $this->label = $label;
-    }
-
     final public function getHandle(): string
     {
         return $this->handle;
-    }
-
-    final public function setHandle(string $handle): void
-    {
-        $this->handle = $handle;
     }
 
     final public function __toString(): string

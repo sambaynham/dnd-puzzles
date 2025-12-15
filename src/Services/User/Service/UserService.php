@@ -10,28 +10,32 @@ use App\Services\User\Domain\Role;
 use App\Services\User\Domain\User;
 use App\Services\User\Infrastructure\PermissionRepository;
 use App\Services\User\Infrastructure\RoleRepository;
+use App\Services\User\Infrastructure\UserAccessTokenRepository;
 use App\Services\User\Infrastructure\UserBlockRepository;
 use App\Services\User\Infrastructure\UserRepository;
 use App\Services\User\Service\Exceptions\MissingDefaultRoleException;
 use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Security\Http\AccessToken\AccessTokenHandlerInterface;
 
-class UserService implements UserProviderInterface, UserServiceInterface
+class UserService implements UserProviderInterface, UserServiceInterface, AccessTokenHandlerInterface
 {
     private const string DEFAULT_ROLE = 'ROLE_USER';
     public function __construct(
         private readonly UserRepository $userRepository,
         private readonly PermissionRepository $permissionRepository,
         private readonly RoleRepository $roleRepository,
-        private readonly UserBlockRepository $blockRepository,
+        private readonly UserAccessTokenRepository $userAccessTokenRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
     ) {
@@ -55,9 +59,8 @@ class UserService implements UserProviderInterface, UserServiceInterface
         $user = $this->userRepository->findOneBy(['email' => $identifier]);
         if (!$user) {
             throw new UserNotFoundException();
-
-
         }
+
         if (null !== $user->getUserBlock()) {
             $block = $user->getUserBlock();
 
@@ -152,5 +155,15 @@ class UserService implements UserProviderInterface, UserServiceInterface
     public function findAllRoles(): array
     {
         return $this->roleRepository->findAll();
+    }
+
+    public function getUserBadgeFrom(#[\SensitiveParameter] string $accessToken): UserBadge
+    {
+        $accessToken = $this->userAccessTokenRepository->findOneByValue($accessToken);
+        if (null === $accessToken || $accessToken->isExpired()) {
+            throw new BadCredentialsException('Invalid credentials.');
+        }
+
+        return new UserBadge($accessToken->getUserIdentifier());
     }
 }

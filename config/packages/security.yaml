@@ -13,9 +13,11 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            access_token:
+                token_handler: App\Services\User\Service\UserService
             lazy: true
             provider: user_service_provider
-            user_checker: App\Security\UserChecker
+            user_checker: App\Services\User\Application\Security\UserChecker
             form_login:
                 login_path: app_login
                 check_path: app_login
