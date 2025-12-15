@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\User\Infrastructure;
 
+use App\Services\Core\Infrastructure\AbstractValueObjectRepository;
 use App\Services\User\Domain\Permission;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -9,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Permission>
  */
-class PermissionRepository extends ServiceEntityRepository
+class PermissionRepository extends AbstractValueObjectRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

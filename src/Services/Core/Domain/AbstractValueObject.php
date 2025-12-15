@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Core\Domain;
 
+use App\Services\Core\Domain\Exceptions\InvalidHandleException;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -12,6 +13,15 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['handle'], message: 'There is already a value object of this type with this slug')]
 abstract class AbstractValueObject extends AbstractDomainEntity implements \Stringable
 {
+
+    protected const string VALID_HANDLE_REGEX = '/\A[A-Za-z0-9_]+\z/';
+
+    /**
+     * @param string $label
+     * @param string $handle
+     * @param int|null $id
+     * @throws InvalidHandleException
+     */
     public function __construct(
         #[ORM\Column(length: 255)]
         private string $label,
@@ -21,6 +31,12 @@ abstract class AbstractValueObject extends AbstractDomainEntity implements \Stri
 
         ?int $id = null,
     ) {
+        if (!preg_match(self::VALID_HANDLE_REGEX, $this->handle)) {
+            throw new InvalidHandleException(
+                'Handles may contain only letters, digits and underscores'
+            );
+        }
+
         parent::__construct($id);
     }
 
@@ -48,4 +64,6 @@ abstract class AbstractValueObject extends AbstractDomainEntity implements \Stri
     {
         return $this->getLabel();
     }
+
+    abstract public static function hasDescription(): bool;
 }

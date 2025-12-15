@@ -31,4 +31,9 @@ class PuzzleCategory extends AbstractValueObject
     {
         $this->description = $description;
     }
+
+    public static function hasDescription(): bool
+    {
+        return true;
+    }
 }

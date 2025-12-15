@@ -9,4 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CasebookSubjectClueTypeRepository::class)]
 class CasebookSubjectClueType extends AbstractValueObject
 {
+    public static function hasDescription(): bool
+    {
+        return false;
+    }
 }

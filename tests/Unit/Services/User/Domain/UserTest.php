@@ -42,7 +42,4 @@ class UserTest extends TestCase
         self::assertEmpty($user->getGamesMastered());
     }
 
-    public function testSetRoles(): void {
-
-    }
 }
