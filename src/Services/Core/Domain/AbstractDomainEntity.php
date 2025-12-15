@@ -20,7 +20,7 @@ abstract class AbstractDomainEntity
         #[ORM\Id]
         #[ORM\GeneratedValue]
         #[ORM\Column]
-        private ?int $id = null
+        protected ?int $id = null
     ) {}
 
     final public function getId(): ?int {

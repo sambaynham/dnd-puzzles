@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Puzzle\Infrastructure\Casebook;
+namespace App\Services\Puzzle\Infrastructure\Casebook\Repository;
 
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Casebook\Casebook;

@@ -2,11 +2,19 @@
 
 namespace App\Services\Puzzle\Domain\Casebook;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Link;
 use App\Services\Core\Domain\AbstractDomainEntity;
-use App\Services\Puzzle\Infrastructure\Casebook\CasebookSubjectRepository;
+use App\Services\Puzzle\Infrastructure\Casebook\Provider\CasebookSubjectProvider;
+use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookSubjectRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ApiResource(
+    uriTemplate: '/puzzleInstances/static/casebookSubjects',
+    stateless: false,
+    provider: CasebookSubjectProvider::class,
+)]
 #[ORM\Entity(repositoryClass: CasebookSubjectRepository::class)]
 class CasebookSubject extends AbstractDomainEntity
 {

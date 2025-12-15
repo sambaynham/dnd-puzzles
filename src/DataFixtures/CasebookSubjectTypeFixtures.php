@@ -2,11 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClueType;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubjectType;
-use App\Services\Puzzle\Domain\PuzzleCategory;
-use App\Services\Puzzle\Infrastructure\Casebook\CasebookSubjectTypeRepository;
-use App\Services\Puzzle\Infrastructure\PuzzleCategoryRepository;
+use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookSubjectTypeRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

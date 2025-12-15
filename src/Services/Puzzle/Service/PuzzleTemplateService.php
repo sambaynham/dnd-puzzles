@@ -7,10 +7,10 @@ namespace App\Services\Puzzle\Service;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
 use App\Services\Puzzle\Domain\PuzzleCategory;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
-use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;
+use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookRepository;
 use App\Services\Puzzle\Infrastructure\PuzzleCategoryRepository;
-use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateServiceInterface;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
+use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class PuzzleTemplateService implements PuzzleTemplateServiceInterface

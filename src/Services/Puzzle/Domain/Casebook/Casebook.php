@@ -10,7 +10,7 @@ use App\Services\Puzzle\Domain\Exceptions\MismappedPuzzleTemplateException;
 use App\Services\Puzzle\Domain\Exceptions\PuzzleTemplateNotMappedException;
 use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
-use App\Services\Puzzle\Infrastructure\Casebook\CasebookRepository;
+use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

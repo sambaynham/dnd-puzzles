@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Puzzle\Infrastructure\Casebook;
+namespace App\Services\Puzzle\Infrastructure\Casebook\Repository;
 
 use App\Services\Core\Infrastructure\AbstractValueObjectRepository;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClueType;
