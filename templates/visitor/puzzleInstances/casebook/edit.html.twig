@@ -15,7 +15,7 @@
                 {% else %}
                     <div class="accordion-list" is="accordion-list">
                         {% for person in casebook.getSubjectsByTypeHandle('person') %}
-                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.html.twig' with {'subject': person} %}{% endembed %}
+                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.manage.html.twig' with {'subject': person} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -33,7 +33,7 @@
                 {% else %}
                     <div class="accordion-list" is="accordion-list">
                         {% for object in casebook.getSubjectsByTypeHandle('object') %}
-                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.html.twig' with {'subject': object} %}{% endembed %}
+                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.manage.html.twig' with {'subject': object} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -51,7 +51,7 @@
                 {% else %}
                     <div class="accordion-list" is="accordion-list">
                         {% for location in casebook.getSubjectsByTypeHandle('location') %}
-                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.html.twig' with {'subject': location} %}{% endembed %}
+                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.manage.html.twig' with {'subject': location} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -70,7 +70,7 @@
                 {% else %}
                     <div class="accordion-list" is="accordion-list">
                         {% for miscSubject in casebook.casebook.getSubjectsByTypeHandle('misc') %}
-                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.html.twig' with {'subject': miscSubject} %}{% endembed %}
+                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.manage.html.twig' with {'subject': miscSubject} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}

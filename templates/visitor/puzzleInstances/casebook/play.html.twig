@@ -11,76 +11,50 @@
         <div class="tab-content-container">
             <div id="people" class="active tab-content">
                 {% if casebook.getSubjectsByTypeHandle('person') is  empty %}
-                    You have no people in your casebook!
+                    No persons of interest have been revealed!
                 {% else %}
-                    <div class="accordion-list" is="accordion-list">
+                    <div class="grid">
                         {% for person in casebook.getSubjectsByTypeHandle('person') %}
-                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.html.twig' with {'subject': person} %}{% endembed %}
+                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': person} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}
-                <a class="btn btn-cta" href="{{ path('app.puzzles.static.casebook.subjects.add', {
-                    'instanceCode': casebook.getSlug,
-                    'templateSlug': casebook.getTemplate.getSlug,
-                    'gameSlug': casebook.getGame.getSLug
-                }) }}">
-                    Add a new Person
-                </a>
+
             </div>
             <div id="objects" class="tab-content">
                 {% if casebook.getSubjectsByTypeHandle('object') is  empty %}
-                    You have no objects in your casebook!
+                    No objects of interest have been revealed!
                 {% else %}
-                    <div class="accordion-list" is="accordion-list">
+                    <div class="grid">
                         {% for object in casebook.getSubjectsByTypeHandle('object') %}
-                            {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.html.twig' with {'subject': object} %}{% endembed %}
+                            {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.view.html.twig' with {'subject': object} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}
-                <a class="btn btn-cta" href="{{ path('app.puzzles.static.casebook.subjects.add', {
-                    'instanceCode': casebook.getSlug,
-                    'templateSlug': casebook.getTemplate.getSlug,
-                    'gameSlug': casebook.getGame.getSLug
-                }) }}">
-                    Add a new Object
-                </a>
             </div>
             <div id="locations" class="tab-content">
                 {% if casebook.getSubjectsByTypeHandle('location') is  empty %}
-                    You have no locations in your casebook!
+                    No locations of interest have been revealed!
                 {% else %}
-                    <div class="accordion-list" is="accordion-list">
+                    <div class="grid">
                         {% for location in casebook.getSubjectsByTypeHandle('location') %}
                             {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.html.twig' with {'subject': location} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}
-                <a class="btn btn-cta" href="{{ path('app.puzzles.static.casebook.subjects.add', {
-                    'instanceCode': casebook.getSlug,
-                    'templateSlug': casebook.getTemplate.getSlug,
-                    'gameSlug': casebook.getGame.getSLug
-                }) }}">
-                    Add a new Location
-                </a>
+
             </div>
 
             <div id="misc" class="tab-content">
                 {% if casebook.getSubjectsByTypeHandle('misc') is  empty %}
-                    You have no Miscellaneous Subjects in your casebook!
+                    No miscellaneous items have been revealed!
                 {% else %}
-                    <div class="accordion-list" is="accordion-list">
+                    <div class="list">
                         {% for miscSubject in casebook.casebook.getSubjectsByTypeHandle('misc') %}
                             {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.html.twig' with {'subject': miscSubject} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}
-                <a class="btn btn-cta" href="{{ path('app.puzzles.static.casebook.subjects.add', {
-                    'instanceCode': casebook.getSlug,
-                    'templateSlug': casebook.getTemplate.getSlug,
-                    'gameSlug': casebook.getGame.getSLug
-                }) }}">
-                    Add a new Miscellaneous Subject
-                </a>
             </div>
         </div>
     </div>

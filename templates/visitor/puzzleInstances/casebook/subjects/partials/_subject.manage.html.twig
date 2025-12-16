@@ -24,7 +24,6 @@
                                 <span class="tlist-column">{{ clue.getTitle }}</span>
                                 <span class="tlist-column">{{ clue.getType.getLabel }}</span>
                                 {%  if clue.getRevealedDate is null %}
-
                                 <button class="tlist-column" is="post-button" data-csrftoken="{{ csrf_token('reveal-clue') }}" data-uri="{{ path(
                                     'app.puzzles.static.casebook.subjects.clues.reveal',
                                     {
