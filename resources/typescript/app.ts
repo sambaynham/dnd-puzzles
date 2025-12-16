@@ -12,6 +12,8 @@ import {AccordionEntry} from "./components/Accordion/AccordionEntry";
 import {Header} from "./components/Header";
 import {MultiaddWrapper} from "./components/MultiaddWrapper";
 import {TabsElement} from "./components/Tabs/TabsElement";
+import {PostButton} from "./components/PostButton";
+
 
 
 
@@ -42,6 +44,7 @@ import {TabsElement} from "./components/Tabs/TabsElement";
         customElementRegistry.define('accordion-entry', AccordionEntry, {extends: 'article'});
         customElementRegistry.define('multiadd-wrapper', MultiaddWrapper);
         customElementRegistry.define('tabs-element', TabsElement);
+        customElementRegistry.define('post-button', PostButton, {extends: 'button'});
     }
 })();
 

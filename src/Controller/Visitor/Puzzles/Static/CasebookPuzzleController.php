@@ -23,6 +23,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -194,7 +195,38 @@ class CasebookPuzzleController extends AbstractPuzzleController
             'instance' => $puzzleInstance
         ];
         return $this->render('/visitor/puzzles/templates/casebook/subjects/edit.html.twig', $this->populatePageVars($pageVars, $request));
+    }
 
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route(
+        path: 'games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/subjects/{subjectId}/clues/{clueId}/reveal',
+        name: 'app.puzzles.static.casebook.subjects.clues.reveal',
+        methods: ['POST', 'GET']
+    )]
+    public function revealClue(
+        Game $game,
+        PuzzleInstanceInterface $puzzleInstance,
+        PuzzleTemplate $puzzleTemplate,
+        CasebookSubject $subject,
+        CasebookSubjectClue $clue,
+        Request $request,
+    ): Response {
+        if (!$puzzleInstance instanceof Casebook) {
+            return new JsonResponse([
+                'message' => 'Not a Casebook Instance'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+
+        if (null !== $clue->getRevealedDate()) {
+            return new JsonResponse([
+                'message' => 'Clue already revealed'
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        $clue->reveal();
+        $this->entityManager->persist($clue);
+        $this->entityManager->flush();
+        return new JsonResponse([], Response::HTTP_OK);
     }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]

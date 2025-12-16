@@ -9,6 +9,7 @@ use App\Dto\Visitor\Game\CreateGameDto;
 use App\Form\Visitor\Game\CreateGameType;
 use App\Form\Visitor\Game\DeleteGameType;
 use App\Security\GameManagerVoter;
+use App\Security\GamePlayerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
@@ -195,5 +196,38 @@ final class GamesController extends AbstractBaseController
         }
 
         dd("I got here");
+    }
+
+    #[IsGranted(GamePlayerVoter::PLAY_GAME, 'game')]
+    #[Route('games/{gameSlug}/play', name: 'app.games.play')]
+    public function play(
+        Game $game,
+        Request $request
+    ) {
+        $title = sprintf('Really delete %s?', $game->getName());
+        $form = $this->createForm(DeleteGameType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->remove($game);
+            $this->entityManager->flush();
+            $this->addFlash('success', sprintf("Game %s delete successfully", $game->getName()));
+            return $this->redirectToRoute('app.games.index');
+        }
+        $pageVars = [
+            'pageTitle' => $title,
+            'breadcrumbs' => [
+                [
+                    'route' => 'app.games.index',
+                    'label' => 'My Games',
+                    'active' => false
+                ],
+                [
+                    'label' => $title,
+                    'active' => true
+                ],
+            ],
+            'form' => $form
+        ];
+        return $this->render('/visitor/games/delete.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

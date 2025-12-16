@@ -23,7 +23,21 @@
                             <li>
                                 <span class="tlist-column">{{ clue.getTitle }}</span>
                                 <span class="tlist-column">{{ clue.getType.getLabel }}</span>
-                                <span class="tlist-column">{{ clue.getRevealedDate ? 'Revealed' : 'Not Revealed' }}</span>
+                                {%  if clue.getRevealedDate is null %}
+
+                                <button class="tlist-column" is="post-button" data-csrftoken="{{ csrf_token('reveal-clue') }}" data-uri="{{ path(
+                                    'app.puzzles.static.casebook.subjects.clues.reveal',
+                                    {
+                                        'gameSlug': clue.getCasebookSubject.getCasebook.getGame.getSlug,
+                                        'templateSlug': 'casebook',
+                                        'instanceCode': clue.getCasebookSubject.getCasebook.getInstanceCode,
+                                        'subjectId': subject.getId,
+                                        'clueId': clue.getId
+                                    }
+                                ) }}">Reveal</button>
+                                {% else %}
+                                    <span class="tlist-column">Revealed on {{ clue.getRevealedDate.format('Y-m-d H:i') }}</span>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>

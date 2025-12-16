@@ -30,9 +30,10 @@ export class TabsElement extends HTMLElement {
 
         let navBarHeight: number = (this.headings as HTMLElement).offsetHeight;
         let tallestElementHeight: number = 0;
-        this.contentContainer.querySelectorAll('.tab-content').forEach((contentElement: HTMLElement) => {
-            if (contentElement.offsetHeight > tallestElementHeight) {
-                tallestElementHeight = contentElement.offsetHeight;
+        this.contentContainer.querySelectorAll('.tab-content').forEach((contentElement: Element) => {
+            let htmlContentElement = contentElement as HTMLElement;
+            if (htmlContentElement.offsetHeight > tallestElementHeight) {
+                tallestElementHeight = htmlContentElement.offsetHeight;
             }
         });
 
@@ -43,7 +44,6 @@ export class TabsElement extends HTMLElement {
     }
 
     private setupListeners() {
-        console.log('TabsElement setupListeners');
         this.headings.querySelectorAll('a').forEach(heading => {
             heading.addEventListener('click', (e: MouseEvent) => {
                 e.preventDefault();
@@ -74,7 +74,7 @@ export class TabsElement extends HTMLElement {
     }
 
     private setActiveContent(activeContentContainer: HTMLElement): void {
-        this.contentContainer.querySelectorAll('div.tab-content').forEach((candidateContentContainer: HTMLAnchorElement) => {
+        this.contentContainer.querySelectorAll('div.tab-content').forEach((candidateContentContainer: Element) => {
             if (candidateContentContainer === activeContentContainer) {
                 candidateContentContainer.classList.add('active');
             } else {

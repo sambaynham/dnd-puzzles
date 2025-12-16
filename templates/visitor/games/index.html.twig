@@ -35,11 +35,25 @@
             <h2>Games I'm Playing in</h2>
 
             {% if gamesMember is not empty %}
-                <nav class="vertical">
+                <div class="accordion-list" is="accordion-list">
                     {% for game in gamesMember %}
-                        <a href="#">SOME GAME LINK</a>
+
+                        <article class="accordion-entry" id="game-{{ game.getSlug }}" is="accordion-entry">
+                            <h3 class="accordion-heading">{{ game.getName }}</h3>
+                            <div class="accordion-body">
+                                <div class="accordion-content">
+                                    {{ game.getName }}
+                                    <nav class="secondary">
+                                        <a class="btn" href="{{ path('app.games.play', {
+                                            'gameSlug': game.getSlug
+                                        }) }}">Play Now!</a>
+                                    </nav>
+                                </div>
+                            </div>
+
+                        </article>
                     {% endfor %}
-                </nav>
+                </div>
 
             {% else %}
 

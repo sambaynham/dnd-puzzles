@@ -31,7 +31,7 @@ class CasebookSubjectClue extends AbstractDomainEntity implements \ArrayAccess
         #[ORM\JoinColumn(nullable: false)]
         private CasebookSubject $casebookSubject,
 
-        #[ORM\Column(nullable: true)]
+        #[ORM\Column(nullable: true, type: 'datetime_immutable')]
         private ? \DateTimeInterface $revealedDate = null,
         ?int $id = null
     ) {

@@ -1,0 +1,40 @@
+<?php
+
+namespace App\ApiResource\Casebook\Dto;
+
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Link;
+use App\ApiResource\Casebook\Providers\CasebookProvider;
+use App\Services\Puzzle\Domain\Casebook\Casebook;
+
+#[ApiResource(
+    uriTemplate: '/puzzles/static/casebook/{instanceCode}',
+    operations: [
+        new Get()
+    ],
+    uriVariables: [
+        'instanceCode' => new Link(
+            fromProperty: 'instanceCode',
+            fromClass: CasebookDto::class
+        )
+    ],
+    stateless: false,
+    provider: CasebookProvider::class
+)]
+readonly class CasebookDto
+{
+    public function __construct(
+        public string $instanceCode,
+        public string $name,
+        public string $brief
+    ) {}
+
+    public static function makeFromInstance(Casebook $casebook): self {
+        return new static(
+            instanceCode: $casebook->getInstanceCode(),
+            name: $casebook->getName(),
+            brief: $casebook->getBrief()
+        );
+    }
+}

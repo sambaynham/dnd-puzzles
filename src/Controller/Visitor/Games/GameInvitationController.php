@@ -48,7 +48,7 @@ class GameInvitationController extends AbstractBaseController
      * @throws RandomException
      */
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('games/{slug}/manage/invitations', name: 'app.games.invite')]
+    #[Route('games/{gameSlug}/manage/invitations', name: 'app.games.invite')]
     public function invite(
         Game $game,
         Request $request
@@ -118,7 +118,7 @@ class GameInvitationController extends AbstractBaseController
     }
 
     #[IsGranted(InvitationOwnerVoter::MANAGE_INVITATION_ACTION, 'invitation')]
-    #[Route('games/{slug}/invitations/{invitationCode}/revoke', name: 'app.games.invite.revoke')]
+    #[Route('games/{gameSlug}/invitations/{invitationCode}/revoke', name: 'app.games.invite.revoke')]
     public function revoke(
         Request $request,
         GameInvitation $invitation
