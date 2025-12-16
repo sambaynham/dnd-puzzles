@@ -27,7 +27,7 @@
                 {% else %}
                     <div class="grid">
                         {% for object in casebook.getSubjectsByTypeHandle('object') %}
-                            {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.view.html.twig' with {'subject': object} %}{% endembed %}
+                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': object} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -38,7 +38,7 @@
                 {% else %}
                     <div class="grid">
                         {% for location in casebook.getSubjectsByTypeHandle('location') %}
-                            {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.html.twig' with {'subject': location} %}{% endembed %}
+                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': location} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -51,7 +51,7 @@
                 {% else %}
                     <div class="list">
                         {% for miscSubject in casebook.casebook.getSubjectsByTypeHandle('misc') %}
-                            {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.html.twig' with {'subject': miscSubject} %}{% endembed %}
+                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': miscSubject} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}

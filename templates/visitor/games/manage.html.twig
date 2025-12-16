@@ -81,7 +81,8 @@
                                     <div class="accordion-footer">
                                         <nav class="secondary">
                                             <a class="btn" href="{{ path('app.games.puzzles.instance.manage', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">Edit puzzle</a>
-                                            {% if puzzleInstance.getPublicationDAte is null %}
+                                            <a class="btn" href="{{ path('app.games.puzzles.instance.play', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">View as Player</a>
+                                            {% if puzzleInstance.getPublicationDate is null %}
                                                 <a class="btn btn-primary" href="{{ path('app.games.puzzles.instance.publish', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">Publish puzzle</a>
                                             {% endif %}
                                         </nav>

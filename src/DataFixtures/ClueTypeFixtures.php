@@ -22,6 +22,7 @@ class ClueTypeFixtures extends Fixture
             'physical_details' => 'Physical Details',
             'timing' => 'Timing',
             'state_of_mind' => 'State of Mind',
+            'background' => 'Background',
             'misc' => 'Misc'
         ];
         foreach ($types as $handle => $label) {
