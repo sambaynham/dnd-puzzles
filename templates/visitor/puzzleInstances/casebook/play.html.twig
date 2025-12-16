@@ -15,7 +15,7 @@
                 {% else %}
                     <div class="accordion-list" is="accordion-list">
                         {% for person in casebook.getSubjectsByTypeHandle('person') %}
-                            {% embed 'visitor/puzzles/templates/casebook/subjects/partials/_subject.html.twig' with {'subject': person} %}{% endembed %}
+                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.html.twig' with {'subject': person} %}{% endembed %}
                         {% endfor %}
                     </div>
                 {% endif %}

@@ -65,7 +65,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
             'pageTitle' => sprintf("Set up Casebook puzzle '%s'", $options->puzzleName),
             'form' => $form
         ];
-        return $this->render('/visitor/puzzles/templates/casebook/create.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/puzzleInstances/casebook/create.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
@@ -132,7 +132,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
             'form' => $form,
             'game' => $game,
         ];
-        return $this->render('/visitor/puzzles/templates/casebook/subjects/add.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/puzzleInstances/casebook/subjects/add.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
@@ -195,7 +195,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
             'template' => $puzzleTemplate,
             'instance' => $puzzleInstance
         ];
-        return $this->render('/visitor/puzzles/templates/casebook/subjects/edit.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/puzzleInstances/casebook/subjects/edit.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
@@ -231,7 +231,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
     }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/edit', name: 'app.puzzles.static.casebook.edit')]
+    #[Route('games/{gameSlug}/puzzleInstances/static/{templateSlug}/{instanceCode}/edit', name: 'app.puzzles.static.casebook.edit')]
     public function editInstance(
         Game $game,
         PuzzleTemplate $template,
@@ -244,7 +244,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
             'game' => $game,
             'template' => $template,
         ];
-        return $this->render('/visitor/puzzles/templates/casebook/edit.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/puzzleInstances/casebook/edit.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     #[IsGranted(GamePlayerVoter::PLAY_GAME, 'game')]
@@ -255,7 +255,13 @@ class CasebookPuzzleController extends AbstractPuzzleController
         PuzzleInstanceInterface $instance,
         Request $request
     ): Response {
-      die("Playing with fire");
+        $pageVars = [
+            'pageTitle' => sprintf("Edit Casebook puzzle '%s'", $instance->getName()),
+            'casebook' => $instance,
+            'game' => $game,
+            'template' => $template,
+        ];
+        return $this->render('/visitor/puzzleInstances/casebook/play.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
 }
