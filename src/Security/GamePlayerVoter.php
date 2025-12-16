@@ -32,11 +32,10 @@ class GamePlayerVoter extends Voter
 
         $user = $token->getUser();
         if ($subject instanceof Game) {
-            die("I got here");
-            $gamesMaster = $subject->getGamesMaster();
-
-            if ($user === $gamesMaster) {
-                return true;
+            foreach ($subject->getPlayers() as $player) {
+                if ($player->getUserIdentifier() === $user->getUserIdentifier()) {
+                    return true;
+                }
             }
         }
         return false;

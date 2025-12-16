@@ -4,6 +4,7 @@ namespace App\Services\Game\Domain;
 
 use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Game\Infrastructure\GameRepository;
+use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\PuzzleInstance;
 use App\Services\User\Domain\User;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -174,6 +175,9 @@ class Game extends AbstractDomainEntity
     }
 
     public function getPuzzleInstances(): Collection {
+        /**
+         * @var ArrayCollection<PuzzleInstanceInterface> $puzzlesInstances
+         */
         $puzzlesInstances = new ArrayCollection();
         foreach ($this->getDynamicPuzzleInstances() as $instance) {
             $puzzlesInstances->add($instance);
@@ -183,5 +187,11 @@ class Game extends AbstractDomainEntity
             $puzzlesInstances->add($instance);
         }
         return $puzzlesInstances;
+    }
+
+    public function getPublishedPuzzleInstances(): Collection {
+        return $this->getPuzzleInstances()->filter(function ($instance) {
+            return $instance->isPublished();
+        });
     }
 }

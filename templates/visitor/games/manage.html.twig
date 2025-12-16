@@ -40,7 +40,7 @@
                                             <dd>{{ invitation.expiresAt.format('Y-m-d H:i:s') }}</dd>
                                         </dl>
                                         <nav class="secondary">
-                                            <a href="{{ path('app.games.invite.revoke', {'slug': game.getSlug, 'invitationCode': invitation.invitationCode}) }}" class="btn btn-danger">Revoke</a>
+                                            <a href="{{ path('app.games.invite.revoke', {'gameSlug': game.getSlug, 'invitationCode': invitation.invitationCode}) }}" class="btn btn-danger">Revoke</a>
                                         </nav>
                                     </div>
 
@@ -54,7 +54,7 @@
             </article>
 
             <hr class="subtle"/>
-            <a href="{{ path('app.games.invite', {'slug': game.getSlug}) }}" class="btn btn-blue">Invite Players</a>
+            <a href="{{ path('app.games.invite', {'gameSlug': game.getSlug}) }}" class="btn btn-blue">Invite Players</a>
         </div>
     </div>
     <div class="row">
@@ -81,6 +81,7 @@
                                     <div class="accordion-footer">
                                         <nav class="secondary">
                                             <a class="btn" href="{{ path('app.games.puzzles.instance.manage', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">Edit puzzle</a>
+                                            <a class="btn btn-primary" href="{{ path('app.games.puzzles.instance.manage', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">Publish puzzle</a>
                                         </nav>
                                     </div>
                                 </div>

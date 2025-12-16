@@ -1,1 +1,20 @@
-PLAYME!
+{% extends 'base/base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            {{ game.getDescription }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Puzzles</h2>
+            {% if game.getPublishedPuzzleInstances is not empty %}
+                {% for puzzle in game.getPublishedPuzzleInstances %}
+                    Instant regret.
+                {% endfor  %}
+            {% else %}
+                    <em>This game doesn't have any published puzzles yet. Your Games Master is probably scheming.</em>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

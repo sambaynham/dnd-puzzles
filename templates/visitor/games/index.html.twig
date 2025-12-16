@@ -10,10 +10,9 @@
                             <article class="accordion-entry" id="game-{{ gameMastered.getSlug }}" is="accordion-entry">
                                 <h3 class="accordion-heading">{{ gameMastered.getName }}</h3>
                                 <div class="accordion-body">
-                                    <div class="accordion-content">
-
-                                            {{ gameMastered.getName }}
-                                        <nav class="secondary">
+                                    <div class="accordion-content accordion-columns">
+                                        <span class="accordion-column">{{ gameMastered.getName }}</span>
+                                        <nav class="secondary accordion-column">
                                             <a href="{{ path('app.games.manage', {'gameSlug': gameMastered.getSlug}) }}" class="btn">Manage</a>
                                         </nav>
                                     </div>
@@ -37,17 +36,22 @@
             {% if gamesMember is not empty %}
                 <div class="accordion-list" is="accordion-list">
                     {% for game in gamesMember %}
-
                         <article class="accordion-entry" id="game-{{ game.getSlug }}" is="accordion-entry">
                             <h3 class="accordion-heading">{{ game.getName }}</h3>
                             <div class="accordion-body">
                                 <div class="accordion-content">
-                                    {{ game.getName }}
-                                    <nav class="secondary">
-                                        <a class="btn" href="{{ path('app.games.play', {
-                                            'gameSlug': game.getSlug
-                                        }) }}">Play Now!</a>
-                                    </nav>
+                                    <ul class="tabular-list">
+                                        <li>
+                                            <span><strong>Game:</strong> {{ game.getName }}</span>
+                                            <span><strong>Games Master: </strong>{{ game.getGamesMaster.getUserName }}</span>
+                                            <a class="btn" href="{{ path('app.games.play', {
+                                                'gameSlug': game.getSlug
+                                            }) }}">Play Now!</a>
+                                        </li>
+
+                                    </ul>
+
+
                                 </div>
                             </div>
 
