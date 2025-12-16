@@ -45,6 +45,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
         'static' => 'boolean',
         'staticCreateRoute' => 'route',
         'staticEditRoute' => 'route',
+        'staticPlayRoute' => 'route',
         'creator' => 'email',
         'credits' => 'array',
         'configOptions' => 'configOptions'
@@ -104,7 +105,8 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                         credits: self::mapCredits($result['credits']),
                         configuration: self::mapConfigOptions($result['configOptions']),
                         staticCreateRoute: $result['staticCreateRoute'] ?? null,
-                        staticEditRoute: $result['staticEditRoute'] ?? null
+                        staticEditRoute: $result['staticEditRoute'] ?? null,
+                        staticPlayRoute: $result['staticPlayRoute'] ?? null
                     );
 
                     $registryContent[$template->getSlug()] = $template;
@@ -194,7 +196,7 @@ class PuzzleTemplateRegistryFactory implements CacheWarmerInterface
                     case 'route':
                         if ($value === null) {
                             if ($puzzleTemplateDefinitionArray['static'] === true) {
-                                throw new PuzzleTemplateRegistryBuildException(sprintf("The template %s is static, but no static configuration route has been provided", $puzzleTemplateDefinitionArray['title']));
+                                throw new PuzzleTemplateRegistryBuildException(sprintf("The template %s is static, but a static route is missing", $puzzleTemplateDefinitionArray['title']));
                             } else {
                                 break;
                             }

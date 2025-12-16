@@ -160,7 +160,7 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
     public function isPublished(): bool
     {
         $date= new \DateTime();
-        return $this->publicationDate !== null && $this->publicationDate >= $date;
+        return $this->publicationDate !== null && $this->publicationDate <= $date;
     }
 
     public function getTemplate(): PuzzleTemplate

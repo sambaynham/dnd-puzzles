@@ -12,6 +12,7 @@ use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectDto;
 use App\Form\Visitor\Puzzle\Static\Casebook\CasebookCreateFormType;
 use App\Form\Visitor\Puzzle\Static\Casebook\CasebookSubjectType;
 use App\Security\GameManagerVoter;
+use App\Security\GamePlayerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
@@ -244,6 +245,17 @@ class CasebookPuzzleController extends AbstractPuzzleController
             'template' => $template,
         ];
         return $this->render('/visitor/puzzles/templates/casebook/edit.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[IsGranted(GamePlayerVoter::PLAY_GAME, 'game')]
+    #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}', name: 'app.puzzles.static.casebook.play')]
+    public function play(
+        Game $game,
+        PuzzleTemplate $template,
+        PuzzleInstanceInterface $instance,
+        Request $request
+    ): Response {
+      die("Playing with fire");
     }
 
 }

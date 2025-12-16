@@ -178,25 +178,7 @@ final class GamesController extends AbstractBaseController
     }
 
 
-    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('/games/{gameSlug}/puzzles/{templateSlug}/{instanceCode}/manage', name: 'app.games.puzzles.instance.manage')]
-    public function managePuzzleInstance(
-        Game $game,
-        PuzzleTemplate $puzzleTemplate,
-        PuzzleInstanceInterface $puzzleInstance,
-        Request $request
-    ): Response {
 
-        if ($puzzleTemplate->isStatic()) {
-            return $this->redirectToRoute($puzzleTemplate->getStaticEditRoute(), [
-                'gameSlug' => $game->getSlug(),
-                'templateSlug' => $puzzleTemplate->getSlug(),
-                'instanceCode' => $puzzleInstance->getInstanceCode()
-            ]);
-        }
-
-        dd("I godst here");
-    }
 
     #[IsGranted(GamePlayerVoter::PLAY_GAME, 'game')]
     #[Route('games/{gameSlug}/play', name: 'app.games.play')]

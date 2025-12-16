@@ -9,9 +9,32 @@
         <div class="col">
             <h2>Puzzles</h2>
             {% if game.getPublishedPuzzleInstances is not empty %}
-                {% for puzzle in game.getPublishedPuzzleInstances %}
-                    Instant regret.
-                {% endfor  %}
+                <div class="accordion-list" is="accordion-list">
+                    {% for puzzleInstance in game.getPublishedPuzzleInstances %}
+                        <article class="accordion-entry" id="instance-{{ puzzleInstance.getInstanceCode }}" is="accordion-entry">
+                            <h3 class="accordion-heading">{{ puzzleInstance.getTemplate.getTitle }} - {{ puzzleInstance.getName }}</h3>
+                            <div class="accordion-body">
+                                <div class="accordion-content">
+                                    <dl>
+
+                                        <dt>Publication Date:</dt>
+                                        <dd>{{ puzzleInstance.publicationDate is not null ? puzzleInstance.getPublicationDate.format('Y-m-d H:i') : 'Not set' }}</dd>
+                                    </dl>
+
+                                    {{ puzzleInstance.getDescription }}
+                                </div>
+
+                                <div class="accordion-footer">
+                                    <nav class="secondary">
+                                        <a class="btn" href="{{ path('app.games.puzzles.instance.play', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">Play</a>
+                                    </nav>
+                                </div>
+                            </div>
+
+                        </article>
+                    {% endfor %}
+                </div>
+
             {% else %}
                     <em>This game doesn't have any published puzzles yet. Your Games Master is probably scheming.</em>
             {% endif %}

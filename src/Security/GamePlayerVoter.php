@@ -32,6 +32,9 @@ class GamePlayerVoter extends Voter
 
         $user = $token->getUser();
         if ($subject instanceof Game) {
+            if ($subject->getGamesMaster()->getUserIdentifier() === $user->getUserIdentifier()) {
+                return true;
+            }
             foreach ($subject->getPlayers() as $player) {
                 if ($player->getUserIdentifier() === $user->getUserIdentifier()) {
                     return true;
