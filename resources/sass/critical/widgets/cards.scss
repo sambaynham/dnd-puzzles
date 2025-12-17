@@ -34,15 +34,17 @@
 
     .card-body {
         background: palette.$offWhite linear-gradient(45deg, palette.$offWhite, color.adjust(palette.$offWhite, $lightness: -5%, $saturation: -100%));
+
     }
 
     .card-section {
-        background: palette.$wyrdPurple linear-gradient(45deg, palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: -5%, $saturation: -10%));
+        background: palette.$vellum linear-gradient(45deg, palette.$vellum, color.adjust(palette.$vellum, $lightness: -5%, $saturation: -10%));
         border-top: 2px solid palette.$ink;
         position: relative;
         z-index: 1;
+        flex-grow: 2;
         h1, h2, h3, h4, h5, h6 {
-            color: palette.$offWhite;
+            color: palette.$ink;
         }
     }
 

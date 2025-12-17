@@ -5,22 +5,20 @@
     <div class="card-body">
         {{ subject.getDescription }}
     </div>
-
-
-        <div class="card-section">
-            <h4>Clues</h4>
-            <div class="accordion-list" is="accordion-list">
-                {% for clue in subject.getRevealedCasebookSubjectClues %}
-                    <article class="accordion-entry" is="accordion-entry">
-                        <h5 class="accordion-heading">{{ clue.getTitle }} - {{ clue.getType.getLabel }}</h5>
-                        <div class="accordion-body">
-                            <div class="accordion-content">
-                                {{ clue.getBody }}
-                                <em>Revealed on {{ clue.getRevealedDate.format('Y-m-d H:i') }}</em>
-                            </div>
+    <div class="card-section">
+        <h4>Clues</h4>
+        <div class="accordion-list" is="accordion-list">
+            {% for clue in subject.getRevealedCasebookSubjectClues %}
+                <article class="accordion-entry" is="accordion-entry">
+                    <h5 class="accordion-heading">{{ clue.getTitle }} - {{ clue.getType.getLabel }}</h5>
+                    <div class="accordion-body">
+                        <div class="accordion-content">
+                            {{ clue.getBody }}
+                            <em>Revealed on {{ clue.getRevealedDate.format('Y-m-d H:i') }}</em>
                         </div>
-                    </article>
-                {% endfor %}
-            </div>
+                    </div>
+                </article>
+            {% endfor %}
         </div>
+    </div>
 </article>

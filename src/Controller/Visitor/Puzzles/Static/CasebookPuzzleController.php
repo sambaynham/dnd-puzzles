@@ -256,7 +256,7 @@ class CasebookPuzzleController extends AbstractPuzzleController
         Request $request
     ): Response {
         $pageVars = [
-            'pageTitle' => sprintf("Casebook: '%s'", $instance->getName()),
+            'pageTitle' => $instance->getName(),
             'casebook' => $instance,
             'game' => $game,
             'template' => $template,
