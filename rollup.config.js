@@ -101,6 +101,9 @@ const config = [
         plugins: [
             myExample(),
             scss({
+                processor: (css) => {
+                    return css;
+                },
                 fileName: 'critical.css',
                 outputStyle: 'compressed',
                 watch: [

@@ -55,6 +55,24 @@
 
                     .accordion-column {
                         flex: 1;
+
+                        .btn {
+                            margin-bottom: 0;
+                        }
+
+                        &.secondary {
+                            margin-bottom: 0;
+                            justify-content: end;
+                        }
+
+                        .btn-group {
+                            flex-direction: column;
+
+                            .btn {
+                                margin-right: 0;
+                                margin-bottom: math.div(variables.$base-spacing, 4);
+                            }
+                        }
                     }
                 }
             }
