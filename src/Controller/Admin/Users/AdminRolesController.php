@@ -52,7 +52,7 @@ class AdminRolesController extends AbstractBaseController
         }
 
         $pageVars = [
-            'pageTitle' => sprintf("Edit role %s", $role->getName()),
+            'pageTitle' => sprintf("Edit role %s", $role->getLabel()),
             'role' => $role,
             'form' => $form
         ];

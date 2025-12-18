@@ -25,7 +25,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity("email")]
 class User extends AbstractDomainEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
     /**
      * @var Collection<int, Game>
      */

@@ -17,7 +17,7 @@ class RoleTest extends TestCase
 
     private function generateTestRole(array $overrides = []): Role {
         return new Role(
-            name: $overrides['name'] ?? 'Test Name',
+            label: $overrides['name'] ?? 'Test Name',
             handle: $overrides['handle'] ?? 'ROLE_TEST',
             permissions: $overrides['permissions'] ?? new ArrayCollection(),
             users: $overrides['users'] ?? new ArrayCollection(),
@@ -43,7 +43,7 @@ class RoleTest extends TestCase
             'permissions' => $permissions,
             'id' => $id
         ]);
-        self::assertEquals($name, $role->getName());
+        self::assertEquals($name, $role->getLabel());
         self::assertEquals($handle, $role->getHandle());
         self::assertEquals($permissions, $role->getPermissions());
         self::assertEquals($users, $role->getUsers());

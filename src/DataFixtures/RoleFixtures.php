@@ -113,7 +113,7 @@ class RoleFixtures extends Fixture
             if (!$roleRepo->findByHandle($handle)) {
 
                 $role = new Role(
-                    name: $definition['name'],
+                    label: $definition['name'],
                     handle: $handle,
                 );
                 foreach ($definition['permissions'] as $permissionHandle) {

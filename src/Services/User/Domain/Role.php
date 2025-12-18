@@ -9,22 +9,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Services\Core\Domain\AbstractValueObject;
 
 #[ORM\Entity(repositoryClass: RoleRepository::class)]
 #[UniqueEntity(fields: ['handle'], message: 'There is already a permission with this handle. Please choose another one.')]
-class Role extends AbstractDomainEntity
+class Role extends AbstractValueObject
 {
     private const string ROLE_HANDLE_PREFIX = 'ROLE_';
+
     /**
-     * @throws InvalidRoleHandleException
+     * @throws InvalidRoleHandleException|\App\Services\Core\Domain\Exceptions\InvalidHandleException
      */
     public function __construct(
-        #[ORM\Column(length: 255)]
-        private string $name,
-
-        #[ORM\Column(length: 255, unique: true)]
-        private readonly string $handle,
-
+        string $label,
+        string $handle,
         #[ORM\ManyToMany(targetEntity: Permission::class, fetch: 'EAGER', indexBy: 'handle')]
         private Collection $permissions = new ArrayCollection(),
 
@@ -34,30 +32,23 @@ class Role extends AbstractDomainEntity
         ?int $id = null
     )
     {
-        if (substr($this->handle, 0, 5) !== self::ROLE_HANDLE_PREFIX) {
-            throw new InvalidRoleHandleException(sprintf('Role handles must begin with %s. %s is not valid', self::ROLE_HANDLE_PREFIX, $this->handle));
+        if (substr($handle, 0, 5) !== self::ROLE_HANDLE_PREFIX) {
+            throw new InvalidRoleHandleException(sprintf(
+                'Role handles must begin with %s. %s is not valid',
+                self::ROLE_HANDLE_PREFIX, $handle
+            ));
         }
-        parent::__construct($id);
+
+        parent::__construct(
+            label: $label,
+            handle: $handle,
+            id: $id
+        );
     }
 
     public function getUsers(): Collection
     {
         return $this->users;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function getHandle(): string
-    {
-        return $this->handle;
     }
 
     /**
@@ -86,6 +77,11 @@ class Role extends AbstractDomainEntity
                 return true;
             }
         }
+        return false;
+    }
+
+    public static function hasDescription(): bool
+    {
         return false;
     }
 }

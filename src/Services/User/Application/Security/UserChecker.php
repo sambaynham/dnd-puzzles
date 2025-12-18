@@ -14,6 +14,7 @@ class UserChecker implements UserCheckerInterface
     private const string PERMABLOCK_MESSAGE_PATTERN = 'Your user has been permanently blocked because %s.';
 
     private const string TEMPORARY_BLOCK_MESSAGE_PATTERN = 'Your user has been temporarily blocked because %s. The block will expire on %s';
+
     public function checkPreAuth(UserInterface $user): void
     {
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\User\Domain;
 
+use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\User\Infrastructure\UserAccessTokenRepository;
 use Random\RandomException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -13,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
     repositoryClass: UserAccessTokenRepository::class
 )]
 #[UniqueEntity("email")]
-readonly class UserAccessToken
+class UserAccessToken extends AbstractDomainEntity
 {
     private const int TOKEN_TTL_SECONDS =  86400;
 
@@ -27,11 +28,10 @@ readonly class UserAccessToken
         private string $token,
         #[ORM\Column(type: 'datetime_immutable')]
         private \DateTimeInterface $expiresAt,
-        #[ORM\Id]
-        #[ORM\GeneratedValue]
-        #[ORM\Column]
-        private ?int $id = null
+
+        ?int $id = null
     ) {
+        parent::__construct(id: $id);
     }
 
     /**
@@ -75,9 +75,5 @@ readonly class UserAccessToken
         }
 
         return $randomString;
-    }
-
-    public function getId(): ? int {
-        return $this->id;
     }
 }
