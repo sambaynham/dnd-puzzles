@@ -20,3 +20,4 @@ node_modules
 ###< phpunit/phpunit ###
 
 .DS_Store
+swagger_docs.*

@@ -38,10 +38,8 @@ class GameInvitationController extends AbstractBaseController
         private readonly EntityManagerInterface $entityManager,
         private MailerInterface $mailer,
         private UserRepository $userRepository,
-        private GameServiceInterface $gameService,
-        QuotationService $quotationService
+        private GameServiceInterface $gameService
     ) {
-        parent::__construct($quotationService);
     }
 
     /**

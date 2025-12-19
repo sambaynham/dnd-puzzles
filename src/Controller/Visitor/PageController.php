@@ -15,10 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class PageController extends AbstractBaseController
 {
 
-    public function __construct(private PuzzleTemplateServiceInterface $puzzleService,
-        QuotationService $quotationService
+    public function __construct(private PuzzleTemplateServiceInterface $puzzleService
     ) {
-        parent::__construct($quotationService);
     }
     #[Route('/', name: 'app.pages.home')]
     public function index(Request $request): Response {

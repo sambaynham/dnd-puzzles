@@ -20,9 +20,7 @@ class AdminRolesController extends AbstractBaseController
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly UserService $userService,
-        QuotationService $quotationService
     ) {
-        parent::__construct($quotationService);
     }
 
     #[Route('admin/users/roles', name: 'admin.users.roles')]

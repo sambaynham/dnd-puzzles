@@ -26,10 +26,8 @@ final class AccountController extends AbstractBaseController
         private readonly GameServiceInterface $gameService,
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
-        private readonly UserPasswordHasherInterface $passwordHasher,
-        QuotationService $quotationService
+        private readonly UserPasswordHasherInterface $passwordHasher
     ) {
-        parent::__construct($quotationService);
     }
 
     #[Route('/account', name: 'app.user.account')]

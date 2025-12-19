@@ -13,9 +13,7 @@
                 <p>Before registering, please read our <a href="{{ path('app.pages.coc') }}">Code of Conduct</a></p>
                 {{ form(registrationForm) }}
             {% else %}
-                <blockquote>
-                    <p>{{ quotation.quotation }}</p>
-                    <span class="cite">{{ quotation.citation }}</span>
+                <blockquote is="random-quotation">
                 </blockquote>
             {% endif %}
         </div>

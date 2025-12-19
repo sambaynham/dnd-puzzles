@@ -21,9 +21,7 @@ class AdminController extends AbstractBaseController
     public function __construct(
         private AbuseReportService $abusereportService,
         private BugReportService $bugReportService,
-        QuotationService $quotationService
     ) {
-        parent::__construct($quotationService);
     }
 
     #[Route('admin', name: 'admin.dashboard')]

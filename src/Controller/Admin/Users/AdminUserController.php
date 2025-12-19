@@ -30,10 +30,8 @@ class AdminUserController extends AbstractBaseController
         private readonly UserServiceInterface $userService,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly ValidatorInterface $validator,
-        private readonly EntityManagerInterface $entityManager,
-        QuotationService $quotationService
+        private readonly EntityManagerInterface $entityManager
     ) {
-        parent::__construct($quotationService);
     }
 
     #[Route('admin/users', name: 'admin.users.manage')]

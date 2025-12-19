@@ -3,7 +3,6 @@
 import ProgressBar from "./components/ProgressBar";
 import NavToggle from "./components/NavToggle";
 import ToolTip from "./components/Tooltip";
-import MessageOfTheDay from "./components/MessageOfTheDay";
 import {FlashAlert} from "./components/FlashAlert";
 import {initialiseDropCaps} from "./behaviours/dropCap";
 import {SlideShow} from "./components/SlideShow/SlideShow";
@@ -13,6 +12,7 @@ import {Header} from "./components/Header";
 import {MultiaddWrapper} from "./components/MultiaddWrapper";
 import {TabsElement} from "./components/Tabs/TabsElement";
 import {PostButton} from "./components/PostButton";
+import RandomQuotation from "./components/RandomQuotation";
 
 
 
@@ -37,7 +37,6 @@ import {PostButton} from "./components/PostButton";
         customElementRegistry.define('progress-bar', ProgressBar);
         customElementRegistry.define('nav-toggle', NavToggle, { extends: 'button'});
         customElementRegistry.define('tooltip-element', ToolTip, {extends: 'span'});
-        customElementRegistry.define('motd-span', MessageOfTheDay, {extends: 'span'})
         customElementRegistry.define('flash-alert', FlashAlert, {extends: 'span'});
         customElementRegistry.define('slideshow-element', SlideShow, {extends: 'div'});
         customElementRegistry.define('accordion-list', AccordionList, {extends: 'div'});
@@ -45,6 +44,7 @@ import {PostButton} from "./components/PostButton";
         customElementRegistry.define('multiadd-wrapper', MultiaddWrapper);
         customElementRegistry.define('tabs-element', TabsElement);
         customElementRegistry.define('post-button', PostButton, {extends: 'button'});
+        customElementRegistry.define('random-quotation', RandomQuotation);
     }
 })();
 

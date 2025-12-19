@@ -27,10 +27,8 @@ class ResetPasswordController extends AbstractBaseController
 
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
-        private EntityManagerInterface $entityManager,
-        QuotationService $quotationService
+        private EntityManagerInterface $entityManager
     ) {
-        parent::__construct($quotationService);
     }
 
     /**

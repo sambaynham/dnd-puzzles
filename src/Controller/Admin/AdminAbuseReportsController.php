@@ -19,10 +19,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class AdminAbuseReportsController extends AbstractBaseController
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        QuotationService $quotationService
+        private EntityManagerInterface $entityManager
     ){
-        parent::__construct($quotationService);
     }
 
     #[Route('admin/abusereports/{id}/check', name: 'admin.abuse.check')]

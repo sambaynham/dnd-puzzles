@@ -15,9 +15,7 @@ abstract class AbstractPuzzleController extends AbstractBaseController
         protected readonly PuzzleTemplateServiceInterface $puzzleService,
         protected readonly SerializerInterface $serializer,
         protected readonly EntityManagerInterface $entityManager,
-        protected readonly SluggerInterface $slugger,
-        QuotationService $quotationService,
+        protected readonly SluggerInterface $slugger
     ) {
-        parent::__construct($quotationService);
     }
 }

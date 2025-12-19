@@ -22,10 +22,9 @@ class BugReportController extends AbstractBaseController
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly MessageBusInterface $bus,
-        QuotationService $quotationService
+        private readonly MessageBusInterface $bus
     ) {
-        parent::__construct($quotationService);
+        parent::__construct();
     }
 
     /**

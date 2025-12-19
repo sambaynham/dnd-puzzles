@@ -20,10 +20,8 @@ class AdminBugreportController extends AbstractBaseController
 {
 
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        QuotationService $quotationService
+        private EntityManagerInterface $entityManager
     ) {
-        parent::__construct($quotationService);
     }
 
     #[Route('/bugs{id}/action', name: 'admin.bugs.action')]

@@ -22,10 +22,10 @@ class QuotationController extends AbstractBaseController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        QuotationService $quotationService
+        private QuotationService $quotationService
     ) {
-        parent::__construct($quotationService);
     }
+
     #[Route('admin/quotations', name: 'admin.quotations.manage')]
     #[IsGranted('manage_quotations')]
     public function index(

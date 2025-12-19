@@ -27,10 +27,8 @@ class AuthController extends AbstractBaseController
         private readonly AuthenticationUtils $authenticationUtils,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly UserServiceInterface $userService,
-        private readonly GameServiceInterface $gameService,
-        QuotationService $quotationService
+        private readonly GameServiceInterface $gameService
     ) {
-        parent::__construct($quotationService);
     }
 
     #[Route('/register', name: 'app.auth.register')]

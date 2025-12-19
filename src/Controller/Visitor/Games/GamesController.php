@@ -28,11 +28,9 @@ final class GamesController extends AbstractBaseController
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
-        private readonly GameServiceInterface $gameService,
-        QuotationService $quotationService
+        private readonly GameServiceInterface $gameService
     )
     {
-        parent::__construct($quotationService);
     }
 
     #[IsGranted('ROLE_USER')]
