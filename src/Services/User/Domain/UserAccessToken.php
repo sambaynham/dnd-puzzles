@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Services\User\Domain;
 
 use App\Services\Core\Domain\AbstractDomainEntity;
-use App\Services\User\Infrastructure\UserAccessTokenRepository;
+use App\Services\User\Infrastructure\Repository\UserAccessTokenRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Random\RandomException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(
     repositoryClass: UserAccessTokenRepository::class

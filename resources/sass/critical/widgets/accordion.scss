@@ -5,12 +5,12 @@
 @use '../base/palette';
 
 .accordion-list {
-
+    box-shadow: palette.$baseBoxShadow;
+    border: 0.125rem solid transparent;
+    border-image: palette.$goldFX 25%;
     article {
         padding: 0;
         margin: 0;
-        margin-bottom: math.div(variables.$base-spacing, 2);
-        box-shadow: palette.$baseBoxShadow;
 
         .accordion-heading,
         .accordion-content {
@@ -18,11 +18,13 @@
             padding: math.div(variables.$base-spacing, 4);
         }
         .accordion-heading {
-            background: palette.$brownGradient;
+            background: palette.$stormBlue;
             color: palette.$white;
             position: relative;
             margin-bottom: 0;
             cursor: pointer;
+            border-bottom: 0.125rem solid transparent;
+            border-image: palette.$goldFX 25%;
 
             &:after {
                 content: "^";
@@ -91,7 +93,11 @@
                 }
             }
         }
-
+        &:last-child {
+            .accordion-heading {
+                border-bottom: none;
+            }
+        }
     }
 }
 

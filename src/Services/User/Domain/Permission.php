@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\User\Domain;
 
 use App\Services\Core\Domain\AbstractValueObject;
-use App\Services\User\Infrastructure\PermissionRepository;
+use App\Services\User\Infrastructure\Repository\PermissionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 

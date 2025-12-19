@@ -21,7 +21,7 @@ use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Puzzle\Infrastructure\CodeGenerator;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
-use App\Services\User\Infrastructure\UserRepository;
+use App\Services\User\Infrastructure\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Random\RandomException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;

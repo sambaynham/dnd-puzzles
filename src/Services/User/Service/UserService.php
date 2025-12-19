@@ -8,11 +8,10 @@ use App\Services\Game\Domain\GameInvitation;
 use App\Services\User\Domain\Permission;
 use App\Services\User\Domain\Role;
 use App\Services\User\Domain\User;
-use App\Services\User\Infrastructure\PermissionRepository;
-use App\Services\User\Infrastructure\RoleRepository;
-use App\Services\User\Infrastructure\UserAccessTokenRepository;
-use App\Services\User\Infrastructure\UserBlockRepository;
-use App\Services\User\Infrastructure\UserRepository;
+use App\Services\User\Infrastructure\Repository\PermissionRepository;
+use App\Services\User\Infrastructure\Repository\RoleRepository;
+use App\Services\User\Infrastructure\Repository\UserAccessTokenRepository;
+use App\Services\User\Infrastructure\Repository\UserRepository;
 use App\Services\User\Service\Exceptions\MissingDefaultRoleException;
 use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,10 +22,10 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Security\Http\AccessToken\AccessTokenHandlerInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserService implements UserProviderInterface, UserServiceInterface, AccessTokenHandlerInterface
 {

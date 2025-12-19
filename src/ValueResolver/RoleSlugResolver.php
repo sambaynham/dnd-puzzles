@@ -4,7 +4,7 @@ namespace App\ValueResolver;
 
 
 use App\Services\User\Domain\Role;
-use App\Services\User\Infrastructure\RoleRepository;
+use App\Services\User\Infrastructure\Repository\RoleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;

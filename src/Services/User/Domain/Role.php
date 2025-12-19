@@ -2,14 +2,13 @@
 
 namespace App\Services\User\Domain;
 
-use App\Services\Core\Domain\AbstractDomainEntity;
+use App\Services\Core\Domain\AbstractValueObject;
 use App\Services\User\Domain\Exceptions\InvalidRoleHandleException;
-use App\Services\User\Infrastructure\RoleRepository;
+use App\Services\User\Infrastructure\Repository\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use App\Services\Core\Domain\AbstractValueObject;
 
 #[ORM\Entity(repositoryClass: RoleRepository::class)]
 #[UniqueEntity(fields: ['handle'], message: 'There is already a permission with this handle. Please choose another one.')]

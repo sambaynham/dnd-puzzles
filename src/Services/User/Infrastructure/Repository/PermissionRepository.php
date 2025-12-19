@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\User\Infrastructure;
+namespace App\Services\User\Infrastructure\Repository;
 
 use App\Services\Core\Infrastructure\AbstractValueObjectRepository;
 use App\Services\User\Domain\Permission;

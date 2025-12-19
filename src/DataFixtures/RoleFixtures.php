@@ -4,8 +4,8 @@ namespace App\DataFixtures;
 
 use App\Services\User\Domain\Permission;
 use App\Services\User\Domain\Role;
-use App\Services\User\Infrastructure\PermissionRepository;
-use App\Services\User\Infrastructure\RoleRepository;
+use App\Services\User\Infrastructure\Repository\PermissionRepository;
+use App\Services\User\Infrastructure\Repository\RoleRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use InvalidArgumentException;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\User\Infrastructure;
+namespace App\Services\User\Infrastructure\Repository;
 
 use App\Services\User\Domain\User;
 use App\Services\User\Domain\UserAccessToken;

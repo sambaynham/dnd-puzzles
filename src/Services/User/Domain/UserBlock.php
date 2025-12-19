@@ -3,7 +3,7 @@
 namespace App\Services\User\Domain;
 
 use App\Services\Core\Domain\AbstractDomainEntity;
-use App\Services\User\Infrastructure\UserBlockRepository;
+use App\Services\User\Infrastructure\Repository\UserBlockRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserBlockRepository::class)]
