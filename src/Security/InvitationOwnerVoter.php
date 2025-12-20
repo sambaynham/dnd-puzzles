@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Services\Game\Domain\GameInvitation;
+use App\Services\User\Domain\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -31,7 +32,7 @@ class InvitationOwnerVoter extends Voter
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-        if ($subject instanceof GameInvitation) {
+        if ($user instanceof User && $subject instanceof GameInvitation) {
 
             $gamesMaster = $subject->getGame()->getGamesMaster();
 

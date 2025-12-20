@@ -7,7 +7,6 @@ namespace App\Dto\Visitor\Puzzles\Static\Casebook;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubjectType;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 class CasebookSubjectDto

@@ -47,7 +47,7 @@
 
                                 <div class="accordion-footer">
                                     <nav class="secondary">
-                                        <a href="">Accept</a>
+                                        <a href="{{ path('app.games.invite.accept', {'invitationCode': invitation.getInvitationCode}) }}">Accept</a>
                                         <a href="{{ path('app.games.invite.decline', {'invitationCode': invitation.getInvitationCode}) }}">Decline</a>
                                     </nav>
                                 </div>

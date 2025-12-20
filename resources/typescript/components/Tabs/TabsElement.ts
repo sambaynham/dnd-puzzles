@@ -1,4 +1,4 @@
-export class TabsElement extends HTMLElement {
+export class TabsElement extends HTMLDivElement {
 
     private headings: HTMLElement;
 

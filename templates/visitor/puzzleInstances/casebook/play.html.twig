@@ -1,6 +1,18 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
-
+    <template id="casebook-subject-template">
+        <article class="card">
+            <slot name="image"></slot>
+            <h2 class="card-title"><slot name="subject-name">NAME</slot></h2>
+            <div class="card-body">
+                <slot name="subject-description">DESCRIPTION</slot>
+            </div>
+            <div class="card-section">
+                <h4>Clues</h4>
+                <slot name="subject-clues"></slot>
+            </div>
+        </article>
+    </template>
     <div class="tabs-element" is="tabs-element">
         <nav class="tab-headings">
             <a href="#people" class="active">People</a>
@@ -58,4 +70,7 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block footerScripts %}
+    <script src="/dist/js/casebookBoot.js"></script>
 {% endblock %}

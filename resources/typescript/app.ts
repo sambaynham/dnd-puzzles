@@ -42,9 +42,9 @@ import RandomQuotation from "./components/RandomQuotation";
         customElementRegistry.define('accordion-list', AccordionList, {extends: 'div'});
         customElementRegistry.define('accordion-entry', AccordionEntry, {extends: 'article'});
         customElementRegistry.define('multiadd-wrapper', MultiaddWrapper);
-        customElementRegistry.define('tabs-element', TabsElement);
+        customElementRegistry.define('tabs-element', TabsElement, {extends: 'div'});
         customElementRegistry.define('post-button', PostButton, {extends: 'button'});
-        customElementRegistry.define('random-quotation', RandomQuotation);
+        customElementRegistry.define('random-quotation', RandomQuotation, {extends: 'blockquote'});
     }
 })();
 

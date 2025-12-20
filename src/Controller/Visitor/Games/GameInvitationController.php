@@ -10,10 +10,12 @@ use App\Dto\Visitor\Game\Invitations\InvitationRedemptionDto;
 use App\Dto\Visitor\Game\Invitations\InvitePlayerDto;
 use App\Form\Visitor\Game\Invitations\DeclineInvitationType;
 use App\Form\Visitor\Game\Invitations\InvitePlayerType;
+use App\Form\Visitor\Game\Invitations\LoggedInUserInvitationAcceptanceType;
 use App\Form\Visitor\Game\Invitations\RedeemInvitationType;
 use App\Form\Visitor\Game\Invitations\RevokeInvitationType;
 use App\Security\GameManagerVoter;
 use App\Security\InvitationOwnerVoter;
+use App\Security\UserOwnsInvitationVoter;
 use App\Services\Abuse\Domain\AbuseReport;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Domain\GameInvitation;
@@ -22,10 +24,12 @@ use App\Services\Puzzle\Infrastructure\CodeGenerator;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
 use App\Services\User\Infrastructure\Repository\UserRepository;
+use App\Services\User\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Random\RandomException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -38,7 +42,8 @@ class GameInvitationController extends AbstractBaseController
         private readonly EntityManagerInterface $entityManager,
         private MailerInterface $mailer,
         private UserRepository $userRepository,
-        private GameServiceInterface $gameService
+        private GameServiceInterface $gameService,
+        private UserService $userService,
     ) {
     }
 
@@ -89,7 +94,7 @@ class GameInvitationController extends AbstractBaseController
                 $this->mailer->send($email);
             }
             $this->addFlash('success', 'Invitation Sent');
-            return $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);
+            return $this->redirectToRoute('app.games.manage', ['gameSlug' => $game->getSlug()]);
 
         }
         $pageVars = [
@@ -223,6 +228,31 @@ class GameInvitationController extends AbstractBaseController
             'breadcrumbs' => [
 
             ],
+            'form' => $form
+        ];
+        return $this->render('visitor/games/invitations/redeem.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[Route('games/invitations/{invitationCode}/accept', name: 'app.games.invite.accept')]
+    #[IsGranted(UserOwnsInvitationVoter::REDEEM_INVITATION, 'invitation')]
+    public function accept(
+        GameInvitation $invitation,
+        Request $request
+    ): Response
+    {
+        $form = $this->createForm(LoggedInUserInvitationAcceptanceType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            if ($user instanceof User) {
+                $this->userService->redeemInvitationForUser($invitation, $user);
+            }
+            $this->addFlash('success', 'Invitation accepted! Enjoy your game!');
+            return $this->redirectToRoute('app.games.index');
+        }
+        $pageVars = [
+            'pageTitle' => 'Redeem your Invitation',
+            'invitation' => $invitation,
             'form' => $form
         ];
         return $this->render('visitor/games/invitations/redeem.html.twig', $this->populatePageVars($pageVars, $request));

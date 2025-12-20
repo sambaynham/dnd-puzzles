@@ -7,6 +7,7 @@ namespace App\ApiResource\Casebook\Providers;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\ApiResource\Casebook\Dto\CasebookDto;
+use App\Services\Puzzle\Domain\Casebook\Casebook;
 use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookRepository;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
@@ -23,6 +24,9 @@ class CasebookProvider implements ProviderInterface
         }
 
         $instance = $this->casebookRepository->getInstance($uriVariables['instanceCode']);
-        return CasebookDto::makeFromInstance($instance);
+        if ($instance instanceof Casebook) {
+            return CasebookDto::makeFromInstance($instance);
+        }
+
     }
 }

@@ -5,23 +5,24 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Services\Game\Domain\Game;
+use App\Services\Game\Domain\GameInvitation;
 use App\Services\User\Domain\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 
-class GameManagerVoter extends Voter
+class UserOwnsInvitationVoter extends Voter
 {
 
-    public const string MANAGE_GAME_ACTION = 'manage_game';
+    public const string REDEEM_INVITATION = 'redeem_invitation';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        if ($attribute != self::MANAGE_GAME_ACTION) {
+        if ($attribute != self::REDEEM_INVITATION) {
             return false;
         }
 
-        if (!$subject instanceof Game) {
+        if (!$subject instanceof GameInvitation) {
             return false;
         }
 
@@ -30,13 +31,11 @@ class GameManagerVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
-
         $user = $token->getUser();
+        if ($user instanceof User && $subject instanceof GameInvitation) {
+            $invitationEmail = $subject->getEmail();
 
-        if ($user instanceof User && $subject instanceof Game) {
-            $gamesMaster = $subject->getGamesMaster();
-
-            if ($user === $gamesMaster) {
+            if ($user->getUserIdentifier() === $invitationEmail) {
                 return true;
             }
         }

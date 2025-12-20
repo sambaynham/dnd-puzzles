@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Services\Game\Domain\Game;
+use App\Services\User\Domain\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -31,7 +32,7 @@ class GamePlayerVoter extends Voter
     {
 
         $user = $token->getUser();
-        if ($subject instanceof Game) {
+        if ($user instanceof User && $subject instanceof Game) {
             if ($subject->getGamesMaster()->getUserIdentifier() === $user->getUserIdentifier()) {
                 return true;
             }

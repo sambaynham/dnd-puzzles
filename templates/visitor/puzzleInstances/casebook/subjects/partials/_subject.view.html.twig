@@ -1,24 +1,3 @@
-<article class="card">
-    <img class="card-backer" src="/uploads/images/{{ subject.getCasebookSubjectImage }}" alt="{{ subject.getName }}">
+<article class="card" is="casebook-subject" data-subjectid="{{ subject.getId }}" data-instancecode="{{ casebook.getInstanceCode }}">
 
-    <h2 class="card-title">{{ subject.getName }}</h2>
-    <div class="card-body">
-        {{ subject.getDescription }}
-    </div>
-    <div class="card-section">
-        <h4>Clues</h4>
-        <div class="accordion-list" is="accordion-list">
-            {% for clue in subject.getRevealedCasebookSubjectClues %}
-                <article class="accordion-entry" is="accordion-entry">
-                    <h5 class="accordion-heading">{{ clue.getTitle }} - {{ clue.getType.getLabel }}</h5>
-                    <div class="accordion-body">
-                        <div class="accordion-content">
-                            {{ clue.getBody }}
-                            <em>Revealed on {{ clue.getRevealedDate.format('Y-m-d H:i') }}</em>
-                        </div>
-                    </div>
-                </article>
-            {% endfor %}
-        </div>
-    </div>
 </article>

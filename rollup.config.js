@@ -94,6 +94,19 @@ const config = [
         preserveEntrySignatures: false,
     },
     {
+        input: 'resources/typescript/puzzles/casebook/casebookBoot.ts',
+        output: {
+            dir: './public/dist/js/',
+            format: 'es',
+        },
+
+        plugins: [
+            typescript(),
+            resolve()
+        ],
+        preserveEntrySignatures: false,
+    },
+    {
         input: 'resources/sass/critical.scss',
         output: {
             dir: './public/dist/css/'

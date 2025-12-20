@@ -1,11 +1,9 @@
 import createClient, {Client} from "openapi-fetch";
 import type { paths } from "../schema/schema";
 
-export default class RandomQuotation extends HTMLElement {
+export default class RandomQuotation extends HTMLQuoteElement {
 
     private client: Client<paths>;
-
-
     private quotationElement: HTMLParagraphElement;
     private citationElement: HTMLSpanElement;
 
