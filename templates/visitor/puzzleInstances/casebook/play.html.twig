@@ -1,9 +1,11 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
-    <template id="casebook-subject-template">
-        <article class="card">
-            <slot name="image"></slot>
-            <h2 class="card-title"><slot name="subject-name">NAME</slot></h2>
+
+    <template id="casebook-subject-template" class="loading casebook-subject-template">
+        <style>{{ inline_css('/dist/css/casebook/casebook.css') }}</style>
+        <article class="casebook-subject">
+            <img slot="image" class="casebook-subject-backer" src="" alt="slot">
+            <h2 class="card-title" slot="subject-name"></h2>
             <div class="card-body">
                 <slot name="subject-description">DESCRIPTION</slot>
             </div>

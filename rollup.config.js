@@ -158,6 +158,20 @@ const config = [
         ]
     },
     {
+        input: 'resources/sass/puzzles/casebook.scss',
+        output: {
+            dir: './public/dist/css/casebook'
+        },
+        plugins: [
+            scss({
+                fileName: 'casebook.css',
+                outputStyle: 'compressed',
+                watch: ['resources/sass/puzzles/casebook.scss']
+            }),
+            summary()
+        ]
+    },
+    {
         input: 'resources/sass/admin/admin.scss',
         output: {
             dir: './public/dist/css/'

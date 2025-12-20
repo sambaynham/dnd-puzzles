@@ -1,0 +1,15 @@
+.casebook-subject {
+
+    img.casebook-subject-backer {
+        opacity: 0;
+    }
+
+
+    &.loaded {
+
+        img.casebook-subject-backer {
+            opacity: 1;
+        }
+    }
+
+}

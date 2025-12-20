@@ -1,6 +1,7 @@
 import createClient, {Client} from "openapi-fetch";
 import type { paths } from "../../schema/schema";
 
+
 export class CasebookSubject extends HTMLElement {
 
     private subjectId: string;
@@ -29,16 +30,23 @@ export class CasebookSubject extends HTMLElement {
         if (null === template) {
             throw new Error(`No Template found`);
         }
+
         // @ts-ignore
         let templateContent = template.content;
+        const sheet = new CSSStyleSheet();
 
+        sheet.replaceSync(template.style.all);
         const shadowRoot = this.attachShadow({ mode: "open" });
-        shadowRoot.appendChild(document.importNode(templateContent, true));
+        shadowRoot.adoptedStyleSheets.push(sheet);
+
+
+        shadowRoot.appendChild(templateContent.cloneNode(true));
+
 
     }
 
     connectedCallback() {
-        this.buildContent()
+        this.buildContent();
     }
 
     private async buildContent() {
@@ -60,23 +68,33 @@ export class CasebookSubject extends HTMLElement {
         /**<img class="card-backer" src="/uploads/images/{{ subject.getCasebookSubjectImage }}" alt="{{ subject.getName }}">*/
 
         if (data.name && data.description) {
-            if (data.imageUri) {
-                let imageElement = document.createElement("img");
-                imageElement.src = `/uploads/images/${data.imageUri}`;
-                imageElement.alt = data.name;
-                imageElement.classList.add('card-backer');
-                this.append(imageElement);
+
+            const titleElement: HTMLHeadingElement|null|undefined = this.shadowRoot?.querySelector('h2[slot="subject-name"]');
+            const cardBodyElement: HTMLDivElement|null|undefined = this.shadowRoot?.querySelector('slot[name="subject-description"]');
+
+            if (titleElement === null || titleElement === undefined) {
+                throw new Error('Missing title element');
+
             }
 
-                let titleElement = document.createElement("h2");
-                titleElement.textContent = data.name;
-                titleElement.classList.add('card-title');
-                this.append(titleElement);
+            if (cardBodyElement === null || cardBodyElement === undefined) {
+                throw new Error('Missing body element');
+            }
 
-                let cardBodyElement = document.createElement("div");
-                cardBodyElement.classList.add('card-body');
-                cardBodyElement.innerHTML = data.description;
-                this.append(cardBodyElement);
+            if (data.imageUri) {
+                const imageElement: HTMLImageElement|null|undefined = this.shadowRoot?.querySelector('img[slot="image"]');
+
+                if (imageElement === null || imageElement === undefined) {
+                    throw new Error("Image URL defined but image element missing.")
+                }
+                imageElement.src = `/uploads/images/${data.imageUri}`;
+                imageElement.alt = data.name;
+            }
+
+            titleElement.textContent = data.name;
+            cardBodyElement.innerHTML = data.description;
+
+            this.classList.add('loaded');
         }
     }
 }
