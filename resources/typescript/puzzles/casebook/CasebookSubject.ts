@@ -1,7 +1,6 @@
 import createClient, {Client} from "openapi-fetch";
 import type { paths } from "../../schema/schema";
 
-
 export class CasebookSubject extends HTMLElement {
 
     private subjectId: string;
@@ -33,11 +32,14 @@ export class CasebookSubject extends HTMLElement {
 
         // @ts-ignore
         let templateContent = template.content;
-        const sheet = new CSSStyleSheet();
 
-        sheet.replaceSync(template.style.all);
+        // create the stylesheet
+        // const sheet = new CSSStyleSheet();
+        // set its contents by referencing a file
+        // c1sheet.replace('@import url("/dist/css/casebook/casebook.css");")');
+
         const shadowRoot = this.attachShadow({ mode: "open" });
-        shadowRoot.adoptedStyleSheets.push(sheet);
+        // shadowRoot.adoptedStyleSheets.push(sheet);
 
 
         shadowRoot.appendChild(templateContent.cloneNode(true));

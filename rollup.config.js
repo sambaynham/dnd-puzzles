@@ -4,6 +4,7 @@ import terser  from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy'
 import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
+import sass from 'rollup-plugin-sass';
 import clean from '@rollup-extras/plugin-clean';
 
 const copyConfig = {
@@ -102,6 +103,7 @@ const config = [
 
         plugins: [
             typescript(),
+            sass(),
             resolve()
         ],
         preserveEntrySignatures: false,

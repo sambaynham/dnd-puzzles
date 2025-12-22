@@ -21,10 +21,14 @@
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "noImplicitOverride": true,
+        "esModuleInterop": true,
         "plugins": [
             {
                 "name": "ts-lit-plugin",
                 "strict": true
+            },
+            {
+                "name": "typescript-plugin-css-modules"
             }
         ],
         "types": ["mocha"]
