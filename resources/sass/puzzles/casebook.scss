@@ -20,14 +20,14 @@ $pulsarHeight: 3rem;
     &:before {
         content: " ";
         display: block;
-        background-color: palette.$ink;
+        border: 1rem solid palette.$ink;
         position: absolute;
         top: 50%;
         left: 50%;
         width: $pulsarHeight;
         height: $pulsarHeight;
-        margin-left: 0 - math.div($pulsarHeight, 2);
-        margin-top: 0 - math.div($pulsarHeight, 2);
+        margin-left: -1rem - math.div($pulsarHeight, 2);
+        margin-top: -1rem - math.div($pulsarHeight, 2);
         box-shadow: palette.$baseBoxShadow;
         animation: spin 4s infinite linear;
         transition: opacity 200ms ease-in-out;

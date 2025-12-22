@@ -17,26 +17,27 @@ use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClue;
     operations: [ new Get() ],
     uriVariables: [
         'subjectId' => new Link(toProperty: 'subject', fromClass: CasebookSubjectDto::class),
-        'clueId' => new Link(fromClass: CasebookSubjectClueDto::class),
+        'clueId' => new Link(fromProperty: 'id', fromClass: CasebookSubjectClueDto::class),
     ]
 )]
 #[ApiResource(
     uriTemplate: '/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}/clues',
     operations: [ new GetCollection() ],
     uriVariables: [
-        'subjectId' => new Link(toProperty: 'subject', fromClass: CasebookSubjectDto::class),
+        'subjectId' => new Link(toProperty: 'subject', toClass: CasebookSubjectDto::class),
     ]
 )]
 class CasebookSubjectClueDto
 {
+    public $subject;
+
     public function __construct(
         public $id,
         public string $title,
         public string $body,
         public string $type,
         public \DateTimeInterface $updatedAt,
-        public ? \DateTimeInterface $revealedDate = null,
-        public ? CasebookSubjectDto $subject = null
+        public ? \DateTimeInterface $revealedDate = null
     ) {}
 
     public static function makeFromCasebookSubjectClue(CasebookSubjectClue $clue): static {
@@ -46,8 +47,7 @@ class CasebookSubjectClueDto
             body: $clue->getBody(),
             type: $clue->getType()->getHandle(),
             updatedAt: $clue->getUpdatedAt(),
-            revealedDate: $clue->getRevealedDate(),
-            subject: CasebookSubjectDto::makeFromSubject($clue->getCasebookSubject())
+            revealedDate: $clue->getRevealedDate()
         );
     }
 }
