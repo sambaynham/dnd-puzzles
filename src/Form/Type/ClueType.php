@@ -30,7 +30,10 @@ class ClueType extends AbstractType
             'body',
             TextareaType::class,
             [
-                'help' => 'Enter the detailed content of the clue'
+                'help' => 'Enter the detailed content of the clue',
+                'attr' => [
+                    'rows' => 10,
+                ]
             ]
         )
         ->add(

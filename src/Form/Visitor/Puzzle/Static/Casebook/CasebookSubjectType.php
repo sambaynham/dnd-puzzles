@@ -59,7 +59,12 @@ class CasebookSubjectType extends AbstractType
                 'description',
                 TextareaType::class,
                 [
-                    'help' => 'Add a brief overview of this subject\'s background.'
+                    'help' => 'Add a brief overview of this subject\'s background.',
+
+                    'attr' => [
+                        'rows' => 15,
+                    ]
+
                 ]
             )
 

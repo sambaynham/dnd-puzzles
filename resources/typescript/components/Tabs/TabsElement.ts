@@ -22,12 +22,11 @@ export class TabsElement extends HTMLDivElement {
 
 
     connectedCallback() {
-        this.calculateHeight();
+        this.setHeight();
         this.setupListeners();
     }
 
-    private calculateHeight(): void {
-
+    private setHeight(): void {
         let navBarHeight: number = (this.headings as HTMLElement).offsetHeight;
         let tallestElementHeight: number = 0;
         this.contentContainer.querySelectorAll('.tab-content').forEach((contentElement: Element) => {
@@ -49,7 +48,12 @@ export class TabsElement extends HTMLDivElement {
                 e.preventDefault();
                 this.setActiveHeading(heading);
             });
-        })
+        });
+        window.addEventListener('resize', (e: UIEvent) => {
+            e.preventDefault();
+            this.classList.remove('loaded');
+            this.setHeight();
+        });
     }
 
     private setActiveHeading(activeHeading: HTMLAnchorElement):void {
