@@ -1,16 +1,90 @@
-.casebook-subject {
+@use "sass:math";
+@use "../critical/base/palette";
+@use "../critical/base/variables";
+$pulsarHeight: 3rem;
+@keyframes spin {
+    0%  {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+.subject-wrapper {
 
-    img.casebook-subject-backer {
+    height: 40vh;
+    position: relative;
+    overflow: hidden;
+
+    * {
         opacity: 0;
+        transition: opacity 200ms ease-in-out;
     }
 
+    &:before {
+        content: " ";
+        display: block;
+        background-color: palette.$ink;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: $pulsarHeight;
+        height: $pulsarHeight;
+        margin-left: 0 - math.div($pulsarHeight, 2);
+        margin-top: 0 - math.div($pulsarHeight, 2);
+        box-shadow: palette.$baseBoxShadow;
+        animation: spin 4s infinite linear;
+        transition: opacity 200ms ease-in-out;
+        pointer-events: none;
+        opacity: 1;
+
+    }
+
+    img {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
 
     &.loaded {
-
-        img.casebook-subject-backer {
+        height: auto;
+        * {
             opacity: 1;
         }
+
+        &:before {
+            opacity: 0;
+        }
+
+        .card-title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Pirata', serif;
+            z-index: 1;
+            color: palette.$offWhite;
+            padding: math.div(variables.$base-spacing, 4);
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            margin: 0;
+        }
+        .card-body {
+            background: palette.$charcoal;
+            color: palette.$offWhite;
+            position: relative;
+            z-index: 1;
+            margin-top: 33vh;
+            padding: math.div(variables.$base-spacing, 4);
+        }
+
+        .card-section {
+            position: relative;
+            z-index: 2;
+            background-color: palette.$offWhite;
+
+            h4 {
+                margin: 0;
+                padding: math.div(variables.$base-spacing, 4);
+            }
+        }
     }
-    background-color: cyan;
 
 }

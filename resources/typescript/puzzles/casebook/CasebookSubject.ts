@@ -9,42 +9,47 @@ export class CasebookSubject extends HTMLElement {
 
     private client: Client<paths>;
 
+    private subjectWrapper: HTMLDivElement;
+
     constructor() {
         super();
-        this.client = createClient<paths>({ baseUrl: "http://localhost:8089" });
-        let subjectId: string|undefined = this.dataset.subjectid;
+
+        let subjectId: string|undefined = this.dataset.subjectid,
+            instanceCode: string|undefined = this.dataset.instancecode,
+            template: HTMLElement|null = document.getElementById("casebook-subject-template");
+
         if (subjectId === undefined) {
             throw new Error(`No subject found with id ${subjectId}`);
         }
 
-        let instanceCode: string|undefined = this.dataset.instancecode;
+
         if (instanceCode === undefined) {
             throw new Error(`No instance found with id ${instanceCode}`);
         }
 
-        this.subjectId = subjectId;
-        this.instanceCode = instanceCode;
 
-        let template: HTMLElement|null = document.getElementById("casebook-subject-template");
+
         if (null === template) {
             throw new Error(`No Template found`);
         }
 
+        this.subjectId = subjectId;
+        this.instanceCode = instanceCode;
+        this.client = createClient<paths>({ baseUrl: "http://localhost:8089" });
+
         // @ts-ignore
         let templateContent = template.content;
 
-        // create the stylesheet
-        // const sheet = new CSSStyleSheet();
-        // set its contents by referencing a file
-        // c1sheet.replace('@import url("/dist/css/casebook/casebook.css");")');
-
         const shadowRoot = this.attachShadow({ mode: "open" });
-        // shadowRoot.adoptedStyleSheets.push(sheet);
-
 
         shadowRoot.appendChild(templateContent.cloneNode(true));
 
+        const subjectWrapper: HTMLDivElement|null = shadowRoot.querySelector('div.subject-wrapper');
+        if (null === subjectWrapper) {
+            throw new Error('No subject wrapper element found.');
+        }
 
+        this.subjectWrapper = subjectWrapper;
     }
 
     connectedCallback() {
@@ -96,7 +101,7 @@ export class CasebookSubject extends HTMLElement {
             titleElement.textContent = data.name;
             cardBodyElement.innerHTML = data.description;
 
-            this.classList.add('loaded');
+            this.subjectWrapper.classList.add('loaded');
         }
     }
 }
