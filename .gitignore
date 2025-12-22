@@ -21,3 +21,4 @@ node_modules
 
 .DS_Store
 swagger_docs.*
+resources/typescript/schema/schema.d.ts
