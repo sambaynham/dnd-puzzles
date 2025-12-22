@@ -37,8 +37,7 @@ class CasebookSubjectDto
         public string $name,
         public string $description,
         public string $type,
-        public ? string $imageUri = null,
-        public array $revealedClues = [],
+        public ? string $imageUri = null
     ) {
     }
 
@@ -53,7 +52,6 @@ class CasebookSubjectDto
             description: $subject->getDescription(),
             type: $subject->getCasebookSubjectType()->getHandle(),
             imageUri: $subject->getCasebookSubjectImage(),
-            revealedClues: $clues
         );
     }
 }

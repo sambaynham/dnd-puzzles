@@ -1,6 +1,5 @@
 import createClient, {Client} from "openapi-fetch";
 import type { paths } from "../../schema/schema";
-import {CasebookSubjectClue} from "./CasebookSubjectClue";
 
 export class CasebookSubject extends HTMLElement {
 
@@ -107,7 +106,7 @@ export class CasebookSubject extends HTMLElement {
         }
     }
     private async buildClues() {
-        const {data, error} = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}",
+        const {data, error} = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}/clues",
             {
                 params: {
                     path: {
@@ -118,19 +117,10 @@ export class CasebookSubject extends HTMLElement {
             }
         );
         if (error !== undefined) {
+            console.log(error);
             throw new Error();
         }
-        if (data.revealedClues !== undefined) {
-            data.revealedClues.forEach((clue) => {
-                if (clue) {
-                    //Waht needs to happen here? Either add a clue or replace it.
-                    const clueObject: CasebookSubjectClue = new CasebookSubjectClue();
-                    clueObject.dataset.subjectid = this.subjectId;
-                    clueObject.dataset.instancecode = this.instanceCode;
-                    clueObject.dataset.clueid = clue.id;
-                   this.appendChild(clueObject);
-                }
-            });
-        }
+        console.log(data);
+
     }
 }

@@ -8,9 +8,29 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+
 use App\ApiResource\Casebook\Providers\CasebookSubjectClueProvider;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClue;
 
+#[ApiResource(
+    uriTemplate: '/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}/clues',
+    operations: [
+        new GetCollection()
+    ],
+    uriVariables: [
+        'instanceCode' => new Link(
+            fromProperty: 'instanceCode',
+            fromClass: CasebookDto::class
+        ),
+
+        'subjectId' => new Link(
+            fromProperty: 'id',
+            fromClass: CasebookSubjectDto::class
+        )
+    ],
+    stateless: false,
+    provider: CasebookSubjectClueProvider::class
+)]
 class CasebookSubjectClueDto
 {
     public function __construct(

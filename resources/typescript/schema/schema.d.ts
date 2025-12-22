@@ -24,6 +24,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}/clues": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieves the collection of CasebookSubjectClueDto resources.
+         * @description Retrieves the collection of CasebookSubjectClueDto resources.
+         */
+        get: operations["api_puzzlesstaticcasebook_instanceCodesubjects_subjectIdclues_get_collection"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}": {
         parameters: {
             query?: never;
@@ -93,13 +113,22 @@ export interface components {
             name?: string;
             brief?: string;
         };
+        "CasebookSubjectClueDto.jsonld": {
+            id?: number;
+            title?: string;
+            body?: string;
+            type?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+            /** Format: date-time */
+            revealedDate?: string | null;
+        };
         "CasebookSubjectDto.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
             id?: number;
             name?: string;
             description?: string;
             type?: string;
             imageUri?: string | null;
-            revealedClues?: null[];
         };
         "DiceRoll.jsonld": {
             id?: string;
@@ -233,6 +262,36 @@ export interface operations {
                     "application/ld+json": components["schemas"]["Error.jsonld"];
                     "application/problem+json": components["schemas"]["Error"];
                     "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    api_puzzlesstaticcasebook_instanceCodesubjects_subjectIdclues_get_collection: {
+        parameters: {
+            query?: {
+                /** @description The collection page number */
+                page?: number;
+            };
+            header?: never;
+            path: {
+                /** @description CasebookSubjectClueDto identifier */
+                instanceCode: string;
+                /** @description CasebookSubjectClueDto identifier */
+                subjectId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description CasebookSubjectClueDto collection */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["HydraCollectionBaseSchema"] & {
+                        member?: components["schemas"]["CasebookSubjectClueDto.jsonld"][];
+                    };
                 };
             };
         };
