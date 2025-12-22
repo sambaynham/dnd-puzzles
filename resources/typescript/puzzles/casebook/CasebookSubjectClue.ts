@@ -6,6 +6,5 @@ export class CasebookSubjectClue extends HTMLDivElement {
     connectedCallback() {
         console.log('CasebookSubjectClue connected');
         console.log(this.dataset.clueid);
-
     }
 }

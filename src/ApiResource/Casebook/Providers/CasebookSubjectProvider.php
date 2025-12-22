@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ApiResource\Casebook\Providers;
 
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\ApiResource\Casebook\Dto\CasebookDto;
@@ -16,7 +17,10 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class CasebookSubjectProvider implements ProviderInterface
 {
-    public function __construct(private CasebookSubjectRepository $casebookSubjectRepository) {}
+    public function __construct(
+        private CasebookSubjectRepository $casebookSubjectRepository,
+        private CasebookSubjectClueProvider $clueProvider
+    ) {}
 
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
@@ -26,7 +30,13 @@ class CasebookSubjectProvider implements ProviderInterface
         }
 
         $subject = $this->casebookSubjectRepository->find($uriVariables['subjectId']);
-        return CasebookSubjectDto::makeFromSubject($subject);
+        $clues = $this->clueProvider->provide(new GetCollection(), [
+            'subjectId' => $uriVariables['subjectId'],
+            'instanceCode' => $subject->getCasebook()->getInstanceCode(),
+        ]);
+        $subjectDto = CasebookSubjectDto::makeFromSubject($subject);
+        $subjectDto->clues = $clues;
+        return $subjectDto;
 
     }
 }

@@ -32,6 +32,11 @@ use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
 )]
 class CasebookSubjectDto
 {
+
+    /** @var \App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectClueDto[] */
+    #[Link(toProperty: 'subject')]
+    public $clues = [];
+
     public function __construct(
         public int $id,
         public string $name,
@@ -42,10 +47,7 @@ class CasebookSubjectDto
     }
 
     public static function makeFromSubject(CasebookSubject $subject): static {
-        $clues = [];
-        foreach ($subject->getRevealedCasebookSubjectClues() as $clue) {
-            $clues[] = CasebookSubjectClueDto::makeFromCasebookSubjectClue($clue);
-        }
+
         return new static (
             id: $subject->getId(),
             name: $subject->getName(),

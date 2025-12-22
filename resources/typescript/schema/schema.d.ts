@@ -44,6 +44,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}/clues/{clueId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieves a CasebookSubjectClueDto resource.
+         * @description Retrieves a CasebookSubjectClueDto resource.
+         */
+        get: operations["api_puzzlesstaticcasebook_instanceCodesubjects_subjectIdclues_clueId_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}": {
         parameters: {
             query?: never;
@@ -113,8 +133,8 @@ export interface components {
             name?: string;
             brief?: string;
         };
-        "CasebookSubjectClueDto.jsonld": {
-            id?: number;
+        "CasebookSubjectClueDto.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
+            id?: unknown;
             title?: string;
             body?: string;
             type?: string;
@@ -122,8 +142,14 @@ export interface components {
             updatedAt?: string;
             /** Format: date-time */
             revealedDate?: string | null;
+            /**
+             * Format: iri-reference
+             * @example https://example.com/
+             */
+            subject?: string | null;
         };
         "CasebookSubjectDto.jsonld": components["schemas"]["HydraItemBaseSchema"] & {
+            clues?: components["schemas"]["CasebookSubjectClueDto.jsonld"][];
             id?: number;
             name?: string;
             description?: string;
@@ -275,8 +301,6 @@ export interface operations {
             header?: never;
             path: {
                 /** @description CasebookSubjectClueDto identifier */
-                instanceCode: string;
-                /** @description CasebookSubjectClueDto identifier */
                 subjectId: string;
             };
             cookie?: never;
@@ -292,6 +316,42 @@ export interface operations {
                     "application/ld+json": components["schemas"]["HydraCollectionBaseSchema"] & {
                         member?: components["schemas"]["CasebookSubjectClueDto.jsonld"][];
                     };
+                };
+            };
+        };
+    };
+    api_puzzlesstaticcasebook_instanceCodesubjects_subjectIdclues_clueId_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description CasebookSubjectClueDto identifier */
+                subjectId: string;
+                /** @description CasebookSubjectClueDto identifier */
+                clueId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description CasebookSubjectClueDto resource */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["CasebookSubjectClueDto.jsonld"];
+                };
+            };
+            /** @description Not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["Error.jsonld"];
+                    "application/problem+json": components["schemas"]["Error"];
+                    "application/json": components["schemas"]["Error"];
                 };
             };
         };

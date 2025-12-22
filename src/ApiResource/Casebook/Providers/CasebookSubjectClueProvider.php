@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ApiResource\Casebook\Providers;
 
+use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\ApiResource\Casebook\Dto\CasebookDto;
@@ -27,13 +28,18 @@ class CasebookSubjectClueProvider implements ProviderInterface
             throw new UnprocessableEntityHttpException("Subject Id not found.");
         }
 
-        $clues = $this->casebookSubjectClueRepository->getRevealedCluesBySubjectId((int) $uriVariables['subjectId']);
+        if ($operation instanceof CollectionOperationInterface) {
+            $clues = $this->casebookSubjectClueRepository->getRevealedCluesBySubjectId((int) $uriVariables['subjectId']);
 
-        $arrayClues = [];
-        foreach ($clues as $clue) {
-            $arrayClues[$clue->getId()] = CasebookSubjectClueDto::makeFromCasebookSubjectClue($clue);
+            $arrayClues = [];
+            foreach ($clues as $clue) {
+                $arrayClues[$clue->getId()] = CasebookSubjectClueDto::makeFromCasebookSubjectClue($clue);
+            }
+            return $arrayClues;
         }
-        return $arrayClues;
 
+        if ($uriVariables['clueId'] === null) {
+            die("Could not determine clue id.");
+        }
     }
 }

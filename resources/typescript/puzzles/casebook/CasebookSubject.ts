@@ -101,11 +101,16 @@ export class CasebookSubject extends HTMLElement {
             titleElement.textContent = data.name;
             cardBodyElement.innerHTML = data.description;
 
+            console.log(data);
+
             this.subjectWrapper.classList.add('loaded');
-            this.buildClues();
+            // await this.buildClues();
         }
     }
+
+    /*
     private async buildClues() {
+
         const {data, error} = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}/clues",
             {
                 params: {
@@ -118,9 +123,8 @@ export class CasebookSubject extends HTMLElement {
         );
         if (error !== undefined) {
             console.log(error);
-            throw new Error();
+            //throw new Error();
         }
         console.log(data);
-
-    }
+    }*/
 }
