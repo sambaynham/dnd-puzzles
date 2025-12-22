@@ -3,22 +3,7 @@
 
 
 
-        <template id="casebook-subject-template" class="loading casebook-subject-template">
-            <link rel="stylesheet" href="/dist/css/casebook/casebook.css">
-
-            <div class="subject-wrapper">
-                <img slot="image" class="casebook-subject-backer" src="" alt="slot">
-                <h2 class="card-title" slot="subject-name"></h2>
-                <div class="card-body">
-                    <slot name="subject-description"></slot>
-                </div>
-                <div class="card-section">
-                    <h4>Clues</h4>
-                    <slot name="subject-clues"></slot>
-                </div>
-            </div>
-
-        </template>
+    {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_template.html.twig' %}{% endembed %}
 
     <div class="tabs-element" is="tabs-element">
         <nav class="tab-headings">

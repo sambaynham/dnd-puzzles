@@ -44,6 +44,11 @@ $pulsarHeight: 3rem;
         z-index: 0;
     }
 
+    hr.spacer {
+        opacity: 0;
+        flex: 1;
+        flex-grow: 2;
+    }
     &.loaded {
         height: auto;
         * {

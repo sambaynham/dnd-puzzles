@@ -18,6 +18,7 @@ class CasebookSubjectClueDto
         public string $title,
         public string $body,
         public string $type,
+        public \DateTimeInterface $updatedAt,
         public ? \DateTimeInterface $revealedDate = null,
     ) {}
 
@@ -27,6 +28,7 @@ class CasebookSubjectClueDto
             title: $clue->getTitle(),
             body: $clue->getBody(),
             type: $clue->getType()->getHandle(),
+            updatedAt: $clue->getUpdatedAt(),
             revealedDate: $clue->getRevealedDate(),
         );
     }

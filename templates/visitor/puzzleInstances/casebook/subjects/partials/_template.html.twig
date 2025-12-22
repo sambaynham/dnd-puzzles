@@ -1,0 +1,18 @@
+<template id="casebook-subject-template" class="loading casebook-subject-template">
+    <link rel="stylesheet" href="/dist/css/casebook/casebook.css">
+
+    <div class="subject-wrapper">
+        <img slot="image" class="casebook-subject-backer" src="" alt="slot">
+        <h2 class="card-title" slot="subject-name"></h2>
+        <hr class="spacer">
+        <div class="card-body">
+            <slot name="subject-description"></slot>
+        </div>
+
+        <div class="card-section">
+            <h4>Clues</h4>
+            <slot name="subject-clues"></slot>
+        </div>
+    </div>
+
+</template>

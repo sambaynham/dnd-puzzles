@@ -1,11 +1,12 @@
 import createClient, {Client} from "openapi-fetch";
 import type { paths } from "../../schema/schema";
+import {CasebookSubjectClue} from "./CasebookSubjectClue";
 
 export class CasebookSubject extends HTMLElement {
 
-    private subjectId: string;
+    private readonly subjectId: string;
 
-    private instanceCode: string;
+    private readonly instanceCode: string;
 
     private client: Client<paths>;
 
@@ -102,6 +103,34 @@ export class CasebookSubject extends HTMLElement {
             cardBodyElement.innerHTML = data.description;
 
             this.subjectWrapper.classList.add('loaded');
+            this.buildClues();
+        }
+    }
+    private async buildClues() {
+        const {data, error} = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}",
+            {
+                params: {
+                    path: {
+                        instanceCode: this.instanceCode,
+                        subjectId: this.subjectId,
+                    },
+                },
+            }
+        );
+        if (error !== undefined) {
+            throw new Error();
+        }
+        if (data.revealedClues !== undefined) {
+            data.revealedClues.forEach((clue) => {
+                if (clue) {
+                    //Waht needs to happen here? Either add a clue or replace it.
+                    const clueObject: CasebookSubjectClue = new CasebookSubjectClue();
+                    clueObject.dataset.subjectid = this.subjectId;
+                    clueObject.dataset.instancecode = this.instanceCode;
+                    clueObject.dataset.clueid = clue.id;
+                   this.appendChild(clueObject);
+                }
+            });
         }
     }
 }
