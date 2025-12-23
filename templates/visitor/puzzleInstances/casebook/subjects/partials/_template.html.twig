@@ -11,7 +11,17 @@
 
         <div class="card-section">
             <h4>Clues</h4>
-            <slot name="subject-clues"></slot>
+            <div class="clues-list"></div>
         </div>
+    </div>
+</template>
+
+<template id="casebook-subject-clue-template" class="loading casebook-subject-clue-template">
+    <link rel="stylesheet" href="/dist/css/casebook/casebook-clue.css">
+    <div class="clue-wrapper">
+        <h3 slot="clue-title"></h3>
+        <p class="clue-body" slot="clue-body"></p>
+        <span class="clue-type" slot="clue-type"></span>
+        <span class="revealed-at" slot="revealed-at"></span>
     </div>
 </template>

@@ -13,6 +13,10 @@ export class CasebookSubject extends HTMLElement {
 
     private subjectWrapper: HTMLDivElement;
 
+    private cluesList: HTMLDivElement;
+
+    private timer: number | undefined;
+
     constructor() {
         super();
 
@@ -47,14 +51,29 @@ export class CasebookSubject extends HTMLElement {
         shadowRoot.appendChild(templateContent.cloneNode(true));
 
         const subjectWrapper: HTMLDivElement|null = shadowRoot.querySelector('div.subject-wrapper');
+
         if (null === subjectWrapper) {
             throw new Error('No subject wrapper element found.');
         }
         this.subjectWrapper = subjectWrapper;
+
+        const cluesList: HTMLDivElement|null = shadowRoot.querySelector('div.clues-list');
+
+        if (null === cluesList) {
+            throw new Error('No subject wrapper element found.');
+        }
+        this.cluesList = cluesList;
+        this.buildContent();
+
     }
 
     connectedCallback() {
-        this.buildContent();
+        this.timer = setInterval(()=> this.buildClues(), 1000);
+    }
+
+    disconnectedCallback() {
+        clearInterval(this.timer);
+        this.timer = undefined;
     }
 
     private async buildContent() {
@@ -104,13 +123,13 @@ export class CasebookSubject extends HTMLElement {
 
 
             this.subjectWrapper.classList.add('loaded');
+
             await this.buildClues();
         }
     }
 
 
     private async buildClues() {
-
         const {data, error} = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subject}",
             {
                 params: {
@@ -132,14 +151,21 @@ export class CasebookSubject extends HTMLElement {
                 if (clue !== null) {
                     let clueObject= clue as unknown as Clue;
                     let clueExists: boolean = true;
-                    let clueComponent: CasebookSubjectClue | null= this.querySelector(`casebook-clue#clue-${clueObject.id}`);
-                    if (clueComponent === null) {
+                    let clueComponent: CasebookSubjectClue | null | undefined= this.shadowRoot?.querySelector(`#clue-${clueObject.id}`);
+                    if (clueComponent === null || clueComponent === undefined) {
+
+                        this.dispatchEvent(new CustomEvent('child-element-added', {bubbles: true, composed: true}));
                         clueExists = false;
                         clueComponent = new CasebookSubjectClue();
-                        clueComponent.setAttribute('data-clueid', String(clueObject.id));
+                        clueComponent.setAttribute('data-title', clueObject.title);
+                        clueComponent.setAttribute('data-body', clueObject.body);
+                        clueComponent.setAttribute('data-type', clueObject.type);
+                        clueComponent.setAttribute('data-updated', clueObject.updatedAt);
+                        clueComponent.setAttribute('data-revealed', clueObject.revealedDate);
+                        clueComponent.id = `clue-${clueObject.id}`;
                     }
                     if (!clueExists) {
-                        this.appendChild(clueComponent);
+                        this.cluesList.appendChild(clueComponent);
                     }
                 }
 

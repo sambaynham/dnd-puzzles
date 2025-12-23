@@ -1,9 +1,9 @@
 export type Clue = {
     id: Number,
-    title: String,
-    body: String,
-    type: String,
-    updatedAt: String,
-    revealedDate: String,
+    title: string,
+    body: string,
+    type: string,
+    updatedAt: string,
+    revealedDate: string,
 }
 

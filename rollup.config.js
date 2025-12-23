@@ -174,6 +174,20 @@ const config = [
         ]
     },
     {
+        input: 'resources/sass/puzzles/casebook-clue.scss',
+        output: {
+            dir: './public/dist/css/casebook'
+        },
+        plugins: [
+            scss({
+                fileName: 'casebook-clue.css',
+                outputStyle: 'compressed',
+                watch: ['resources/sass/puzzles/casebook-clue.scss']
+            }),
+            summary()
+        ]
+    },
+    {
         input: 'resources/sass/admin/admin.scss',
         output: {
             dir: './public/dist/css/'
