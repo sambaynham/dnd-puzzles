@@ -12,31 +12,32 @@ use App\ApiResource\Casebook\Dto\CasebookSubjectDto;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
 use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookRepository;
 use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookSubjectRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 
 class CasebookSubjectProvider implements ProviderInterface
 {
     public function __construct(
-        private CasebookSubjectRepository $casebookSubjectRepository,
-        private CasebookSubjectClueProvider $clueProvider
+        private CasebookSubjectRepository $casebookSubjectRepository
     ) {}
 
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
-        if (!$uriVariables['subjectId']) {
+
+        if (!$uriVariables['subject'] ?? null) {
             throw new UnprocessableEntityHttpException("Subject Id not found.");
         }
 
-        $subject = $this->casebookSubjectRepository->find($uriVariables['subjectId']);
-        $clues = $this->clueProvider->provide(new GetCollection(), [
-            'subjectId' => $uriVariables['subjectId'],
-            'instanceCode' => $subject->getCasebook()->getInstanceCode(),
-        ]);
-        $subjectDto = CasebookSubjectDto::makeFromSubject($subject);
-        $subjectDto->clues = $clues;
-        return $subjectDto;
+        $subject = $this->casebookSubjectRepository->find((int) $uriVariables['subject']);
+
+        if (!$subject) {
+            return null;
+        }
+
+
+        return CasebookSubjectDto::makeFromSubject($subject);
 
     }
 }

@@ -1,5 +1,7 @@
 import createClient, {Client} from "openapi-fetch";
 import type { paths } from "../../schema/schema";
+import {CasebookSubjectClue} from "./CasebookSubjectClue";
+import {Clue} from "./clue";
 
 export class CasebookSubject extends HTMLElement {
 
@@ -48,7 +50,6 @@ export class CasebookSubject extends HTMLElement {
         if (null === subjectWrapper) {
             throw new Error('No subject wrapper element found.');
         }
-
         this.subjectWrapper = subjectWrapper;
     }
 
@@ -58,12 +59,12 @@ export class CasebookSubject extends HTMLElement {
 
     private async buildContent() {
 
-        const { data, error } = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}",
+        const { data, error } = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subject}",
             {
                 params: {
                     path: {
                         instanceCode: this.instanceCode,
-                        subjectId: this.subjectId,
+                        subject: this.subjectId,
                     },
                 },
             }
@@ -101,30 +102,50 @@ export class CasebookSubject extends HTMLElement {
             titleElement.textContent = data.name;
             cardBodyElement.innerHTML = data.description;
 
-            console.log(data);
 
             this.subjectWrapper.classList.add('loaded');
-            // await this.buildClues();
+            await this.buildClues();
         }
     }
 
-    /*
+
     private async buildClues() {
 
-        const {data, error} = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}/clues",
+        const {data, error} = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subject}",
             {
                 params: {
                     path: {
                         instanceCode: this.instanceCode,
-                        subjectId: this.subjectId,
+                        subject: this.subjectId,
                     },
                 },
             }
         );
         if (error !== undefined) {
-            console.log(error);
-            //throw new Error();
+
+            throw new Error();
         }
-        console.log(data);
-    }*/
+        if (data.clues !== undefined) {
+
+            data.clues.forEach(clue => {
+
+                if (clue !== null) {
+                    let clueObject= clue as unknown as Clue;
+                    let clueExists: boolean = true;
+                    let clueComponent: CasebookSubjectClue | null= this.querySelector(`casebook-clue#clue-${clueObject.id}`);
+                    if (clueComponent === null) {
+                        clueExists = false;
+                        clueComponent = new CasebookSubjectClue();
+                        clueComponent.setAttribute('data-clueid', String(clueObject.id));
+                    }
+                    if (!clueExists) {
+                        this.appendChild(clueComponent);
+                    }
+                }
+
+
+            })
+        }
+
+    }
 }

@@ -20,7 +20,7 @@ const copyConfig = {
     {
         src: 'resources/audio',
         dest: 'public/dist'
-    },
+    }
   ]
 };
 
@@ -192,6 +192,7 @@ const config = [
             summary()
         ]
     },
+
 ];
 
 

@@ -10,9 +10,10 @@ use ApiPlatform\Metadata\Link;
 use App\ApiResource\Casebook\Providers\CasebookProvider;
 use App\ApiResource\Casebook\Providers\CasebookSubjectProvider;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ApiResource(
-    uriTemplate: '/puzzles/static/casebook/{instanceCode}/subjects/{subjectId}',
+    uriTemplate: '/puzzles/static/casebook/{instanceCode}/subjects/{subject}',
     operations: [
         new Get()
     ],
@@ -22,7 +23,7 @@ use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
             fromClass: CasebookDto::class
         ),
 
-        'subjectId' => new Link(
+        'subject' => new Link(
             fromProperty: 'id',
             fromClass: CasebookSubjectDto::class
         ),
@@ -33,9 +34,14 @@ use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
 class CasebookSubjectDto
 {
 
-    /** @var \App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectClueDto[] */
-    #[Link(toProperty: 'subject')]
-    public $clues = [];
+    public function getSubjectId(): int {
+        return $this->id;
+    }
+
+    /**
+     * @var ArrayCollection<CasebookSubjectClueDto>
+     */
+    public ArrayCollection $clues;
 
     public function __construct(
         public int $id,
@@ -44,16 +50,24 @@ class CasebookSubjectDto
         public string $type,
         public ? string $imageUri = null
     ) {
+        $this->clues = new ArrayCollection();
     }
 
+    public function getId(): int {
+        return $this->id;
+    }
     public static function makeFromSubject(CasebookSubject $subject): static {
 
-        return new static (
+        $dto = new static (
             id: $subject->getId(),
             name: $subject->getName(),
             description: $subject->getDescription(),
             type: $subject->getCasebookSubjectType()->getHandle(),
             imageUri: $subject->getCasebookSubjectImage(),
         );
+        foreach ($subject->getRevealedCasebookSubjectClues() as $revealedClue) {
+            $dto->clues->add(CasebookSubjectClueDto::makeFromCasebookSubjectClue($revealedClue));
+        }
+        return $dto;
     }
 }
