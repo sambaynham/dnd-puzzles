@@ -6,6 +6,16 @@ import typescript from '@rollup/plugin-typescript';
 import scss from 'rollup-plugin-scss';
 import sass from 'rollup-plugin-sass';
 import clean from '@rollup-extras/plugin-clean';
+import replace from '@rollup/plugin-replace';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const envReplacements = {
+    preventAssignment: true,
+    'process.env.APP_ENV': JSON.stringify(process.env.APP_ENV),
+    'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL)
+};
 
 const copyConfig = {
   targets: [
@@ -103,6 +113,7 @@ const config = [
 
         plugins: [
             typescript(),
+            replace(envReplacements),
             sass(),
             resolve()
         ],

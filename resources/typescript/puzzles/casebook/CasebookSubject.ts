@@ -41,7 +41,7 @@ export class CasebookSubject extends HTMLElement {
 
         this.subjectId = subjectId;
         this.instanceCode = instanceCode;
-        this.client = createClient<paths>({ baseUrl: "http://localhost:8089" });
+        this.client = createClient<paths>({ baseUrl: "process.env.API_BASE_URL" });
 
         // @ts-ignore
         let templateContent = template.content;
