@@ -13,8 +13,7 @@ dotenv.config();
 
 const envReplacements = {
     preventAssignment: true,
-    'process.env.APP_ENV': JSON.stringify(process.env.APP_ENV),
-    'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL)
+    'process.env.APP_ENV': JSON.stringify(process.env.APP_ENV)
 };
 
 const copyConfig = {
@@ -73,6 +72,7 @@ const config = [
             typescript(),
             resolve(),
             clean(),
+            replace(envReplacements),
             summary(),
         ],
         preserveEntrySignatures: false,

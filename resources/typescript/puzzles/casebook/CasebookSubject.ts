@@ -41,7 +41,11 @@ export class CasebookSubject extends HTMLElement {
 
         this.subjectId = subjectId;
         this.instanceCode = instanceCode;
-        this.client = createClient<paths>({ baseUrl: "process.env.API_BASE_URL" });
+        let env: string  = 'process.env.APP_ENV';
+
+        let apiBBaseUrl = (env == '"dev"') ? 'http://localhost:8089' : 'https://conundrumcodex.com';
+
+        this.client = createClient<paths>({ baseUrl: apiBBaseUrl });
 
         // @ts-ignore
         let templateContent = template.content;

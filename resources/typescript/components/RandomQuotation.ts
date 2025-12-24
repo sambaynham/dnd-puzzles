@@ -9,7 +9,7 @@ export default class RandomQuotation extends HTMLQuoteElement {
 
     constructor() {
         super();
-        this.client = createClient<paths>({ baseUrl:  "process.env.API_BASE_URL" });
+        this.client = createClient<paths>({ baseUrl: "http://localhost:8089" });
         let quotationElement: HTMLParagraphElement = document.createElement('p');
         let citationElement: HTMLSpanElement = document.createElement('span');
         quotationElement.classList.add('quotation');
