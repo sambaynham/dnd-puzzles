@@ -203,4 +203,14 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     public function getUserBlock(): ?UserBlock {
         return $this->userBlock;
     }
+
+    public function addRole(Role $role): void {
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+        }
+    }
+
+    public function hasRole(Role $role): bool {
+        return $this->roles->contains($role);
+    }
 }
