@@ -1,6 +1,6 @@
 export class CasebookSubjectClue extends HTMLDivElement {
 
-    static observedAttributes = ["data-title", 'data-body', 'data-type', 'data-updated', 'data-revealed'];
+    static observedAttributes = ["data-title", 'data-body', 'data-type', 'data-typelabel', 'data-updated', 'data-revealed'];
 
     private titleElement: HTMLElement;
 
@@ -39,6 +39,7 @@ export class CasebookSubjectClue extends HTMLDivElement {
             throw new Error(`No Clue Type found`);
         }
 
+
         let revealedElement: HTMLElement | null = shadowRoot.querySelector('[slot="revealed-at"]');
         if (null === revealedElement) {
             throw new Error(`No revealed element found`);
@@ -67,6 +68,9 @@ export class CasebookSubjectClue extends HTMLDivElement {
         if (this.dataset.type === undefined) {
             throw new Error('No type was found.');
         }
+        if (this.dataset.typelabel === undefined) {
+            throw new Error('No type label was found.');
+        }
         if (this.dataset.updated === undefined) {
             throw new Error('No updated was found.');
         }
@@ -84,8 +88,13 @@ export class CasebookSubjectClue extends HTMLDivElement {
                 case 'data-body':
                     this.bodyElement.innerHTML = newValue;
                     break;
-                case 'data-type':
+                case 'data-typelabel':
                     this.typeElement.innerHTML = newValue;
+                    break;
+                case 'data-type':
+                    this.typeElement.removeAttribute('class');
+                    this.typeElement.classList.add('clue-type');
+                    this.typeElement.classList.add(newValue);
                     break;
                 case 'data-revealed':
                     let revealedDate = new Date(newValue);

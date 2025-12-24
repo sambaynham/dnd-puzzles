@@ -87,6 +87,11 @@ $pulsarHeight: 3rem;
 
             h4 {
                 margin: 0;
+                font-family: "Pirata", serif;
+                padding: math.div(variables.$base-spacing, 4);
+            }
+
+            .empty_clues {
                 padding: math.div(variables.$base-spacing, 4);
             }
         }

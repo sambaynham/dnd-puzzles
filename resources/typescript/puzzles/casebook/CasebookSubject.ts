@@ -72,7 +72,7 @@ export class CasebookSubject extends HTMLElement {
     }
 
     connectedCallback() {
-        this.timer = setInterval(()=> this.buildClues(), 1000);
+        this.timer = setInterval(()=> this.buildClues(), 3000);
     }
 
     disconnectedCallback() {
@@ -150,6 +150,15 @@ export class CasebookSubject extends HTMLElement {
         }
         if (data.clues !== undefined) {
 
+            if (data.clues.length > 0) {
+                let emptyCluesMessage: HTMLElement | null | undefined = this.shadowRoot?.querySelector('em.empty_clues');
+                if (emptyCluesMessage !== undefined && emptyCluesMessage !== null) {
+                    emptyCluesMessage.remove();
+                }
+            }
+
+
+
             data.clues.forEach(clue => {
 
                 if (clue !== null) {
@@ -158,12 +167,13 @@ export class CasebookSubject extends HTMLElement {
                     let clueComponent: CasebookSubjectClue | null | undefined= this.shadowRoot?.querySelector(`#clue-${clueObject.id}`);
                     if (clueComponent === null || clueComponent === undefined) {
 
-                        this.dispatchEvent(new CustomEvent('child-element-added', {bubbles: true, composed: true}));
+                        this.dispatchEvent(new CustomEvent('child-element-resize', {bubbles: true, composed: true}));
                         clueExists = false;
                         clueComponent = new CasebookSubjectClue();
                         clueComponent.setAttribute('data-title', clueObject.title);
                         clueComponent.setAttribute('data-body', clueObject.body);
                         clueComponent.setAttribute('data-type', clueObject.type);
+                        clueComponent.setAttribute('data-typelabel', clueObject.typeLabel);
                         clueComponent.setAttribute('data-updated', clueObject.updatedAt);
                         clueComponent.setAttribute('data-revealed', clueObject.revealedDate);
                         clueComponent.id = `clue-${clueObject.id}`;

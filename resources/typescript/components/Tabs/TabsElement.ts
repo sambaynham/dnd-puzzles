@@ -54,8 +54,8 @@ export class TabsElement extends HTMLDivElement {
             this.classList.remove('loaded');
             this.setHeight();
         });
-        this.addEventListener('child-element-added', () => {
-            console.log('child-element-added');
+        this.addEventListener('child-element-resize', () => {
+            this.setHeight();
         });
     }
 

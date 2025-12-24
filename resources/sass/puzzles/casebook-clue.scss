@@ -7,7 +7,14 @@
     border-top: 2px solid palette.$ink;
 
     .clue-title {
-        font-family: "Pirata", serif;
+        font-family: "Merienda", serif;
+        color: palette.$inkBlue;
+        margin: 0;
+    }
+
+    .clue-body {
+        font-family: "Merienda", serif;
+        color: palette.$inkBlue;
     }
 
     .clue-type {

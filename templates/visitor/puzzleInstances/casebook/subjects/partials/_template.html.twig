@@ -9,9 +9,11 @@
             <slot name="subject-description"></slot>
         </div>
 
-        <div class="card-section">
+        <div class="card-section clues">
             <h4>Clues</h4>
-            <div class="clues-list"></div>
+            <div class="clues-list">
+                <em class="empty_clues">No Clues Revealed</em>
+            </div>
         </div>
     </div>
 </template>
@@ -19,7 +21,7 @@
 <template id="casebook-subject-clue-template" class="loading casebook-subject-clue-template">
     <link rel="stylesheet" href="/dist/css/casebook/casebook-clue.css">
     <div class="clue-wrapper">
-        <h3 slot="clue-title"></h3>
+        <h5 slot="clue-title" class="clue-title"></h5>
         <p class="clue-body" slot="clue-body"></p>
         <span class="clue-type" slot="clue-type"></span>
         <span class="revealed-at" slot="revealed-at"></span>

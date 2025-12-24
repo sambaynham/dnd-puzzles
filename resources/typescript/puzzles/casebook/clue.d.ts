@@ -3,6 +3,7 @@ export type Clue = {
     title: string,
     body: string,
     type: string,
+    typeLabel: string,
     updatedAt: string,
     revealedDate: string,
 }
