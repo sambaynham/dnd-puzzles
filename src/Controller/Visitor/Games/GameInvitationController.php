@@ -84,14 +84,14 @@ class GameInvitationController extends AbstractBaseController
 
             if (null === $existingUser) {
                 $email = (new TemplatedEmail())
-                    ->from(new Address('site@conundrumcodex.com', 'Conundrum Codex Administrator'))
+                    ->from(new Address('site@mail.conundrumcodex.com', 'Conundrum Codex Administrator'))
                     ->to($dto->email)
                     ->subject(sprintf('Invitation from %s', $game->getGamesMaster()->getEmail()))
                     ->htmlTemplate('mail/invitation.html.twig')
                     ->context([
                         'invitation' => $invitation,
                         'registrationLink' => sprintf(
-                            "%s/%s",
+                            "%s%s",
                             $this->getParameter('app.siteurl'),
                             $this->generateUrl('app.auth.register', [
                                 'emailAddress' => $dto->email,
@@ -99,7 +99,7 @@ class GameInvitationController extends AbstractBaseController
                             ])
                         ),
                         'declineLink' => sprintf(
-                            '%s/%s',
+                            '%s%s',
                             $this->getParameter('app.siteurl'),
                             $this->generateUrl('app.games.invite.decline', [
                                 'invitationCode' => $dto->invitationCode,
