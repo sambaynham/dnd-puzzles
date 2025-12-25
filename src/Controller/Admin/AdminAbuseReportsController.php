@@ -8,6 +8,7 @@ use App\Controller\AbstractBaseController;
 use App\Dto\Admin\Abuse\AbuseReportCheckDto;
 use App\Form\Admin\AbuseReportCheckType;
 use App\Services\Abuse\Domain\AbuseReport;
+use App\Services\Abuse\Infrastructure\AbuseReportRepository;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +20,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class AdminAbuseReportsController extends AbstractBaseController
 {
     public function __construct(
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private AbuseReportRepository $abuseReportRepository
     ){
     }
 
@@ -39,7 +41,12 @@ class AdminAbuseReportsController extends AbstractBaseController
             if ($dto->reportConfirmed === true) {
                 $report->markConfirmed();
             }
-            if ($dto->reportReporter === true && $user instanceof User) {
+            
+            if (
+                $dto->reportReporter === true &&
+                $user instanceof User &&
+                $report->getReportingUser() !== null
+            ) {
                 $dateNow = new \DateTimeImmutable();
                 $reporterReport = new AbuseReport(
                     reportedUser: $report->getReportingUser(),

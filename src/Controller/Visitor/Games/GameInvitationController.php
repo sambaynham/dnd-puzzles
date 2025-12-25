@@ -167,10 +167,8 @@ class GameInvitationController extends AbstractBaseController
     }
 
     #[Route('games/invitations/{invitationCode}/decline', name: 'app.games.invite.decline')]
-    #[IsGranted('ROLE_USER')]
     public function decline(GameInvitation $invitation, Request $request) {
         $user = $this->getUser();
-
 
         if ($user instanceof User && $user->getUserIdentifier() !== $invitation->getEmail()) {
             throw new AccessDeniedHttpException("You may not decline invitations on someone else\'s behalf.");
@@ -186,9 +184,9 @@ class GameInvitationController extends AbstractBaseController
             if ($dto->reason !== 'received_in_error') {
                 $abuseReport = new AbuseReport(
                     reportedUser: $invitation->getGame()->getGamesMaster(),
-                    reportingUser: $user,
                     reason: $dto->reason,
                     notes: $dto->notes,
+                    reportingUser: $user ?? null,
                 );
                 $this->entityManager->persist($abuseReport);
             }

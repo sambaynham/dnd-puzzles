@@ -17,7 +17,11 @@
                     {{ abuseReport.getReportedUser.getEmail }}
                 </td>
                 <td>
-                    {{ abuseReport.getReportingUser.getEmail }}
+                    {% if abuseReport.getReportingUser is null %}
+                        Anonymous
+                    {% else %}
+                        {{ abuseReport.getReportingUser.getEmail }}
+                    {% endif %}
                 </td>
                 <td>
                     {{ abuseReport.getCreatedAt.format('Y-m-d H:i:s') }}

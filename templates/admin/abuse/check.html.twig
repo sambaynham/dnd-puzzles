@@ -10,7 +10,13 @@
                     </tr>
                     <tr>
                         <th>Reporting User</th>
-                        <td>{{ report.getReportingUser.getEmail }}</td>
+                        <td>
+                            {% if report.getReportingUser is null %}
+                                Anonymous
+                            {% else %}
+                                {{ report.getReportingUser.getEmail }}
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
                         <th>Date</th>

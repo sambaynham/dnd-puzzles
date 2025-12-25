@@ -19,9 +19,7 @@ class AbuseReport extends AbstractDomainEntity
         #[ORM\JoinColumn(nullable: false)]
         private User $reportedUser,
 
-        #[ORM\ManyToOne]
-        #[ORM\JoinColumn(nullable: false)]
-        private User $reportingUser,
+
 
         #[ORM\Column(length: 1024)]
         private string $reason,
@@ -34,6 +32,11 @@ class AbuseReport extends AbstractDomainEntity
 
         #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
         private ?\DateTimeImmutable $confirmedDate = null,
+
+        #[ORM\ManyToOne]
+        #[ORM\JoinColumn(nullable: true)]
+        private  ? User $reportingUser = null,
+
 
         ?int $id = null,
     ) {
@@ -55,7 +58,7 @@ class AbuseReport extends AbstractDomainEntity
         return $this->confirmedDate;
     }
 
-    public function getReportedUser(): User
+    public function getReportedUser(): ?User
     {
         return $this->reportedUser;
     }
@@ -65,7 +68,7 @@ class AbuseReport extends AbstractDomainEntity
         $this->reportedUser = $reportedUser;
     }
 
-    public function getReportingUser(): User
+    public function getReportingUser(): ?User
     {
         return $this->reportingUser;
     }
