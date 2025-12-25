@@ -41,7 +41,7 @@ class AdminAbuseReportsController extends AbstractBaseController
             if ($dto->reportConfirmed === true) {
                 $report->markConfirmed();
             }
-            
+
             if (
                 $dto->reportReporter === true &&
                 $user instanceof User &&
