@@ -147,7 +147,7 @@ class ResetPasswordController extends AbstractBaseController
             ->from(new Address('site@conundrumcodex.com', 'Mailbot'))
             ->to((string) $user->getEmail())
             ->subject('Your password reset request')
-            ->htmlTemplate('reset_password/email.html.twig')
+            ->htmlTemplate('/visitor/reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
             ])
