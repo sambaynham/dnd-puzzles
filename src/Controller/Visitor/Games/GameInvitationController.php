@@ -82,9 +82,11 @@ class GameInvitationController extends AbstractBaseController
             $this->entityManager->persist($invitation);
             $this->entityManager->flush();
 
+            $senderEmail = $this->getParameter('app.mail.sender');
+            $senderName = $this->getParameter('app.mail.name');
             if (null === $existingUser) {
                 $email = (new TemplatedEmail())
-                    ->from(new Address('site@mail.conundrumcodex.com', 'Conundrum Codex Administrator'))
+                    ->from(new Address($senderEmail, $senderName))
                     ->to($dto->email)
                     ->subject(sprintf('Invitation from %s', $game->getGamesMaster()->getEmail()))
                     ->htmlTemplate('mail/invitation.html.twig')
