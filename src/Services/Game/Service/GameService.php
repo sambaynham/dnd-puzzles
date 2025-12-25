@@ -73,4 +73,8 @@ class GameService implements GameServiceInterface
     }
 
 
+    public function findInvitationsByEmailAddress(string $emailAddress): array
+    {
+        return $this->gameInvitationRepository->findInvitationsByEmailAddress($emailAddress);
+    }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Command;
 
+use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\User\Domain\User;
 use App\Services\User\Service\UserService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,12 +17,16 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusExce
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 
 #[AsCommand(
-    name: 'app:user:promote',
-    description: 'Promote a user to admin status from the command line.',
+    name: 'app:user:delete',
+    description: 'Delete a user.',
 )]
-class PromoteUserCommand extends Command
+class DeleteUserCommand extends Command
 {
-    public function __construct(private UserService $userService)
+    public function __construct(
+        private UserService $userService,
+        private EntityManagerInterface $entityManager,
+        private GameServiceInterface $gameService
+    )
     {
         parent::__construct();
     }
@@ -28,7 +34,7 @@ class PromoteUserCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('email', InputArgument::REQUIRED, 'The E-Mail address of the user to be promoted.')
+            ->addArgument('email', InputArgument::REQUIRED, 'The E-Mail address of the user to be removed.')
         ;
     }
 
@@ -50,20 +56,18 @@ class PromoteUserCommand extends Command
 
         $user = $this->userService->loadUserByIdentifier($email);
         if ($user instanceof User) {
-            $adminRole = $this->userService->getRoleByHandle('ROLE_ADMIN');
-
-            if ($user->hasRole($adminRole)) {
-                $io->warning(sprintf('The user "%s" is already promoted. Aborting', $email));
-                return Command::SUCCESS;
+            $userInvitations = $this->gameService->findInvitationsByEmailAddress($email);
+            foreach ($userInvitations as $userInvitation) {
+                $this->entityManager->remove($userInvitation);
             }
-            $user->addRole($adminRole);
-            $this->userService->saveUser($user);
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+            $io->success('User Deleted.');
+
+            return Command::SUCCESS;
         }
 
-
-
-        $io->success('User Promoted.');
-
-        return Command::SUCCESS;
+        $io->error('Unknown error.');
+        return Command::FAILURE;
     }
 }

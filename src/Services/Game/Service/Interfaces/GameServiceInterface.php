@@ -20,6 +20,12 @@ interface GameServiceInterface
 
     public function findInvitationByCodeAndEmailAddress(string $invitationCode, string $emailAddress): ? GameInvitation;
 
+    /**
+     * @param string $emailAddress
+     * @return array<GameInvitation>
+     */
+    public function findInvitationsByEmailAddress(string $emailAddress): array;
+
     public function getExpiredInvitations(): array;
 
     public function getOutstandingInvitationsForUser(User $user): array;

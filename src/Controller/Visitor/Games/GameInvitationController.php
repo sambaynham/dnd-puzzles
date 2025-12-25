@@ -31,6 +31,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Attribute\Route;
@@ -49,6 +50,7 @@ class GameInvitationController extends AbstractBaseController
 
     /**
      * @throws RandomException
+     * @throws TransportExceptionInterface
      */
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('games/{gameSlug}/manage/invitations', name: 'app.games.invite')]
@@ -83,14 +85,28 @@ class GameInvitationController extends AbstractBaseController
 
             if (null === $existingUser) {
                 $email = (new TemplatedEmail())
-                    ->from(new Address('site@conundrumcodex.com', 'Mailbot'))
+                    ->from(new Address('site@conundrumcodex.com', 'Conundrum Codex Administrator'))
                     ->to($dto->email)
                     ->subject(sprintf('Invitation from %s', $game->getGamesMaster()->getEmail()))
                     ->htmlTemplate('mail/invitation.html.twig')
                     ->context([
                         'invitation' => $invitation,
+                        'registrationLink' => sprintf(
+                            "%s/%s",
+                            $this->getParameter('app.siteurl'),
+                            $this->generateUrl('app.auth.register', [
+                                'emailAddress' => $dto->email,
+                                'invitationCode' => $dto->invitationCode,
+                            ])
+                        ),
+                        'declineLink' => sprintf(
+                            '%s/%s',
+                            $this->getParameter('app.siteurl'),
+                            $this->generateUrl('app.games.invite.decline', [
+                                'invitationCode' => $dto->invitationCode,
+                            ])
+                        )
                     ]);
-
                 $this->mailer->send($email);
             }
             $this->addFlash('success', 'Invitation Sent');
@@ -152,7 +168,7 @@ class GameInvitationController extends AbstractBaseController
         $user = $this->getUser();
 
 
-        if (!$user instanceof User || $user->getUserIdentifier() !== $invitation->getEmail()) {
+        if ($user instanceof User && $user->getUserIdentifier() !== $invitation->getEmail()) {
             throw new AccessDeniedHttpException("You may not decline invitations on someone else\'s behalf.");
         }
         $dto = new DeclineInvitationDto($invitation);
@@ -210,17 +226,12 @@ class GameInvitationController extends AbstractBaseController
                         'invitationCode' => $invitation->getInvitationCode()
                     ]);
                 }
-                dd($user);
-//                $invitation->markUsed();
-//                $this->entityManager->persist($invitation);
-                //Here, if a user does not exist, we need to create one.
+                $invitation->markUsed();
+                $this->entityManager->persist($invitation);
+
             }
-            /*
-            $invitation->revoke();
-            $this->entityManager->persist($invitation);
-            $this->entityManager->flush();
-            $this->addFlash('success', 'Invitation Revoked');
-            return $this->redirectToRoute('app.games.manage', ['slug' => $game->getSlug()]);*/
+
+            return $this->redirectToRoute('app.games.play', ['gameSlug' => $invitation->getGame()->getSlug()]);
         }
 
         $pageVars = [

@@ -79,4 +79,12 @@ class GameInvitationRepository extends ServiceEntityRepository
         $qb->setParameter(':emailAddress', $user->getEmail());
         return $qb->getQuery()->getResult();
     }
+
+    public function findInvitationsByEmailAddress(string $emailAddress): array {
+        $qb = $this->createQueryBuilder('gi');
+
+        $qb->where($qb->expr()->eq('gi.email', ':emailAddress'));
+        $qb->setParameter(':emailAddress', $emailAddress);
+        return $qb->getQuery()->getResult();
+    }
 }
