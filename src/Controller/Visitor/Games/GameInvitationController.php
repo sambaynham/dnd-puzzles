@@ -50,7 +50,6 @@ class GameInvitationController extends AbstractBaseController
 
     /**
      * @throws RandomException
-     * @throws TransportExceptionInterface
      */
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('games/{gameSlug}/manage/invitations', name: 'app.games.invite')]
@@ -107,7 +106,12 @@ class GameInvitationController extends AbstractBaseController
                             ])
                         )
                     ]);
-                $this->mailer->send($email);
+                try {
+                    $this->mailer->send($email);
+                } catch (TransportExceptionInterface $e) {
+                    $this->addFlash('danger', $e->getMessage());
+                }
+
             }
             $this->addFlash('success', 'Invitation Sent');
             return $this->redirectToRoute('app.games.manage', ['gameSlug' => $game->getSlug()]);
