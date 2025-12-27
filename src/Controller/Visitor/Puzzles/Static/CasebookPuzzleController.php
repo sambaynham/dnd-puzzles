@@ -69,13 +69,11 @@ class CasebookPuzzleController extends AbstractPuzzleController
     public function editInstance(
         Game $game,
         PuzzleTemplate $template,
-        Casebook $puzzleInstance,
+        PuzzleInstanceInterface $puzzleInstance,
         Request $request
     ): Response {
-        $dto = CasebookDto::makeFromCasebook($puzzleInstance);
         $pageVars = [
             'pageTitle' => sprintf("Edit Casebook puzzle '%s'", $puzzleInstance->getName()),
-            'form' => $this->createForm(CasebookFormType::class, $dto),
             'casebook' => $puzzleInstance,
             'game' => $game,
             'template' => $template,
