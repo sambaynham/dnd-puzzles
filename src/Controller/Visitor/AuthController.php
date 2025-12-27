@@ -100,14 +100,7 @@ class AuthController extends AbstractBaseController
         }
         $pageVars = [
             'pageTitle' => 'Log In or Register',
-            'registrationForm' => $form,
-            'breadcrumbs' => [
-                [
-                    'route' => 'app.auth.register',
-                    'label' => 'Register',
-                    'active' => false
-                ]
-            ]
+            'registrationForm' => $form
         ];
 
         return $this->render('/visitor/registration/register.html.twig', $this->populatePageVars($pageVars, $request));
@@ -127,14 +120,7 @@ class AuthController extends AbstractBaseController
             'pageTitle' => 'Login',
             'form' => $form,
             'error' => $error,
-            'last_username' => $lastUsername,
-            'breadcrumbs' => [
-                [
-                    'route' => 'app.auth.login',
-                    'label' => 'Login',
-                    'active' => false
-                ]
-            ]
+            'last_username' => $lastUsername
         ];
 
         return $this->render('/visitor/security/login.html.twig', $this->populatePageVars(request: $request, pageVars: $pageVars));
