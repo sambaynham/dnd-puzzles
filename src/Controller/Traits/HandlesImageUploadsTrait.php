@@ -32,10 +32,13 @@ trait HandlesImageUploadsTrait
             // ... handle exception if something happens during file upload
         }
 
-        return sprintf("%s/%s", $this->stripPublic($destination), $imageFileName);
+        $finalPath =  sprintf("%s/%s", $this->stripPublic($destination), $imageFileName);
+        return $finalPath;
     }
 
     protected function stripPublic(string $path): string {
-        return str_replace("/var/www/public", "", $path);
+
+        return strstr($path, '/uploads');
+
     }
 }

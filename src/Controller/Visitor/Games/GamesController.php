@@ -32,7 +32,6 @@ final class GamesController extends AbstractBaseController
         private readonly GameServiceInterface $gameService,
         protected SluggerInterface $slugger,
         #[Autowire('%kernel.project_dir%/public/uploads/images/games')] private string $publicImagesDirectory,
-
     ) {
     }
 
