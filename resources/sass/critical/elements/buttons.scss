@@ -71,9 +71,9 @@ $buttonRimFactor: 5;
         }
 
         &.btn-secondary {
-            background: palette.$wyrdPurple linear-gradient(-33deg, color.adjust(palette.$wyrdPurple, $lightness: -10%), palette.$wyrdPurple);
+            background: palette.$stormBlue linear-gradient(-33deg, color.adjust(palette.$stormBlue, $lightness: -10%), palette.$stormBlue);
             &:before {
-                box-shadow: inset 0 0 1rem magenta;
+                box-shadow: inset 0 0 1rem cyan;
             }
         }
     }
@@ -128,7 +128,7 @@ $buttonRimFactor: 5;
             bottom: -0.1rem;
             right: -0.1rem;
             z-index: -1;
-            box-shadow: palette.$baseBoxShadow;
+            box-shadow: palette.$baseBoxShadow !important;
             opacity: 1;
         }
 
@@ -147,16 +147,15 @@ $buttonRimFactor: 5;
 
             &:hover, &:active, &:focus {
                 box-shadow: inset 0 0 2.5rem color.adjust(palette.$crimson, $lightness: 25%);
-
             }
         }
 
         &.btn-secondary {
-            background: palette.$wyrdPurple radial-gradient(ellipse at 50% 100%, palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: -25%));
-            box-shadow: inset 0 0 2.5rem color.adjust(palette.$wyrdPurple, $lightness: 5%);
+            background: palette.$stormBlue radial-gradient(ellipse at 50% 100%, palette.$stormBlue, color.adjust(palette.$stormBlue, $lightness: -25%));
+            box-shadow: inset 0 0 2.5rem color.adjust(palette.$stormBlue, $lightness: 5%);
 
             &:hover, &:active, &:focus {
-                box-shadow: inset 0 0 2.5rem color.adjust(palette.$wyrdPurple, $lightness: 25%);
+                box-shadow: inset 0 0 2.5rem color.adjust(palette.$stormBlue, $lightness: 25%);
 
             }
         }
