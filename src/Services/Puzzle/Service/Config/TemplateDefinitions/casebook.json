@@ -16,13 +16,8 @@
     "creator": "sam.baynham@gmail.com",
     "credits": [
         {
-            "name": "Sam Baynham",
-            "email": "sam.baynham@gmail.com",
+            "name": "Conundrum Codex",
             "created": "Code, Styling"
-        },
-        {
-            "name": "Betsy Ogilvy",
-            "created": "Art"
         }
     ],
     "configOptions": [

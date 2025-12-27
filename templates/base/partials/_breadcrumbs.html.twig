@@ -1,8 +1,8 @@
 {% if breadcrumbs is not empty %}
     <nav class="breadcrumbs">
         {% for breadcrumb in breadcrumbs %}
-            {% if breadcrumb.route is defined %}
-                <a href="{{ path(breadcrumb.route) }}">{{ breadcrumb.label }}</a>
+            {% if breadcrumb.link is defined %}
+                <a href="{{ breadcrumb.link }}">{{ breadcrumb.label }}</a>
             {% else %}
                 <span>{{ breadcrumb.label }}</span>
             {% endif %}

@@ -33,8 +33,6 @@ export class CasebookSubject extends HTMLElement {
             throw new Error(`No instance found with id ${instanceCode}`);
         }
 
-
-
         if (null === template) {
             throw new Error(`No Template found`);
         }
@@ -72,7 +70,7 @@ export class CasebookSubject extends HTMLElement {
     }
 
     connectedCallback() {
-        this.timer = setInterval(()=> this.buildClues(), 3000);
+        this.timer = setInterval(()=> this.buildContent(), 3000);
     }
 
     disconnectedCallback() {
@@ -95,12 +93,9 @@ export class CasebookSubject extends HTMLElement {
         if (error !== undefined) {
             throw new Error();
         }
-
-        /**<img class="card-backer" src="/uploads/images/{{ subject.getCasebookSubjectImage }}" alt="{{ subject.getName }}">*/
-
         if (data.name && data.description) {
 
-            const titleElement: HTMLHeadingElement|null|undefined = this.shadowRoot?.querySelector('h2[slot="subject-name"]');
+            const titleElement: HTMLHeadingElement|null|undefined = this.shadowRoot?.querySelector('slot[name="subject-name"]');
             const cardBodyElement: HTMLDivElement|null|undefined = this.shadowRoot?.querySelector('slot[name="subject-description"]');
 
             if (titleElement === null || titleElement === undefined) {
@@ -118,74 +113,70 @@ export class CasebookSubject extends HTMLElement {
                 if (imageElement === null || imageElement === undefined) {
                     throw new Error("Image URL defined but image element missing.")
                 }
-                imageElement.src = `/uploads/images/${data.imageUri}`;
-                imageElement.alt = data.name;
+                imageElement.src = `${data.imageUri}`;
+                imageElement.alt = data.isRevealed ? data.name : 'Undiscovered';
             }
+
 
             titleElement.textContent = data.name;
             cardBodyElement.innerHTML = data.description;
 
-
             this.subjectWrapper.classList.add('loaded');
 
-            await this.buildClues();
+            if (!data.isRevealed) {
+                titleElement.textContent = 'Undiscovered';
+                cardBodyElement.innerHTML = 'Undiscovered';
+            } else {
+                this.subjectWrapper.classList.add('revealed');
+                if (data.clues) {
+                    await this.buildClues(data.clues);
+                }
+
+            }
+
         }
     }
 
+    private async buildClues(clues: {
+        id? : unknown,
+        title?: string,
+        body?: string,
+        type?: string,
+        typeLabel?: string,
+        updatedAt?: string,
+        revealedDate?: string | null
+    }[]) {
 
-    private async buildClues() {
-        const {data, error} = await this.client.GET("/api/puzzles/static/casebook/{instanceCode}/subjects/{subject}",
-            {
-                params: {
-                    path: {
-                        instanceCode: this.instanceCode,
-                        subject: this.subjectId,
-                    },
-                },
+        if (clues.length > 0) {
+            let emptyCluesMessage: HTMLElement | null | undefined = this.shadowRoot?.querySelector('em.empty_clues');
+            if (emptyCluesMessage !== undefined && emptyCluesMessage !== null) {
+                emptyCluesMessage.remove();
             }
-        );
-        if (error !== undefined) {
-
-            throw new Error();
-        }
-        if (data.clues !== undefined) {
-
-            if (data.clues.length > 0) {
-                let emptyCluesMessage: HTMLElement | null | undefined = this.shadowRoot?.querySelector('em.empty_clues');
-                if (emptyCluesMessage !== undefined && emptyCluesMessage !== null) {
-                    emptyCluesMessage.remove();
-                }
-            }
-
-
-
-            data.clues.forEach(clue => {
-
-                if (clue !== null) {
-                    let clueObject= clue as unknown as Clue;
-                    let clueExists: boolean = true;
-                    let clueComponent: CasebookSubjectClue | null | undefined= this.shadowRoot?.querySelector(`#clue-${clueObject.id}`);
-                    if (clueComponent === null || clueComponent === undefined) {
-
-                        this.dispatchEvent(new CustomEvent('child-element-resize', {bubbles: true, composed: true}));
-                        clueExists = false;
-                        clueComponent = new CasebookSubjectClue();
-                        clueComponent.setAttribute('data-title', clueObject.title);
-                        clueComponent.setAttribute('data-body', clueObject.body);
-                        clueComponent.setAttribute('data-type', clueObject.type);
-                        clueComponent.setAttribute('data-typelabel', clueObject.typeLabel);
-                        clueComponent.setAttribute('data-updated', clueObject.updatedAt);
-                        clueComponent.setAttribute('data-revealed', clueObject.revealedDate);
-                        clueComponent.id = `clue-${clueObject.id}`;
-                    }
-                    if (!clueExists) {
-                        this.cluesList.appendChild(clueComponent);
-                    }
-                }
-
-
-            })
         }
 
+
+        clues.forEach(clue => {
+
+            if (clue !== null) {
+                let clueObject= clue as unknown as Clue;
+                let clueExists: boolean = true;
+                let clueComponent: CasebookSubjectClue | null | undefined= this.shadowRoot?.querySelector(`#clue-${clueObject.id}`);
+                if (clueComponent === null || clueComponent === undefined) {
+                    this.dispatchEvent(new CustomEvent('child-element-resize', {bubbles: true, composed: true}));
+                    clueExists = false;
+                    clueComponent = new CasebookSubjectClue();
+                    clueComponent.id = `clue-${clueObject.id}`;
+                }
+                clueComponent.setAttribute('data-title', clueObject.title);
+                clueComponent.setAttribute('data-body', clueObject.body);
+                clueComponent.setAttribute('data-type', clueObject.type);
+                clueComponent.setAttribute('data-typelabel', clueObject.typeLabel);
+                clueComponent.setAttribute('data-updated', clueObject.updatedAt);
+                clueComponent.setAttribute('data-revealed', clueObject.revealedDate);
+                if (!clueExists) {
+                    this.cluesList.appendChild(clueComponent);
+                }
+            }
+        })
     }
 }

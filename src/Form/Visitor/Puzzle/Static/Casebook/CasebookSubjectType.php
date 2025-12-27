@@ -9,6 +9,7 @@ use App\Form\Type\ClueType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -38,6 +39,14 @@ class CasebookSubjectType extends AbstractType
                             extensionsMessage: 'Please upload a valid image file. Valid filestypes are:',
                         )
                     ],
+                ]
+            )
+            ->add(
+                'revealed',
+                CheckboxType::class,
+                [
+                    'label' => 'Revealed?',
+                    'required' => false,
                 ]
             )
             ->add(

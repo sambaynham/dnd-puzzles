@@ -14,6 +14,9 @@
                                         <span class="accordion-column">{{ gameMastered.getName }}</span>
                                         <nav class="secondary accordion-column">
                                             <a href="{{ path('app.games.manage', {'gameSlug': gameMastered.getSlug}) }}" class="btn">Manage</a>
+                                            <a class="btn btn-primary" href="{{ path('app.games.play', {
+                                                'gameSlug': gameMastered.getSlug
+                                            }) }}">View as Player</a>
                                         </nav>
                                     </div>
                                 </div>

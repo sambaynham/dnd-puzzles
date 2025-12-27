@@ -106,6 +106,10 @@ nav.pagination {
     }
 }
 
+nav.breadcrumbs {
+    display: none;
+}
+
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {
     nav.secondary {
 
@@ -137,6 +141,36 @@ nav.pagination {
     td {
         nav.secondary {
             margin-bottom: 0;
+        }
+    }
+
+    nav.breadcrumbs {
+        display: flex;
+        flex-direction: row;
+        background-color: palette.$offWhite;
+        box-shadow: palette.$baseBoxShadow;
+        border-radius: 0.25rem;
+        margin: 0 0 math.div(variables.$base-spacing, 2) 0;
+        padding: 0 math.div(variables.$base-spacing, 4);
+
+        a, > span {
+            flex: 1;
+            padding: math.div(variables.$base-spacing, 8);
+            flex-grow: 0;
+            line-break: strict;
+            white-space: nowrap;
+            position: relative;
+
+            &:not(:last-child) {
+                &:after {
+                    content: "/";
+                    display: inline;
+                    margin: 0 1rem;
+                    pointer-events: none;
+                    color: palette.$ink;
+                    opacity: 0.5;
+                }
+            }
         }
     }
 }

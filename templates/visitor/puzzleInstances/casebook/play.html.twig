@@ -1,8 +1,6 @@
 {% extends 'base/base.html.twig' %}
 {% block body %}
 
-
-
     {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_template.html.twig' %}{% endembed %}
 
     <div class="tabs-element" is="tabs-element">
@@ -17,11 +15,9 @@
                 {% if casebook.getSubjectsByTypeHandle('person') is  empty %}
                     No persons of interest have been revealed!
                 {% else %}
-                    <div class="grid">
-                        {% for person in casebook.getSubjectsByTypeHandle('person') %}
-                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': person} %}{% endembed %}
-                        {% endfor %}
-                    </div>
+                    {% for person in casebook.getSubjectsByTypeHandle('person') %}
+                        {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': person} %}{% endembed %}
+                    {% endfor %}
                 {% endif %}
 
             </div>
@@ -29,22 +25,18 @@
                 {% if casebook.getSubjectsByTypeHandle('object') is  empty %}
                     No objects of interest have been revealed!
                 {% else %}
-                    <div class="grid">
-                        {% for object in casebook.getSubjectsByTypeHandle('object') %}
-                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': object} %}{% endembed %}
-                        {% endfor %}
-                    </div>
+                    {% for object in casebook.getSubjectsByTypeHandle('object') %}
+                        {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': object} %}{% endembed %}
+                    {% endfor %}
                 {% endif %}
             </div>
             <div id="locations" class="tab-content">
                 {% if casebook.getSubjectsByTypeHandle('location') is  empty %}
                     No locations of interest have been revealed!
                 {% else %}
-                    <div class="grid">
-                        {% for location in casebook.getSubjectsByTypeHandle('location') %}
-                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': location} %}{% endembed %}
-                        {% endfor %}
-                    </div>
+                    {% for location in casebook.getSubjectsByTypeHandle('location') %}
+                        {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': location} %}{% endembed %}
+                    {% endfor %}
                 {% endif %}
 
             </div>
@@ -53,11 +45,9 @@
                 {% if casebook.getSubjectsByTypeHandle('misc') is  empty %}
                     No miscellaneous items have been revealed!
                 {% else %}
-                    <div class="list">
-                        {% for miscSubject in casebook.casebook.getSubjectsByTypeHandle('misc') %}
-                            {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': miscSubject} %}{% endembed %}
-                        {% endfor %}
-                    </div>
+                    {% for miscSubject in casebook.getSubjectsByTypeHandle('misc') %}
+                        {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.view.html.twig' with {'subject': miscSubject} %}{% endembed %}
+                    {% endfor %}
                 {% endif %}
             </div>
         </div>

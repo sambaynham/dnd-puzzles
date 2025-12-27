@@ -20,6 +20,22 @@ main {
     width: 100%;
 
 
+    .row.hero {
+        position: relative;
+        overflow: hidden;
+
+        box-shadow: palette.$baseBoxShadow;
+        border-radius: 0.25rem;
+
+        img.row-hero-backer{
+            width: 100%;
+            max-height: initial;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    }
     .row, .col {
         flex: 1;
         display: flex;
@@ -102,7 +118,23 @@ main {
             }
 
             &.title-container {
+
                 margin-bottom: 0;
+                &.hero {
+                    margin-bottom: variables.$base-spacing;
+                    .col {
+                        text-align: center;
+                        padding-top: 10vh;
+                        padding-bottom: 10vh;
+                        h1 {
+                            color: transparent;
+                            background-image: palette.$goldFX;
+                            background-clip: text;
+                        }
+                    }
+                }
+
+
             }
 
             &:last-child {
@@ -114,11 +146,11 @@ main {
                 padding: 0;
                 overflow: visible;
 
-                &:first-child {
+                &:first-of-type {
                     margin-left: 0;
                 }
 
-                &:last-child {
+                &:last-of-type {
                     margin-right: 0;
                 }
             }

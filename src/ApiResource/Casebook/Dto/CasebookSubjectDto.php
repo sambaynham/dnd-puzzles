@@ -48,7 +48,8 @@ class CasebookSubjectDto
         public string $name,
         public string $description,
         public string $type,
-        public ? string $imageUri = null
+        public ? string $imageUri = null,
+        public bool $isRevealed = false
     ) {
         $this->clues = new ArrayCollection();
     }
@@ -64,6 +65,7 @@ class CasebookSubjectDto
             description: $subject->getDescription(),
             type: $subject->getCasebookSubjectType()->getHandle(),
             imageUri: $subject->getCasebookSubjectImage(),
+            isRevealed: $subject->isRevealed()
         );
         foreach ($subject->getRevealedCasebookSubjectClues() as $revealedClue) {
             $dto->clues->add(CasebookSubjectClueDto::makeFromCasebookSubjectClue($revealedClue));

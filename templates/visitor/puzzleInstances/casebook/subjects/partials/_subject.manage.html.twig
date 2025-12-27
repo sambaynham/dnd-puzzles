@@ -5,13 +5,15 @@
             {% if subject.getCasebookSubjectImage %}
                 <div class="accordion-column">
                     <h3>Image</h3>
-                    <img class="portrait thumbnail" src="/uploads/images/{{ subject.getCasebookSubjectImage }}" alt="{{ subject.getName }}">
+                    <img class="portrait thumbnail" src="{{ subject.getCasebookSubjectImage }}" alt="{{ subject.getName }}">
                 </div>
 
             {% endif %}
             <div class="accordion-column">
                 <h3>Description</h3>
                 {{ subject.getDescription }}
+                <h3>Discovered?</h3>
+                {{ subject.isRevealed ? 'Yes' : 'No' }}
             </div>
             <div class="accordion-column">
                 <h3>Clues</h3>
@@ -53,6 +55,17 @@
                     'subjectId': subject.getId
                 }
             ) }}" class="btn">Edit</a>
+            {% if subject.isRevealed == false %}
+                <a href="{{ path(
+                    'app.puzzles.static.casebook.subjects.discover',
+                    {
+                        'gameSlug' : game.getSlug,
+                        'templateSlug': template.getSlug,
+                        'instanceCode': casebook.getInstanceCode,
+                        'subjectId': subject.getId
+                    }
+                ) }}" class="btn btn-primary">Mark Discovered</a>
+            {% endif  %}
         </div>
     </div>
 

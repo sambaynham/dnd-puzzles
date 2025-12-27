@@ -10,6 +10,7 @@ use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 class PageController extends AbstractBaseController

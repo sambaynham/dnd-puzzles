@@ -1,100 +1,101 @@
+@use "sass:color";
 @use "sass:math";
+
 @use "../critical/base/palette";
+@use "../critical/base/typography";
+
 @use "../critical/base/variables";
 $pulsarHeight: 3rem;
 @keyframes spin {
     0%  {transform: rotate(0deg);}
     100% {transform: rotate(360deg);}
 }
+
+
 .subject-wrapper {
-
-    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 variables.$base-spacing 0;
+    border-bottom: 0.125rem dashed color.adjust(palette.$ink, $alpha: -0.5);
     position: relative;
-    overflow: hidden;
-
-    * {
-        opacity: 0;
-        transition: opacity 200ms ease-in-out;
+    z-index: 9999;
+    .basic-info, .description, .clues {
+        padding: math.div(variables.$base-spacing, 4);
     }
 
-    &:before {
-        content: " ";
-        display: block;
-        border: 1rem solid palette.$ink;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: $pulsarHeight;
-        height: $pulsarHeight;
-        margin-left: -1rem - math.div($pulsarHeight, 2);
-        margin-top: -1rem - math.div($pulsarHeight, 2);
-        box-shadow: palette.$baseBoxShadow;
-        animation: spin 4s infinite linear;
-        transition: opacity 200ms ease-in-out;
-        pointer-events: none;
-        opacity: 1;
+    .basic-info {
 
-    }
+        .image-wrapper {
 
-    img {
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 0;
-    }
-
-    hr.spacer {
-        opacity: 0;
-        flex: 1;
-        flex-grow: 2;
-    }
-    &.loaded {
-        height: auto;
-        * {
-            opacity: 1;
-        }
-
-        &:before {
-            opacity: 0;
-        }
-
-        .card-title {
-            position: absolute;
-            top: 0;
-            left: 0;
-            font-family: 'Pirata', serif;
-            z-index: 1;
-            color: palette.$offWhite;
-            padding: math.div(variables.$base-spacing, 4);
-            background: rgba(0, 0, 0, 0.5);
-            width: 100%;
-            margin: 0;
-        }
-        .card-body {
-            background: palette.$charcoal;
-            color: palette.$offWhite;
+            height: 80vw;
+            overflow: hidden;
             position: relative;
-            z-index: 1;
-            margin-top: 33vh;
-            padding: math.div(variables.$base-spacing, 4);
-        }
+            border: 1rem solid transparent;
+            border-image: url('/dist/images/eroded-frame.svg') 33%;
+            margin-bottom: math.div(variables.$base-spacing, 4);
 
-        .card-section {
-            position: relative;
-            z-index: 2;
-            background-color: palette.$offWhite;
-
-            h4 {
-                margin: 0;
-                font-family: "Pirata", serif;
-                padding: math.div(variables.$base-spacing, 4);
+            img {
+                transition: opacity 200ms ease-in-out;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                opacity: 0;
             }
 
-            .empty_clues {
-                padding: math.div(variables.$base-spacing, 4);
+            .placeholder {
+                transition: opacity 200ms ease-in-out;
+                display: block;
+                background-color: palette.$charcoal;
+                color: palette.$offWhite;
+                font-size: 5rem;
+                text-align: center;
+                font-family: typography.$displayStack;
+                height: 100%;
+            }
+        }
+
+    }
+
+
+    .clues-list {
+        flex-basis: 50vw;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-column-gap: 1rem;
+        grid-row-gap: 1rem;
+    }
+
+    &.revealed {
+        .basic-info {
+            .image-wrapper {
+                .placeholder {
+                    opacity: 0;
+                }
+
+                img {
+                    opacity: 1;
+                }
             }
         }
     }
 
+}
+
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
+    .subject-wrapper {
+        flex-direction: row;
+
+        .basic-info {
+            flex-basis: 33%;
+            flex-shrink: 0;
+            .image-wrapper {
+                height: 20vw;
+                img {}
+            }
+        }
+        .clues-list {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
 }

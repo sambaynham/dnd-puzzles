@@ -2,7 +2,37 @@
 {% block body %}
     <div class="row">
         <div class="col">
+            <h2>Basic Information</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <dl>
+                <dt>Name</dt>
+                <dd>{{ game.name }}</dd>
+            </dl>
+
+        </div>
+        <div class="col">
+            <dl>
+                <dt>Description</dt>
+                <dd>{{ game.description }}</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a class="btn" href="{{ path('app.games.edit', {'gameSlug': game.getSlug}) }}">Edit this information</a>
+        </div>
+    </div>
+    <hr class="row-divider">
+    <div class="row">
+        <section class="col">
             <h2>Players</h2>
+        </section>
+    </div>
+    <div class="row">
+        <div class="col">
             <article>
                 <h3>Active Players</h3>
                 <div class="accordion" is="accordion-list">
@@ -16,7 +46,6 @@
                         </div>
                     {% endif %}
                 </div>
-                <hr class="subtle"/>
             </article>
         </div>
         <div class="col">
@@ -52,11 +81,10 @@
 
                 {% endif %}
             </article>
-
-            <hr class="subtle"/>
             <a href="{{ path('app.games.invite', {'gameSlug': game.getSlug}) }}" class="btn btn-blue">Invite Players</a>
         </div>
     </div>
+    <hr class="row-divider">
     <div class="row">
         <div class="col">
             <article>
@@ -98,8 +126,13 @@
                 {% endif %}
             </article>
             <article>
-                <a href="" class="btn btn-primary">Add a Puzzle</a>
-                <a href="{{ path('app.games.delete', {'gameSlug': game.getSlug}) }}" class="btn btn-danger">Delete this Game</a>
+                <div class="btn-group">
+                    <a href="" class="btn btn-primary">Add a Puzzle</a>
+                    <a href="{{ path('app.games.delete', {'gameSlug': game.getSlug}) }}" class="btn btn-danger">Delete this Game</a>
+                    <a href="{{ path('app.games.play', {'gameSlug': game.getSlug}) }}" class="btn btn-secondary">View this Game as a Player</a>
+                </div>
+
+
             </article>
         </div>
     </div>

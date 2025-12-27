@@ -18,6 +18,7 @@ class CasebookSubjectDto
         public ? string $name = null,
         public ? string $description = null,
         public ? string $image = null,
+        public ? bool $revealed = false,
     ) {}
 
     public static function makeFromCasebookSubject(CasebookSubject $casebookSubject): self {
@@ -27,7 +28,8 @@ class CasebookSubjectDto
             clues: self::mapClues($casebookSubject->getCasebookSubjectClues()),
             name: $casebookSubject->getName(),
             description: $casebookSubject->getDescription(),
-            image: $casebookSubject->getCasebookSubjectImage()
+            image: $casebookSubject->getCasebookSubjectImage(),
+            revealed: $casebookSubject->isRevealed(),
         );
     }
 

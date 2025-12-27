@@ -69,6 +69,13 @@ $buttonRimFactor: 5;
                 box-shadow: inset 0 0 1rem lime;
             }
         }
+
+        &.btn-secondary {
+            background: palette.$wyrdPurple linear-gradient(-33deg, color.adjust(palette.$wyrdPurple, $lightness: -10%), palette.$wyrdPurple);
+            &:before {
+                box-shadow: inset 0 0 1rem magenta;
+            }
+        }
     }
 
 
@@ -113,6 +120,7 @@ $buttonRimFactor: 5;
             mix-blend-mode: hard-light;
             opacity: 0.25;
         }
+
         &:before {
             background: palette.$goldFX;
             top: -0.1rem;
@@ -139,6 +147,16 @@ $buttonRimFactor: 5;
 
             &:hover, &:active, &:focus {
                 box-shadow: inset 0 0 2.5rem color.adjust(palette.$crimson, $lightness: 25%);
+
+            }
+        }
+
+        &.btn-secondary {
+            background: palette.$wyrdPurple radial-gradient(ellipse at 50% 100%, palette.$wyrdPurple, color.adjust(palette.$wyrdPurple, $lightness: -25%));
+            box-shadow: inset 0 0 2.5rem color.adjust(palette.$wyrdPurple, $lightness: 5%);
+
+            &:hover, &:active, &:focus {
+                box-shadow: inset 0 0 2.5rem color.adjust(palette.$wyrdPurple, $lightness: 25%);
 
             }
         }
@@ -187,7 +205,6 @@ table {
     .btn, button {
         &:not(.unstyle, .sf-toolbar-toggle-button) {
             font-size: 1rem;
-            width: initial;
         }
 
         &:not(:last-child) {

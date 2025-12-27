@@ -39,8 +39,11 @@ class CasebookSubject extends AbstractDomainEntity
         #[ORM\OneToMany(targetEntity: CasebookSubjectNote::class, mappedBy: 'casebookSubject', orphanRemoval: true, cascade: ['persist'])]
         private Collection $casebookSubjectNotes,
 
-        #[ORM\Column(length: 2048)]
+        #[ORM\Column(length: 2048, nullable:true)]
         private ? string $casebookSubjectImage = null,
+
+        #[ORM\Column(nullable: true, type: 'datetime_immutable')]
+        private ? \DateTimeInterface $revealedDate = null,
 
         ?int $id = null
     ) {
@@ -134,4 +137,17 @@ class CasebookSubject extends AbstractDomainEntity
             $casebookSubjectClue->setCasebookSubject($this);
         }
     }
+
+    public function isRevealed(): bool {
+        return $this->revealedDate !== null;
+    }
+
+    public function markRevealed(): void {
+        $this->revealedDate = new \DateTimeImmutable();
+    }
+
+    public function unreveal(): void {
+        $this->revealedDate = null;
+    }
+
 }

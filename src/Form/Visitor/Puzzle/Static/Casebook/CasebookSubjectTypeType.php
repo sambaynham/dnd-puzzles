@@ -2,7 +2,7 @@
 
 namespace App\Form\Visitor\Puzzle\Static\Casebook;
 
-use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookCreateDto;
+use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

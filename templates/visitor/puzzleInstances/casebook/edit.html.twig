@@ -69,7 +69,7 @@
                     You have no Miscellaneous Subjects in your casebook!
                 {% else %}
                     <div class="accordion-list" is="accordion-list">
-                        {% for miscSubject in casebook.casebook.getSubjectsByTypeHandle('misc') %}
+                        {% for miscSubject in casebook.getSubjectsByTypeHandle('misc') %}
                             {% embed 'visitor/puzzleInstances/casebook/subjects/partials/_subject.manage.html.twig' with {'subject': miscSubject} %}{% endembed %}
                         {% endfor %}
                     </div>

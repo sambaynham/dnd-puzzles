@@ -1,20 +1,22 @@
+@use "sass:color";
 @use "sass:math";
+
 @use "../critical/base/palette";
 @use "../critical/base/variables";
 
 .clue-wrapper {
     padding: math.div(variables.$base-spacing, 4);
-    border-top: 2px solid palette.$ink;
+    background-color: color.mix(palette.$yellow, palette.$offWhite, 25%);
+    margin-bottom: math.div(variables.$base-spacing, 2);
+    position: relative;
+    box-shadow: palette.$baseBoxShadow;
 
     .clue-title {
-        font-family: "Merienda", serif;
-        color: palette.$inkBlue;
         margin: 0;
     }
 
     .clue-body {
-        font-family: "Merienda", serif;
-        color: palette.$inkBlue;
+
     }
 
     .clue-type {
@@ -24,10 +26,25 @@
         background-color: palette.$blue;
         color: palette.$offWhite;
         padding: math.div(variables.$base-spacing, 8);
-        border-radius: 10%;
+        border-radius: 0.2rem;
     }
 
     .revealed-at {
-        display: block;
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: math.div(variables.$base-spacing, 4);
+        font-style: italic;
+        font-size: 50%;
+    }
+}
+
+
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
+    .clue-wrapper {
+        .revealed-at {
+            display: block;
+        }
     }
 }

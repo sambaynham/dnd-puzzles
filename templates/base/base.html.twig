@@ -8,7 +8,13 @@
 
 
         <main>
-            <div class="row title-container">
+            {% if breadcrumbs is not empty %}
+                {% embed 'base/partials/_breadcrumbs.html.twig' with {'breadcrumbs': breadcrumbs}%}{% endembed %}
+            {% endif %}
+            <div class="row title-container{% if heroImageUrl is defined and heroImageUrl is not null %} hero{% endif %}">
+                {% if heroImageUrl is defined and heroImageUrl is not null %}
+                    <img class="row-hero-backer" src="{{ game.getHeroImageUrl }}" alt="{{ game.getName }}">
+                {% endif %}
                 <div class="col">
                     <h1>{{ pageTitle }}</h1>
                 </div>

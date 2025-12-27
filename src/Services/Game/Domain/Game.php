@@ -55,8 +55,12 @@ class Game extends AbstractDomainEntity
         private User $gamesMaster,
 
         #[Groups(['extended'])]
+        #[ORM\Column(length: 1024, nullable: true)]
+        private ? string $heroImageUrl = null,
+
+        #[Groups(['extended'])]
         #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'games')]
-        private ?Collection $players = null,
+        private readonly ?Collection $players = null,
 
         ?int $id = null
     ) {
@@ -65,6 +69,17 @@ class Game extends AbstractDomainEntity
         $this->dynamicPuzzleInstances = new ArrayCollection();
         $this->staticPuzzleInstances = new ArrayCollection();
     }
+
+    public function getHeroImageUrl(): ?string
+    {
+        return $this->heroImageUrl;
+    }
+
+    public function setHeroImageUrl(?string $heroImageUrl): void
+    {
+        $this->heroImageUrl = $heroImageUrl;
+    }
+
 
     public function getSlug(): string
     {
@@ -141,28 +156,6 @@ class Game extends AbstractDomainEntity
     public function getDynamicPuzzleInstances(): Collection
     {
         return $this->dynamicPuzzleInstances;
-    }
-
-    public function addDynamicPuzzleInstances(PuzzleInstance $dynamicPuzzleInstance): static
-    {
-        if (!$this->dynamicPuzzleInstances->contains($dynamicPuzzleInstance)) {
-            $this->dynamicPuzzleInstances->add($dynamicPuzzleInstance);
-            $dynamicPuzzleInstance->setGame($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDynamicPuzzleInstances(PuzzleInstance $dynamicPuzzleInstance): static
-    {
-        if ($this->dynamicPuzzleInstances->removeElement($dynamicPuzzleInstance)) {
-            // set the owning side to null (unless already changed)
-            if ($dynamicPuzzleInstance->getGame() === $this) {
-                $dynamicPuzzleInstance->setGame(null);
-            }
-        }
-
-        return $this;
     }
 
     public function setStaticPuzzleInstances(ArrayCollection $staticPuzzles): void

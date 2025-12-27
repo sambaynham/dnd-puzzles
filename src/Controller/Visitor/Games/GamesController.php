@@ -5,32 +5,35 @@ namespace App\Controller\Visitor\Games;
 use ApiPlatform\Validator\Exception\ValidationException;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\Controller\AbstractBaseController;
-use App\Dto\Visitor\Game\CreateGameDto;
-use App\Form\Visitor\Game\CreateGameType;
+use App\Controller\Traits\HandlesImageUploadsTrait;
+use App\Dto\Visitor\Game\GameDto;
+use App\Form\Visitor\Game\GameType;
 use App\Form\Visitor\Game\DeleteGameType;
 use App\Security\GameManagerVoter;
 use App\Security\GamePlayerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
-use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
-use App\Services\Puzzle\Domain\PuzzleTemplate;
-use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 final class GamesController extends AbstractBaseController
 {
+    use HandlesImageUploadsTrait;
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
-        private readonly GameServiceInterface $gameService
-    )
-    {
+        private readonly GameServiceInterface $gameService,
+        protected SluggerInterface $slugger,
+        #[Autowire('%kernel.project_dir%/public/uploads/images/games')] private string $publicImagesDirectory,
+
+    ) {
     }
 
     #[IsGranted('ROLE_USER')]
@@ -64,8 +67,8 @@ final class GamesController extends AbstractBaseController
         if (!$user instanceof User) {
             throw $this->createAccessDeniedException('You must be logged in to create a game.');
         }
-        $dto = new CreateGameDto();
-        $form = $this->createForm(CreateGameType::class, $dto);
+        $dto = new GameDto();
+        $form = $this->createForm(GameType::class, $dto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -118,12 +121,13 @@ final class GamesController extends AbstractBaseController
     public function manage(
         Game $game,
         Request $request
-    )
+    ): Response
     {
         $title = sprintf('Manage %s', $game->getName());
         $invitations = $this->gameService->getOutstandingInvitationsForGame($game);
         $pageVars = [
             'pageTitle' => $title,
+            'heroImageUrl' => $game->getHeroImageUrl(),
             'breadcrumbs' => [
                 [
                     'route' => 'app.games.index',
@@ -140,6 +144,34 @@ final class GamesController extends AbstractBaseController
         ];
         return $this->render('/visitor/games/manage.html.twig', $this->populatePageVars($pageVars, $request));
     }
+
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('games/{gameSlug}/edit-info', name: 'app.games.edit')]
+    public function editInfo(Game $game, Request $request): Response {
+        $dto = GameDto::makeFromGame($game);
+        $form = $this->createForm(GameType::class, $dto);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('heroImageUrl')->getData();
+            if ($imageFile) {
+                $heroImageUrl = $this->handleImageUpload($imageFile, $this->publicImagesDirectory);
+                $game->setHeroImageUrl($heroImageUrl);
+            }
+            $game->setName($dto->name);
+            $game->setDescription($dto->description);
+            $this->entityManager->persist($game);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Game updated successfully.');
+            return $this->redirectToRoute('app.games.manage', ['gameSlug' => $game->getSlug()]);
+        }
+        $pageVars = [
+            'pageTitle' => sprintf("Edit %s's basic information", $game->getName()),
+            'form' => $form
+        ];
+        return $this->render('/visitor/games/edit.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
 
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
@@ -175,9 +207,6 @@ final class GamesController extends AbstractBaseController
         return $this->render('/visitor/games/delete.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-
-
-
     #[IsGranted(GamePlayerVoter::PLAY_GAME, 'game')]
     #[Route('games/{gameSlug}/play', name: 'app.games.play')]
     public function play(
@@ -186,6 +215,7 @@ final class GamesController extends AbstractBaseController
     ) {
         $pageVars = [
             'pageTitle' => sprintf("Play %s", $game->getName()),
+            'heroImageUrl' => $game->getHeroImageUrl(),
             'game' => $game
         ];
         return $this->render('/visitor/games/play.html.twig', $this->populatePageVars($pageVars, $request));

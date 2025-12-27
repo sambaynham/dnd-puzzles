@@ -4,18 +4,22 @@ declare(strict_types=1);
 
 namespace App\Form\Visitor\Game;
 
-use App\Dto\Visitor\Game\CreateGameDto;
+use App\Dto\Visitor\Game\GameDto;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
-class CreateGameType extends AbstractType
+class GameType extends AbstractType
 {
+    public const array VALID_IMAGE_TYPES = ['jpeg', 'jpg', 'png', 'webp'];
+
     public function __construct(private GameServiceInterface $gameService) {
 
     }
@@ -27,6 +31,22 @@ class CreateGameType extends AbstractType
                 TextType::class,
                 [
                     'help' => 'Give your game a short, punchy, memorable name.'
+                ]
+            )
+            ->add(
+                'heroImageUrl',
+                FileType::class,
+                [
+                    'required' => false,
+                    'mapped' => false,
+                    'constraints' => [
+                        new File(
+                            maxSize: '5m',
+                            extensions: self::VALID_IMAGE_TYPES,
+                            extensionsMessage: 'Please upload a valid image file. Valid filestypes are:',
+                        )
+                    ],
+                    'label' => 'Hero Image'
                 ]
             )
             ->add(
@@ -49,7 +69,7 @@ class CreateGameType extends AbstractType
                     ]
                 ]
             )
-            ->add('submit', SubmitType::class, ['label' => 'Create game'])
+            ->add('submit', SubmitType::class, ['label' => 'Save game'])
 
         ;
     }
@@ -57,7 +77,7 @@ class CreateGameType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => CreateGameDto::class,
+            'data_class' => GameDto::class,
         ]);
     }
 }
