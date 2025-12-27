@@ -24,7 +24,7 @@ class GameDto
         #[Assert\NotBlank]
         #[Assert\Length(min: 6, max: 128)]
         #[Assert\Regex(self::SLUG_REGEX, message: 'The slug must only contain lowercase letters, numbers, and underscores.')]
-        public ? string $slug
+        public ? string $slug = null
     ) {}
 
 
