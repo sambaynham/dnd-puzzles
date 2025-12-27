@@ -15,7 +15,7 @@ class BlockedEmailAddress extends AbstractDomainEntity
 
         #[ORM\Column(length: 255)]
         private string $blockReason,
-        int $id = null
+        ? int $id = null
     ) {
         parent::__construct($id);
     }
