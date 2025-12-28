@@ -70,7 +70,7 @@ export class CasebookSubject extends HTMLElement {
     }
 
     connectedCallback() {
-        this.timer = setInterval(()=> this.buildContent(), 3000);
+        this.timer = setInterval(()=> this.buildContent(), 5000);
     }
 
     disconnectedCallback() {
