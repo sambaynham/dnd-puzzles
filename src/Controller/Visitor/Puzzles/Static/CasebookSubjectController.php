@@ -46,6 +46,7 @@ class CasebookSubjectController extends AbstractPuzzleController
     #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/subjects/add', name: 'app.puzzles.static.casebook.subjects.add')]
     public function addSubject(
         Game $game,
+        PuzzleTemplate $puzzleTemplate,
         PuzzleInstanceInterface $puzzleInstance,
         Request $request
     ): Response {
@@ -90,6 +91,12 @@ class CasebookSubjectController extends AbstractPuzzleController
 
             $this->entityManager->persist($subject);
             $this->entityManager->flush();
+            $this->addFlash('success', 'Subject added.');
+            return $this->redirectToRoute('app.puzzles.static.casebook.edit', [
+                'gameSlug' => $game->getSlug(),
+                'templateSlug' => $puzzleTemplate->getSlug(),
+                'instanceCode' => $puzzleInstance->getInstanceCode()
+            ]);
         }
 
         $pageVars = [
