@@ -13,6 +13,8 @@ use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -149,8 +151,6 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
 
     /**
      * @return string
-     * @throws MismappedPuzzleTemplateException
-     * @throws PuzzleTemplateNotMappedException
      */
     public function getTemplateSlug(): string
     {
@@ -163,6 +163,10 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
         return $this->publicationDate !== null && $this->publicationDate <= $date;
     }
 
+    /**
+     * @throws PuzzleTemplateNotMappedException
+     * @throws MismappedPuzzleTemplateException
+     */
     public function getTemplate(): PuzzleTemplate
     {
         if (null === $this->puzzleTemplate) {
@@ -174,6 +178,9 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
         return $this->puzzleTemplate;
     }
 
+    /**
+     * @throws MismappedPuzzleTemplateException
+     */
     public function setTemplate(PuzzleTemplate $puzzleTemplate): void
     {
         if (self::TEMPLATE_SLUG !== $puzzleTemplate->getSlug()) {
@@ -183,8 +190,20 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
     }
 
     public function getSubjectsByTypeHandle(string $typeHandle): ArrayCollection {
+
+        $criteria = Criteria::create()
+            ->orderBy(["name" => Order::Ascending]);
+
         return $this->casebookSubjects->filter(function (CasebookSubject $casebookSubject) use ($typeHandle) {
             return $casebookSubject->getCasebookSubjectType()->getHandle() === $typeHandle;
+        })->matching($criteria);
+
+    }
+
+    public function getSubjectsByTypeHandleAndInitial(string $typeHandle, string $initial): ArrayCollection {
+        $typeHandle = strtolower($typeHandle);
+        return $this->getSubjectsByTypeHandle($typeHandle)->filter(function (CasebookSubject $casebookSubject) use ( $initial) {
+           return substr(strtolower($casebookSubject->getName()), 0, 1) === $initial;
         });
     }
 }

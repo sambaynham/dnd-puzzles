@@ -8,6 +8,7 @@ use App\Controller\Traits\HandlesImageUploadsTrait;
 use App\Controller\Visitor\Puzzles\AbstractPuzzleController;
 use App\Dto\Visitor\Puzzles\Static\Casebook\CasebookSubjectDto;
 use App\Form\Visitor\Puzzle\Static\Casebook\CasebookSubjectType;
+use App\Form\Visitor\Puzzle\Static\Casebook\DeleteCasebookSubjectType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
@@ -221,6 +222,36 @@ class CasebookSubjectController extends AbstractPuzzleController
         return $this->render('/visitor/puzzleInstances/casebook/subjects/edit.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/subjects/{subjectId}/delete', name: 'app.puzzles.static.casebook.subjects.delete')]
+    public function deleteSubject(
+        Game $game,
+        PuzzleInstanceInterface $puzzleInstance,
+        PuzzleTemplate $puzzleTemplate,
+        CasebookSubject $subject,
+        CasebookSubjectClueRepository $casebookSubjectClueRepository,
+        Request $request
+    ) : Response {
+        $form = $this->createForm(DeleteCasebookSubjectType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->entityManager->remove($subject);
+            $this->entityManager->flush();
+            $this->addFlash('success', sprintf("Subject '%s' deleted.", $subject->getName()));
+            return $this->redirectToRoute('app.puzzles.static.casebook.edit', [
+                'gameSlug' => $game->getSlug(),
+                'templateSlug' => $puzzleTemplate->getSlug(),
+                'instanceCode' => $puzzleInstance->getInstanceCode(),
+            ]);
+        }
+        $pageVars = [
+            'pageTitle' => sprintf('Delete subject "%s"', $subject->getName()),
+            'form' => $form,
+        ];
+        return $this->render('/visitor/puzzleInstances/casebook/subjects/delete.html.twig', $this->populatePageVars($pageVars, $request));
+
+    }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('games/{gameSlug}/puzzles/static/{templateSlug}/{instanceCode}/subjects/{subjectId}/discover', name: 'app.puzzles.static.casebook.subjects.discover')]

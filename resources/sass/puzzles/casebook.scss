@@ -80,6 +80,13 @@ $pulsarHeight: 3rem;
         }
     }
 
+    a.top_link {
+        text-decoration: none;
+        color: palette.$crimson;
+        display: block;
+
+    }
+
 }
 
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {
