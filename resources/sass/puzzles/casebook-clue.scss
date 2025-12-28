@@ -27,6 +27,60 @@
         color: palette.$offWhite;
         padding: math.div(variables.$base-spacing, 8);
         border-radius: 0.2rem;
+        &:before {
+            content: " ";
+            font-family: "RPGAwesome", sans-serif;
+
+        }
+
+        &.motive {
+            background-color: palette.$crimson;
+            &:before {
+                content: " "
+            }
+        }
+
+        &.state_of_mind {
+            &:before {
+                content: " "
+            }
+            background-color: palette.$stormBlue;
+        }
+
+        &.misc {
+            &:before {
+                content: " "
+            }
+            background-color: palette.$wyrdPurple;
+        }
+
+        &.physical_details {
+            &:before {
+                content: " "
+            }
+            background-color: palette.$crimson;
+        }
+
+        &.whereabouts {
+            &:before {
+                content: " "
+            }
+            background-color: palette.$stormBlue;
+        }
+
+        &.timing {
+            &:before {
+                content: " "
+            }
+            background-color: palette.$green;
+        }
+
+        &.background {
+            &:before {
+                content: " "
+            }
+            background-color: palette.$wyrdPurple;
+        }
     }
 
     .revealed-at {
