@@ -84,6 +84,9 @@ ol.step-list {
     ul.tabular-list {
         li {
             flex-direction: row;
+            * {
+                flex-basis: 33%;
+            }
         }
     }
 }
