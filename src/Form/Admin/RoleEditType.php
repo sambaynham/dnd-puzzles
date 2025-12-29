@@ -15,7 +15,7 @@ class RoleEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            ->add('label')
             ->add('permissions', EntityType::class, [
                 'class' => Permission::class,
                 'choice_label' => 'label',
