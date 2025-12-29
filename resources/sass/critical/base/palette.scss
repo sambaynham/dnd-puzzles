@@ -1,6 +1,9 @@
 @use 'sass:color';
 @use 'sass:math';
 
+/**
+* Core Palette.
+ */
 $charcoal: #080808;
 $vellum: #f3e0bb;
 $white: #f8f6f6;
@@ -17,19 +20,34 @@ $ink: #3b2e1f;
 $inkBlue: #051230;
 $black: #282828;
 $stormBlue: #093043;
-$goldFX: repeating-linear-gradient(33deg, #d4aa00, #ffd42a, #ffffff, #ffd42a, #ffcc00);
-$silverFX: repeating-linear-gradient(33deg, #616161, #C8C8C8FF, #fff, #c8c8c8, #616161);
 $antiqueGold: #ffb328;
-$bleedingInk: 0 0 0.05em color.scale($ink, $alpha: -40%), 0 0 0.0001em color.scale($ink, $alpha: -25%), 0 0 0.025em color.scale($ink, $alpha: -80%), 0 0 0.0001em color.scale($ink, $alpha: -50%);
 $pink: #ffd1d1;
 $orange: #ffa600;
 $red: #ff2f00;
 $keyColor: $crimson;
-$glossGradient: linear-gradient(to top, black 0%, black 50%, white 51%, black 100%);
+
+/**
+* Effects
+ */
+$goldFX: repeating-linear-gradient(33deg, #d4aa00, #ffd42a, #ffffff, #ffd42a, #ffcc00);
+$silverFX: repeating-linear-gradient(33deg, #616161, #C8C8C8FF, #fff, #c8c8c8, #616161);
+
+
+
+
+/**
+* Shadows
+*/
 $baseBoxShadow: 0 0.0625rem 0.125rem color.adjust($ink, $alpha: -0.5), 0.05rem 0.0625rem color.adjust($ink, $alpha: -0.75);
 $baseInsetShadow: inset 0 0 0.25rem color.adjust($ink, $alpha: -0.5), inset 0 0 0.125rem color.adjust($ink, $alpha: -0.75);
+$bleedingInkShadow: 0 0 0.05em color.scale($ink, $alpha: -40%), 0 0 0.0001em color.scale($ink, $alpha: -25%), 0 0 0.025em color.scale($ink, $alpha: -80%), 0 0 0.0001em color.scale($ink, $alpha: -50%);
+
+/**
+* Gradients
+*/
+$glossGradient: linear-gradient(to top, black 0%, black 50%, white 51%, black 100%);
 $dividerGradient: $ink radial-gradient(circle at 50% 50%, transparent, $ink);
 $charcoalGradient: $charcoal linear-gradient(45deg, color.adjust($charcoal, $lightness: +25%), $charcoal);
-
 $brownGradient: $ink linear-gradient(45deg, $ink, color.adjust($ink, $lightness: -25%));
 $crimsonGradient: $crimson linear-gradient(33deg, $crimson, color.adjust($crimson, $lightness: -5%));
+$whiteGradient: $offWhite linear-gradient(33deg, $offWhite, color.adjust($offWhite, $lightness: -5%));

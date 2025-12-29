@@ -1,0 +1,44 @@
+@use 'sass:color';
+@use 'sass:math';
+
+@use '../base/palette';
+@use '../base/variables';
+@use '../base/typography';
+
+
+.user-card {
+
+    border: 0.1rem solid transparent;
+
+    box-shadow: palette.$baseBoxShadow;
+    border-radius: variables.$baseBorderRadius;
+    position: relative;
+    overflow: hidden;
+    background: palette.$goldFX;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: math.div(variables.$base-spacing, 2);
+
+
+    img.card-avatar {
+        width: initial;
+        max-height: 10vh;
+    }
+
+    .user-details {
+        background: palette.$whiteGradient;
+        flex-grow: 2;
+        padding: math.div(variables.$base-spacing, 4) math.div(variables.$base-spacing, 2);
+
+        .username {
+            font-family: typography.$displayStack;
+            font-size: 1.5rem;
+        }
+
+        .joined {
+            display: block;
+        }
+    }
+
+
+}

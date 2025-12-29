@@ -23,9 +23,10 @@ main {
     .row.hero {
         position: relative;
         overflow: hidden;
-
+        border: 0.1rem solid transparent;
         box-shadow: palette.$baseBoxShadow;
-        border-radius: 0.25rem;
+        border-radius: variables.$baseBorderRadius;
+        border-image: palette.$goldFX 10%;
 
         img.row-hero-backer{
             width: 100%;

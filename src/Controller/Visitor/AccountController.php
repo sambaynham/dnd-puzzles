@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Visitor;
 
 use App\Controller\AbstractBaseController;
+use App\Controller\Traits\HandlesImageUploadsTrait;
 use App\Dto\Visitor\User\UserChangePasswordDto;
 use App\Dto\Visitor\User\UserEditDto;
 use App\Form\Visitor\Account\ChangePasswordType;
@@ -14,19 +15,24 @@ use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class AccountController extends AbstractBaseController
 {
+    use HandlesImageUploadsTrait;
     public function __construct(
         private readonly GameServiceInterface $gameService,
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
-        private readonly UserPasswordHasherInterface $passwordHasher
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        protected readonly SluggerInterface $slugger,
+        #[Autowire('%kernel.project_dir%/public/uploads/images/avatar')] private string $publicImagesDirectory,
     ) {
     }
 
@@ -58,8 +64,14 @@ final class AccountController extends AbstractBaseController
         $form = $this->createForm(UserEditType::class, $dto);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('avatar')->getData();
+            if ($imageFile) {
+                $avatarUrl = $this->handleImageUpload($imageFile, $this->publicImagesDirectory);
+                $user->setAvatarUrl($avatarUrl);
+            }
             $user->setEmail($dto->emailAddress);
             $user->setUsername($dto->userName);
+
             $success = true;
             $violations = $this->validator->validate($dto);
             if (count($violations) > 0) {

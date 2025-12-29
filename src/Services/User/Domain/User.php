@@ -56,12 +56,29 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         #[ORM\Column(type: 'boolean', length: 255, nullable: false)]
         private bool $hasAcceptedCookies = false,
 
-        ? int          $id = null
+        #[ORM\Column(type: 'string', length: 2048, nullable: true)]
+        private ? string $avatarUrl = null,
+
+        ? int $id = null
     ) {
         parent::__construct($id);
         $this->roles = new ArrayCollection();
         $this->gamesMastered = new ArrayCollection();
         $this->games = new ArrayCollection();
+    }
+
+    public function getAvatarUrl(): ?string
+    {
+        return $this->avatarUrl;
+    }
+
+    public function hasAvatar(): bool {
+        return $this->avatarUrl !== null;
+    }
+
+    public function setAvatarUrl(?string $avatarUrl): void
+    {
+        $this->avatarUrl = $avatarUrl;
     }
 
     public function hasAcceptedCookies(): bool

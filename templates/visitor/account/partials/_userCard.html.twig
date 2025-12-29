@@ -1,0 +1,7 @@
+<aside class="user-card">
+    <img class="card-avatar" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="{{ user.getUserName }}">
+    <div class="user-details">
+        <span class="username">{{ user.getUserName }}</span>
+        <em class="joined">Member since {{ user.getCreatedAt.format('F Y') }}</em>
+    </div>
+</aside>

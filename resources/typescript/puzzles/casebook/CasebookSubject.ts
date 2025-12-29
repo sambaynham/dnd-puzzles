@@ -131,7 +131,6 @@ export class CasebookSubject extends HTMLElement {
                 if (data.clues) {
                     await this.buildClues(data.clues);
                 }
-
             }
 
         }
@@ -154,9 +153,7 @@ export class CasebookSubject extends HTMLElement {
             }
         }
 
-
         clues.forEach(clue => {
-
             if (clue !== null) {
                 let clueObject= clue as unknown as Clue;
                 let clueExists: boolean = true;
@@ -167,15 +164,18 @@ export class CasebookSubject extends HTMLElement {
                     clueComponent = new CasebookSubjectClue();
                     clueComponent.id = `clue-${clueObject.id}`;
                 }
-                clueComponent.setAttribute('data-title', clueObject.title);
-                clueComponent.setAttribute('data-body', clueObject.body);
-                clueComponent.setAttribute('data-type', clueObject.type);
-                clueComponent.setAttribute('data-typelabel', clueObject.typeLabel);
-                clueComponent.setAttribute('data-updated', clueObject.updatedAt);
-                clueComponent.setAttribute('data-revealed', clueObject.revealedDate);
-                if (!clueExists) {
-                    this.cluesList.appendChild(clueComponent);
+                if (!clueExists || clueComponent.dataset.updated !== clueObject.updatedAt) {
+                    clueComponent.setAttribute('data-title', clueObject.title);
+                    clueComponent.setAttribute('data-body', clueObject.body);
+                    clueComponent.setAttribute('data-type', clueObject.type);
+                    clueComponent.setAttribute('data-typelabel', clueObject.typeLabel);
+                    clueComponent.setAttribute('data-updated', clueObject.updatedAt);
+                    clueComponent.setAttribute('data-revealed', clueObject.revealedDate);
+                    if (!clueExists) {
+                        this.cluesList.appendChild(clueComponent);
+                    }
                 }
+
             }
         })
     }

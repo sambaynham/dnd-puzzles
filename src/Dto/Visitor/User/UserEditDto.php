@@ -18,7 +18,9 @@ class UserEditDto
 
         #[Assert\NotBlank]
         #[Assert\Type('string')]
-        public ? string $userName = null
+        public ? string $userName = null,
+
+        public ? string $avatar = null
     ) {}
 
 
