@@ -18,6 +18,7 @@
 @use "critical/elements/navs.scss";
 @use "critical/elements/images.scss";
 @use "critical/elements/lists.scss";
+@use "critical/elements/headings.scss";
 
 @use "critical/widgets/dropCaps";
 @use "critical/widgets/puzzles";
@@ -31,6 +32,7 @@
 @use "critical/widgets/tabs";
 @use "critical/widgets/badges";
 @use "critical/widgets/cookieNotice";
+@use "critical/widgets/avatars";
 @use "critical/widgets/cards/userCard";
 @use "critical/widgets/cards/gameCard";
 

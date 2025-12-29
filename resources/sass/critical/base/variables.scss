@@ -5,7 +5,7 @@
 $gemBorderWidth: 0.25rem;
 $desktopMaxViewportWidth: 80vw;
 $base-spacing: 3rem;
-$mobileBreakPointUpper: 1080px;
+$mobileBreakPointUpper: 768px;
 $desktopBreakPointUpper: 1920px;
 $baseBorderRadius: 0.25rem;
 $baseBoxShadow: 0 0.125rem 0.5rem color.adjust(palette.$ink, $alpha: -0.5), 0 0.125rem 0.25rem color.adjust(palette.$ink, $alpha: -0.8), 0 0.125rem 0.125rem color.adjust(palette.$ink, $alpha: -0.9);

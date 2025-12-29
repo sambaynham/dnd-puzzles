@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Visitor;
+namespace App\Controller\Visitor\Account;
 
 use App\Controller\AbstractBaseController;
 use App\Controller\Traits\HandlesImageUploadsTrait;
@@ -10,9 +10,7 @@ use App\Dto\Visitor\User\UserChangePasswordDto;
 use App\Dto\Visitor\User\UserEditDto;
 use App\Form\Visitor\Account\ChangePasswordType;
 use App\Form\Visitor\Account\UserEditType;
-use App\Form\Visitor\Game\JoinGameType;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
-use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -44,7 +42,6 @@ final class AccountController extends AbstractBaseController
         if (!$user instanceof User) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }
-//        $joinGameForm = $this->createForm(JoinGameType::class);
         $pageVars = [
             'pageTitle' => 'Account',
             'user' => $user,
@@ -89,6 +86,7 @@ final class AccountController extends AbstractBaseController
         }
         $pageVars = [
             'pageTitle' => 'Change my Details',
+            'user' => $user,
             'form' => $form,
         ];
         return $this->render('/visitor/account/change-details.html.twig', $this->populatePageVars($pageVars, $request));
@@ -116,6 +114,6 @@ final class AccountController extends AbstractBaseController
             'pageTitle' => 'Change my Password',
             'form' => $form,
         ];
-        return $this->render('/visitor/account/change-details.html.twig', $this->populatePageVars($pageVars, $request));
+        return $this->render('/visitor/account/change-password.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

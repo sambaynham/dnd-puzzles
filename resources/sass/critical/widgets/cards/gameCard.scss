@@ -17,27 +17,45 @@
 
     .game-hero
     {
+        display: block;
+        position: relative;
+        height: 20vh;
+
         img {
 
             width: 100%;
-            max-height: initial;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
+            height: 100%;
+            object-fit: cover;
+            object-position: bottom center;
 
         }
 
-        .game-title {
+        .game-title,
+        .game-title:before {
+            position: absolute;
+            top: 0;
+            left: 0;
             font-family: typography.$displayStack;
-            color:transparent;
-            background: palette.$goldFX;
-            background-clip: text;
             font-size: 4rem;
             display: block;
-            height: 20vh;
+            width: 100%;
+            height: 100%;
             line-height: 20vh;
             text-align: center;
+        }
+
+        .game-title {
+            z-index: 1;
+            color: palette.$ink;
+        }
+        .game-title:before {
+            margin-left: 0.125rem;
+            margin-top: 0.125rem;
+            color: transparent;
+            background: palette.$goldFX;
+            background-clip: text;
+            z-index: 2;
+
         }
     }
 

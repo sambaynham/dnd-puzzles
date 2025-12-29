@@ -13,9 +13,7 @@ import {MultiaddWrapper} from "./components/MultiaddWrapper";
 import {TabsElement} from "./components/Tabs/TabsElement";
 import {PostButton} from "./components/PostButton";
 import RandomQuotation from "./components/RandomQuotation";
-
-
-
+import {HeadingElement} from "./components/HeadingElement";
 
 (()=> {
     document.addEventListener('DOMContentLoaded', () => {
@@ -45,6 +43,7 @@ import RandomQuotation from "./components/RandomQuotation";
         customElementRegistry.define('tabs-element', TabsElement, {extends: 'div'});
         customElementRegistry.define('post-button', PostButton, {extends: 'button'});
         customElementRegistry.define('random-quotation', RandomQuotation, {extends: 'blockquote'});
+        customElementRegistry.define('heading-element', HeadingElement);
     }
 })();
 

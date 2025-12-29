@@ -1,4 +1,4 @@
-<nav class="secondary">
+<nav class="secondary hide-sm">
     {% for letter,label in generate_alphabet() %}
         {% if casebook.getSubjectsByTypeHandleAndInitial(subjectType, letter) is not empty %}
             <a href="#{{ subjectType }}_{{ letter }}">{{ label }}</a>

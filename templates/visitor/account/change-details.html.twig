@@ -2,6 +2,12 @@
 {% block body %}
     <div class="row">
         <div class="col">
+            <div class="col">
+                <div class="avatar-wrapper">
+                    <img class="portrait avatar" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="Your Avatar">
+                </div>
+
+            </div>
             {{ form(form) }}
         </div>
     </div>

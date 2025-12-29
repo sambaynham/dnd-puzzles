@@ -20,7 +20,14 @@ span.flash {
     border-radius: 0.25rem;
     border: 1px solid palette.$green;
     position: relative;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease-in-out;
 
+    &.show {
+        opacity: 1;
+        pointer-events: all;
+    }
     button {
         position: absolute;
         top:  0;

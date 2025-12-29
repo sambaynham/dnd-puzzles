@@ -16,7 +16,11 @@
                     <img class="row-hero-backer" src="{{ game.getHeroImageUrl }}" alt="{{ game.getName }}">
                 {% endif %}
                 <div class="col">
-                    <h1>{{ pageTitle }}</h1>
+                    {% if heroImageUrl is defined and heroImageUrl is not null %}
+                        <h1 is="heading-element">{{ pageTitle }}</h1>
+                    {% else %}
+                        <h1>{{ pageTitle }}</h1>
+                    {% endif %}
                 </div>
             </div>
 

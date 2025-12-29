@@ -24,8 +24,9 @@
                     {% for user in users %}
                         <tr>
                             <td>
-                                <img class="avatar thumbnail-xs" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="{{ user.getUserName }}">
-
+                                <div class="avatar-wrapper">
+                                    <img class="avatar thumbnail-xs" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="{{ user.getUserName }}">
+                                </div>
                             </td>
                             <td>
                                 {{ user.email }}

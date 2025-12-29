@@ -188,7 +188,7 @@ table {
     width: 100%;
 
     .btn, button {
-        margin-bottom: 0;
+        margin-bottom: math.div(variables.$base-spacing, 4);
         flex: 1;
 
         &:before {
