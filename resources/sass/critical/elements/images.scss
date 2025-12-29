@@ -17,12 +17,16 @@ body.loaded {
             border-image: url('/dist/images/eroded-frame.svg') 33%;
         }
 
-        &.thumbnail {
-            height: 10vh;
-        }
+
 
         &.avatar {
             width: 20vh;
+        }
+        &.thumbnail {
+            height: 10vh;
+        }
+        &.thumbnail-xs {
+            width: 10vh;
         }
     }
 }

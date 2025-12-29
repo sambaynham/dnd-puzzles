@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin\Users;
 
 use App\Controller\AbstractBaseController;
+use App\Controller\Traits\HandlesImageUploadsTrait;
 use App\Dto\Admin\User\AdminUserDto;
 use App\Dto\Visitor\User\UserBlockDto;
 use App\Form\Admin\AdminBlockUserType;
@@ -16,21 +17,27 @@ use App\Services\User\Domain\User;
 use App\Services\User\Domain\UserBlock;
 use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AdminUserController extends AbstractBaseController
 {
+
+    use HandlesImageUploadsTrait;
     public function __construct(
         private readonly UserServiceInterface $userService,
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly ValidatorInterface $validator,
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
+        protected readonly SluggerInterface $slugger,
+        #[Autowire('%kernel.project_dir%/public/uploads/images/avatar')] private readonly string $publicImagesDirectory,
     ) {
     }
 
@@ -74,6 +81,11 @@ class AdminUserController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('avatar')->getData();
+            if ($imageFile) {
+                $avatarUrl = $this->handleImageUpload($imageFile, $this->publicImagesDirectory);
+                $user->setAvatarUrl($avatarUrl);
+            }
             $user->setEmail($dto->email);
             $user->setUsername($dto->username);
             $user->setRoles($dto->roles);

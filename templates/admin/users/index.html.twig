@@ -11,6 +11,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Avatar</th>
                         <th>E-Mail</th>
                         <th>Name</th>
                         <th>Roles</th>
@@ -22,6 +23,10 @@
                 <tbody>
                     {% for user in users %}
                         <tr>
+                            <td>
+                                <img class="avatar thumbnail-xs" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="{{ user.getUserName }}">
+
+                            </td>
                             <td>
                                 {{ user.email }}
                             </td>

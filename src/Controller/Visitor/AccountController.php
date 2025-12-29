@@ -32,7 +32,7 @@ final class AccountController extends AbstractBaseController
         private readonly ValidatorInterface $validator,
         private readonly UserPasswordHasherInterface $passwordHasher,
         protected readonly SluggerInterface $slugger,
-        #[Autowire('%kernel.project_dir%/public/uploads/images/avatar')] private string $publicImagesDirectory,
+        #[Autowire('%kernel.project_dir%/public/uploads/images/avatar')] private readonly string $publicImagesDirectory,
     ) {
     }
 
@@ -44,7 +44,7 @@ final class AccountController extends AbstractBaseController
         if (!$user instanceof User) {
             throw $this->createAccessDeniedException('This user does not have access to this section.');
         }
-        $joinGameForm = $this->createForm(JoinGameType::class);
+//        $joinGameForm = $this->createForm(JoinGameType::class);
         $pageVars = [
             'pageTitle' => 'Account',
             'user' => $user,
