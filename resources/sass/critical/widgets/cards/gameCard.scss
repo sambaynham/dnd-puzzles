@@ -1,0 +1,64 @@
+@use 'sass:math';
+@use 'sass:color';
+@use '../../base/palette';
+@use '../../base/variables';
+@use '../../base/typography';
+
+.game-card {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 !important;
+
+    border-radius: variables.$baseBorderRadius;
+    box-shadow: palette.$baseBoxShadow;
+    position: relative;
+    overflow: hidden;
+
+    .game-hero
+    {
+        img {
+
+            width: 100%;
+            max-height: initial;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+
+        }
+
+        .game-title {
+            font-family: typography.$displayStack;
+            color:transparent;
+            background: palette.$goldFX;
+            background-clip: text;
+            font-size: 4rem;
+            display: block;
+            height: 20vh;
+            line-height: 20vh;
+            text-align: center;
+        }
+    }
+
+
+
+    .game-detail {
+        border-top: 0.2rem solid transparent;
+        border-image: palette.$goldFX 33%;
+        background: palette.$whiteGradient;
+        padding: math.div(variables.$base-spacing, 4) !important;
+
+
+        ul.game-players {
+
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+            padding: 0;
+            li {
+                text-indent: 0;
+            }
+        }
+    }
+}

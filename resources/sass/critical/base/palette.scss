@@ -32,9 +32,6 @@ $keyColor: $crimson;
 $goldFX: repeating-linear-gradient(33deg, #d4aa00, #ffd42a, #ffffff, #ffd42a, #ffcc00);
 $silverFX: repeating-linear-gradient(33deg, #616161, #C8C8C8FF, #fff, #c8c8c8, #616161);
 
-
-
-
 /**
 * Shadows
 */
@@ -50,4 +47,4 @@ $dividerGradient: $ink radial-gradient(circle at 50% 50%, transparent, $ink);
 $charcoalGradient: $charcoal linear-gradient(45deg, color.adjust($charcoal, $lightness: +25%), $charcoal);
 $brownGradient: $ink linear-gradient(45deg, $ink, color.adjust($ink, $lightness: -25%));
 $crimsonGradient: $crimson linear-gradient(33deg, $crimson, color.adjust($crimson, $lightness: -5%));
-$whiteGradient: $offWhite linear-gradient(33deg, $offWhite, color.adjust($offWhite, $lightness: -5%));
+$whiteGradient: $offWhite linear-gradient(to bottom, $offWhite, color.adjust($offWhite, $lightness: -10%));

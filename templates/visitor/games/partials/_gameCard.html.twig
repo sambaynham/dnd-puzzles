@@ -1,0 +1,27 @@
+<article class="game-card">
+    <div class="game-hero">
+        <img class="game-hero" src="{{ game.getHeroImageUrl }}" alt="{{ game.getName }}">
+        <h3 class="game-title">{{ game.getName }}</h3>
+    </div>
+
+    <div class="game-detail">
+        <span class="game-master"><strong>Games Master</strong> {{ game.getGamesMaster.getUsername }}</span>
+
+        
+        <p class="game-description">{{ game.getDescription }}</p>
+        <div class="btn-group">
+            {% if mode == 'gamesmaster' %}
+                <a href="{{ path('app.games.manage', {'gameSlug': game.getSlug}) }}" class="btn">Manage</a>
+                <a class="btn btn-primary" href="{{ path('app.games.play', {
+                    'gameSlug': game.getSlug
+                }) }}">View as Player</a>
+            {% else %}
+                <a class="btn btn-primary" href="{{ path('app.games.play', {
+                    'gameSlug': game.getSlug
+                }) }}">Play</a>
+            {% endif %}
+
+        </div>
+    </div>
+
+</article>
