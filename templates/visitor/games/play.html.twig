@@ -4,10 +4,6 @@
         <div class="col">
             <h2>Description</h2>
             {{ game.getDescription }}
-        </div>
-    </div>
-    <div class="row two-thirds-one-third">
-        <div class="col">
             <h2>Puzzles</h2>
             {% if game.getPublishedPuzzleInstances is not empty %}
                 <div class="accordion-list" is="accordion-list">
@@ -36,16 +32,18 @@
                 </div>
 
             {% else %}
-                    <em>This game doesn't have any published puzzles yet. Your Games Master is probably scheming.</em>
+                <em>This game doesn't have any published puzzles yet. Your Games Master is probably scheming.</em>
             {% endif %}
         </div>
+        <div class="col">
+            <h2>Games Master</h2>
+            {% embed 'visitor/account/partials/_userCard.html.twig' with {'user': game.getGamesMaster} %}{% endembed %}
+            <h2>Other Players</h2>
+            {% for player in game.getPlayers %}
+                {% embed 'visitor/account/partials/_userCard.html.twig' with {'user': player} %}{% endembed %}
+            {% endfor %}
+        </div>
     </div>
-    <div class="col">
-        <h2>Games Master</h2>
-        {% embed 'visitor/account/partials/_userCard.html.twig' with {'user': game.getGamesMaster} %}{% endembed %}
-        <h2>Other Players</h2>
-        {% for player in game.getPlayers %}
-            {% embed 'visitor/account/partials/_userCard.html.twig' with {'user': player} %}{% endembed %}
-        {% endfor %}
-    </div>
+
+
 {% endblock %}
