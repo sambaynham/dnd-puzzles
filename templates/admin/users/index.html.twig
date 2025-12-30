@@ -7,13 +7,14 @@
     </div>
     <div class="row">
         <div class="col panel">
-            <nav class="secondary"><span class="active">Users</span><a href="{{ path('admin.users.roles') }}">Roles</a></nav>
+            {% embed 'admin/users/partials/_userAdminNav.html.twig' %}{% endembed %}
             <table class="table">
                 <thead>
                     <tr>
                         <th>Avatar</th>
                         <th>E-Mail</th>
                         <th>Name</th>
+                        <th>Feats</th>
                         <th>Roles</th>
                         <th>Blocked?</th>
                         <th>Joined</th>
@@ -36,6 +37,13 @@
                             </td>
                             <td>
                                 <ul>
+                                    {% for feat in user.getFeats %}
+                                        <li>{{ feat.getLabel }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
                                     {% for role in user.getRoles %}
                                         <li>{{ role }}</li>
                                     {% endfor %}
@@ -54,7 +62,7 @@
                                 {{ user.getCreatedAt.format('Y-m-d H:i:s') }}
                             </td>
                             <td>
-                                {% if user != app.user %}
+
                                     <nav class="secondary">
 
                                         <a href="{{ path('admin.users.edit', {'id': user.getId}) }}">Edit</a>
@@ -65,9 +73,7 @@
                                         {% endif %}
 
                                     </nav>
-                                {% else %}
-                                    <em>Please use the <a href="{{ path('app.user.account') }}">Account</a> page to edit your own account.</em>
-                                {% endif %}
+
 
                             </td>
                         </tr>

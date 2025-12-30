@@ -39,6 +39,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users', cascade: ['persist'], fetch: 'EAGER', indexBy: 'handle')]
     private Collection $roles;
 
+    #[ORM\ManyToMany(targetEntity: UserFeat::class, cascade: ['persist'], fetch: 'EAGER', indexBy: 'handle')]
+    private Collection $feats;
+
     #[ORM\OneToOne(mappedBy: 'user', fetch: 'EAGER')]
     private ?UserBlock $userBlock = null;
 
@@ -65,6 +68,7 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         $this->roles = new ArrayCollection();
         $this->gamesMastered = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->feats = new ArrayCollection();
     }
 
     public function getAvatarUrl(): ?string
@@ -242,5 +246,19 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
 
     public function hasRole(Role $role): bool {
         return $this->roles->contains($role);
+    }
+
+    /**
+     * @return Collection<UserFeat>
+     */
+    public function getFeats(): Collection {
+        return $this->feats;
+    }
+
+    public function setFeats(Collection $feats): void {
+        $this->feats = $feats;
+    }
+    public function awardFeat(UserFeat $userFeat): void {
+        $this->feats->add($userFeat);
     }
 }

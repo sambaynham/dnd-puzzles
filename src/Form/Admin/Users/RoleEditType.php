@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Admin;
+namespace App\Form\Admin\Users;
 
 use App\Services\User\Domain\Permission;
 use App\Services\User\Domain\Role;

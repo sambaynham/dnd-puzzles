@@ -11,6 +11,7 @@ use App\Services\User\Domain\User;
 use App\Services\User\Infrastructure\Repository\PermissionRepository;
 use App\Services\User\Infrastructure\Repository\RoleRepository;
 use App\Services\User\Infrastructure\Repository\UserAccessTokenRepository;
+use App\Services\User\Infrastructure\Repository\UserFeatRepository;
 use App\Services\User\Infrastructure\Repository\UserRepository;
 use App\Services\User\Service\Exceptions\MissingDefaultRoleException;
 use App\Services\User\Service\Interfaces\UserServiceInterface;
@@ -27,7 +28,8 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class UserService implements UserProviderInterface, UserServiceInterface, AccessTokenHandlerInterface
+class UserService
+    implements UserProviderInterface, UserServiceInterface, AccessTokenHandlerInterface
 {
     private const string DEFAULT_ROLE = 'ROLE_USER';
     public function __construct(
@@ -35,6 +37,7 @@ class UserService implements UserProviderInterface, UserServiceInterface, Access
         private readonly PermissionRepository $permissionRepository,
         private readonly RoleRepository $roleRepository,
         private readonly UserAccessTokenRepository $userAccessTokenRepository,
+        private readonly UserFeatRepository $userFeatRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
     ) {
@@ -164,5 +167,10 @@ class UserService implements UserProviderInterface, UserServiceInterface, Access
         }
 
         return new UserBadge($accessToken->getUserIdentifier());
+    }
+
+    public function findAllFeats(): array
+    {
+        return $this->userFeatRepository->findAll();
     }
 }

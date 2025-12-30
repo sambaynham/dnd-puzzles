@@ -1,0 +1,16 @@
+{% extends '/admin/base/admin-base.html.twig' %}
+{% block body %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.label) }}
+            {{ form_row(form.gamesMasterAwardable) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.description) }}
+
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

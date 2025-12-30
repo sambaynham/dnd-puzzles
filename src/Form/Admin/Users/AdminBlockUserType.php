@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Admin;
+namespace App\Form\Admin\Users;
 
 use App\Dto\Visitor\User\UserBlockDto;
 use Symfony\Component\Form\AbstractType;

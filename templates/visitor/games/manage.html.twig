@@ -31,21 +31,13 @@
             <h2>Players</h2>
         </section>
     </div>
-    <div class="row">
+    <div class="row equal-thirds">
         <div class="col">
             <article>
                 <h3>Active Players</h3>
-                <div class="accordion" is="accordion-list">
-                    {% if game.getPlayers is not empty %}
-                        {% for player in game.getPlayers %}
-                            {{ player.getUserName }}
-                        {% endfor %}
-                    {% else %}
-                        <div class="accordion-empty-message">
-                            There are no players in your game!
-                        </div>
-                    {% endif %}
-                </div>
+                {% for player in game.getPlayers %}
+                    {% embed 'visitor/account/partials/_userCard.html.twig' with {'user': player} %}{% endembed %}
+                {% endfor %}
             </article>
         </div>
         <div class="col">

@@ -39,6 +39,10 @@ abstract class AbstractValueObject extends AbstractDomainEntity implements \Stri
         parent::__construct($id);
     }
 
+    final public function setLabel(string $label): void
+    {
+        $this->label = $label;
+    }
     final public function getLabel(): string
     {
         return $this->label;

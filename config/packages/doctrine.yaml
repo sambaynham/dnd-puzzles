@@ -8,6 +8,8 @@ doctrine:
 
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
+        types:
+            rarity: App\Doctrine\Types\RarityType
     orm:
         auto_generate_proxy_classes: false
         enable_lazy_ghost_objects: true

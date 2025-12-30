@@ -56,6 +56,10 @@ class RoleFixtures extends Fixture
         'manage_quotations' => [
             'label' => 'Manage Quotation',
             'description' => 'Manage the quotations that appear on various pages around the site'
+        ],
+        'manage_feats' => [
+            'label' => 'Manage Feats',
+            'description' => 'Manage feats that users can be awarded'
         ]
     ];
 
@@ -77,7 +81,8 @@ class RoleFixtures extends Fixture
                 'assign_roles',
                 'administer_roles',
                 'manage_quotations',
-                'manage_bugs'
+                'manage_bugs',
+                'manage_feats'
             ]
         ],
         'ROLE_MODERATOR' => [

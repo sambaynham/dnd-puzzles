@@ -1,9 +1,20 @@
 <aside class="user-card">
-    <div class="card-avatar-wrapper">
-        <img class="card-avatar" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="{{ user.getUserName }}">
+    <div class="user-info">
+        <div class="card-avatar-wrapper">
+            <img class="card-avatar" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="{{ user.getUserName }}">
+        </div>
+        <div class="user-details">
+            <span class="username">{{ user.getUserName }}</span>
+            <em class="joined">Member since {{ user.getCreatedAt.format('F Y') }}</em>
+        </div>
     </div>
-    <div class="user-details">
-        <span class="username">{{ user.getUserName }}</span>
-        <em class="joined">Member since {{ user.getCreatedAt.format('F Y') }}</em>
-    </div>
+
+    {% if user.getFeats is not empty %}
+        <div class="user-feats">
+            {% for feat in user.getFeats %}
+                {% embed 'visitor/account/partials/_featIcon.html.twig' with {'feat' : feat, smallMode: true} %}{% endembed %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
 </aside>

@@ -14,6 +14,7 @@ import {TabsElement} from "./components/Tabs/TabsElement";
 import {PostButton} from "./components/PostButton";
 import RandomQuotation from "./components/RandomQuotation";
 import {HeadingElement} from "./components/HeadingElement";
+import {FeatIcon} from "./components/FeatIcon";
 
 (()=> {
     document.addEventListener('DOMContentLoaded', () => {
@@ -44,6 +45,7 @@ import {HeadingElement} from "./components/HeadingElement";
         customElementRegistry.define('post-button', PostButton, {extends: 'button'});
         customElementRegistry.define('random-quotation', RandomQuotation, {extends: 'blockquote'});
         customElementRegistry.define('heading-element', HeadingElement);
+        customElementRegistry.define('feat-icon', FeatIcon, {'extends': 'div'});
     }
 })();
 

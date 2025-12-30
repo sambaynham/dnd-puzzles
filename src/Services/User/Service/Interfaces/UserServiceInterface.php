@@ -27,4 +27,6 @@ interface UserServiceInterface
     public function getUsersCount(): int;
 
     public function findAllRoles(): array;
+
+    public function findAllFeats(): array;
 }

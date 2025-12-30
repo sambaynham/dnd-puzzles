@@ -1,0 +1,20 @@
+<nav class="secondary">
+    {% if app.current_route == 'admin.users.manage' %}
+        <span class="active">Users</span>
+    {% else %}
+        <a href="{{ path('admin.users.manage') }}">Users</a>
+    {% endif %}
+
+    {% if app.current_route == 'admin.users.roles' %}
+        <span class="active">Roles</span>
+    {% else %}
+        <a href="{{ path('admin.users.roles') }}">Roles</a>
+    {% endif %}
+
+    {% if app.current_route == 'admin.users.feats' %}
+        <span class="active">Feats</span>
+    {% else %}
+        <a href="{{ path('admin.users.feats') }}">Feats</a>
+    {% endif %}
+
+</nav>

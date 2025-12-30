@@ -8,11 +8,10 @@ use App\Controller\AbstractBaseController;
 use App\Controller\Traits\HandlesImageUploadsTrait;
 use App\Dto\Admin\User\AdminUserDto;
 use App\Dto\Visitor\User\UserBlockDto;
-use App\Form\Admin\AdminBlockUserType;
-use App\Form\Admin\AdminUnblockUserType;
-use App\Form\Admin\AdminUserEditType;
-use App\Form\Admin\AdminUserSearchType;
-use App\Services\Quotation\Service\QuotationService;
+use App\Form\Admin\Users\AdminBlockUserType;
+use App\Form\Admin\Users\AdminUnblockUserType;
+use App\Form\Admin\Users\AdminUserEditType;
+use App\Form\Admin\Users\AdminUserSearchType;
 use App\Services\User\Domain\User;
 use App\Services\User\Domain\UserBlock;
 use App\Services\User\Service\Interfaces\UserServiceInterface;
@@ -89,6 +88,7 @@ class AdminUserController extends AbstractBaseController
             $user->setEmail($dto->email);
             $user->setUsername($dto->username);
             $user->setRoles($dto->roles);
+            $user->setFeats($dto->feats);
 
             if (null !== $dto->plainPassword) {
                 $user->setPassword($this->userPasswordHasher->hashPassword($user, $dto->plainPassword));

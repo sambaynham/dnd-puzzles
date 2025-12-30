@@ -2,7 +2,7 @@
 {% block body %}
     <div class="row">
         <div class="col panel">
-            <nav class="secondary"><a href="{{ path('admin.users.manage') }}">Users</a><span class="active">Roles</span></nav>
+            {% embed 'admin/users/partials/_userAdminNav.html.twig' %}{% endembed %}
             <table class="table">
                 <thead>
                     <tr>

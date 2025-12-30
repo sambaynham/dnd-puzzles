@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Form\Admin;
+namespace App\Form\Admin\Users;
 
 use App\Dto\Admin\User\AdminUserDto;
 use App\Services\User\Domain\Role;
+use App\Services\User\Domain\UserFeat;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -34,6 +35,15 @@ class AdminUserEditType extends AbstractType
                     )
                 ],
             ])
+            ->add(
+                'feats',
+                EntityType::class,
+                [
+                    'class' => UserFeat::class,
+                    'multiple' => true,
+                    'expanded' => true,
+                ]
+            )
             ->add('email')
             ->add('username')
             ->add('plainPassword', RepeatedType::class, [

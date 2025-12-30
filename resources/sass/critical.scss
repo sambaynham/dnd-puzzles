@@ -1,3 +1,5 @@
+@use "contrib/RpgAwesome/rpg-awesome";
+
 @use "critical/base/reset";
 @use "critical/base/typography";
 @use "critical/base/palette";
@@ -35,6 +37,7 @@
 @use "critical/widgets/avatars";
 @use "critical/widgets/cards/userCard";
 @use "critical/widgets/cards/gameCard";
+@use "critical/widgets/feats";
 
 
 
