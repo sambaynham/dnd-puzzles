@@ -6,6 +6,8 @@ namespace App\DataFixtures;
 
 use App\Services\Core\Domain\Exceptions\InvalidHandleException;
 use App\Services\User\Domain\UserFeat;
+use App\Services\User\Domain\ValueObjects\Exceptions\UnmappedRarityException;
+use App\Services\User\Domain\ValueObjects\Rarity;
 use App\Services\User\Infrastructure\Repository\UserFeatRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -88,6 +90,7 @@ class FeatFixtures extends Fixture
 
     /**
      * @throws InvalidHandleException
+     * @throws UnmappedRarityException
      */
     public function load(ObjectManager $manager): void
     {
@@ -102,7 +105,7 @@ class FeatFixtures extends Fixture
                     handle: $handle,
                     description: $definition['description'],
                     iconClass: $definition['icon-class'],
-                    rarity: $definition['rarity'],
+                    rarity: Rarity::makeFromRarityKey($definition['rarity']),
                     gamesMasterAwardable: $definition['games_master_awardable']
                 ));
             }
