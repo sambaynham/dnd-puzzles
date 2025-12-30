@@ -106,9 +106,9 @@ $feat-height-sm: 2rem;
         background: palette.$charcoalGradient;
         position: absolute;
         top: 110%;
-        width: 30vw;
+        width: 90vw;
+        margin-left: -45vw;
         left: 0;
-        margin-left: -15vw;
         font-size: 1rem;
         color: palette.$offWhite;
         padding: math.div(variables.$base-spacing, 4);
@@ -121,14 +121,6 @@ $feat-height-sm: 2rem;
 
         strong {
             font-family: typography.$displayStack;
-        }
-    }
-
-    &.sm {
-        .feat-description-popover {
-            width: 10vw;
-            margin-left: -5vw;
-            top: 125%;
         }
     }
 
@@ -150,5 +142,13 @@ $feat-height-sm: 2rem;
     box-shadow: palette.$baseBoxShadow;
 }
 
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
+    .feat-icon {
 
-
+        .feat-description-popover {
+            width: 10vw;
+            margin-left: -5vw;
+            top: 125%;
+        }
+    }
+}
