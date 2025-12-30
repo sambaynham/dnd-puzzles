@@ -14,24 +14,33 @@ $feat-height-sm: 2rem;
     width: $feat-height;
     height: $feat-height;
     line-height: $feat-height + 1rem;
-    background: palette.$crimsonGradient;
+    background: radial-gradient(circle at 50% 100%, palette.$crimson, color.adjust(palette.$crimson, $lightness: -10%) 100%);
     margin: 0 auto;
-    position: relative;
     box-shadow: palette.$baseBoxShadow;
     border: 0.2rem solid transparent;
     border-image: palette.$goldFX 33%;
 
-    &:before {
+
+    &:before, &:after {
         content: " ";
         display: block;
-        border: math.div($feat-height, 10) outset white;
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
+    }
+    &:after {
+        border: math.div($feat-height, 10) outset white;
         z-index: 1;
         mix-blend-mode: soft-light;
+        opacity: 0.8;
+    }
+
+    &:before {
+        background: palette.$reflectiveGradient;
+        mix-blend-mode: soft-light;
+        opacity: 0.125;
     }
 
     i {
@@ -133,13 +142,14 @@ $feat-height-sm: 2rem;
 }
 
 .feat-legend {
-
     text-align: center;
     padding: math.div(variables.$base-spacing, 4);
-    background-color: palette.$offWhite;
+    background: palette.$whiteGradient;
     margin: math.div(variables.$base-spacing, 4);
     border-radius: variables.$baseBorderRadius;
     box-shadow: palette.$baseBoxShadow;
+    border: 0.125rem solid transparent;
+    border-image: palette.$goldFX 33%;
 }
 
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {

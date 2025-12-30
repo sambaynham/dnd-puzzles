@@ -48,6 +48,7 @@ class AdminFeatsController extends AbstractBaseController
             $feat->setGamesMasterAwardable($dto->gamesMasterAwardable);
             $feat->setLabel($dto->label);
             $feat->setRarity($dto->rarity);
+            $feat->setIconClass($dto->iconClass);
             $this->entityManager->persist($feat);
             $this->entityManager->flush();
             $this->addFlash('success', 'Changes saved successfully');

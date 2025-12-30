@@ -36,7 +36,7 @@ $silverFX: repeating-linear-gradient(33deg, #616161, #C8C8C8FF, #fff, #c8c8c8, #
 /**
 * Shadows
 */
-$baseBoxShadow: 0 0.0625rem 0.125rem color.adjust($ink, $alpha: -0.5), 0.05rem 0.0625rem color.adjust($ink, $alpha: -0.75);
+$baseBoxShadow: 0 0.25rem 0.25rem color.adjust($ink, $alpha: -0.875), 0 0.125rem 0.125rem color.adjust($ink, $alpha: -0.75), 0 0.0675rem 0.0675rem color.adjust($ink, $alpha: -0.5);
 $baseInsetShadow: inset 0 0 0.25rem color.adjust($ink, $alpha: -0.5), inset 0 0 0.125rem color.adjust($ink, $alpha: -0.75);
 $bleedingInkShadow: 0 0 0.05em color.scale($ink, $alpha: -40%), 0 0 0.0001em color.scale($ink, $alpha: -25%), 0 0 0.025em color.scale($ink, $alpha: -80%), 0 0 0.0001em color.scale($ink, $alpha: -50%);
 
@@ -44,6 +44,7 @@ $bleedingInkShadow: 0 0 0.05em color.scale($ink, $alpha: -40%), 0 0 0.0001em col
 * Gradients
 */
 $glossGradient: linear-gradient(to top, black 0%, black 50%, white 51%, black 100%);
+$reflectiveGradient: linear-gradient(315deg, black 0%, black 25%, white 26%, black 50%, black 75%, white 75%, black 100%);
 $dividerGradient: $ink radial-gradient(circle at 50% 50%, transparent, $ink);
 $charcoalGradient: $charcoal linear-gradient(33deg, color.adjust($charcoal, $lightness: +25%), $charcoal);
 $brownGradient: $ink linear-gradient(45deg, $ink, color.adjust($ink, $lightness: -25%));

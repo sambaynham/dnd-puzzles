@@ -1,8 +1,7 @@
-<aside class="feat" is="feat-element">
+<aside class="feat">
     {% embed 'visitor/account/partials/_featIcon.html.twig' with {'feat' : feat} %}{% endembed %}
     <div class="feat-legend">
         <h3 class="feat-title">{{ feat.getLabel }}</h3>
         <span class="feat-description">{{ feat.getDescription }}</span>
     </div>
-
 </aside>

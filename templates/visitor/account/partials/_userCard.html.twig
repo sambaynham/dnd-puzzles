@@ -14,7 +14,7 @@
             {% for feat in user.getFeats %}
                 {% embed 'visitor/account/partials/_featIcon.html.twig' with {'feat' : feat, smallMode: true} %}{% endembed %}
             {% endfor %}
+            {% embed 'visitor/account/partials/_featOverlayTemplate.html.twig' %}{% endembed %}
         </div>
     {% endif %}
-
 </aside>

@@ -31,13 +31,6 @@ class PageController extends AbstractBaseController
     public function contributing(Request $request): Response {
         $pageVars =[
             'pageTitle' => 'Contributing',
-            'breadcrumbs' => [
-                [
-                    'route' => 'app.pages.contributing',
-                    'label' => 'Contributing',
-                    'active' => true
-                ]
-            ]
         ];
         return $this->render('/visitor/pages/contributing.html.twig', $this->populatePageVars($pageVars, $request));
     }
@@ -46,13 +39,6 @@ class PageController extends AbstractBaseController
     public function about(Request $request): Response {
         $pageVars =[
             'pageTitle' => 'About',
-            'breadcrumbs' => [
-                [
-                    'route' => 'app.pages.about',
-                    'label' => 'About',
-                    'active' => true
-                ]
-            ]
         ];
         return $this->render('/visitor/pages/about.html.twig', $this->populatePageVars($pageVars, $request));
     }
@@ -62,13 +48,6 @@ class PageController extends AbstractBaseController
         $pageVars =[
 
             'pageTitle' => 'Code of Conduct',
-            'breadcrumbs' => [
-                [
-                    'route' => 'app.pages.coc',
-                    'label' => 'Contributing',
-                    'active' => true
-                ]
-            ]
         ];
         return $this->render('/visitor/pages/terms.html.twig', $this->populatePageVars($pageVars, $request));
     }
@@ -77,13 +56,6 @@ class PageController extends AbstractBaseController
     public function credits(Request $request): Response {
         $pageVars =[
             'pageTitle' => 'Credits',
-            'breadcrumbs' => [
-                [
-                    'route' => 'app.pages.credits',
-                    'label' => 'Credits',
-                    'active' => true
-                ]
-            ],
             'credits' => [
                 [
                     'author' => 'Lorc',
