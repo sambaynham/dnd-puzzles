@@ -1,0 +1,33 @@
+{% extends 'base/base.html.twig' %}
+{% block body %}
+    <div class="row one-third-two-thirds">
+
+        <div class="col">
+
+            <div class="avatar-wrapper">
+                <img class="avatar" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="Your Avatar">
+            </div>
+        </div>
+
+        <div class="col">
+            <strong>Name</strong>
+            {{ user.userName }}
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h2>{{ user.getUserName }}'s Feats</h2>
+            {% if user.getFeats is empty %}
+                <em>You've yet to earn any Feats. Feats can be awarded by Games Masters, or earned through various actions around the site.</em>
+            {% else %}
+                <div class="feats grid">
+                    {% for feat in user.getFeats %}
+                        {% embed 'visitor/account/partials/_feat.view.html.twig' with {'feat': feat} %}{% endembed %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

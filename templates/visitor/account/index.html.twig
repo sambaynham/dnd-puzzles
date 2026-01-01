@@ -3,6 +3,7 @@
     <div class="row">
 
         <div class="col">
+
             <div class="avatar-wrapper">
                 <img class="avatar" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="Your Avatar">
             </div>
@@ -11,6 +12,8 @@
         <div class="col">
             <strong>Name</strong>
             {{ user.userName }}
+            <strong>Profile Visibility</strong>
+            <span class="badge badge-{{ user.isProfilePublic  ? 'info' : 'success' }}">{{ user.isProfilePublic  ? 'Public' : 'Private' }}</span>
         </div>
         <div class="col">
             <strong>Email</strong>

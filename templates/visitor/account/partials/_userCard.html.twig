@@ -4,7 +4,12 @@
             <img class="card-avatar" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="{{ user.getUserName }}">
         </div>
         <div class="user-details">
-            <span class="username">{{ user.getUserName }}</span>
+            {% if user.isProfilePublic %}
+                <a href="{{ path('app.user.account.view', {'id': user.getId}) }}" class="username">{{ user.getUserName }}</a>
+            {% else %}
+                <span class="username">{{ user.getUserName }}</span>
+            {% endif %}
+
             <em class="joined">Member since {{ user.getCreatedAt.format('F Y') }}</em>
         </div>
     </div>

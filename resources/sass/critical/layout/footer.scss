@@ -21,7 +21,7 @@ footer {
         background-size: cover;
         width: variables.$desktopMaxViewportWidth;
         position: absolute;
-        height: 0.125rem;
+        height: variables.$baseBorderWidth;
         top: 0;
         left: math.div(100vw - variables.$desktopMaxViewportWidth, 2);
     }

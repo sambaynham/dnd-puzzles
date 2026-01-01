@@ -56,8 +56,11 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         #[ORM\Column(type: 'string', length: 255)]
         private string $password = '',
 
-        #[ORM\Column(type: 'boolean', length: 255, nullable: false)]
+        #[ORM\Column(type: 'boolean', nullable: false)]
         private bool $hasAcceptedCookies = false,
+
+        #[ORM\Column(type: 'boolean', nullable: false)]
+        private bool $profilePublic = false,
 
         #[ORM\Column(type: 'string', length: 2048, nullable: true)]
         private ? string $avatarUrl = null,
@@ -70,6 +73,17 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         $this->games = new ArrayCollection();
         $this->feats = new ArrayCollection();
     }
+
+    public function isProfilePublic(): bool
+    {
+        return $this->profilePublic;
+    }
+
+    public function setProfilePublic(bool $profilePublic): void
+    {
+        $this->profilePublic = $profilePublic;
+    }
+
 
     public function getAvatarUrl(): ?string
     {

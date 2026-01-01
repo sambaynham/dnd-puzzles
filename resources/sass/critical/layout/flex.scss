@@ -23,7 +23,7 @@ main {
     .row.hero {
         position: relative;
         overflow: hidden;
-        border: variables.$outlineWidth solid transparent;
+        border: variables.$baseBorderWidth solid transparent;
         box-shadow: palette.$baseBoxShadow;
         border-radius: variables.$baseBorderRadius;
         border-image: palette.$goldFX 10%;
@@ -142,7 +142,7 @@ main {
                         &:after {
                             content: " ";
                             display: block;
-                            width: variables.$outlineWidth;
+                            width: variables.$baseBorderWidth;
                             height: 100%;
                             background: radial-gradient(circle at 50% 50%, palette.$ink 90%, transparent);
                             top: 0;

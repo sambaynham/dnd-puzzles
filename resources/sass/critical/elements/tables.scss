@@ -7,14 +7,14 @@
 
 table.table {
     border-collapse: collapse;
-    border: variables.$outlineWidth solid palette.$wyrdPurple;
+    border: variables.$baseBorderWidth solid palette.$wyrdPurple;
     text-align: left;
     transform: rotate(-0.125deg);
     margin-bottom: math.div(variables.$base-spacing, 2);
     width: 100%;
 
     tr, td, th {
-        border: variables.$outlineWidth solid palette.$wyrdPurple;
+        border: variables.$baseBorderWidth solid palette.$wyrdPurple;
         padding: math.div(variables.$base-spacing, 4);
         vertical-align: top;
         border-radius: 0;

@@ -19,7 +19,7 @@ $feat-height-sm: 2rem;
     background-size: 150%;
     margin: 0 auto;
     box-shadow: palette.$baseBoxShadow;
-    border: (variables.$outlineWidth * 2) solid transparent;
+    border: (variables.$baseBorderWidth * 2) solid transparent;
     border-image: palette.$goldFX 33%;
     transition: background-position 200ms ease-in-out;
 
@@ -109,7 +109,7 @@ $feat-height-sm: 2rem;
         width: $feat-height-sm;
         height: $feat-height-sm;
         line-height: $feat-height-sm ;
-        border: variables.$outlineWidth solid transparent;
+        border: variables.$baseBorderWidth solid transparent;
         border-image: palette.$goldFX 33%;
 
 
@@ -138,7 +138,7 @@ $feat-height-sm: 2rem;
         border-radius: variables.$baseBorderRadius;
         line-height: initial;
         z-index: 99999;
-        border: variables.$outlineWidth solid transparent;
+        border: variables.$baseBorderWidth solid transparent;
         border-image: palette.$goldFX 33%;
 
         strong {
@@ -162,7 +162,7 @@ $feat-height-sm: 2rem;
     margin: math.div(variables.$base-spacing, 4);
     border-radius: variables.$baseBorderRadius;
     box-shadow: palette.$baseBoxShadow;
-    border: variables.$outlineWidth solid transparent;
+    border: variables.$baseBorderWidth solid transparent;
     border-image: palette.$goldFX 33%;
     &:before {
         position: absolute;

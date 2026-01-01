@@ -4,6 +4,7 @@ namespace App\Form\Visitor\Account;
 
 use App\Dto\Visitor\User\UserEditDto;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -29,6 +30,11 @@ class UserEditType extends AbstractType
                         extensionsMessage: 'Please upload a valid image file. Valid filestypes are:',
                     )
                 ],
+            ])
+            ->add('profilePublic', checkboxType::class, [
+                'required' => false,
+                'label' => 'Public Profile?',
+                'help' => 'If you make your profile public, other users can view your name, avatar and Feats. Other users can never view your e-mail address.'
             ])
             ->add('userName', TextType::class)
             ->add('emailAddress', EmailType::class, [])

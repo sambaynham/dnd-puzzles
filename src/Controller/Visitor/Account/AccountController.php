@@ -24,6 +24,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class AccountController extends AbstractBaseController
 {
     use HandlesImageUploadsTrait;
+
     public function __construct(
         private readonly GameServiceInterface $gameService,
         private readonly EntityManagerInterface $entityManager,
@@ -68,6 +69,7 @@ final class AccountController extends AbstractBaseController
             }
             $user->setEmail($dto->emailAddress);
             $user->setUsername($dto->userName);
+            $user->setProfilePublic($dto->profilePublic);
 
             $success = true;
             $violations = $this->validator->validate($dto);
@@ -115,5 +117,25 @@ final class AccountController extends AbstractBaseController
             'form' => $form,
         ];
         return $this->render('/visitor/account/change-password.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[Route('/account/{id}/view', name: 'app.user.account.view')]
+    public function viewAccount(User $user, Request $request): Response {
+        $currentUser = $this->getUser();
+        if ($currentUser->getUserIdentifier() === $user->getEmail()) {
+            return $this->redirectToRoute('app.user.account');
+        }
+        if (!$user->isProfilePublic()) {
+            $pageVars = [
+                'pageTitle' => 'Private Profile',
+            ];
+            return $this->render('/visitor/account/view_private.html.twig', $this->populatePageVars($pageVars, $request));
+        }
+
+        $pageVars = [
+            'pageTitle' => sprintf("%s' Profile", $user->getUsername()),
+            'user' => $user
+        ];
+        return $this->render('/visitor/account/view.html.twig', $this->populatePageVars($pageVars, $request));
     }
 }

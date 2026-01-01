@@ -20,6 +20,8 @@ class UserEditDto
         #[Assert\Type('string')]
         public ? string $userName = null,
 
+        public bool $profilePublic = false,
+
         public ? string $avatar = null
     ) {}
 
@@ -28,6 +30,7 @@ class UserEditDto
         return new static(
             emailAddress: $user->getEmail(),
             userName: $user->getUsername(),
+            profilePublic: $user->isProfilePublic(),
         );
     }
 }

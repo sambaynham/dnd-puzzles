@@ -6,13 +6,13 @@
 hr {
     border: none;
     width: 100%;
-    height: 0.125rem;
+    height: variables.$baseBorderWidth;
     display: block;
     background: palette.$dividerGradient;
     margin: math.div(variables.$base-spacing, 2) 0;
 
     &.subtle {
-        height: 0.05rem;
+        height: math.div(variables.$baseBorderWidth, 2);
     }
 
     &.hidden {

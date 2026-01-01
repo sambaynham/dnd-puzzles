@@ -19,12 +19,11 @@ $buttonRimFactor: 5;
         padding: math.div(variables.$base-spacing, 8) math.div(variables.$base-spacing, 4);
         background: palette.$blue linear-gradient(-33deg, color.adjust(palette.$blue, $lightness: -10%), palette.$blue);
         border-radius: variables.$baseBorderRadius;
-        border: variables.$outlineWidth solid palette.$gold;
+        border: variables.$baseBorderWidth solid palette.$gold;
         box-shadow: palette.$baseBoxShadow;
         text-shadow: 1px 1px 1px color.adjust(palette.$ink, $lightness: -15%);
         transition: all 200ms ease-in-out;
         width: 100%;
-
 
         &:before {
             content: " ";
@@ -123,10 +122,10 @@ $buttonRimFactor: 5;
 
         &:before {
             background: palette.$goldFX;
-            top: -0.1rem;
-            left: -0.1rem;
-            bottom: -0.1rem;
-            right: -0.1rem;
+            top: 0 - variables.$baseBorderWidth;
+            left: 0 - variables.$baseBorderWidth;
+            bottom: 0 - variables.$baseBorderWidth;
+            right: 0 - variables.$baseBorderWidth;
             z-index: -1;
             box-shadow: palette.$baseBoxShadow !important;
             opacity: 1;
