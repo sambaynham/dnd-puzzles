@@ -7,6 +7,7 @@ use App\Services\User\Domain\Role;
 use App\Services\User\Domain\UserFeat;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -61,6 +62,14 @@ class AdminUserEditType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            ->add('acceptedCookies', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Accepted Cookies?',
+            ])
+            ->add('profilePublic', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Public Profile?',
             ])
             ->add('roles', EntityType::class, [
                 'class' => Role::class,

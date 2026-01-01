@@ -91,7 +91,8 @@ class AdminUserController extends AbstractBaseController
             if (!$selfEditMode) {
                 $user->setEmail($dto->email);
             }
-
+            $user->setHasAcceptedCookies($dto->acceptedCookies);
+            $user->setProfilePublic($dto->profilePublic);
             $user->setUsername($dto->username);
             $user->setRoles($dto->roles);
             $user->setFeats($dto->feats);

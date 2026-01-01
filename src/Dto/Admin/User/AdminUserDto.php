@@ -25,7 +25,11 @@ class AdminUserDto
 
         #[Assert\Type('string')]
         #[Assert\Length(min: 8, max: 255)]
-        public ? string $plainPassword = null
+        public ? string $plainPassword = null,
+
+        public bool $acceptedCookies = false,
+
+        public bool $profilePublic = false,
     ) {
 
     }
@@ -35,7 +39,9 @@ class AdminUserDto
             email: $user->getEmail(),
             username: $user->getUsername(),
             feats: $user->getFeats(),
-            roles: $user->getHydratedRoles()
+            roles: $user->getHydratedRoles(),
+            acceptedCookies: $user->hasAcceptedCookies(),
+            profilePublic: $user->isProfilePublic(),
         );
     }
 

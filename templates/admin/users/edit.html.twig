@@ -6,6 +6,10 @@
             <h2 class="panel-heading">
                 Basic Details
             </h2>
+            <div class="avatar-wrapper">
+                <img class="avatar" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="Your Avatar">
+            </div>
+
             {{ form_row(form.avatar) }}
             {{ form_row(form.email) }}
             {{ form_row(form.username) }}
@@ -16,6 +20,24 @@
                 Roles
             </h2>
             {{ form_row(form.roles) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col panel">
+            <h2 class="panel-heading">
+                Preferences
+            </h2>
+            {{ form_row(form.acceptedCookies) }}
+            {{ form_row(form.profilePublic) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col panel">
+            <h2 class="panel-heading">
+                Feats
+            </h2>
+            {{ form_row(form.feats) }}
+
         </div>
     </div>
     {{ form_end(form) }}
