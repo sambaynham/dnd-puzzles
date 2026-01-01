@@ -349,7 +349,7 @@ main {
                     flex-basis: 16%;
                     box-shadow: none;
                     border-radius: 0;
-                    border: 0.25rem solid palette.$ink;
+                    border: (variables.$outlineWidth * 2) solid palette.$ink;
                     border-image: url("/dist/images/eroded-frame-whiteinner.svg") 33%;
 
                     input {

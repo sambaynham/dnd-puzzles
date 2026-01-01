@@ -14,7 +14,7 @@
     }
     input,textarea {
         display: flex;
-        border: 0.25rem solid transparent;
+        border: (variables.$outlineWidth * 2) solid transparent;
         border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
         background-color: palette.$white;
         padding: math.div(variables.$base-spacing, 4);
@@ -31,7 +31,7 @@
     .email-wrapper {
         position: relative;
         background-color: palette.$white;
-        border: 0.25rem solid transparent;
+        border: (variables.$outlineWidth * 2) solid transparent;
         border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
         padding-left: 3rem;
         &:before {
@@ -87,7 +87,7 @@
             }
             &:before {
 
-                border: 0.2rem solid transparent;
+                border: (variables.$outlineWidth * 2) solid transparent;
                 border-image: url("/dist/images/eroded-frame-whiteinner.svg") 33%;
                 background-color: palette.$white;
 
@@ -96,7 +96,7 @@
             &:after {
                 transition: opacity 200ms ease-in-out;
                 content: "\2714";
-                border: 0.2rem solid transparent;
+                border: (variables.$outlineWidth * 2) solid transparent;
                 opacity: 0;
             }
             &:hover {
@@ -193,7 +193,7 @@
     }
 
     select {
-        border: 0.25rem solid transparent;
+        border: (variables.$outlineWidth * 2) solid transparent;
         border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
         background-color: palette.$white;
         padding: math.div(variables.$base-spacing, 4);

@@ -39,7 +39,7 @@
 
     .card-section {
         background: palette.$vellum linear-gradient(45deg, palette.$vellum, color.adjust(palette.$vellum, $lightness: -5%, $saturation: -10%));
-        border-top: 2px solid palette.$ink;
+        border-top: variables.$outlineWidth solid palette.$ink;
         position: relative;
         z-index: 1;
         flex-grow: 2;

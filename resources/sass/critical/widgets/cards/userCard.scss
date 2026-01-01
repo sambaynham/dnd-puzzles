@@ -8,7 +8,7 @@
 
 .user-card {
 
-    border: 0.1rem solid transparent;
+    border: variables.$outlineWidth solid transparent;
     border-image: palette.$goldFX 33%;
     box-shadow: palette.$baseBoxShadow;
     border-radius: variables.$baseBorderRadius;
@@ -40,7 +40,7 @@
             flex-grow: 2;
             flex-basis: 75%;
             padding: math.div(variables.$base-spacing, 4) math.div(variables.$base-spacing, 2);
-            border-left: 0.125rem solid transparent;
+            border-left: variables.$outlineWidth solid transparent;
             border-image: palette.$goldFX 33%;
 
             .username {
@@ -64,6 +64,8 @@
         grid-row-gap: math.div(variables.$base-spacing, 8);
         padding-top: math.div(variables.$base-spacing, 8);
         padding-bottom: math.div(variables.$base-spacing, 8);
+        border-top: variables.$outlineWidth solid transparent;
+        border-image: palette.$goldFX 33%;
     }
 
 

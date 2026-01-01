@@ -33,7 +33,7 @@ body {
             display: flex;
             flex-direction: row;
             padding: math.div(variables.$base-spacing, 4);
-            border-bottom: 0.05rem solid palette.$grey;
+            border-bottom: variables.$outlineWidth solid palette.$grey;
 
             .overlay-title {
                 flex-basis: 90%;

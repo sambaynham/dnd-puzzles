@@ -9,14 +9,6 @@ body.loaded {
     img {
         opacity: 1;
 
-        &.portrait {
-            max-height: 100vh;
-            max-width: initial;
-            position: relative;
-            border: 1rem solid transparent;
-            border-image: url('/dist/images/eroded-frame.svg') 33%;
-        }
-
         &.thumbnail {
             height: 10vh;
         }

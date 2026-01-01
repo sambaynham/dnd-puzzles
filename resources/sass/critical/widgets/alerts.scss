@@ -20,7 +20,7 @@ span.flash {
     padding: math.div(variables.$base-spacing, 4);
     margin-bottom: variables.$base-spacing;
     border-radius: 0.25rem;
-    border: 1px solid palette.$green;
+    border: variables.$outlineWidth solid palette.$green;
     position: relative;
     opacity: 0;
     pointer-events: none;

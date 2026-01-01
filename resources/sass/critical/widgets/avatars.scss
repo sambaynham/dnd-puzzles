@@ -9,7 +9,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border: 0.5rem solid transparent;
+        border: (variables.$outlineWidth * 4) solid transparent;
         border-image: url("/dist/images/eroded-frame.svg") 33.333333%;
     }
 }

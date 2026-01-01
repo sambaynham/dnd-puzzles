@@ -10,7 +10,7 @@ $slideshowHeight: 40vh;
     position: relative;
     min-height: $slideshowHeight;
     border-radius: variables.$baseBorderRadius;
-    padding: 0.125rem;
+    padding: variables.$outlineWidth;
     overflow: hidden;
     background: palette.$goldFX;
     box-shadow: palette.$baseBoxShadow;
@@ -124,7 +124,7 @@ $slideshowHeight: 40vh;
                 z-index: -1;
             }
             &:after {
-                border: 0.25rem outset rgba(255, 255, 255, 0.5);
+                border: variables.$outlineWidth outset rgba(255, 255, 255, 0.5);
                 top: 0;
                 left: 0;
                 bottom: 0;
