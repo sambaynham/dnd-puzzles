@@ -123,9 +123,9 @@ nav.breadcrumbs {
     nav.breadcrumbs {
         display: flex;
         flex-direction: row;
-        background-color: palette.$offWhite;
+        background: palette.$whiteGradient;
         box-shadow: palette.$baseBoxShadow;
-        border-radius: 0.25rem;
+        border-radius: variables.$baseBorderRadius;
         margin: 0 0 math.div(variables.$base-spacing, 2) 0;
         padding: 0 math.div(variables.$base-spacing, 4);
 

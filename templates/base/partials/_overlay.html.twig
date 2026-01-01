@@ -1,10 +1,15 @@
 <div id="overlay-container">
-    <div class="overlay">
-        <div class="overlay-header">
-            <h2 class="overlay-title">OVERLAY TITLE</h2>
-            <button class="overlay-close" aria-label="Close">Close</button>
-        </div>
+    <template id="overlay-template">
+        <div class="overlay">
+            <div class="overlay-header">
+                <h2 class="overlay-title"><slot name="overlay-title-slot"></slot></h2>
+                <button class="overlay-close" aria-label="Close">Close</button>
+            </div>
 
-        <p class="overlay-content"></p>
-    </div>
+            <p class="overlay-content">
+                <slot name="overlay-content-slot"></slot>
+            </p>
+        </div>
+    </template>
+
 </div>
