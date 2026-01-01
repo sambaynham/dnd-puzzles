@@ -72,8 +72,11 @@ class AdminUserController extends AbstractBaseController
     #[IsGranted('manage_users')]
     public function edit(User $user, Request $request): Response {
         $currentUser = $this->getUser();
-        if ($user === $currentUser) {
-            return $this->redirectToRoute('app.user.account');
+
+        $selfEditMode = $user === $currentUser;
+
+        if ($selfEditMode) {
+            $this->addFlash("warning", "You are editing your own user. Password change requests and e-mail changes will be ignored.");
         }
         $dto = AdminUserDto::makeFromUser($user);
         $form = $this->createForm(AdminUserEditType::class, $dto);
@@ -85,12 +88,15 @@ class AdminUserController extends AbstractBaseController
                 $avatarUrl = $this->handleImageUpload($imageFile, $this->publicImagesDirectory);
                 $user->setAvatarUrl($avatarUrl);
             }
-            $user->setEmail($dto->email);
+            if (!$selfEditMode) {
+                $user->setEmail($dto->email);
+            }
+
             $user->setUsername($dto->username);
             $user->setRoles($dto->roles);
             $user->setFeats($dto->feats);
 
-            if (null !== $dto->plainPassword) {
+            if (null !== $dto->plainPassword && !$selfEditMode) {
                 $user->setPassword($this->userPasswordHasher->hashPassword($user, $dto->plainPassword));
             }
             $success = true;

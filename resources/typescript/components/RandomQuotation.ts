@@ -10,11 +10,12 @@ export default class RandomQuotation extends HTMLQuoteElement {
     constructor() {
         super();
         let env: string  = 'process.env.APP_ENV';
-
         let apiBaseUrl = (env == '"dev"') ? 'http://localhost:8089' : 'https://conundrumcodex.com';
-        this.client = createClient<paths>({ baseUrl: apiBaseUrl });
         let quotationElement: HTMLParagraphElement = document.createElement('p');
         let citationElement: HTMLSpanElement = document.createElement('span');
+
+        this.client = createClient<paths>({ baseUrl: apiBaseUrl });
+
         quotationElement.classList.add('quotation');
         citationElement.classList.add('cite');
 

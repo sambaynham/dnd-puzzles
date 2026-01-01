@@ -1,6 +1,8 @@
+@use 'sass:color';
+@use 'sass:math';
+
 @use '../base/palette' as palette;
 @use '../base/variables' as variables;
-@use 'sass:math';
 
 .flash-container {
     position: absolute;
@@ -50,5 +52,6 @@ span.flash {
 
     &.flash-warning {
         background-color: palette.$orange;
+        border-color: color.adjust(palette.$orange, $saturation: +20%, $lightness: -10%);
     }
 }

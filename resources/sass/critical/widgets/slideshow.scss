@@ -9,7 +9,7 @@ $slideshowHeight: 40vh;
 .slideshow {
     position: relative;
     min-height: $slideshowHeight;
-    border-radius: 0.5rem;
+    border-radius: variables.$baseBorderRadius;
     padding: 0.125rem;
     overflow: hidden;
     background: palette.$goldFX;
@@ -21,7 +21,7 @@ $slideshowHeight: 40vh;
         margin: 0;
         padding: 0;
         position: relative;
-        border-radius: 0.25rem;
+        border-radius: variables.$baseBorderRadius;
         overflow: hidden;
 
         > li {

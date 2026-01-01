@@ -1,11 +1,9 @@
-
-
 import ProgressBar from "./components/ProgressBar";
 import NavToggle from "./components/NavToggle";
 import ToolTip from "./components/Tooltip";
 import {FlashAlert} from "./components/FlashAlert";
 import {initialiseDropCaps} from "./behaviours/dropCap";
-import {SlideShow} from "./components/SlideShow/SlideShow";
+import {SlideShow} from "./components/SlideShow";
 import AccordionList from "./components/Accordion/AccordionList";
 import {AccordionEntry} from "./components/Accordion/AccordionEntry";
 import {Header} from "./components/Header";
@@ -14,7 +12,6 @@ import {TabsElement} from "./components/Tabs/TabsElement";
 import {PostButton} from "./components/PostButton";
 import RandomQuotation from "./components/RandomQuotation";
 import {HeadingElement} from "./components/HeadingElement";
-import {FeatIcon} from "./components/FeatIcon";
 
 (()=> {
     document.addEventListener('DOMContentLoaded', () => {
@@ -24,14 +21,13 @@ import {FeatIcon} from "./components/FeatIcon";
         initialiseDropCaps();
 
         if (null === body) {
-            throw new Error('Body not found');
+            throw new Error('Body Element not found');
         }
         body.classList.add('loaded');
-
     });
 
     function initialiseCustomElements(): void {
-        let customElementRegistry: CustomElementRegistry = window.customElements;
+        const customElementRegistry: CustomElementRegistry = window.customElements;
         customElementRegistry.define('header-element', Header, {extends: 'header'});
         customElementRegistry.define('progress-bar', ProgressBar);
         customElementRegistry.define('nav-toggle', NavToggle, { extends: 'button'});
@@ -45,7 +41,6 @@ import {FeatIcon} from "./components/FeatIcon";
         customElementRegistry.define('post-button', PostButton, {extends: 'button'});
         customElementRegistry.define('random-quotation', RandomQuotation, {extends: 'blockquote'});
         customElementRegistry.define('heading-element', HeadingElement);
-        customElementRegistry.define('feat-icon', FeatIcon, {'extends': 'div'});
     }
 })();
 

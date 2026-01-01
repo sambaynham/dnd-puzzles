@@ -1,6 +1,5 @@
 export class SlideShow extends HTMLDivElement {
 
-
     private pager: HTMLElement;
 
     private slides: NodeListOf<HTMLLIElement>;
@@ -15,6 +14,11 @@ export class SlideShow extends HTMLDivElement {
         if (pager === null) {
             throw new Error('Slideshows require a pager');
         }
+
+        if (slides.length === 0) {
+            throw new Error('Slideshows require slides.');
+        }
+
         this.slides = slides;
         this.pager = pager;
     }
@@ -44,6 +48,6 @@ export class SlideShow extends HTMLDivElement {
             if (a.getAttribute('href') === targetSelector) {
                 a.classList.add('active');
             }
-        })
+        });
     }
 }

@@ -4,7 +4,7 @@
 @use '../base/typography';
 @use '../base/variables';
 @use '../base/palette';
-
+@use '../base/inlinedFiles';
 $logoHeight: 8vh;
 
 .logo-wrapper {
@@ -23,7 +23,7 @@ $logoHeight: 8vh;
         &:before {
             content: " ";
             background: palette.$goldFX;
-            mask-image: url("/dist/images/starburst-mask.svg");
+            mask-image: inlinedFiles.$starBurstMask;
             mask-size: contain;
             mask-repeat: no-repeat;
             mask-position: 50% 0%;
@@ -91,13 +91,13 @@ $logoHeight: 8vh;
                 background: linear-gradient(33deg, cyan, magenta);
                 background-size: 400%;
                 animation: gradient 5s ease infinite;
-                mask-image: url('/dist/images/penrose-mask.svg');
+                mask-image: inlinedFiles.$penroseMask;
                 mask-size: contain;
                 mask-repeat: no-repeat;
             }
 
             &:after {
-                background-image: url('/dist/images/penrose-overlay.svg');
+                background-image: inlinedFiles.$penroseOverlay;
                 background-size: contain;
                 background-repeat: no-repeat;
             }

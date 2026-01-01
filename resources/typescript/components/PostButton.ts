@@ -1,8 +1,6 @@
 export class PostButton extends HTMLButtonElement {
 
-    private csrfToken: string;
-
-    private uri: string;
+    private readonly uri: string;
     constructor() {
         super();
 
@@ -14,7 +12,6 @@ export class PostButton extends HTMLButtonElement {
             throw new Error('URI must be defined');
         }
 
-        this.csrfToken = this.dataset.csrftoken;
         this.uri = this.dataset.uri;
     }
 
@@ -30,7 +27,6 @@ export class PostButton extends HTMLButtonElement {
     }
 
     private async post() {
-        console.log(this.csrfToken);
         const response = await fetch(this.uri, {
             method: "POST",
         });

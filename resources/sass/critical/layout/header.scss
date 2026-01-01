@@ -4,6 +4,7 @@
 @use '../base/variables';
 @use '../base/palette';
 @use '../base/typography';
+@use '../base/inlinedFiles';
 
 $mobileHeaderHeight: 10vh;
 $mobileNavButtonHeight: 8vh;
@@ -119,7 +120,7 @@ body {
             &#user-nav-toggle{
                 right: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);;
                 &:after {
-                    background-image: url('/dist/images/icons/user-vellum.svg');
+                    background-image: inlinedFiles.$userVellum;
                 }
             }
         }
@@ -320,13 +321,13 @@ main {
                 box-shadow: none;
 
                 &:after {
-                    background-image: url('/dist/images/icons/user.svg');
+                    background-image: inlinedFiles.$user;
                     background-size: contain;
                 }
                 &:hover, &:active, &.open {
                     box-shadow: none;
                     &:after {
-                        background-image: url('/dist/images/icons/user-active.svg');
+                        background-image: inlinedFiles.$userActive;
                     }
                 }
             }
@@ -378,8 +379,7 @@ main {
                             display: block;
                             width: 1em;
                             height: 100%;
-
-                            background-image: url('/dist/images/dividers/eroded-star.svg');
+                            background-image: inlinedFiles.$erodedStar;
                             background-size: 100% auto;
                             background-repeat: no-repeat;
                             background-position: 50% 50%;
@@ -500,19 +500,19 @@ main {
 
                             }
                             &:after {
-                                background-image: url('/dist/images/dividers/eroded-star-vellum.svg');
+                                background-image: inlinedFiles.$erodedStarVellum;
                             }
                         }
                     }
                 }
                 button.nav-toggle#user-nav-toggle {
                     &:after {
-                        background-image: url('/dist/images/icons/user-vellum.svg');
+                        background-image: inlinedFiles.$userVellum;
 
                     }
                     &:hover, &:focus, .active {
                         &:after {
-                            background-image: url('/dist/images/icons/user-active.svg');
+                            background-image: inlinedFiles.$userActive;
                         }
                     }
                 }
