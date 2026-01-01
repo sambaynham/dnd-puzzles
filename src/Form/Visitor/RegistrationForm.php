@@ -60,6 +60,25 @@ class RegistrationForm extends AbstractType
                     'help' => 'Enter an invitation code to join a game as soon as you\'ve registered!'
                 ]
             )
+            ->add(
+                'profilePublic',
+                CheckboxType::class,
+                [
+                    'required' => false,
+                    'label' => 'Make your profile public?',
+                    'help' => 'If you make your profile public, other users can view your name, avatar and Feats. Other users can never view your e-mail address.'
+                ]
+            )
+            ->add(
+                'acceptCookies',
+                CheckboxType::class,
+                [
+                    'required' => false,
+                    'label' => 'Accept Cookies',
+                    'help' => 'If you mark Cookies as accepted, you won\'t see the cookie warning message again (provided you\'re logged in)'
+                ]
+            )
+
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'I agree to abide to the code of conduct',
                 'mapped' => false,

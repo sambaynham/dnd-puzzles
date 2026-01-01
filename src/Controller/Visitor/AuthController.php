@@ -56,8 +56,11 @@ class AuthController extends AbstractBaseController
 
             $user = new User(
                 email: $userDto->emailAddress,
+                username: $userDto->userName,
                 password: '',
-                username: $userDto->userName
+                hasAcceptedCookies: $userDto->acceptCookies,
+                profilePublic: $userDto->profilePublic,
+
             );
 
             $user->setPassword($this->userPasswordHasher->hashPassword($user, $plainPassword));

@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -119,6 +120,7 @@ final class AccountController extends AbstractBaseController
         return $this->render('/visitor/account/change-password.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
+    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
     #[Route('/account/{id}/view', name: 'app.user.account.view')]
     public function viewAccount(User $user, Request $request): Response {
         $currentUser = $this->getUser();

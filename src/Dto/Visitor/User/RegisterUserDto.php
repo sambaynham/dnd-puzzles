@@ -24,4 +24,8 @@ class RegisterUserDto
 
     #[Assert\Type('string')]
     public ? string $invitationCode = null;
+
+    public bool $profilePublic = false;
+
+    public bool $acceptCookies = false;
 }
