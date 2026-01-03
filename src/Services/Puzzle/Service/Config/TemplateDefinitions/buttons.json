@@ -14,10 +14,6 @@
             "name": "Sam Baynham",
             "email": "sam.baynham@gmail.com",
             "created": "Code, Styling"
-        },
-        {
-            "name": "Betsy Ogilvy",
-            "created": "Art"
         }
     ],
     "configOptions": [
@@ -37,13 +33,13 @@
             "configName": "buttons",
             "label": "Buttons",
             "type": "stringArray",
-            "helpText": "An list of button names which will be used to generate buttons on the screen."
+            "helpText": "An list of button names which will be used to generate buttons on the screen. Comma separated list."
         },
         {
             "configName": "solution",
             "label": "Solution",
             "type": "stringArray",
-            "helpText": "An array of the switch names above containing only valid selections."
+            "helpText": "An array of the switch names above containing only valid selections in the order they should be pressed. The names of the valid options must match the names of buttons defined in the buttons field."
         }
     ]
 }

@@ -19,20 +19,33 @@ ul.tabular-list {
     display: flex;
     flex-direction: column;
     width: 100%;
+    border: variables.$baseBorderWidth solid transparent;
+    border-image: palette.$goldFX 33%;
+    margin-bottom: math.div(variables.$base-spacing, 2);
+    box-shadow: palette.$baseBoxShadow;
 
     li {
+        border-bottom: variables.$baseBorderWidth solid transparent;
+        border-image: palette.$goldFX 33%;
         display: flex;
         flex: 1;
         flex-direction: column;
         width: 100%;
         text-indent: initial;
         margin: 0;
-        padding: math.div(variables.$base-spacing, 8);
 
-        &:nth-child(odd) {
-            background-color: color.adjust(palette.$stormBlue, $alpha: -0.75);
+        background: palette.$whiteGradient;
+
+        &:last-of-type {
+            border-bottom: none;
         }
-        span {
+
+        > * {
+            padding: math.div(variables.$base-spacing, 8);
+            &:first-child {
+                background: palette.$crimsonGradient;
+                color: palette.$offWhite
+            }
             flex: 1;
         }
     }

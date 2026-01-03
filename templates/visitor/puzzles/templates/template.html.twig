@@ -5,33 +5,25 @@
         <h2>Description</h2>
         {{ template.description }}
 
+
         {%if template.configuration is not empty%}
-            <hr />
-            <h2>Configurable Options</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Label</th>
-                        <th>Notes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for configOption in template.configuration %}
-                        <tr>
-                            <td>
-                                {{ configOption.label }}
-                            </td>
-                            <td>
-                                {{ configOption.helpText }}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <ul class="tabular-list">
+                {% for configOption in template.configuration %}
+                    <li>
+                        <strong>
+                            {{ configOption.getLabel }}
+                        </strong>
+                        <span>
+                            {{ configOption.getHelpText }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+
         {% endif %}
-        <hr/>
+
         <div class="btn-container">
-            <a class="btn btn-secondary" href="">Create a puzzle with this template</a>
+            <a href="{{ path('app.puzzles.template.add', {'templateSlug': template.getSlug}) }}" class="btn btn-secondary cta">Add to Game</a>
         </div>
 
 
@@ -42,7 +34,7 @@
         <ul>
             {% for credit in template.getCredits %}
                 {% if credit.email %}
-                    <li><a href="mailto:{{ credit.email }}">{{ credit.name }}</a> - {{ credit.created }}</li>
+                    <li>{{ credit.name }} - {{ credit.created }}</li>
                 {% else %}
                     <li>{{ credit.name }} - {{ credit.created }}</li>
                 {% endif %}

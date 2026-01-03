@@ -6,6 +6,7 @@ namespace App\Controller\Visitor\Puzzles;
 
 use App\Dto\Visitor\Game\AddPuzzle\AddPuzzleStepOneDto;
 use App\Dto\Visitor\Game\AddPuzzle\ChooseGameDto;
+use App\Dto\Visitor\Puzzles\DynamicPuzzleConfigDto;
 use App\Form\Type\DieRollType;
 use App\Form\Visitor\Puzzle\AddPuzzle\ChooseGameType;
 use App\Security\GameManagerVoter;
@@ -118,7 +119,6 @@ final class PuzzleTemplateController extends AbstractPuzzleController
             $form = $this->createForm(ChooseGameType::class, $dto);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-
                 $serializedDto = $this->serializer->serialize(
                     new AddPuzzleStepOneDto(templateSlug: $templateSlug, gameSlug: $dto->game->getSlug(), puzzleName: $dto->puzzleName),
                     'json'
@@ -132,7 +132,7 @@ final class PuzzleTemplateController extends AbstractPuzzleController
                     'app.puzzles.template.configure',
                     [
                         'templateSlug' => $templateSlug,
-                        'slug' => $dto->game->getSlug()
+                        'gameSlug' => $dto->game->getSlug()
                     ]);
             }
             $pageVars = [
@@ -149,7 +149,7 @@ final class PuzzleTemplateController extends AbstractPuzzleController
 
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
-    #[Route('/puzzles/templates/{templateSlug}/add-to-game/{slug}/configure', name: 'app.puzzles.template.configure')]
+    #[Route('/puzzles/templates/{templateSlug}/add-to-game/{gameSlug}/configure', name: 'app.puzzles.template.configure')]
     public function configurePuzzle(
         string $templateSlug,
         Game $game,
@@ -163,7 +163,12 @@ final class PuzzleTemplateController extends AbstractPuzzleController
             throw new NotFoundHttpException("No such template");
         }
 
-        $form = $this->generateTemplateForm($template);
+        $dto = DynamicPuzzleConfigDto::makeFromTemplateDefinition($template);
+        $form = $this->generateTemplateForm($template, $dto);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            die("I got here");
+        }
 
         $pageVars = [
             'pageTitle' => sprintf("Configure %s puzzle", $template->getTitle()),
@@ -203,7 +208,10 @@ final class PuzzleTemplateController extends AbstractPuzzleController
         return $this->render('/visitor/puzzles/templates/category.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-    private function generateTemplateForm(PuzzleTemplate $template): FormInterface {
+    /**
+     * @throws \Exception
+     */
+    private function generateTemplateForm(PuzzleTemplate $template, DynamicPuzzleConfigDto $dto): FormInterface {
         $builder = $this->createFormBuilder();
 
         foreach ($template->getConfiguration() as $configurationOption) {
@@ -240,12 +248,13 @@ final class PuzzleTemplateController extends AbstractPuzzleController
                     );
                     break;
                 default:
-
                     throw new \Exception(sprintf("Unprocessable option type %s", $configurationOption->getType()));
             }
 
         }
         $builder->add('submit', SubmitType::class);
+        $builder->setData($dto);
+
         return $builder->getForm();
     }
 }

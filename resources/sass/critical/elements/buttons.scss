@@ -70,7 +70,7 @@ $buttonRimFactor: 5;
         }
 
         &.btn-secondary {
-            background: palette.$stormBlue linear-gradient(-33deg, color.adjust(palette.$stormBlue, $lightness: -10%), palette.$stormBlue);
+            background: palette.$orange linear-gradient(-33deg, color.adjust(palette.$orange, $lightness: -10%), palette.$orange);
             &:before {
                 box-shadow: inset 0 0 1rem cyan;
             }
@@ -115,8 +115,11 @@ $buttonRimFactor: 5;
             right: 0;
             pointer-events: none;
             background-color: transparent;
-            border: math.div(variables.$base-spacing, ($buttonRimFactor + 2)) outset rgba(255, 255, 255, 0.5);
-            mix-blend-mode: hard-light;
+            border: math.div(variables.$base-spacing, ($buttonRimFactor + 2)) outset white;
+            border-left-color: #dcdcdc;
+            border-right-color: #939393;
+            border-bottom-color: #707070;
+            mix-blend-mode: screen;
             opacity: 0.25;
         }
 

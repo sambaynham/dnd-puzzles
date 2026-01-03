@@ -19,7 +19,7 @@ $wyrdPurple: #831e57;
 $ink: #3b2e1f;
 $inkBlue: #051230;
 $black: #282828;
-$stormBlue: #093043;
+$stormBlue: #1f7097;
 $antiqueGold: #ffb328;
 $pink: #ffd1d1;
 $orange: #ffa600;
@@ -36,7 +36,7 @@ $silverFX: repeating-linear-gradient(33deg, #616161, #C8C8C8FF, #fff, #c8c8c8, #
 /**
 * Shadows
 */
-$baseBoxShadow: 0 0.25rem 0.25rem color.adjust($ink, $alpha: -0.875), 0 0.125rem 0.125rem color.adjust($ink, $alpha: -0.75), 0 0.0675rem 0.0675rem color.adjust($ink, $alpha: -0.5);
+$baseBoxShadow: 0 0.5rem 0.5rem color.adjust($ink, $alpha: -0.95), 0 0.25rem 0.25rem color.adjust($ink, $alpha: -0.9), 0 0.125rem 0.125rem color.adjust($ink, $alpha: -0.75);
 $baseInsetShadow: inset 0 0 0.25rem color.adjust($ink, $alpha: -0.5), inset 0 0 0.125rem color.adjust($ink, $alpha: -0.75);
 $bleedingInkShadow: 0 0 0.05em color.scale($ink, $alpha: -40%), 0 0 0.0001em color.scale($ink, $alpha: -25%), 0 0 0.025em color.scale($ink, $alpha: -80%), 0 0 0.0001em color.scale($ink, $alpha: -50%);
 
