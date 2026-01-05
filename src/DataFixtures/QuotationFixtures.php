@@ -24,7 +24,7 @@ class QuotationFixtures extends Fixture
             'citation' => 'Jourval the Obvious'
         ],
         4 => [
-            'text' => 'We\'re three miles underground, Ugthruk. It was not \'just the wind\'. Check again.',
+            'text' => 'We\'re a mile underground, Ugthruk. It was not \'just the wind\'. Check again.',
             'citation' => 'Dregthorth Rogues-bane'
         ],
         5 => [

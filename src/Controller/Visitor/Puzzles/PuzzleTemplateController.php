@@ -15,6 +15,8 @@ use App\Services\Puzzle\Domain\Exceptions\NonStaticConfigurationAttemptException
 use App\Services\Puzzle\Domain\Exceptions\RoutelessStaticConfigurationAttemptException;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\User\Domain\User;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -233,10 +235,17 @@ final class PuzzleTemplateController extends AbstractPuzzleController
                 case 'stringArray':
                     $builder->add(
                         $configurationOption->getConfigName(),
-                        TextType::class,
+                        CollectionType::class,
                         [
-                            'label' => $configurationOption->getLabel(),
-                            'help' => $configurationOption->getHelpText(),
+                            'entry_type' => TextType::class,
+                            'allow_add' => true,
+                            'allow_delete' => true,
+                            'delete_empty' => true,
+                            'prototype' => true,
+                            'prototype_options' => [
+                                'required' => false,
+                                'label' => 'Add an Entry',
+                            ]
                         ]
                     );
                     break;

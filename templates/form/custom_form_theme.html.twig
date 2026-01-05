@@ -28,11 +28,20 @@
 {%- endblock form_widget_compound -%}
 
 {%- block collection_widget -%}
-
-    {% if prototype is defined and not prototype.rendered %}
-        {%- set attr = attr|merge({'data-prototype': form_row(prototype)}) -%}
+    {% if prototype is defined %}
+        <div class="multiadd-wrapper" is="multiadd-wrapper"
+             data-index="{{ form|length }}"
+             data-prototype="{{ form_row(prototype)|e('html_attr') }}"
+        >
+            <div class="rows">
+                {{- block('form_widget') -}}
+            </div>
+            <button class="multiform-add-row-button">Add More</button>
+        </div>
+    {% else %}
+        {{- block('form_widget') -}}
     {% endif %}
-    {{- block('form_widget') -}}
+
 {%- endblock collection_widget -%}
 
 {%- block textarea_widget -%}
@@ -209,6 +218,7 @@
     {%- set type = type|default('url') -%}
     {{ block('form_widget_simple') }}
 {%- endblock url_widget -%}
+
 
 {%- block search_widget -%}
     {%- set type = type|default('search') -%}

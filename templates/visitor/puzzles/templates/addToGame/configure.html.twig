@@ -2,7 +2,11 @@
 {% block body %}
     <div class="row">
         <div class="col">
-            {{ form(form) }}
+            {{ form_start(form) }}
+            {% for row in form %}
+                {{ form_row(row) }}
+            {% endfor %}
+            {{ form_end(form) }}
         </div>
     </div>
 
