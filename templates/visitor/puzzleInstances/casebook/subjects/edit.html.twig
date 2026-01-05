@@ -25,22 +25,8 @@
     </div>
     <div class="row">
         <div class="col">
-            {{ form_label(form.clues) }}
-            <div class="multiadd-wrapper" is="multiadd-wrapper"
-                data-prototype="{{ form_widget(form.clues.vars.prototype)|e('html_attr') }}"
-                data-index="{{ form.clues|length }}"
-            >
-                <div class="rows">
-                    {% for clueForm in form.clues %}
-                        <div class="multiadd-row">
-                            {{ form_errors(clueForm) }}
-                            {{ form_row(clueForm) }}
-                        </div>
-                    {% endfor %}
-                </div>
 
-                {{ form_row(form.add_entry) }}
-            </div>
+            {{ form_row(form.clues) }}
         </div>
     </div>
     {{ form_end(form) }}

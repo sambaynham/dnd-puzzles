@@ -52,7 +52,7 @@ class DynamicPuzzleConfigDto implements \ArrayAccess
 
     public function offsetExists(mixed $offset): bool
     {
-         return $this->fields[$offset]['value'] !== null;
+         return isset($this->fields[$offset]) && $this->fields[$offset]['value'] ?? null !== null;
     }
 
     public function offsetGet(mixed $offset): mixed

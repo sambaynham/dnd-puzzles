@@ -48,7 +48,9 @@
 
 
 {% block clue_row %}
-    <div class="clue-row">
+
+
+    <div {{ block('attributes') }}>
         <div class="title">
             {{ form_label(form.title) }}
             {{ form_widget(form.title) }}

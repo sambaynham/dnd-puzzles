@@ -99,18 +99,9 @@ class CasebookSubjectType extends AbstractType
 
                     ],
                     'entry_options' => [
-
-                    ]
-                ]
-            )
-
-            ->add(
-                'add_entry',
-                ButtonType::class,
-                [
-                    'label' => 'Add another clue',
-                    'attr' => [
-                        'class' => 'multiform-add-row-button'
+                        'attr' => [
+                            'class' => 'multiadd-row'
+                        ]
                     ]
                 ]
             )

@@ -98,8 +98,6 @@ final class PuzzleTemplateController extends AbstractPuzzleController
 
     /**
      * @throws ExceptionInterface
-     * @throws RoutelessStaticConfigurationAttemptException
-     * @throws NonStaticConfigurationAttemptException
      */
     #[Route('/puzzles/templates/{templateSlug}/add-to-game', name: 'app.puzzles.template.add')]
     public function addToGame(string $templateSlug, Request $request): Response {
@@ -109,6 +107,9 @@ final class PuzzleTemplateController extends AbstractPuzzleController
             throw $this->createNotFoundException('Template not found');
         }
         $user = $this->getUser();
+        if (null === $user) {
+            return $this->redirectToRoute('app.auth.login', ['_target_path' => '/dashboard']);
+        }
         if ($user instanceof User) {
             $dto = new ChooseGameDto($template->getSlug());
             $form = $this->createForm(ChooseGameType::class, $dto);
