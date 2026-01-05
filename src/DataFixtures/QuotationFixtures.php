@@ -38,7 +38,15 @@ class QuotationFixtures extends Fixture
         7 => [
             'text' => 'Are you plagued by armour lice? Try our new wonder-potion! Dr. Burgoo\'s House of Salves, Poultices and Unguents guarantees no detectable lice after ONE application, or your money back!',
             'citation' => '\'Honest\' Burgoo, \'Legitimate\' businessman.'
-        ]
+        ],
+        8 => [
+            'text' => 'Come for the stabbings, stay for the ambiance',
+            'citation' => 'The Rusty Corkscrew Tavern and Bistro'
+        ],
+        9 => [
+            'text' => 'Chosen ones drink free! (Proof of heroic destiny required).',
+            'citation' => 'The Greasy Gnoll Tavern'
+        ],
     ];
 
     public function load(ObjectManager $manager): void

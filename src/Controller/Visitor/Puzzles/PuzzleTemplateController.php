@@ -63,13 +63,6 @@ final class PuzzleTemplateController extends AbstractPuzzleController
             'pageTitle' => 'Puzzle Templates',
             'templates' => $this->puzzleService->getTemplates(),
             'categories' => $this->puzzleService->getAllCategories(),
-            'breadcrumbs' => [
-                [
-                    'route' => 'app.puzzles.template.index',
-                    'label' => 'Templates',
-                    'active' => true
-                ]
-            ]
         ];
         return $this->render('/visitor/puzzles/templates/index.html.twig', $this->populatePageVars($pageVars, $request));
     }

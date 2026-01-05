@@ -45,13 +45,6 @@ final class GamesController extends AbstractBaseController
         }
         $pageVars = [
             'pageTitle' => 'My Games',
-            'breadcrumbs' => [
-                [
-                    'route' => 'app.games.index',
-                    'label' => 'My Games',
-                    'active' => true
-                ]
-            ],
             'gamesMastered' => $user->getGamesMastered(),
             'gamesMember' => $user->getGames()
         ];
@@ -134,7 +127,11 @@ final class GamesController extends AbstractBaseController
                     'active' => false
                 ],
                 [
-                    'label' => $title,
+                    'label' => $game->getName(),
+                    'active' => false
+                ],
+                [
+                    'label' => 'Manage',
                     'active' => true
                 ],
             ],
