@@ -16,25 +16,8 @@ $logoHeight: 8vh;
 
     .logo-wrapper {
         display: block;
-
         position: relative;
         padding: 2rem;
-
-        &:before {
-            content: " ";
-            background: palette.$goldFX;
-            mask-image: inlinedFiles.$starBurstMask;
-            mask-size: contain;
-            mask-repeat: no-repeat;
-            mask-position: 50% 0%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right:0;
-            background-attachment: fixed;
-            background-size: 150%;
-        }
 
         a.header-logo {
             display: block;
@@ -52,30 +35,12 @@ $logoHeight: 8vh;
                 display: block;
                 width: 100%;
                 position: relative;
-                background: palette.$goldFX;
-                background-size: 50%;
-                background-clip: text;
+                color: palette.$ink;
                 font-size: math.div($logoHeight, 2.5);
                 font-family: typography.$displayStack;
                 text-align: center;
-
-                &:before {
-                    top: 0;
-                    left: 0;
-                    text-shadow: 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.75),
-                        0 0 0.25rem color.adjust(palette.$ink, $alpha: -0.5),
-                        0 0 0.125rem color.adjust(palette.$ink, $alpha: -0.5),
-                        0 0 0.0675rem color.adjust(palette.$ink, $alpha: -0.5),
-                        0 0 0.03rem color.adjust(palette.$ink, $alpha: -0.5);
-                    content: attr(content);
-                    position: absolute;
-                    width: 100%;
-                    display: block;
-                    z-index: -1;
-
-                }
-
             }
+            
             &:before, &:after {
                 content: " ";
                 display: block;
