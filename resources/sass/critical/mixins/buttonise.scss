@@ -7,12 +7,12 @@
 
 @mixin buttonise($buttonColour, $highlightColour, $textColor: palette.$white) {
     text-align: center;
-    border: (variables.$baseBorderWidth * 2) ridge palette.$gold;
     display: inline-block;
     position: relative;
-    background: transparent radial-gradient(circle at 50% 100%, color.adjust($buttonColour, $alpha: -0.25) 50%, color.adjust($buttonColour, $lightness: -25%, $alpha: -0.25) 100%);
+    border: 0.2rem solid transparent;
+    border-image: var(--goldFrame) 25%;
+    background: transparent radial-gradient(circle at 50% 100%, color.adjust($buttonColour, $alpha: -0.33) 50%, color.adjust($buttonColour, $lightness: -25%, $alpha: -0.333) 100%);
     background-size: cover;
-    backdrop-filter: blur(0.125rem);
     flex: 0;
     color: $textColor;
     font-family: typography.$displayStack;

@@ -9,6 +9,7 @@
 
 .btn, button {
     &:not(.unstyle, .sf-toolbar-toggle-button) {
+
         &.btn-primary {
             @include buttonise.buttonise(palette.$blue, cyan);
         }
@@ -83,10 +84,14 @@ table {
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {
     .btn-group {
         flex-direction: row;
+
+        .btn {
+            border: none;
+            margin-bottom: 0;
+        }
     }
 
     .btn, button {
-
         &:not(:last-child) {
             margin-right: math.div(variables.$base-spacing, 4);
         }

@@ -17,7 +17,7 @@ footer {
     &:before {
         content: " ";
         display: block;
-        background: transparent url("/dist/images/eroded-line.svg") repeat-x;
+        background: transparent var(--erodedLine) repeat-x;
         background-size: cover;
         width: variables.$desktopMaxViewportWidth;
         position: absolute;

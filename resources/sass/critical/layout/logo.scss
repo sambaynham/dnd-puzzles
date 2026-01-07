@@ -4,7 +4,7 @@
 @use '../base/typography';
 @use '../base/variables';
 @use '../base/palette';
-@use '../base/inlinedFiles';
+
 $logoHeight: 8vh;
 
 .logo-wrapper {
@@ -56,13 +56,13 @@ $logoHeight: 8vh;
                 background: linear-gradient(33deg, cyan, magenta);
                 background-size: 400%;
                 animation: gradient 5s ease infinite;
-                mask-image: inlinedFiles.$penroseMask;
+                mask-image: var(--penroseMask);
                 mask-size: contain;
                 mask-repeat: no-repeat;
             }
 
             &:after {
-                background-image: inlinedFiles.$penroseOverlay;
+                background-image: var(--penroseOverlay);
                 background-size: contain;
                 background-repeat: no-repeat;
             }

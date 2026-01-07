@@ -4,7 +4,6 @@
 @use '../base/variables';
 @use '../base/palette';
 @use '../base/typography';
-@use '../base/inlinedFiles';
 
 $mobileHeaderHeight: 10vh;
 $mobileNavButtonHeight: 8vh;
@@ -21,6 +20,7 @@ $mobileNavButtonHeight: 8vh;
         background-position: 0% 50%;
     }
 }
+
 body {
     .shade {
         display: block;
@@ -120,7 +120,7 @@ body {
             &#user-nav-toggle{
                 right: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);;
                 &:after {
-                    background-image: inlinedFiles.$userVellum;
+                    background-image: var(--userIconVellum);
                 }
             }
         }
@@ -321,13 +321,13 @@ main {
                 box-shadow: none;
 
                 &:after {
-                    background-image: inlinedFiles.$user;
+                    background-image: var(--userIcon);
                     background-size: contain;
                 }
                 &:hover, &:active, &.open {
                     box-shadow: none;
                     &:after {
-                        background-image: inlinedFiles.$userActive;
+                        background-image: var(--userIconActive);
                     }
                 }
             }
@@ -350,7 +350,7 @@ main {
                     box-shadow: none;
                     border-radius: 0;
                     border: (variables.$baseBorderWidth * 2) solid palette.$ink;
-                    border-image: url("/dist/images/eroded-frame-whiteinner.svg") 33%;
+                    border-image: var(--erodedFrameWhiteInner) 33%;
 
                     input {
                         padding: math.div(variables.$base-spacing, 8);
@@ -379,7 +379,7 @@ main {
                             display: block;
                             width: 1em;
                             height: 100%;
-                            background-image: inlinedFiles.$erodedStar;
+                            background-image: var(--erodedStar);
                             background-size: 100% auto;
                             background-repeat: no-repeat;
                             background-position: 50% 50%;
@@ -500,19 +500,19 @@ main {
 
                             }
                             &:after {
-                                background-image: inlinedFiles.$erodedStarVellum;
+                                background-image: var(--erodedStarVellum);
                             }
                         }
                     }
                 }
                 button.nav-toggle#user-nav-toggle {
                     &:after {
-                        background-image: inlinedFiles.$userVellum;
+                        background-image: var(--userIconVellum);
 
                     }
                     &:hover, &:focus, .active {
                         &:after {
-                            background-image: inlinedFiles.$userActive;
+                            background-image: var(--userIconActive);
                         }
                     }
                 }
