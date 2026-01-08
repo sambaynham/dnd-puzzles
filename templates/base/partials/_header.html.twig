@@ -1,4 +1,9 @@
-<div class="logo-wrapper">
+<div id="logo-wrapper" class="logo-wrapper {% if heroImageUrl is defined and heroImageUrl is not null %}has-hero{% endif %}">
+    {% if heroImageUrl is defined and heroImageUrl is not null %}
+        <div class="hero-image-wrapper">
+            <img data-src="{{ heroImageUrl }}" alt="{{ pageTitle }}" class="header-backer" is="lazy-image">
+        </div>
+    {% endif %}
     <a class="header-logo" href="/">
         <span class="logo-text" content="{{ siteName }}">{{ siteName }}</span>
     </a>
