@@ -37,7 +37,7 @@
         }
 
         &.btn-info {
-            @include buttonise.buttonise(palette.$stormBlue, cyan);
+            @include buttonise.buttonise(#01115c, #0080ff);
         }
 
         &:disabled {

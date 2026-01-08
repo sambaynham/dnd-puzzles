@@ -11,7 +11,7 @@
     position: relative;
     border: 0.2rem solid transparent;
     border-image: var(--goldFrame) 25%;
-    background: transparent radial-gradient(circle at 50% 100%, color.adjust($buttonColour, $alpha: -0.33) 50%, color.adjust($buttonColour, $lightness: -25%, $alpha: -0.333) 100%);
+    background: transparent radial-gradient(circle at 50% 100%, color.adjust($buttonColour, $alpha: -0.125) 50%, color.adjust($buttonColour, $lightness: -15%, $alpha: -0.125, $saturation: +55%) 100%);
     background-size: cover;
     flex: 0;
     color: $textColor;

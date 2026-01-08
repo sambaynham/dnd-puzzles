@@ -68,8 +68,9 @@ $logoHeight: 10vh;
             }
 
             &:before {
-                background: linear-gradient(33deg, cyan, magenta);
+                background: linear-gradient(33deg, color.adjust(cyan, $alpha: -0.25), color.adjust(magenta, $alpha: -0.25));
                 background-size: 400%;
+                backdrop-filter: blur(5px);
                 animation: gradient 5s ease infinite;
                 mask-image: var(--penroseMask);
                 mask-size: contain;
@@ -105,6 +106,18 @@ $logoHeight: 10vh;
                     color: transparent;
                     background: palette.$goldFX;
                     background-clip: text;
+                    background-size: 50%;
+
+                    &:before {
+                        content: attr(content);
+                        width: 100%;
+                        display: block;
+                        position: absolute;
+                        color: palette.$ink;
+                        top: -0.15rem;
+                        left: -0.15rem;
+                        z-index: -1;
+                    }
                 }
             }
         }
