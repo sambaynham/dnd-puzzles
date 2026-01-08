@@ -5,7 +5,7 @@
 @use '../base/palette';
 
 .tabs-element {
-    margin: math.div(variables.$base-spacing, 4);
+    margin: math.div(variables.$base-spacing, 4) 0;
 
     nav.tab-headings {
         display: flex;
