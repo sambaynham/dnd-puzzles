@@ -25,9 +25,9 @@ main {
     .row.hero {
         position: relative;
         overflow: hidden;
-        border: variables.$baseBorderWidth solid transparent;
+        border-bottom: variables.$baseBorderWidth solid transparent;
         box-shadow: palette.$baseBoxShadow;
-        border-radius: variables.$baseBorderRadius;
+
         border-image: palette.$goldFX 10%;
 
         img.row-hero-backer{
@@ -76,6 +76,9 @@ main {
             }
             &.hero {
                 margin-bottom: variables.$base-spacing;
+                border: variables.$baseBorderWidth solid transparent;
+                border-image: palette.$goldFX 33%;
+                border-radius: variables.$baseBorderRadius;
                 .col {
                     text-align: center;
 
