@@ -7,7 +7,7 @@
    viewBox="0 0 23.812499 23.8125"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
    sodipodi:docname="gold-frame.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -26,19 +26,22 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.5465208"
-     inkscape:cx="41.706521"
-     inkscape:cy="24.247977"
+     inkscape:cx="41.70652"
+     inkscape:cy="24.571283"
      inkscape:window-width="1920"
-     inkscape:window-height="1009"
+     inkscape:window-height="1021"
      inkscape:window-x="1080"
-     inkscape:window-y="32"
+     inkscape:window-y="31"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1">
     <inkscape:grid
        type="xygrid"
        id="grid1775"
        originx="0"
-       originy="0" />
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="mm" />
   </sodipodi:namedview>
   <defs
      id="defs2">
@@ -54,7 +57,7 @@
          offset="0.27142859"
          id="stop1906" />
       <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
+         style="stop-color:#fdf9bb;stop-opacity:1;"
          offset="0.53492063"
          id="stop4027" />
       <stop

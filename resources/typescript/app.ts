@@ -12,6 +12,7 @@ import {TabsElement} from "./components/Tabs/TabsElement";
 import {PostButton} from "./components/PostButton";
 import RandomQuotation from "./components/RandomQuotation";
 import {HeadingElement} from "./components/HeadingElement";
+import {LazyImage} from "./components/LazyImage";
 
 (()=> {
     document.addEventListener('DOMContentLoaded', () => {
@@ -41,6 +42,8 @@ import {HeadingElement} from "./components/HeadingElement";
         customElementRegistry.define('post-button', PostButton, {extends: 'button'});
         customElementRegistry.define('random-quotation', RandomQuotation, {extends: 'blockquote'});
         customElementRegistry.define('heading-element', HeadingElement);
+        customElementRegistry.define('lazy-image', LazyImage, {extends: 'img'});
+
     }
 })();
 

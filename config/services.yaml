@@ -7,6 +7,7 @@ parameters:
     app.siteurl: '%env(SITE_URL)%'
     app.mail.sender: '%env(MAIL_FROM_ADDRESS)%'
     app.mail.name: '%env(MAIL_FROM_NAME)%'
+    container.dumper.inline_factories: true
 
 services:
     _instanceof:

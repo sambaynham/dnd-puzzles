@@ -5,160 +5,46 @@
 @use '../base/typography';
 @use '../base/variables';
 
-$buttonRimFactor: 5;
+@use '../mixins/buttonise';
 
 .btn, button {
     &:not(.unstyle, .sf-toolbar-toggle-button) {
-        text-align: center;
-        position: relative;
-        font-family: typography.$textStack;
-        font-weight: bold;
-        font-size: 1.25rem;
-        color: palette.$white;
-        display: inline-block;
-        padding: math.div(variables.$base-spacing, 8) math.div(variables.$base-spacing, 4);
-        background: palette.$blue linear-gradient(-33deg, color.adjust(palette.$blue, $lightness: -10%), palette.$blue);
-        border-radius: variables.$baseBorderRadius;
-        border: variables.$baseBorderWidth solid palette.$gold;
-        box-shadow: palette.$baseBoxShadow;
-        text-shadow: 1px 1px 1px color.adjust(palette.$ink, $lightness: -15%);
-        transition: all 200ms ease-in-out;
-        width: 100%;
 
-        &:before {
-            content: " ";
-            display: block;
-            position: absolute;
+        &.btn-primary {
+            @include buttonise.buttonise(palette.$blue, cyan);
         }
 
 
-        &:before {
+        &.btn-secondary {
+            @include buttonise.buttonise(palette.$blue, cyan);
+        }
 
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            box-shadow: inset 0 0 1rem cyan;
-            mix-blend-mode: hard-light;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 200ms ease-in-out;
+        &.btn-tertiary {
+            @include buttonise.buttonise(palette.$wyrdPurple, magenta);
+        }
+
+        &.btn-danger {
+            @include buttonise.buttonise(palette.$crimson, red);
+        }
+
+        &.btn-success,
+        &[type="submit"]{
+            @include buttonise.buttonise(palette.$green, lime);
+        }
+
+        &.btn-warning {
+            @include buttonise.buttonise(palette.$orange, yellow);
+        }
+
+        &.btn-info {
+            @include buttonise.buttonise(palette.$stormBlue, cyan);
         }
 
         &:disabled {
-            background: palette.$crimson linear-gradient(-33deg, color.adjust(palette.$blue, $lightness: -10%, $saturation: -100%), color.adjust(palette.$blue, $saturation: -100%));
-        }
-
-        &:hover, &:focus, &:active {
+            @include buttonise.buttonise(palette.$grey, palette.$grey);
+            color: color.mix(palette.$grey, palette.$offWhite);
             &:before {
-                opacity: 1;
-            }
-        }
-
-        &.btn-danger {
-            background: palette.$crimson linear-gradient(-33deg, color.adjust(palette.$crimson, $lightness: -10%), palette.$crimson);
-            &:before {
-                box-shadow: inset 0 0 1rem magenta;
-            }
-        }
-
-        &.btn-primary {
-            background: palette.$green linear-gradient(-33deg, color.adjust(palette.$green, $lightness: -10%), palette.$green);
-            &:before {
-                box-shadow: inset 0 0 1rem lime;
-            }
-        }
-
-        &.btn-secondary {
-            background: palette.$orange linear-gradient(-33deg, color.adjust(palette.$orange, $lightness: -10%), palette.$orange);
-            &:before {
-                box-shadow: inset 0 0 1rem yellow;
-            }
-        }
-    }
-
-
-
-
-    &.cta {
-        border: none;
-        display: inline-block;
-        text-align: center;
-        width: auto;
-        background: palette.$blue radial-gradient(ellipse at 50% 100%, palette.$blue, color.adjust(palette.$blue, $lightness: -25%));
-        padding: math.div(variables.$base-spacing, $buttonRimFactor);
-        color: palette.$white;
-        position: relative;
-        box-shadow: inset 0 0 2.5rem color.adjust(palette.$blue, $lightness: 5%);
-        transition: box-shadow 250ms ease-in-out;
-        font-family: typography.$displayStack;
-        font-size: 1rem;
-        font-weight: 300;
-        text-shadow: -0.05em -0.05em 0 rgba(0, 0, 0, 0.25), 0.05em 0.05em 0 rgba(0, 0, 0, 0.5);
-        margin-bottom : math.div(variables.$base-spacing, 4);
-
-        &:hover, &:active, &:focus {
-            box-shadow: inset 0 0 2.5rem color.adjust(palette.$blue, $lightness: 25%);
-            color: palette.$offWhite
-        }
-
-        &:before, &:after {
-            content: " ";
-            display: block;
-            position: absolute;
-        }
-
-        &:after {
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            pointer-events: none;
-            background-color: transparent;
-            border: math.div(variables.$base-spacing, ($buttonRimFactor + 2)) outset white;
-            border-left-color: #dcdcdc;
-            border-right-color: #939393;
-            border-bottom-color: #707070;
-            mix-blend-mode: screen;
-            opacity: 0.25;
-        }
-
-        &:before {
-            background: palette.$goldFX;
-            top: 0 - variables.$baseBorderWidth;
-            left: 0 - variables.$baseBorderWidth;
-            bottom: 0 - variables.$baseBorderWidth;
-            right: 0 - variables.$baseBorderWidth;
-            z-index: -1;
-            box-shadow: palette.$baseBoxShadow !important;
-            opacity: 1;
-        }
-
-        &.btn-primary {
-            background: palette.$green radial-gradient(ellipse at 50% 100%, palette.$green, color.adjust(palette.$green, $lightness: -25%));
-            box-shadow: inset 0 0 2.5rem color.adjust(palette.$green, $lightness: 5%);
-
-            &:hover, &:active, &:focus {
-                box-shadow: inset 0 0 2.5rem color.adjust(palette.$green, $lightness: 25%);
-            }
-        }
-
-        &.btn-danger {
-            background: palette.$crimson radial-gradient(ellipse at 50% 100%, palette.$crimson, color.adjust(palette.$crimson, $lightness: -25%));
-            box-shadow: inset 0 0 2.5rem color.adjust(palette.$crimson, $lightness: 5%);
-
-            &:hover, &:active, &:focus {
-                box-shadow: inset 0 0 2.5rem color.adjust(palette.$crimson, $lightness: 25%);
-            }
-        }
-
-        &.btn-secondary {
-            background: palette.$stormBlue radial-gradient(ellipse at 50% 100%, palette.$stormBlue, color.adjust(palette.$stormBlue, $lightness: -25%));
-            box-shadow: inset 0 0 2.5rem color.adjust(palette.$stormBlue, $lightness: 5%);
-
-            &:hover, &:active, &:focus {
-                box-shadow: inset 0 0 2.5rem color.adjust(palette.$stormBlue, $lightness: 25%);
-
+                display: none !important;
             }
         }
     }
@@ -192,23 +78,20 @@ table {
     .btn, button {
         margin-bottom: math.div(variables.$base-spacing, 4);
         flex: 1;
-
-        &:before {
-            display: none;
-        }
     }
 }
 
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {
     .btn-group {
         flex-direction: row;
+
+        .btn {
+            border: none;
+            margin-bottom: 0;
+        }
     }
 
     .btn, button {
-        &:not(.unstyle, .sf-toolbar-toggle-button) {
-            font-size: 1rem;
-        }
-
         &:not(:last-child) {
             margin-right: math.div(variables.$base-spacing, 4);
         }

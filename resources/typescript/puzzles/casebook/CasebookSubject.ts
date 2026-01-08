@@ -114,6 +114,7 @@ export class CasebookSubject extends HTMLElement {
                     throw new Error("Image URL defined but image element missing.")
                 }
                 imageElement.src = `${data.imageUri}`;
+
                 imageElement.alt = data.isRevealed ? data.name : 'Undiscovered';
             }
 

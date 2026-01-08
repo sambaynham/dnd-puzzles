@@ -4,8 +4,8 @@
 @use '../base/typography';
 @use '../base/variables';
 @use '../base/palette';
-@use '../base/inlinedFiles';
-$logoHeight: 8vh;
+
+$logoHeight: 10vh;
 
 .logo-wrapper {
     display: none;
@@ -16,25 +16,23 @@ $logoHeight: 8vh;
 
     .logo-wrapper {
         display: block;
-
         position: relative;
+        transition: opacity 200ms ease-in-out;
         padding: 2rem;
 
-        &:before {
-            content: " ";
-            background: palette.$goldFX;
-            mask-image: inlinedFiles.$starBurstMask;
-            mask-size: contain;
-            mask-repeat: no-repeat;
-            mask-position: 50% 0%;
+        .hero-image-wrapper {
             position: absolute;
-            top: 0;
-            left: 0;
             bottom: 0;
-            right:0;
-            background-attachment: fixed;
-            background-size: 150%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            img.header-backer {
+                object-fit: cover;
+            }
         }
+
 
         a.header-logo {
             display: block;
@@ -52,30 +50,12 @@ $logoHeight: 8vh;
                 display: block;
                 width: 100%;
                 position: relative;
-                background: palette.$goldFX;
-                background-size: 50%;
-                background-clip: text;
+                color: palette.$ink;
                 font-size: math.div($logoHeight, 2.5);
                 font-family: typography.$displayStack;
                 text-align: center;
-
-                &:before {
-                    top: 0;
-                    left: 0;
-                    text-shadow: 0 0 0.5rem color.adjust(palette.$ink, $alpha: -0.75),
-                        0 0 0.25rem color.adjust(palette.$ink, $alpha: -0.5),
-                        0 0 0.125rem color.adjust(palette.$ink, $alpha: -0.5),
-                        0 0 0.0675rem color.adjust(palette.$ink, $alpha: -0.5),
-                        0 0 0.03rem color.adjust(palette.$ink, $alpha: -0.5);
-                    content: attr(content);
-                    position: absolute;
-                    width: 100%;
-                    display: block;
-                    z-index: -1;
-
-                }
-
             }
+
             &:before, &:after {
                 content: " ";
                 display: block;
@@ -91,17 +71,48 @@ $logoHeight: 8vh;
                 background: linear-gradient(33deg, cyan, magenta);
                 background-size: 400%;
                 animation: gradient 5s ease infinite;
-                mask-image: inlinedFiles.$penroseMask;
+                mask-image: var(--penroseMask);
                 mask-size: contain;
                 mask-repeat: no-repeat;
             }
 
             &:after {
-                background-image: inlinedFiles.$penroseOverlay;
+                background-image: var(--penroseOverlay);
                 background-size: contain;
                 background-repeat: no-repeat;
             }
         }
+
+        &.has-hero {
+            border-bottom: variables.$baseBorderWidth solid cyan;
+            border-image: palette.$goldFX 33%;
+            margin-bottom: math.div(variables.$base-spacing, 2);
+            &:before {
+                content: " ";
+                display: block;
+                background: linear-gradient(to top, palette.$charcoal, transparent 25%);
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
+
+            a.header-logo {
+                z-index: 2;
+                span.logo-text {
+                    color: transparent;
+                    background: palette.$goldFX;
+                    background-clip: text;
+                }
+            }
+        }
     }
 
+    body.scrolled {
+        .logo-wrapper {
+            opacity: 0;
+        }
+    }
 }

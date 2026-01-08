@@ -119,8 +119,9 @@
     --idleTextDecoration: var(--idleTextLineStyle) underline 2px;
 }
 
-$textStack: "Crimson Text", georgia, "Times New Roman", serif;
-$displayStack: "Pirata", georgia, "Times New Roman", serif;
+$textStack: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+
+$displayStack: "Pirata", $textStack;
 
 html {
     font-family: $textStack;

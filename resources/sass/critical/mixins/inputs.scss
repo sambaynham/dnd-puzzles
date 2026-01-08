@@ -15,7 +15,7 @@
     input,textarea {
         display: flex;
         border: (variables.$baseBorderWidth * 2) solid transparent;
-        border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
+        border-image: var(--erodedFrameWhiteInner) 33%;
         background-color: palette.$white;
         padding: math.div(variables.$base-spacing, 4);
         flex: 1;
@@ -24,7 +24,7 @@
         font-size: 1rem;
         &:focus {
             outline: none;
-            border-image: url('/dist/images/eroded-frame-whiteinner-green.svg') 33%;
+            border-image: var(--erodedFrameWhiteInnerGreen) 33%;
         }
     }
 
@@ -32,7 +32,7 @@
         position: relative;
         background-color: palette.$white;
         border: (variables.$baseBorderWidth * 2) solid transparent;
-        border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
+        border-image: var(--erodedFrameWhiteInner) 33%;
         padding-left: 3rem;
         &:before {
             content: "@";
@@ -52,7 +52,7 @@
         }
 
         &:focus,&:active {
-            border-image: url('/dist/images/eroded-frame-whiteinner-green.svg') 33%;
+            border-image: var(--erodedFrameWhiteInnerGreen) 33%;
         }
     }
 
@@ -88,7 +88,7 @@
             &:before {
 
                 border: (variables.$baseBorderWidth * 2) solid transparent;
-                border-image: url("/dist/images/eroded-frame-whiteinner.svg") 33%;
+                border-image: var(--erodedFrameWhiteInner) 33%;
                 background-color: palette.$white;
 
             }
@@ -123,7 +123,7 @@
                 width: 1.5rem;
                 font-size: 1rem;
                 font-weight: bold;
-                font-family: "Crimson Text";
+                font-family: typography.$displayStack;
             }
             label {
                 &:before, &:after {
@@ -161,7 +161,7 @@
             &:before {
                 height: 1.5rem;
                 width: 1.5rem;
-                background: transparent url("/dist/images/circle-eroded.svg");
+                background: transparent var(--erodedCircle);
                 background-size: contain;
                 left: 0;
                 top: 0;
@@ -194,23 +194,14 @@
 
     select {
         border: (variables.$baseBorderWidth * 2) solid transparent;
-        border-image: url('/dist/images/eroded-frame-whiteinner.svg') 33%;
+        border-image: var(--erodedFrameWhiteInner) 33%;
         background-color: palette.$white;
         padding: math.div(variables.$base-spacing, 4);
         font-family: typography.$textStack;
+
         &:open,
         &:hover {
-            border-image: url('/dist/images/eroded-frame-whiteinner-green.svg') 33%;
-        }
-
-
-
-        option {
-
-            &:selected {
-
-            }
+            border-image: var(--erodedFrameWhiteInnerGreen) 33%;
         }
     }
-
 }
