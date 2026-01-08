@@ -3,7 +3,7 @@
         {% for delta,slide in slides %}
             <li id="{{ name }}-{{ delta }}" class="slideshow-slide {% if delta == 0 %}active{% endif %}">
 
-                <img aria-hidden="true" data-src="{{ slide.imgSrc }}" alt="{{ slide.imgAlt }}" class="slide-backer lazy-image" loading="lazy" is="lazy-image">
+                <img aria-hidden="true" data-src="{{ slide.imgSrc }}" alt="{{ slide.imgAlt }}" class="slide-backer lazy-image" is="lazy-image">
                 <h2 class="slide-heading">
                    {{ slide.slideHeading }}
                 </h2>
