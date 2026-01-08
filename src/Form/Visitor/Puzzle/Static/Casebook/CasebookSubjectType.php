@@ -105,7 +105,11 @@ class CasebookSubjectType extends AbstractType
                     ]
                 ]
             )
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class,
+                [
+                    'attr' => ['class' => 'btn-primary'],
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
