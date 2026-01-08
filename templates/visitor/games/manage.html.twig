@@ -69,8 +69,6 @@
                             </article>
                         {% endfor  %}
                     </div>
-
-
                 {% endif %}
             </article>
             <a href="{{ path('app.games.invite', {'gameSlug': game.getSlug}) }}" class="btn btn-blue">Invite Players</a>
@@ -101,9 +99,9 @@
                                         <nav class="secondary accordion-column">
                                             <div class="btn-group">
                                                 <a class="btn btn-primary" href="{{ path('app.games.puzzles.instance.manage', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">Edit puzzle</a>
-                                                <a class="btn" href="{{ path('app.games.puzzles.instance.play', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">View as Player</a>
+                                                <a class="btn btn-success" href="{{ path('app.games.puzzles.instance.play', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">View as Player</a>
                                                 {% if puzzleInstance.getPublicationDate is null %}
-                                                    <a class="btn btn-primary" href="{{ path('app.games.puzzles.instance.publish', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">Publish puzzle</a>
+                                                    <a class="btn btn-secondary" href="{{ path('app.games.puzzles.instance.publish', {'gameSlug': game.getSlug, 'templateSlug': puzzleInstance.getTemplate.getSlug, 'instanceCode': puzzleInstance.getInstanceCode }) }}">Publish puzzle</a>
                                                 {% endif %}
                                             </div>
 
