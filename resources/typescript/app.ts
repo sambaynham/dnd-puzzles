@@ -13,6 +13,7 @@ import {PostButton} from "./components/PostButton";
 import RandomQuotation from "./components/RandomQuotation";
 import {HeadingElement} from "./components/HeadingElement";
 import {LazyImage} from "./components/LazyImage";
+import {SubmenuTrigger} from "./components/SubmenuTrigger";
 
 (()=> {
     document.addEventListener('DOMContentLoaded', () => {
@@ -43,6 +44,7 @@ import {LazyImage} from "./components/LazyImage";
         customElementRegistry.define('random-quotation', RandomQuotation, {extends: 'blockquote'});
         customElementRegistry.define('heading-element', HeadingElement);
         customElementRegistry.define('lazy-image', LazyImage, {extends: 'img'});
+        customElementRegistry.define('submenu-trigger', SubmenuTrigger, {extends: 'a'});
 
     }
 })();

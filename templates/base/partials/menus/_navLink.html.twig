@@ -1,0 +1,5 @@
+<a id="nav-{{ navItem.handle }}" content="{{ navItem.label }}"
+   class="nav-item {% if navItem.active %} active{% endif %}"
+   href="{{ path(navItem.route, navItem.routeArguments) }}">
+    {{ navItem.label }}
+</a>
