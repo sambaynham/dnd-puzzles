@@ -46,7 +46,7 @@ body {
         position: fixed;
         height: $mobileHeaderHeight;
         background: palette.$stormBlue linear-gradient(to bottom, palette.$stormBlue, color.adjust(palette.$stormBlue, $lightness: -5%));
-        width: 100%;
+        width: 100vw;
         top: 0;
         left: 0;
         right: 0;
@@ -111,14 +111,14 @@ body {
                 background-position: 50% 50%;
             }
             &#main-nav-toggle{
-                left: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);;
+                left: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);
                 &:after {
                     background-image: url('/dist/images/icons/menu.svg');
                 }
             }
 
             &#user-nav-toggle{
-                right: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);;
+                right: math.div(($mobileHeaderHeight - $mobileNavButtonHeight), 2);
                 &:after {
                     background-image: var(--userIconVellum);
                 }
@@ -281,7 +281,7 @@ main {
             top: 0;
             position: sticky;
             margin: 0 0 math.div(variables.$base-spacing, 2);
-            padding: 0 math.div((100vw - variables.$desktopMaxViewportWidth), 2);
+            padding: 0 math.div((100vw - variables.$desktopMedViewportWidth), 2);
             background: linear-gradient(to bottom, transparent, transparent);
             transition: background 200ms ease-in-out;
             display: flex;
@@ -420,7 +420,7 @@ main {
                 height: initial;
                 position: absolute;
                 top: calc($desktopHeaderHeight + math.div(variables.$base-spacing, 4));
-                right: math.div((100vw - variables.$desktopMaxViewportWidth), 2);
+                right: math.div((100vw - variables.$desktopMedViewportWidth), 2);
                 box-shadow: palette.$baseBoxShadow;
                 transition: opacity 150ms ease-in-out;
                 pointer-events: none;
@@ -520,4 +520,16 @@ main {
         }
     }
 
+}
+
+@media only screen and (min-width: variables.$desktopBreakPointUpper) {
+    body {
+        header {
+            padding: 0 math.div((100vw - variables.$desktopMaxViewportWidth), 2);
+
+            nav.mobile-nav#user-nav {
+                right: math.div((100vw - variables.$desktopMaxViewportWidth), 2);
+            }
+        }
+    }
 }

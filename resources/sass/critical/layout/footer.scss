@@ -6,10 +6,10 @@
 
 footer {
     position: relative;
-    padding: variables.$base-spacing math.div(100vw - variables.$desktopMaxViewportWidth, 2);
+    padding: variables.$base-spacing math.div(100vw - variables.$desktopMedViewportWidth, 2);
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 100vw;
     z-index: 999;
     font-size: 0.8rem;
     margin: variables.$base-spacing 0 0 0;
@@ -19,11 +19,11 @@ footer {
         display: block;
         background: transparent var(--erodedLine) repeat-x;
         background-size: cover;
-        width: variables.$desktopMaxViewportWidth;
+        width: 100%;
         position: absolute;
         height: variables.$baseBorderWidth;
         top: 0;
-        left: math.div(100vw - variables.$desktopMaxViewportWidth, 2);
+        left: 0;
     }
     aside {
         flex: 1;
@@ -35,7 +35,7 @@ footer {
 
     }
 }
-@media only screen and (min-width: 1080px) {
+@media only screen and (min-width: variables.$mobileBreakPointUpper) {
     $footerHeight: 5vh;
     body {
         main {
@@ -49,14 +49,30 @@ footer {
         position: absolute;
         bottom: 0;
         flex-direction: row;
-        padding: math.div(variables.$base-spacing, 4) math.div((100vw - variables.$desktopMaxViewportWidth), 2);
+        padding: math.div(variables.$base-spacing, 4) math.div((100vw - variables.$desktopMedViewportWidth), 2);
         width: 100%;
+
+        &:before {
+            width: variables.$desktopMedViewportWidth;
+            left: math.div(100vw - variables.$desktopMedViewportWidth, 2);
+        }
 
         aside {
             flex: 1;
             &.copy {
                 flex-basis: 50%;
             }
+        }
+    }
+}
+
+@media only screen and (min-width: variables.$desktopBreakPointUpper) {
+    footer {
+        padding: math.div(variables.$base-spacing, 4) math.div((100vw - variables.$desktopMaxViewportWidth), 2);
+
+        &:before {
+            width: variables.$desktopMaxViewportWidth;
+            left: math.div(100vw - variables.$desktopMaxViewportWidth, 2);
         }
     }
 }

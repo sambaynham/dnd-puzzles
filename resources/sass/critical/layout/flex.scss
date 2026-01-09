@@ -126,7 +126,7 @@ main {
 
 @media only screen and (min-width: variables.$mobileBreakPointUpper) {
     main {
-        width: variables.$desktopMaxViewportWidth;
+        width: variables.$desktopMedViewportWidth;
         .row, .col {
             &.hide-sm {
                 display: flex;
@@ -231,5 +231,10 @@ main {
             }
         }
     }
+}
 
+@media only screen and (min-width: variables.$desktopBreakPointUpper) {
+    main {
+        width: variables.$desktopMaxViewportWidth;
+    }
 }

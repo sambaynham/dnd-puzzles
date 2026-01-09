@@ -3,7 +3,6 @@
     <div class="row">
 
         <div class="col">
-
             <div class="avatar-wrapper">
                 <img class="avatar" src="{{ user.avatarUrl ?? '/dist/images/default-avatar.webp' }}" alt="Your Avatar">
             </div>
@@ -30,7 +29,7 @@
     <hr>
     <div class="row">
         <div class="col">
-            <h2>My Feats</h2>
+            <h2>Your Feats</h2>
             {% if user.getFeats is empty %}
                 <em>You've yet to earn any Feats. Feats can be awarded by Games Masters, or earned through various actions around the site.</em>
             {% else %}
@@ -45,7 +44,7 @@
     <hr>
     <div class="row">
         <div class="col">
-            <h2>My Invitations</h2>
+            <h2>Your Invitations</h2>
 
             {% if invitations is not empty %}
                 <div class="accordion-list" is="accordion-list">
@@ -84,6 +83,35 @@
                 </div>
             {% else %}
                 <em>You have no outstanding invitations.</em>
+            {% endif %}
+        </div>
+        <div class="col">
+            <h2>Games You Run</h2>
+            {% if user.getGamesMastered is not empty %}
+                {% for gameMastered in user.getGamesMastered %}
+                    {% embed 'visitor/games/partials/_gameCard.html.twig' with {'game': gameMastered, 'mode': 'gamesmaster'} %}{% endembed %}
+                {% endfor %}
+
+            {% else %}
+
+                <em>{{ 'You are not currently the Games Master for any games. Why not create one?'|trans }}</em>
+
+            {% endif %}
+        </div>
+        <div class="col">
+            <h2>Games You're Playing</h2>
+
+            {% if user.getGames is not empty %}
+
+                {% for game in user.getGames %}
+                    {% embed 'visitor/games/partials/_gameCard.html.twig' with {'game': game, 'mode': 'player'} %}{% endembed %}
+                {% endfor %}
+
+
+            {% else %}
+
+                <em>{{ 'You are not currently a player in any games.'|trans }}</em>
+
             {% endif %}
         </div>
     </div>
