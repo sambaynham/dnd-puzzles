@@ -15,7 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 
 class RegistrationForm extends AbstractType
 {
@@ -88,6 +89,16 @@ class RegistrationForm extends AbstractType
                     ]),
                 ],
             ])
+            ->add(
+                'captcha',
+                Recaptcha3Type::class,
+                [
+                    'constraints' => new Recaptcha3(),
+                    'action_name' => 'homepage',
+                    'locale' => 'en',
+                ]
+
+            )
             ->add('submit', SubmitType::class)
         ;
     }

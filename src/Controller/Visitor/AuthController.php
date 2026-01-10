@@ -11,6 +11,7 @@ use App\Services\Quotation\Service\QuotationService;
 use App\Services\User\Domain\User;
 use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,6 +35,7 @@ class AuthController extends AbstractBaseController
     #[Route('/register', name: 'app.auth.register')]
     public function register(
         Request $request,
+        Recaptcha3Validator $recaptcha3Validator,
         #[MapQueryParameter] ?string $emailAddress = null,
         #[MapQueryParameter] ?string $invitationCode = null,
     ): Response{
@@ -50,7 +52,6 @@ class AuthController extends AbstractBaseController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
 
