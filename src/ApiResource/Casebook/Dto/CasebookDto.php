@@ -24,7 +24,7 @@ use App\Services\Puzzle\Domain\Casebook\Casebook;
 )]
 readonly class CasebookDto
 {
-    public function __construct(
+    final public function __construct(
         public string $instanceCode,
         public string $name,
         public string $brief

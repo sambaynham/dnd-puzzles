@@ -20,6 +20,10 @@ class GameInvitationRepository extends ServiceEntityRepository
         parent::__construct($registry, GameInvitation::class);
     }
 
+    /**
+     * @param Game $game
+     * @return iterable<GameInvitation>
+     */
     public function getOutstandingInvitationsForGame(Game $game) : iterable {
 
         $qb = $this->createQueryBuilder('gi');
@@ -44,7 +48,8 @@ class GameInvitationRepository extends ServiceEntityRepository
         $qb->setParameter('now', new \DateTimeImmutable());
         $qb->setParameter(':invitationCode', $invitationCode);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        $result = $qb->getQuery()->getResult();
+        return $result instanceof GameInvitation ? $result : null;
     }
 
     public function findByInvitationCodeAndEmailAddress(string $invitationCode, string $emailAddress): ? GameInvitation {
@@ -59,9 +64,13 @@ class GameInvitationRepository extends ServiceEntityRepository
         $qb->setParameter(':invitationCode', $invitationCode);
         $qb->setParameter(':emailAddress', $emailAddress);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        $result = $qb->getQuery()->getResult();
+        return $result instanceof GameInvitation ? $result : null;
     }
 
+    /**
+     * @return array<GameInvitation>
+     */
     public function getExpiredInvitations(): array {
         $qb = $this->createQueryBuilder('gi');
         $qb->where($qb->expr()->lte('gi.expiresAt', ':now'));
@@ -69,6 +78,11 @@ class GameInvitationRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+
+    /**
+     * @param User $user
+     * @return array<GameInvitation>
+     */
     public function getOutstandingInvitationsForUser(User $user): array {
         $qb = $this->createQueryBuilder('gi');
             $qb->where($qb->expr()->gt('gi.expiresAt', ':now'))
@@ -80,6 +94,10 @@ class GameInvitationRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * @param string $emailAddress
+     * @return array<GameInvitation>
+     */
     public function findInvitationsByEmailAddress(string $emailAddress): array {
         $qb = $this->createQueryBuilder('gi');
 

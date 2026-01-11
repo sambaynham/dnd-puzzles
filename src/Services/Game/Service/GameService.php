@@ -18,6 +18,7 @@ use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use App\Services\User\Domain\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Random\RandomException;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 class GameService implements GameServiceInterface
@@ -25,11 +26,13 @@ class GameService implements GameServiceInterface
     public function __construct(
         private GameRepository $gameRepository,
         private GameInvitationRepository $gameInvitationRepository,
-        private PuzzleTemplateRegistryInterface $puzzleTemplateRegistry,
         private PuzzleInstanceServiceInterface $puzzleInstanceService,
         private EntityManagerInterface $entityManager,
     ) {}
 
+    /**
+     * @throws RandomException
+     */
     public function getRandomUnusedSlug(): string {
 
         $randomSlug = CodeGenerator::generateRandomCode();
@@ -51,6 +54,10 @@ class GameService implements GameServiceInterface
         return $game;
     }
 
+    /**
+     * @param Game $game
+     * @return iterable<GameInvitation>
+     */
     public function getOutstandingInvitationsForGame(Game $game): iterable
     {
         return $this->gameInvitationRepository->getOutstandingInvitationsForGame($game);

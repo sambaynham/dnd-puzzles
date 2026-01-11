@@ -7,11 +7,13 @@ namespace App\Services\Page\Domain;
 class NavItem {
 
     /**
+     * @param string $handle
      * @param string $label
      * @param string $route
-     * @param array<string, string> $routeArguments
-     * @param array<NavItem $children
+     * @param array<string> $routeArguments
+     * @param array<NavItem> $children
      * @param bool $isActive
+     * @param bool $isActiveTrail
      */
     public function __construct(
         private readonly string $handle,
@@ -35,6 +37,10 @@ class NavItem {
         return $this->route;
     }
 
+    /**
+     * @return string[]
+     */
+
     public function getRouteArguments(): array {
         return $this->routeArguments;
     }
@@ -54,6 +60,9 @@ class NavItem {
         $this->children[] = $child;
     }
 
+    /**
+     * @return NavItem[]
+     */
     public function getChildren(): array {
         return $this->children;
     }

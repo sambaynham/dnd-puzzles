@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PuzzleInstanceRepository::class)]
 class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInterface
 {
-    private ? PuzzleTemplate $puzzleTemplate;
+    private ? PuzzleTemplate $puzzleTemplate = null;
 
     public function __construct(
         #[ORM\Column(length: 255, unique: true)]
@@ -34,6 +34,9 @@ class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInter
         #[ORM\Column(type: 'datetime', nullable: true)]
         private ?\DateTimeInterface $publicationDate = null,
 
+        /**
+         * @var array<int, mixed>
+         */
         #[ORM\Column]
         private array $config = [],
 
@@ -67,7 +70,7 @@ class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInter
         return $this->instanceCode;
     }
 
-    public function setInstanceCode(string $instanceCode): static
+    public function setInstanceCode(string $instanceCode): void
     {
         $this->instanceCode = $instanceCode;
 
@@ -84,6 +87,9 @@ class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInter
         $this->game = $game;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getConfig(): array
     {
         return $this->config;

@@ -11,7 +11,7 @@ interface PuzzleInstanceInterface
 
     public function getInstanceCode(): string;
 
-    public function setInstanceCode(string $instanceCode): static;
+    public function setInstanceCode(string $instanceCode): void;
 
     public function getGame(): Game;
 

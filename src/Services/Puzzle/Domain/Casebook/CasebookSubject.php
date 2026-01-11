@@ -30,19 +30,19 @@ class CasebookSubject extends AbstractDomainEntity
         /**
          * @var Collection<int, CasebookSubjectClue>
          */
-        #[ORM\OneToMany(targetEntity: CasebookSubjectClue::class, mappedBy: 'casebookSubject', orphanRemoval: true, cascade: ['persist'])]
+        #[ORM\OneToMany(targetEntity: CasebookSubjectClue::class, mappedBy: 'casebookSubject', cascade: ['persist'], orphanRemoval: true)]
         private Collection $casebookSubjectClues,
 
         /**
          * @var Collection<int, CasebookSubjectClue>
          */
-        #[ORM\OneToMany(targetEntity: CasebookSubjectNote::class, mappedBy: 'casebookSubject', orphanRemoval: true, cascade: ['persist'])]
+        #[ORM\OneToMany(targetEntity: CasebookSubjectNote::class, mappedBy: 'casebookSubject', cascade: ['persist'], orphanRemoval: true)]
         private Collection $casebookSubjectNotes,
 
         #[ORM\Column(length: 2048, nullable:true)]
         private ? string $casebookSubjectImage = null,
 
-        #[ORM\Column(nullable: true, type: 'datetime_immutable')]
+        #[ORM\Column(type: 'datetime_immutable', nullable: true)]
         private ? \DateTimeInterface $revealedDate = null,
 
         ?int $id = null
@@ -71,11 +71,18 @@ class CasebookSubject extends AbstractDomainEntity
     }
 
 
+    /**
+     * @return Collection<CasebookSubjectNote>
+     */
     public function getCasebookSubjectNotes(): Collection
     {
         return $this->casebookSubjectNotes;
     }
 
+    /**
+     * @param Collection<CasebookSubjectNote> $casebookSubjectNotes
+     * @return void
+     */
     public function setCasebookSubjectNotes(Collection $casebookSubjectNotes): void
     {
         $this->casebookSubjectNotes = $casebookSubjectNotes;

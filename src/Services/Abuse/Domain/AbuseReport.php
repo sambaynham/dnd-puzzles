@@ -13,13 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: AbuseReportRepository::class)]
 class AbuseReport extends AbstractDomainEntity
 {
-
     public function __construct(
         #[ORM\ManyToOne]
         #[ORM\JoinColumn(nullable: false)]
-        private User $reportedUser,
-
-
+        private readonly User $reportedUser,
 
         #[ORM\Column(length: 1024)]
         private string $reason,
@@ -35,8 +32,7 @@ class AbuseReport extends AbstractDomainEntity
 
         #[ORM\ManyToOne]
         #[ORM\JoinColumn(nullable: true)]
-        private  ? User $reportingUser = null,
-
+        private ? User $reportingUser = null,
 
         ?int $id = null,
     ) {
@@ -63,10 +59,6 @@ class AbuseReport extends AbstractDomainEntity
         return $this->reportedUser;
     }
 
-    public function setReportedUser(User $reportedUser): void
-    {
-        $this->reportedUser = $reportedUser;
-    }
 
     public function getReportingUser(): ?User
     {

@@ -102,18 +102,6 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
         return $this;
     }
 
-    public function removeCasebookSubject(CasebookSubject $casebookSubject): static
-    {
-        if ($this->casebookSubjects->removeElement($casebookSubject)) {
-            // set the owning side to null (unless already changed)
-            if ($casebookSubject->getCasebook() === $this) {
-                $casebookSubject->setCasebook(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getGame(): Game {
         return $this->game;
     }
@@ -123,7 +111,7 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
         return $this->slug;
     }
 
-    public function setInstanceCode(string $instanceCode): static
+    public function setInstanceCode(string $instanceCode): void
     {
         $this->slug = $instanceCode;
     }
@@ -189,6 +177,10 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
         $this->puzzleTemplate = $puzzleTemplate;
     }
 
+    /**
+     * @param string $typeHandle
+     * @return ArrayCollection<CasebookSubject>
+     */
     public function getSubjectsByTypeHandle(string $typeHandle): ArrayCollection {
 
         $criteria = Criteria::create()
@@ -200,6 +192,11 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
 
     }
 
+    /**
+     * @param string $typeHandle
+     * @param string $initial
+     * @return ArrayCollection<CasebookSubject>
+     */
     public function getSubjectsByTypeHandleAndInitial(string $typeHandle, string $initial): ArrayCollection {
         $typeHandle = strtolower($typeHandle);
         return $this->getSubjectsByTypeHandle($typeHandle)->filter(function (CasebookSubject $casebookSubject) use ( $initial) {

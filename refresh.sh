@@ -14,11 +14,8 @@ echo "Exporting Schema"
 echo "Clearing Cache"
 ./bin/console cache:clear
 
-
-
 echo "Running Build"
 npm run build
-
 
 echo "Syncing Schema"
 npx openapi-typescript ./swagger_docs.yaml -o ./resources/typescript/schema/schema.d.ts
