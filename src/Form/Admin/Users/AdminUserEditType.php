@@ -5,6 +5,7 @@ namespace App\Form\Admin\Users;
 use App\Dto\Admin\User\AdminUserDto;
 use App\Services\User\Domain\Role;
 use App\Services\User\Domain\UserFeat;
+use App\Services\User\Domain\ValueObjects\UserAccountType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -22,7 +23,6 @@ class AdminUserEditType extends AbstractType
     public const array VALID_IMAGE_TYPES = ['jpeg', 'jpg', 'png', 'webp'];
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
         $builder
             ->add('avatar', FileType::class, [
                 'required' => false,
@@ -76,6 +76,13 @@ class AdminUserEditType extends AbstractType
                 'label' => 'Select at least one role',
                 'choice_label' => 'label',
                 'multiple' => true,
+                'expanded' => true
+            ])
+            ->add('userAccountType', EntityType::class, [
+                'class' => UserAccountType::class,
+                'label' => 'User Account Type',
+                'choice_label' => 'label',
+                'multiple' => false,
                 'expanded' => true
             ])
             ->add('submit', SubmitType::class, ['label' => 'Save Changes']);

@@ -136,9 +136,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         $this->password = $password;
     }
 
-    public function getUserAccountType(): UserAccountType
+    public function getUserAccountType(): ?UserAccountType
     {
-        return $this->userAccountType;
+        return $this->userAccountType ?? null;
     }
 
     public function setUserAccountType(UserAccountType $userAccountType): void {

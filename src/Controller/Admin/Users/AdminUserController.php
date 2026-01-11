@@ -98,6 +98,7 @@ class AdminUserController extends AbstractBaseController
             }
             $user->setHasAcceptedCookies($dto->acceptedCookies);
             $user->setIsProfilePublic($dto->profilePublic);
+            $user->setUserAccountType($dto->userAccountType);
             $user->setUsername($dto->username);
             $user->setRoles($dto->roles);
             $user->setFeats($dto->feats);

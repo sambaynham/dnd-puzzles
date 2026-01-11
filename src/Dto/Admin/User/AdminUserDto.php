@@ -3,6 +3,7 @@
 namespace App\Dto\Admin\User;
 
 use App\Services\User\Domain\User;
+use App\Services\User\Domain\ValueObjects\UserAccountType;
 use App\Validator as CustomAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -27,6 +28,8 @@ class AdminUserDto
         #[Assert\Length(min: 8, max: 255)]
         public ? string $plainPassword = null,
 
+        public ? UserAccountType $userAccountType = null,
+
         public bool $acceptedCookies = false,
 
         public bool $profilePublic = false,
@@ -42,6 +45,7 @@ class AdminUserDto
             roles: $user->getHydratedRoles(),
             acceptedCookies: $user->getHasAcceptedCookies(),
             profilePublic: $user->getIsProfilePublic(),
+            userAccountType: $user->getUserAccountType()
         );
     }
 
