@@ -11,8 +11,15 @@
         <div class="col">
             <strong>Name</strong>
             {{ user.userName }}
+
+
+            <strong>Account Type</strong>
+            <span class="badge badge-info">{{ user.getUserAccountType.getLabel }}</span>
+
             <strong>Profile Visibility</strong>
             <span class="badge badge-{{ user.isProfilePublic  ? 'info' : 'success' }}">{{ user.isProfilePublic  ? 'Public' : 'Private' }}</span>
+
+
         </div>
         <div class="col">
             <strong>Email</strong>

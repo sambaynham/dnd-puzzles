@@ -17,6 +17,7 @@ use App\Services\Puzzle\Service\Interfaces\PuzzleInstanceServiceInterface;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use App\Services\User\Domain\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 class GameService implements GameServiceInterface
@@ -25,7 +26,8 @@ class GameService implements GameServiceInterface
         private GameRepository $gameRepository,
         private GameInvitationRepository $gameInvitationRepository,
         private PuzzleTemplateRegistryInterface $puzzleTemplateRegistry,
-        private PuzzleInstanceServiceInterface $puzzleInstanceService
+        private PuzzleInstanceServiceInterface $puzzleInstanceService,
+        private EntityManagerInterface $entityManager,
     ) {}
 
     public function getRandomUnusedSlug(): string {
@@ -76,5 +78,18 @@ class GameService implements GameServiceInterface
     public function findInvitationsByEmailAddress(string $emailAddress): array
     {
         return $this->gameInvitationRepository->findInvitationsByEmailAddress($emailAddress);
+    }
+
+    public function saveGame(Game $game): Game
+    {
+        $this->entityManager->persist($game);
+        $this->entityManager->flush();
+        return $game;
+    }
+
+    public function deleteGame(Game $game): void
+    {
+        $this->entityManager->remove($game);
+        $this->entityManager->flush();
     }
 }

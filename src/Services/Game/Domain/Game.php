@@ -54,6 +54,9 @@ class Game extends AbstractDomainEntity
         #[Groups(['extended'])]
         private User $gamesMaster,
 
+        #[ORM\Column(type: 'datetime', nullable: true)]
+        private ? \DateTimeInterface $archivedDate = null,
+
         #[Groups(['extended'])]
         #[ORM\Column(length: 1024, nullable: true)]
         private ? string $heroImageUrl = null,
@@ -61,6 +64,7 @@ class Game extends AbstractDomainEntity
         #[Groups(['extended'])]
         #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'games')]
         private readonly ?Collection $players = null,
+
 
         ?int $id = null
     ) {
@@ -164,7 +168,7 @@ class Game extends AbstractDomainEntity
     }
 
     public function getStaticPuzzleInstances(): Collection {
-        return $this->staticPuzzleInstances;
+        return $this->staticPuzzleInstances ?? new ArrayCollection();
     }
 
     public function getPuzzleInstances(): Collection {
@@ -186,5 +190,21 @@ class Game extends AbstractDomainEntity
         return $this->getPuzzleInstances()->filter(function ($instance) {
             return $instance->isPublished();
         });
+    }
+
+    public function getArchivedDate(): ?\DateTimeInterface {
+        return $this->archivedDate;
+    }
+
+    public function archive(): void {
+        $this->archivedDate = new \DateTime();
+    }
+
+    public function unArchive(): void {
+        $this->archivedDate = null;
+    }
+
+    public function isArchived(): bool {
+        return $this->archivedDate !== null;
     }
 }

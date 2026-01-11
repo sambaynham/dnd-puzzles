@@ -7,9 +7,14 @@ namespace App\Tests\Unit\Services\User;
 use App\Services\User\Domain\User;
 use App\Services\User\Domain\UserAccessToken;
 use PHPUnit\Framework\TestCase;
+use Random\RandomException;
 
 class UserAccessTokenTest extends TestCase
 {
+    /**
+     * @throws \DateMalformedIntervalStringException
+     * @throws RandomException
+     */
     public function testMakeForUser(): void {
         $user = $this->createConfiguredMock(User::class, [
             'getUserIdentifier' => 'test@something.com'

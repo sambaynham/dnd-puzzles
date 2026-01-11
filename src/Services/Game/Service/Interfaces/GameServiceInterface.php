@@ -29,4 +29,8 @@ interface GameServiceInterface
     public function getExpiredInvitations(): array;
 
     public function getOutstandingInvitationsForUser(User $user): array;
+
+    public function saveGame(Game $game): Game;
+
+    public function deleteGame(Game $game): void;
 }

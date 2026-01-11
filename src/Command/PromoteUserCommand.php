@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 )]
 class PromoteUserCommand extends Command
 {
-    public function __construct(private UserService $userService)
+    public function __construct(private readonly UserService $userService)
     {
         parent::__construct();
     }

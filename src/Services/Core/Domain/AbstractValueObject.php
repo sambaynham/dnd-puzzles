@@ -26,7 +26,7 @@ abstract class AbstractValueObject extends AbstractDomainEntity implements \Stri
         private string $label,
 
         #[ORM\Column(length: 255, unique: true)]
-        private string $handle,
+        private readonly string $handle,
 
         ?int $id = null,
     ) {
@@ -39,21 +39,21 @@ abstract class AbstractValueObject extends AbstractDomainEntity implements \Stri
         parent::__construct($id);
     }
 
-    final public function setLabel(string $label): void
+    public function setLabel(string $label): void
     {
         $this->label = $label;
     }
-    final public function getLabel(): string
+    public function getLabel(): string
     {
         return $this->label;
     }
 
-    final public function getHandle(): string
+    public function getHandle(): string
     {
         return $this->handle;
     }
 
-    final public function __toString(): string
+    public function __toString(): string
     {
         return $this->getLabel();
     }

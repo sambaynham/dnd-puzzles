@@ -10,6 +10,11 @@
 .btn, button {
     &:not(.unstyle, .sf-toolbar-toggle-button) {
 
+        &.btn-success,
+        &[type="submit"]{
+            @include buttonise.buttonise(palette.$green, lime);
+        }
+
         &.btn-primary {
             @include buttonise.buttonise(palette.$blue, cyan);
         }
@@ -24,12 +29,8 @@
         }
 
         &.btn-danger {
-            @include buttonise.buttonise(palette.$crimson, red);
-        }
 
-        &.btn-success,
-        &[type="submit"]{
-            @include buttonise.buttonise(palette.$green, lime);
+            @include buttonise.buttonise(palette.$crimson, red);
         }
 
         &.btn-warning {

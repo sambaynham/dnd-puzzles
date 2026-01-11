@@ -39,6 +39,7 @@ abstract class AbstractBaseController extends AbstractController
         if ($user instanceof User) {
 
             $pageVars['nav'][] = $this->buildGamesItem($user);
+
         }
         $this->setActiveTrail($pageVars['nav'], $route);
 
@@ -53,7 +54,7 @@ abstract class AbstractBaseController extends AbstractController
     }
 
     private function shouldShowCookieMessage(Request $request, ?User $user = null): bool {
-        if ($this->getUser() && $user instanceof User && $user->hasAcceptedCookies() === true) {
+        if ($this->getUser() && $user instanceof User && $user->getHasAcceptedCookies() === true) {
             return false;
         }
         $session = $request->getSession();
@@ -86,6 +87,12 @@ abstract class AbstractBaseController extends AbstractController
                 ]
             ));
         }
+        $gamesItem->addChild(new NavItem(
+            handle: 'all_games',
+            label: 'All Games',
+            route: 'app.games.index',
+            routeArguments: []
+        ));
         return $gamesItem;
     }
 

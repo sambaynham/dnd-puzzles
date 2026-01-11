@@ -1,0 +1,23 @@
+{% extends '/admin/base/admin-base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <h2 class="card-title">Are you sure you want to delete this user?</h2>
+                <div class="card-body">
+                    <strong>This action cannot be undone!</strong>
+                    <ul>
+                        <li>The user will be deleted.</li>
+                        <li>Any games they are Games Master of will be deleted</li>
+                        <li>They will be removed from any games they are a part of</li>
+                    </ul>
+                    <hr>
+                    {{ form(form) }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

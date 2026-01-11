@@ -54,13 +54,14 @@ class AuthController extends AbstractBaseController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-
+            $accountType = $this->userService->getAccountTypeByHandle('free');
             $user = new User(
                 email: $userDto->emailAddress,
                 username: $userDto->userName,
                 password: '',
                 hasAcceptedCookies: $userDto->acceptCookies,
                 profilePublic: $userDto->profilePublic,
+                userAccountType: $accountType
 
             );
 

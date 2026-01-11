@@ -7,14 +7,16 @@ use ApiPlatform\Validator\ValidatorInterface;
 use App\Controller\AbstractBaseController;
 use App\Controller\Traits\HandlesImageUploadsTrait;
 use App\Dto\Visitor\Game\GameDto;
+use App\Form\Visitor\Game\ArchiveGameType;
 use App\Form\Visitor\Game\GameType;
 use App\Form\Visitor\Game\DeleteGameType;
+use App\Form\Visitor\Game\UnArchiveGameType;
+use App\Security\GameCreationVoter;
 use App\Security\GameManagerVoter;
 use App\Security\GamePlayerVoter;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Service\Interfaces\GameServiceInterface;
 use App\Services\User\Domain\User;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +29,6 @@ final class GamesController extends AbstractBaseController
 {
     use HandlesImageUploadsTrait;
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
         private readonly GameServiceInterface $gameService,
         protected SluggerInterface $slugger,
@@ -46,12 +47,13 @@ final class GamesController extends AbstractBaseController
         $pageVars = [
             'pageTitle' => 'My Games',
             'gamesMastered' => $user->getGamesMastered(),
-            'gamesMember' => $user->getGames()
+            'gamesMember' => $user->getGames(),
+            'archivedGames' => $user->getArchivedGamesMastered()
         ];
         return $this->render('/visitor/games/index.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted(GameCreationVoter::CREATE_GAME_ACTION)]
     #[Route('/games/create', name: 'app.games.create')]
     public function create(Request $request): Response
     {
@@ -82,8 +84,7 @@ final class GamesController extends AbstractBaseController
             }
 
             if ($success) {
-                $this->entityManager->persist($game);
-                $this->entityManager->flush();
+                $this->gameService->saveGame($game);
                 $this->addFlash('success', 'Game created successfully.');
                 return $this->redirectToRoute('app.games.manage', ['gameSlug' => $game->getSlug()]);
             }
@@ -156,8 +157,7 @@ final class GamesController extends AbstractBaseController
             }
             $game->setName($dto->name);
             $game->setDescription($dto->description);
-            $this->entityManager->persist($game);
-            $this->entityManager->flush();
+            $this->gameService->saveGame($game);
             $this->addFlash('success', 'Game updated successfully.');
             return $this->redirectToRoute('app.games.manage', ['gameSlug' => $game->getSlug()]);
         }
@@ -169,19 +169,62 @@ final class GamesController extends AbstractBaseController
     }
 
 
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('games/{gameSlug}/archive', name: 'app.games.archive')]
+    public function archive(
+        Game $game,
+        Request $request
+    ): Response {
+        $form = $this->createForm(ArchiveGameType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $game->archive();
+            $this->gameService->saveGame($game);
+            $this->addFlash('success', 'Game archived successfully.');
+            return $this->redirectToRoute('app.games.index');
+
+        }
+        $pageVars = [
+            'pageTitle' => sprintf("Archive %s", $game->getName()),
+            'form' => $form
+        ];
+        return $this->render('/visitor/games/archive.html.twig', $this->populatePageVars($pageVars, $request));
+    }
+
+    #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
+    #[Route('games/{gameSlug}/unarchive', name: 'app.games.unarchive')]
+    public function unarchive(
+        Game $game,
+        Request $request
+    ): Response {
+        $form = $this->createForm(UnArchiveGameType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $game->unArchive();
+            $this->gameService->saveGame($game);
+            $this->addFlash('success', 'Game unarchived successfully.');
+            return $this->redirectToRoute('app.games.index');
+
+        }
+        $pageVars = [
+            'pageTitle' => sprintf("Archive %s", $game->getName()),
+            'form' => $form
+        ];
+        return $this->render('/visitor/games/archive.html.twig', $this->populatePageVars($pageVars, $request));
+    }
 
     #[IsGranted(GameManagerVoter::MANAGE_GAME_ACTION, 'game')]
     #[Route('games/{gameSlug}/delete', name: 'app.games.delete')]
     public function delete(
         Game $game,
         Request $request
-    ) {
+    ): Response {
         $title = sprintf('Really delete %s?', $game->getName());
         $form = $this->createForm(DeleteGameType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->remove($game);
-            $this->entityManager->flush();
+            $this->gameService->deleteGame($game);
+
             $this->addFlash('success', sprintf("Game %s delete successfully", $game->getName()));
             return $this->redirectToRoute('app.games.index');
         }

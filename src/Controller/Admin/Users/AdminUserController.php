@@ -9,9 +9,12 @@ use App\Controller\Traits\HandlesImageUploadsTrait;
 use App\Dto\Admin\User\AdminUserDto;
 use App\Dto\Visitor\User\UserBlockDto;
 use App\Form\Admin\Users\AdminBlockUserType;
+use App\Form\Admin\Users\AdminDeleteUserType;
 use App\Form\Admin\Users\AdminUnblockUserType;
 use App\Form\Admin\Users\AdminUserEditType;
 use App\Form\Admin\Users\AdminUserSearchType;
+use App\Services\Abuse\Service\AbuseReportService;
+use App\Services\Puzzle\Service\Interfaces\PuzzleInstanceServiceInterface;
 use App\Services\User\Domain\User;
 use App\Services\User\Domain\UserBlock;
 use App\Services\User\Service\Interfaces\UserServiceInterface;
@@ -35,6 +38,8 @@ class AdminUserController extends AbstractBaseController
         private readonly UserPasswordHasherInterface $userPasswordHasher,
         private readonly ValidatorInterface $validator,
         private readonly EntityManagerInterface $entityManager,
+        private readonly PuzzleInstanceServiceInterface $puzzleInstanceService,
+        private readonly AbuseReportService $abuseReportService,
         protected readonly SluggerInterface $slugger,
         #[Autowire('%kernel.project_dir%/public/uploads/images/avatar')] private readonly string $publicImagesDirectory,
     ) {
@@ -92,7 +97,7 @@ class AdminUserController extends AbstractBaseController
                 $user->setEmail($dto->email);
             }
             $user->setHasAcceptedCookies($dto->acceptedCookies);
-            $user->setProfilePublic($dto->profilePublic);
+            $user->setIsProfilePublic($dto->profilePublic);
             $user->setUsername($dto->username);
             $user->setRoles($dto->roles);
             $user->setFeats($dto->feats);
@@ -189,7 +194,62 @@ class AdminUserController extends AbstractBaseController
             'form' => $form
         ];
         return $this->render('admin/users/block.html.twig', $this->populatePageVars($pageVars, $request));
+    }
 
+    #[Route('admin/users/{id}/delete', name: 'admin.users.delete')]
+    #[IsGranted('manage_users')]
+    public function deleteUser(User $user, Request $request): Response {
+        $form = $this->createForm(AdminDeleteUserType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            //Delete all invitations
+            foreach ($user->getGames() as $game) {
+                foreach ($game->getGameInvitations() as $gameInvitation) {
+                    if ($gameInvitation->getUser() === $user) {
+                        $this->entityManager->remove($gameInvitation);
+                    }
+                }
+            }
+
+            //Delete All Games and static puzzles.
+            foreach ($user->getGamesMastered(true) as $game) {
+               $staticPuzzleInstances = $this->puzzleInstanceService->getStaticPuzzleInstancesForGame($game);
+               foreach ($staticPuzzleInstances as $staticPuzzleInstance) {
+                   $this->puzzleInstanceService->deleteInstance($staticPuzzleInstance);
+               }
+               $this->entityManager->remove($game);
+            }
+            $abuseReports = $this->abuseReportService->getAbuseReportsByUser($user);
+
+            foreach ($abuseReports as $report) {
+                $this->abuseReportService->deleteReport($report);
+            }
+
+            $reportsConcerningUser = $this->abuseReportService->getAbuseReportsForReportedUser(user: $user, checkedOnly: false);
+
+            foreach ($reportsConcerningUser as $report) {
+                $this->abuseReportService->deleteReport($report);
+            }
+
+            $passwordResets = $this->userService->getPasswordResetRequestsForUser($user);
+            foreach ($passwordResets as $reset) {
+                $this->entityManager->remove($reset);
+            }
+
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'User deleted successfully.');
+            return $this->redirectToRoute('admin.users.manage');
+
+        }
+        $pageVars = [
+            'pageTitle' => sprintf('Delete user %s', $user->getUsername()),
+            'user' => $user,
+            'form' => $form
+        ];
+        return $this->render('admin/users/delete.html.twig', $this->populatePageVars($pageVars, $request));
     }
 
     private function generatePager(int $page, int $resultsPerPage): array {

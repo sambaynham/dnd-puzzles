@@ -23,10 +23,24 @@ class AbuseReportRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function getAbuseReportsForReportedUser(User $user): array {
+    public function getAbuseReportsForReportedUser(User $user, bool $checkedOnly = true): array {
+        $qb = $this->createQueryBuilder('ar');
+
+        $qb
+            ->where($qb->expr()->eq('ar.reportedUser', ':user'));
+
+        if ($checkedOnly) {
+            $qb->andWhere($qb->expr()->isNotNull('ar.checkedDate'))
+                ->andWhere($qb->expr()->isNotNull('ar.confirmedDate'));
+        }
+        $qb->setParameter('user', $user);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getAbuseReportsByUser(User $user): array {
         $qb = $this->createQueryBuilder('ar');
         $qb
-            ->where($qb->expr()->eq('ar.reportedUser', ':user'))
+            ->where($qb->expr()->eq('ar.reportingUser', ':user'))
             ->andWhere($qb->expr()->isNotNull('ar.checkedDate'))
             ->andWhere($qb->expr()->isNotNull('ar.confirmedDate'));
         $qb->setParameter('user', $user);

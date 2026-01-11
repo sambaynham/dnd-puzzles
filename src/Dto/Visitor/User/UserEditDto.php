@@ -32,8 +32,8 @@ class UserEditDto
         return new static(
             emailAddress: $user->getEmail(),
             userName: $user->getUsername(),
-            acceptedCookies: $user->hasAcceptedCookies(),
-            profilePublic: $user->isProfilePublic()
+            acceptedCookies: $user->getHasAcceptedCookies(),
+            profilePublic: $user->getIsProfilePublic()
         );
     }
 }

@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Services\User\Service;
 
+use App\Repository\ResetPasswordRequestRepository;
 use App\Services\Game\Domain\GameInvitation;
 use App\Services\User\Domain\Permission;
 use App\Services\User\Domain\Role;
 use App\Services\User\Domain\User;
+use App\Services\User\Domain\ValueObjects\UserAccountType;
 use App\Services\User\Infrastructure\Repository\PermissionRepository;
 use App\Services\User\Infrastructure\Repository\RoleRepository;
 use App\Services\User\Infrastructure\Repository\UserAccessTokenRepository;
+use App\Services\User\Infrastructure\Repository\UserAccountTypeRepository;
 use App\Services\User\Infrastructure\Repository\UserFeatRepository;
 use App\Services\User\Infrastructure\Repository\UserRepository;
 use App\Services\User\Service\Exceptions\MissingDefaultRoleException;
@@ -40,6 +43,8 @@ class UserService
         private readonly UserFeatRepository $userFeatRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly ValidatorInterface $validator,
+        private readonly ResetPasswordRequestRepository $resetPasswordRequestRepository,
+        private readonly UserAccountTypeRepository $accountTypeRepository,
     ) {
     }
 
@@ -172,5 +177,14 @@ class UserService
     public function findAllFeats(): array
     {
         return $this->userFeatRepository->findAll();
+    }
+
+    public function getPasswordResetRequestsForUser(User $user): array {
+        return $this->resetPasswordRequestRepository->findAllForUser($user);
+    }
+
+    public function getAccountTypeByHandle(string $handle):? UserAccountType {
+        $accountType =  $this->accountTypeRepository->findByHandle($handle);
+        return $accountType instanceof UserAccountType ? $accountType : null;
     }
 }

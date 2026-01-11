@@ -14,6 +14,7 @@ use App\Services\Puzzle\Service\Interfaces\PuzzleInstanceServiceInterface;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceProviderInterface;
 
@@ -26,8 +27,9 @@ class PuzzleInstanceService implements PuzzleInstanceServiceInterface
     private array $staticInstanceProviders = [];
 
     public function __construct(
-        private PuzzleTemplateRegistryInterface $puzzleTemplateRegistry,
-        private PuzzleInstanceRepository $puzzleInstanceRepository,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly PuzzleTemplateRegistryInterface $puzzleTemplateRegistry,
+        private readonly PuzzleInstanceRepository $puzzleInstanceRepository,
         #[AutowireIterator('app.static_puzzle_provider')]
         iterable $staticInstanceProviders
     ) {
@@ -56,7 +58,8 @@ class PuzzleInstanceService implements PuzzleInstanceServiceInterface
 
     public function deleteInstance(PuzzleInstanceInterface $instance): void
     {
-        // TODO: Implement deleteInstance() method.
+        $this->entityManager->remove($instance);
+        $this->entityManager->flush();
     }
 
     public function getStaticPuzzleInstancesForGame(Game $game): ArrayCollection

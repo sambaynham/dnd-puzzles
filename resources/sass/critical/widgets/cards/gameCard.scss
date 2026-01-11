@@ -79,4 +79,17 @@
             }
         }
     }
+
+    &.archived {
+        .game-hero {
+            .game-title:before,
+            img {
+                filter: grayscale(100%);
+            }
+
+
+        }
+
+
+    }
 }

@@ -70,7 +70,7 @@ final class AccountController extends AbstractBaseController
             }
             $user->setEmail($dto->emailAddress);
             $user->setUsername($dto->userName);
-            $user->setProfilePublic($dto->profilePublic);
+            $user->setIsProfilePublic($dto->profilePublic);
 
             $success = true;
             $violations = $this->validator->validate($dto);
@@ -127,7 +127,7 @@ final class AccountController extends AbstractBaseController
         if ($currentUser->getUserIdentifier() === $user->getEmail()) {
             return $this->redirectToRoute('app.user.account');
         }
-        if (!$user->isProfilePublic()) {
+        if (!$user->getIsProfilePublic()) {
             $pageVars = [
                 'pageTitle' => 'Private Profile',
             ];

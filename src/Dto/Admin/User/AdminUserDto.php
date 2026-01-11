@@ -40,8 +40,8 @@ class AdminUserDto
             username: $user->getUsername(),
             feats: $user->getFeats(),
             roles: $user->getHydratedRoles(),
-            acceptedCookies: $user->hasAcceptedCookies(),
-            profilePublic: $user->isProfilePublic(),
+            acceptedCookies: $user->getHasAcceptedCookies(),
+            profilePublic: $user->getIsProfilePublic(),
         );
     }
 
