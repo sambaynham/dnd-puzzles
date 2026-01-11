@@ -7,9 +7,11 @@ use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookSubjectClueRe
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CasebookSubjectClueRepository::class)]
+/**
+ * @template-extends   \ArrayAccess<string, string>
+ */
 class CasebookSubjectClue extends AbstractDomainEntity implements \ArrayAccess
 {
-
     private const array ARRAY_ACCESSIBLE_PROPERTIES = [
         'title',
         'body',

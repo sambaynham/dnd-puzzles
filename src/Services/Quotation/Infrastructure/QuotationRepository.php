@@ -19,32 +19,14 @@ class QuotationRepository extends ServiceEntityRepository
     public function getRandomQuotationId(): int {
         $qb = $this->createQueryBuilder('q');
         $qb->select('q.id');
-        $result = $qb->getQuery()->getSingleColumnResult();
-        return $result[array_rand($result)];
+        $results = $qb->getQuery()->getSingleColumnResult();
+
+        $mappedResults = [];
+        foreach ($results as $result) {
+            if (is_int($result)) {
+                $mappedResults[] = $result;
+            }
+        }
+        return $mappedResults[array_rand($mappedResults)];
     }
-
-    //    /**
-    //     * @return Quotation[] Returns an array of Quotation objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('q')
-    //            ->andWhere('q.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('q.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Quotation
-    //    {
-    //        return $this->createQueryBuilder('q')
-    //            ->andWhere('q.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

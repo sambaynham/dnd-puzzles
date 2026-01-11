@@ -3,7 +3,7 @@ includes:
 
 parameters:
     paths:
-        - src/Services/Game
+        - src/Services/Quotation
 
     level: 10
     excludePaths:

@@ -18,12 +18,15 @@ class QuotationService
         private readonly CacheInterface $cache
     ) {}
 
+    /**
+     * @return array<int, Quotation>
+     */
     public function findAll(): array
     {
         return $this->quotationRepository->findAll();
     }
 
-    public function getRandomQuotation(): Quotation {
+    public function getRandomQuotation(): ? Quotation {
         $quoteId = $this->quotationRepository->getRandomQuotationId();
         return $this->cache->get(sprintf(self::QUOTE_CACHE_KEY_PATTERN, $quoteId), function (ItemInterface $item) use ($quoteId) {
             $item->expiresAfter(self::DEFAULT_CACHE_TTL);
