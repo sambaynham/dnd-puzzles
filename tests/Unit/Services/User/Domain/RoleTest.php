@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Services\User\Domain;
 
+use App\Services\Core\Domain\Exceptions\InvalidHandleException;
 use App\Services\User\Domain\Exceptions\InvalidRoleHandleException;
 use App\Services\User\Domain\Permission;
 use App\Services\User\Domain\Role;
@@ -15,6 +16,10 @@ use PHPUnit\Framework\TestCase;
 class RoleTest extends TestCase
 {
 
+    /**
+     * @throws InvalidHandleException
+     * @throws InvalidRoleHandleException
+     */
     private function generateTestRole(array $overrides = []): Role {
         return new Role(
             label: $overrides['name'] ?? 'Test Name',

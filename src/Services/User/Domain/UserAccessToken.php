@@ -40,7 +40,7 @@ class UserAccessToken extends AbstractDomainEntity
      */
     public static function makeTokenForUser(User $user): static {
         $expiresAt = new \DateTime();
-        $expiresAt->add(new \DateInterval(sprintf('PT%d', self::TOKEN_TTL_SECONDS)));
+        $expiresAt->modify('+' . self::TOKEN_TTL_SECONDS . ' seconds');
 
         return new static(
             userIdentifier: $user->getUserIdentifier(),

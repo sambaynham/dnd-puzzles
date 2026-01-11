@@ -20,7 +20,7 @@ class UserBlock extends AbstractDomainEntity
         private string $reason,
 
         #[ORM\Column(nullable: true)]
-        private ?\DateTime $expirationDate = null,
+        private ?\DateTimeInterface $expirationDate = null,
         ? int $id = null
     ) {
         parent::__construct($id);
@@ -36,12 +36,12 @@ class UserBlock extends AbstractDomainEntity
         $this->reason = $reason;
     }
 
-    public function getExpirationDate(): ?\DateTime
+    public function getExpirationDate(): ?\DateTimeInterface
     {
         return $this->expirationDate;
     }
 
-    public function setExpirationDate(?\DateTime $expirationDate): void
+    public function setExpirationDate(?\DateTimeInterface $expirationDate): void
     {
         $this->expirationDate = $expirationDate;
     }
@@ -59,7 +59,7 @@ class UserBlock extends AbstractDomainEntity
         if ($this->isPermanent()) {
             return false;
         }
-        return $this->expirationDate <= new \DateTime();
+        return $this->expirationDate <= new \DateTimeImmutable();
 
     }
 }

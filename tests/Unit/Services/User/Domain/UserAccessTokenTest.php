@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Services\User;
+namespace App\Tests\Unit\Services\User\Domain;
 
 use App\Services\User\Domain\User;
 use App\Services\User\Domain\UserAccessToken;
@@ -21,7 +21,7 @@ class UserAccessTokenTest extends TestCase
         ]);
         $token = UserAccessToken::makeTokenForUser($user);
         self::assertEquals('test@something.com', $token->getUserIdentifier());
-        self::assertEquals(64, strlen($token->getToken()));
+        self::assertEquals(128, strlen($token->getToken()));
         self::assertFalse($token->isExpired());
     }
 }
