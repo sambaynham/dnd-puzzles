@@ -14,6 +14,10 @@ interface GameServiceInterface
 
     public function findOneBySlug(string $slug): ? Game;
 
+    /**
+     * @param Game $game
+     * @return iterable<GameInvitation>
+     */
     public function getOutstandingInvitationsForGame(Game $game): iterable;
 
     public function findInvitationByCode(string $invitationCode): ? GameInvitation;
@@ -22,20 +26,20 @@ interface GameServiceInterface
 
     /**
      * @param string $emailAddress
-     * @return array<GameInvitation>
+     * @return iterable<GameInvitation>
      */
-    public function findInvitationsByEmailAddress(string $emailAddress): array;
+    public function findInvitationsByEmailAddress(string $emailAddress): iterable;
 
     /**
-     * @return array<GameInvitation>
+     * @return iterable<GameInvitation>
      */
-    public function getExpiredInvitations(): array;
+    public function getExpiredInvitations(): iterable;
 
     /**
      * @param User $user
-     * @return array<GameInvitation>
+     * @return iterable<GameInvitation>
      */
-    public function getOutstandingInvitationsForUser(User $user): array;
+    public function getOutstandingInvitationsForUser(User $user): iterable;
 
     public function saveGame(Game $game): Game;
 

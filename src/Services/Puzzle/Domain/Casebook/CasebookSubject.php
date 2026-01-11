@@ -31,7 +31,7 @@ class CasebookSubject extends AbstractDomainEntity
          * @var Collection<int, CasebookSubjectClue>
          */
         #[ORM\OneToMany(targetEntity: CasebookSubjectClue::class, mappedBy: 'casebookSubject', cascade: ['persist'], orphanRemoval: true)]
-        private Collection $casebookSubjectClues,
+        private readonly Collection $casebookSubjectClues,
 
         /**
          * @var Collection<int, CasebookSubjectClue>
@@ -72,7 +72,7 @@ class CasebookSubject extends AbstractDomainEntity
 
 
     /**
-     * @return Collection<CasebookSubjectNote>
+     * @return Collection<int, CasebookSubjectNote>
      */
     public function getCasebookSubjectNotes(): Collection
     {
@@ -80,7 +80,7 @@ class CasebookSubject extends AbstractDomainEntity
     }
 
     /**
-     * @param Collection<CasebookSubjectNote> $casebookSubjectNotes
+     * @param Collection<int, CasebookSubjectNote> $casebookSubjectNotes
      * @return void
      */
     public function setCasebookSubjectNotes(Collection $casebookSubjectNotes): void
@@ -135,14 +135,6 @@ class CasebookSubject extends AbstractDomainEntity
         return $this->getCasebookSubjectClues()->filter(function (CasebookSubjectClue $clue) {
             return $clue->getRevealedDate() !== null;
         });
-    }
-
-    public function addCasebookSubjectClue(CasebookSubjectClue $casebookSubjectClue): void
-    {
-        if (!$this->casebookSubjectClues->contains($casebookSubjectClue)) {
-            $this->casebookSubjectClues->add($casebookSubjectClue);
-            $casebookSubjectClue->setCasebookSubject($this);
-        }
     }
 
     public function isRevealed(): bool {

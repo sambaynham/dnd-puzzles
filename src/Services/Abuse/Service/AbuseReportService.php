@@ -16,15 +16,24 @@ class AbuseReportService
         private AbuseReportRepository $abuseReportRepository
     ) {}
 
+    /**
+     * @return AbuseReport[]
+     */
     public function findUnactioned(): array
     {
         return $this->abuseReportRepository->findUnactioned();
     }
 
+    /**
+     * @return AbuseReport[]
+     */
     public function getAbuseReportsForReportedUser(User $user, bool $checkedOnly = true): array {
         return $this->abuseReportRepository->getAbuseReportsForReportedUser($user, $checkedOnly);
     }
 
+    /**
+     * @return AbuseReport[]
+     */
     public function getAbuseReportsByUser(User $user): array {
 
         return $this->abuseReportRepository->getAbuseReportsByUser($user);
@@ -32,10 +41,5 @@ class AbuseReportService
 
     public function deleteReport(AbuseReport $report): void {
         $this->entityManager->remove($report);
-    }
-
-    public function removeUserAssociation(AbuseReport $report, User $user): void {
-        $report->
-        dd($report);
     }
 }

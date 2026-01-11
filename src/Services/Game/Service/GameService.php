@@ -71,18 +71,25 @@ class GameService implements GameServiceInterface
         return $this->gameInvitationRepository->findByInvitationCodeAndEmailAddress($invitationCode, $emailAddress);
     }
 
-    public function getExpiredInvitations(): array
+    /**
+     * @return GameInvitation[]
+     */
+    public function getExpiredInvitations(): iterable
     {
         return $this->gameInvitationRepository->getExpiredInvitations();
     }
 
-    public function getOutstandingInvitationsForUser(User $user): array
+    /**
+     * @param User $user
+     * @return iterable<GameInvitation>
+     */
+    public function getOutstandingInvitationsForUser(User $user): iterable
     {
         return $this->gameInvitationRepository->getOutstandingInvitationsForUser($user);
     }
 
 
-    public function findInvitationsByEmailAddress(string $emailAddress): array
+    public function findInvitationsByEmailAddress(string $emailAddress): iterable
     {
         return $this->gameInvitationRepository->findInvitationsByEmailAddress($emailAddress);
     }

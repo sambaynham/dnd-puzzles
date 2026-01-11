@@ -5,6 +5,7 @@ namespace App\Services\Game\Domain;
 use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Game\Infrastructure\GameRepository;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
+use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\PuzzleInstance;
 use App\Services\User\Domain\User;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -34,8 +35,18 @@ class Game extends AbstractDomainEntity
     #[OrderBy(["createdAt" => "DESC"])]
     private Collection $dynamicPuzzleInstances;
 
-    private Collection $staticPuzzleInstances;
 
+
+    /**
+     * @param string $name
+     * @param string $slug
+     * @param string $description
+     * @param User $gamesMaster
+     * @param \DateTimeInterface|null $archivedDate
+     * @param string|null $heroImageUrl
+     * @param Collection<int, User>|null $players
+     * @param int|null $id
+     */
     public function __construct(
         #[ORM\Column(length: 255)]
         #[Groups(['basic'])]
@@ -63,15 +74,21 @@ class Game extends AbstractDomainEntity
 
         #[Groups(['extended'])]
         #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'games')]
-        private readonly ?Collection $players = null,
-
+        private ?Collection $players = null,
+        /**
+         * @var Collection<int, StaticPuzzleInstanceInterface>
+         */
+        private ? Collection $staticPuzzleInstances = null,
 
         ?int $id = null
     ) {
         parent::__construct($id);
         $this->gameInvitations = new ArrayCollection();
         $this->dynamicPuzzleInstances = new ArrayCollection();
-        $this->staticPuzzleInstances = new ArrayCollection();
+        if ($this->staticPuzzleInstances === null) {
+            $this->staticPuzzleInstances = new ArrayCollection();
+        }
+
     }
 
     public function getHeroImageUrl(): ?string
@@ -131,19 +148,22 @@ class Game extends AbstractDomainEntity
      */
     public function getPlayers(): Collection
     {
+        if ($this->players === null) {
+            $this->players = new ArrayCollection();
+        }
         return $this->players;
     }
 
     public function addPlayer(User $player): void
     {
-        if (!$this->players->contains($player)) {
+        if ($this->players && !$this->players->contains($player)) {
             $this->players->add($player);
         }
     }
 
     public function removePlayer(User $player): void
     {
-        $this->players->removeElement($player);
+        $this->players?->removeElement($player);
     }
 
     /**
@@ -162,18 +182,28 @@ class Game extends AbstractDomainEntity
         return $this->dynamicPuzzleInstances;
     }
 
+    /**
+     * @param ArrayCollection<int, StaticPuzzleInstanceInterface> $staticPuzzles
+     * @return void
+     */
     public function setStaticPuzzleInstances(ArrayCollection $staticPuzzles): void
     {
         $this->staticPuzzleInstances = $staticPuzzles;
     }
 
+    /**
+     * @return Collection<int, StaticPuzzleInstanceInterface>
+     */
     public function getStaticPuzzleInstances(): Collection {
         return $this->staticPuzzleInstances ?? new ArrayCollection();
     }
 
+    /**
+     * @return Collection<int, PuzzleInstanceInterface>
+     */
     public function getPuzzleInstances(): Collection {
         /**
-         * @var ArrayCollection<PuzzleInstanceInterface> $puzzlesInstances
+         * @var ArrayCollection<int, PuzzleInstanceInterface> $puzzlesInstances
          */
         $puzzlesInstances = new ArrayCollection();
         foreach ($this->getDynamicPuzzleInstances() as $instance) {
@@ -186,6 +216,9 @@ class Game extends AbstractDomainEntity
         return $puzzlesInstances;
     }
 
+    /**
+     * @return Collection<int, PuzzleInstanceInterface>
+     */
     public function getPublishedPuzzleInstances(): Collection {
         return $this->getPuzzleInstances()->filter(function ($instance) {
             return $instance->isPublished();

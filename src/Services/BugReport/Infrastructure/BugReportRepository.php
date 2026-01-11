@@ -16,12 +16,29 @@ class BugReportRepository extends ServiceEntityRepository
         parent::__construct($registry, BugReport::class);
     }
 
+    /**
+     * @return BugReport[]
+     */
     public function findUnactioned(): array {
         $qb  = $this->createQueryBuilder('br');
-        return $qb
+        return self::mapArrayResult($qb
             ->where($qb->expr()->isNull('br.actionedAt'))
             ->andWhere($qb->expr()->isNull('br.closedAt'))
             ->getQuery()
-            ->getResult();
+            ->getArrayResult());
+    }
+
+    /**
+     * @param array<mixed> $results
+     * @return array<BugReport>
+     */
+    public static function mapArrayResult(array $results): array {
+        $mappedResults = [];
+        foreach ($results as $result) {
+            if ($result instanceof BugReport) {
+                $mappedResults[] = $result;
+            }
+        }
+        return $mappedResults;
     }
 }

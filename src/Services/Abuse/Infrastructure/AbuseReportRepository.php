@@ -17,26 +17,34 @@ class AbuseReportRepository extends ServiceEntityRepository
         parent::__construct($registry, AbuseReport::class);
     }
 
+    /**
+     * @return AbuseReport[]
+     */
     public function findUnactioned(): array {
         $qb = $this->createQueryBuilder('ar');
         $qb->where($qb->expr()->isNull('ar.checkedDate'));
-        return $qb->getQuery()->getResult();
+        return self::mapArrayResults($qb->getQuery()->getArrayResult());
     }
 
+    /**
+     * @return AbuseReport[]
+     */
     public function getAbuseReportsForReportedUser(User $user, bool $checkedOnly = true): array {
         $qb = $this->createQueryBuilder('ar');
 
-        $qb
-            ->where($qb->expr()->eq('ar.reportedUser', ':user'));
+        $qb->where($qb->expr()->eq('ar.reportedUser', ':user'));
 
         if ($checkedOnly) {
             $qb->andWhere($qb->expr()->isNotNull('ar.checkedDate'))
                 ->andWhere($qb->expr()->isNotNull('ar.confirmedDate'));
         }
         $qb->setParameter('user', $user);
-        return $qb->getQuery()->getResult();
+        return self::mapArrayResults($qb->getQuery()->getArrayResult());
     }
 
+    /**
+     * @return AbuseReport[]
+     */
     public function getAbuseReportsByUser(User $user): array {
         $qb = $this->createQueryBuilder('ar');
         $qb
@@ -44,6 +52,20 @@ class AbuseReportRepository extends ServiceEntityRepository
             ->andWhere($qb->expr()->isNotNull('ar.checkedDate'))
             ->andWhere($qb->expr()->isNotNull('ar.confirmedDate'));
         $qb->setParameter('user', $user);
-        return $qb->getQuery()->getResult();
+        return self::mapArrayResults($qb->getQuery()->getArrayResult());
+    }
+
+    /**
+     * @param array<mixed> $results
+     * @return array<AbuseReport>
+     */
+    private static function mapArrayResults(array $results): array {
+        $mappedResults = [];
+        foreach ($results as $result) {
+            if ($result instanceof AbuseReport) {
+                $mappedResults[] = $result;
+            }
+        }
+        return $mappedResults;
     }
 }

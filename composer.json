@@ -55,6 +55,7 @@
     "require-dev": {
         "doctrine/data-fixtures": "*",
         "doctrine/doctrine-fixtures-bundle": "^4.3",
+        "phpstan/phpstan-doctrine": "*",
         "phpunit/phpunit": "^12.4",
         "symfony/browser-kit": "7.3.*",
         "symfony/css-selector": "7.3.*",

@@ -73,8 +73,6 @@ class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInter
     public function setInstanceCode(string $instanceCode): void
     {
         $this->instanceCode = $instanceCode;
-
-        return $this;
     }
 
     public function getGame(): Game

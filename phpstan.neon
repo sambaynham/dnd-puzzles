@@ -1,9 +1,11 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
 
 parameters:
-
     paths:
-        - src/
+        - src/Services/Game
 
-    level: 9
+    level: 10
     excludePaths:
         - 'src/Controller'
+

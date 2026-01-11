@@ -36,7 +36,7 @@ class GameInvitationRepository extends ServiceEntityRepository
         $qb->setParameter(':gameId', $game->getId());
 
         $results = $qb->getQuery()->getArrayResult();
-        return new ArrayCollection($results);
+        return new ArrayCollection(self::mapArrayResults($results));
     }
 
     public function findByInvitationCode(string $invitationCode): ? GameInvitation {
@@ -75,7 +75,7 @@ class GameInvitationRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('gi');
         $qb->where($qb->expr()->lte('gi.expiresAt', ':now'));
         $qb->setParameter(':now', new \DateTimeImmutable());
-        return $qb->getQuery()->getResult();
+        return self::mapArrayResults($qb->getQuery()->getArrayResult());
     }
 
 
@@ -91,7 +91,7 @@ class GameInvitationRepository extends ServiceEntityRepository
 
         $qb->setParameter('now', new \DateTimeImmutable());
         $qb->setParameter(':emailAddress', $user->getEmail());
-        return $qb->getQuery()->getResult();
+        return self::mapArrayResults($qb->getQuery()->getArrayResult());
     }
 
     /**
@@ -103,6 +103,20 @@ class GameInvitationRepository extends ServiceEntityRepository
 
         $qb->where($qb->expr()->eq('gi.email', ':emailAddress'));
         $qb->setParameter(':emailAddress', $emailAddress);
-        return $qb->getQuery()->getResult();
+        return self::mapArrayResults($qb->getQuery()->getArrayResult());
+    }
+
+    /**
+     * @param array<mixed> $results
+     * @return array<GameInvitation>
+     */
+    public static function mapArrayResults(array $results): array {
+        $mappedResults = [];
+        foreach ($results as $result) {
+            if ($result instanceof GameInvitation) {
+                $mappedResults[] = $result;
+            }
+        }
+        return $mappedResults;
     }
 }

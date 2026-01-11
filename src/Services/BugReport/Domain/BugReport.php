@@ -100,7 +100,7 @@ class BugReport extends AbstractDomainEntity
         $this->actionedAt = new \DateTimeImmutable();
     }
 
-    public function getActionedAt(): \DateTimeImmutable {
+    public function getActionedAt(): ? \DateTimeImmutable {
         return $this->actionedAt;
     }
 

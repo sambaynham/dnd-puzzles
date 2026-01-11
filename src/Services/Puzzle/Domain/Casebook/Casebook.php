@@ -17,6 +17,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use \Doctrine\Common\Collections\Selectable;
 
 #[ORM\Entity(repositoryClass: CasebookRepository::class)]
 #[UniqueEntity(fields: ['slug'], message: 'There is already a casebook with this slug')]
@@ -27,10 +28,10 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
     private ? PuzzleTemplate $puzzleTemplate = null;
 
     /**
-     * @var Collection<int, CasebookSubject>
+     * @var ArrayCollection<int, CasebookSubject>
      */
     #[ORM\OneToMany(targetEntity: CasebookSubject::class, mappedBy: 'casebook', orphanRemoval: true)]
-    private Collection $casebookSubjects;
+    private ArrayCollection $casebookSubjects;
 
     public function __construct(
         #[ORM\Column(length: 255)]
@@ -179,27 +180,33 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
 
     /**
      * @param string $typeHandle
-     * @return ArrayCollection<CasebookSubject>
+     * @return Collection<int, CasebookSubject>
      */
-    public function getSubjectsByTypeHandle(string $typeHandle): ArrayCollection {
+    public function getSubjectsByTypeHandle(string $typeHandle): Collection
+    {
 
         $criteria = Criteria::create()
             ->orderBy(["name" => Order::Ascending]);
 
-        return $this->casebookSubjects->filter(function (CasebookSubject $casebookSubject) use ($typeHandle) {
+
+        $filteredSubjects = $this->casebookSubjects->filter(function (CasebookSubject $casebookSubject) use ($typeHandle) {
             return $casebookSubject->getCasebookSubjectType()->getHandle() === $typeHandle;
-        })->matching($criteria);
+        });
+
+        return $filteredSubjects->matching($criteria);
 
     }
 
     /**
      * @param string $typeHandle
      * @param string $initial
-     * @return ArrayCollection<CasebookSubject>
+     * @return Collection<int, CasebookSubject>
      */
-    public function getSubjectsByTypeHandleAndInitial(string $typeHandle, string $initial): ArrayCollection {
+    public function getSubjectsByTypeHandleAndInitial(string $typeHandle, string $initial): Collection {
         $typeHandle = strtolower($typeHandle);
-        return $this->getSubjectsByTypeHandle($typeHandle)->filter(function (CasebookSubject $casebookSubject) use ( $initial) {
+        $filteredSubjects = $this->getSubjectsByTypeHandle($typeHandle);
+
+        return $filteredSubjects->filter(function (CasebookSubject $casebookSubject) use ( $initial) {
            return substr(strtolower($casebookSubject->getName()), 0, 1) === $initial;
         });
     }
