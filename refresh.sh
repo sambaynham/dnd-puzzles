@@ -1,47 +1,26 @@
 #! /bin/bash
 
+echo "Running in production"
 
-for i in "$@"; do
-  case $i in
-    -e=*|--mode=*)
-      MODE="${i#*=}"
-      shift # past argument=value
-      ;;
-    -*|--*)
-      echo "Unknown option $i"
-      exit 1
-      ;;
-    *)
-      ;;
-  esac
-done
+echo "Pulling git"
+git pull
 
-if [[ "$MODE" == "prod" ]]
-then
-    echo "Running in production"
+echo "Rebuilding Authoritative container"
+composer dump-autoload
 
-    echo "Exporting Schema"
-    ./bin/console api:openapi:export --yaml --output=swagger_docs.yaml
+echo "Exporting Schema"
+./bin/console api:openapi:export --yaml --output=swagger_docs.yaml
 
-    echo "Clearing Cache"
-    ./bin/console cache:clear
-
-    echo "Rebuilding Authoritative container"
-    composer dump-autoload
-
-    echo "Running Build"
-    npm run build
-
-    echo "All done. Now restart PHP"
+echo "Clearing Cache"
+./bin/console cache:clear
 
 
-else
-  echo "Running in development"
-  echo "Clearing Cache"
-  docker compose --file=../dnd-puzzles-environment/docker-compose.yml exec dnd-puzzles-app bin/console cache:clear
-  echo "Exporting Schema"
-  docker compose --file=../dnd-puzzles-environment/docker-compose.yml exec dnd-puzzles-app bin/console api:openapi:export --yaml --output=swagger_docs.yaml
-fi
+
+echo "Running Build"
+npm run build
+
 
 echo "Syncing Schema"
 npx openapi-typescript ./swagger_docs.yaml -o ./resources/typescript/schema/schema.d.ts
+
+echo "All done. Now restart PHP"
