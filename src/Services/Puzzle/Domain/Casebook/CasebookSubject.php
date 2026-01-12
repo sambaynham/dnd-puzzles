@@ -31,7 +31,7 @@ class CasebookSubject extends AbstractDomainEntity
          * @var Collection<int, CasebookSubjectClue>
          */
         #[ORM\OneToMany(targetEntity: CasebookSubjectClue::class, mappedBy: 'casebookSubject', cascade: ['persist'], orphanRemoval: true)]
-        private readonly Collection $casebookSubjectClues,
+        private Collection $casebookSubjectClues,
 
         /**
          * @var Collection<int, CasebookSubjectNote>

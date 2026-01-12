@@ -17,7 +17,6 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use \Doctrine\Common\Collections\Selectable;
 
 #[ORM\Entity(repositoryClass: CasebookRepository::class)]
 #[UniqueEntity(fields: ['slug'], message: 'There is already a casebook with this slug')]
@@ -28,10 +27,10 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
     private ? PuzzleTemplate $puzzleTemplate = null;
 
     /**
-     * @var ArrayCollection<int, CasebookSubject>
+     * @var Collection<int, CasebookSubject>
      */
     #[ORM\OneToMany(targetEntity: CasebookSubject::class, mappedBy: 'casebook', orphanRemoval: true)]
-    private ArrayCollection $casebookSubjects;
+    private Collection $casebookSubjects;
 
     public function __construct(
         #[ORM\Column(length: 255)]
