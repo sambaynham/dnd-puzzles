@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\Puzzle\Service\Interfaces;
 
+use App\Services\Core\Service\Interfaces\DomainServiceInterface;
 use App\Services\Puzzle\Domain\PuzzleCategory;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use Doctrine\Common\Collections\ArrayCollection;
 
-interface PuzzleTemplateServiceInterface
+interface PuzzleTemplateServiceInterface extends DomainServiceInterface
 {
     /**
      * @return iterable<PuzzleTemplate>

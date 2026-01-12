@@ -26,26 +26,26 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User extends AbstractDomainEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
-     * @var Collection<Game>
+     * @var Collection<int, Game>
      */
     #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'gamesMaster', orphanRemoval: true)]
     #[OrderBy(["createdAt" => "DESC"])]
     private Collection $gamesMastered;
 
     /**
-     * @var Collection<Game>
+     * @var Collection<int, Game>
      */
     #[ORM\ManyToMany(targetEntity: Game::class, mappedBy: 'players')]
     private Collection $games;
 
     /**
-     * @var Collection<Role>
+     * @var Collection<int, Role>
      */
     #[ORM\ManyToMany(targetEntity: Role::class, inversedBy: 'users', cascade: ['persist'], fetch: 'EAGER', indexBy: 'handle')]
     private Collection $roles;
 
     /**
-     * @var Collection<UserFeat>
+     * @var Collection<int, UserFeat>
      */
     #[ORM\ManyToMany(targetEntity: UserFeat::class, cascade: ['persist'], fetch: 'EAGER', indexBy: 'handle')]
     private Collection $feats;
@@ -71,11 +71,11 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         #[ORM\Column(type: 'string', length: 255, nullable: false)]
         private string $username,
 
-        #[ORM\Column(type: 'string', length: 255)]
-        private string $password = '',
-
         #[ORM\ManyToOne(targetEntity: UserAccountType::class, fetch: 'EAGER')]
         private UserAccountType $userAccountType,
+
+        #[ORM\Column(type: 'string', length: 255)]
+        private string $password = '',
 
         #[ORM\Column(type: 'boolean', nullable: false)]
         private bool $hasAcceptedCookies = false,
@@ -103,7 +103,7 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     /**
      * A visual identifier that represents this user.
      *
-     * @see UserInterface
+     * @return non-empty-string
      */
     public function getUserIdentifier(): string
     {
@@ -186,6 +186,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         return $includeArchived ? $this->gamesMastered : $this->gamesMastered->matching($criteria);
     }
 
+    /**
+     * @return Collection<int, Game>
+     */
     public function getArchivedGamesMastered(): Collection
     {
         $criteria = Criteria::create()
@@ -204,6 +207,7 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
 
     /**
      * @see UserInterface
+     * @return string[]
      */
     public function getRoles(): array
     {
@@ -213,7 +217,7 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     }
 
     /**
-     * @return Collection<Role>
+     * @return Collection<int, Role>
      */
     public function getHydratedRoles(): Collection {
         return $this->roles;
@@ -223,6 +227,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         return $this->roles->contains($role);
     }
 
+    /**
+     * @param Collection<int, Role> $roles
+     */
     public function setRoles(Collection $roles): void
     {
         $this->roles = $roles;
@@ -235,12 +242,15 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     }
 
     /**
-     * @return Collection<UserFeat>
+     * @return Collection<int, UserFeat>
      */
     public function getFeats(): Collection {
         return $this->feats;
     }
 
+    /**
+     * @param Collection<int, UserFeat> $feats
+     */
     public function setFeats(Collection $feats): void {
         $this->feats = $feats;
     }

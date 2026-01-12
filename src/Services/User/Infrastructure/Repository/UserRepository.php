@@ -34,6 +34,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * @return User[]
+     */
     public function findAllPaginated(int $firstResult, int $maxResults = 50): iterable {
         $qb = $this->createQueryBuilder('u')
             ->setFirstResult($firstResult)
@@ -43,6 +46,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return new Paginator($qb->getQuery());
     }
 
+    /**
+     * @return User[]
+     */
     public function searchByEmailOrUserName(string $searchTerms, int $firstResult, int $maxResults = 50): iterable {
         $qb = $this->createQueryBuilder('u');
             $qb->setFirstResult($firstResult)
@@ -60,9 +66,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return new Paginator($qb->getQuery());
     }
     public function getUsersCount(): int {
-        return $this->createQueryBuilder('u')
+        $result = $this->createQueryBuilder('u')
             ->select('count(u.id)')
             ->getQuery()
             ->getSingleScalarResult();
+        return (int) $result;
     }
 }

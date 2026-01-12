@@ -17,7 +17,7 @@ class Rarity implements Stringable
         'l' => 'Legendary'
     ];
 
-    private function __construct(
+    final private function __construct(
         private readonly string $key,
         private readonly string $label,
     ) {}

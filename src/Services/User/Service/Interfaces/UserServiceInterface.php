@@ -6,6 +6,7 @@ use App\Services\Game\Domain\GameInvitation;
 use App\Services\User\Domain\Permission;
 use App\Services\User\Domain\Role;
 use App\Services\User\Domain\User;
+use App\Services\User\Domain\UserFeat;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 interface UserServiceInterface
@@ -20,13 +21,25 @@ interface UserServiceInterface
 
     public function validateUser(User $user): ConstraintViolationListInterface;
 
+    /**
+     * @return iterable<User>
+     */
     public function getUsersPaginated(int $firstResult, int $maxResults = 50): iterable;
 
+    /**
+     * @return iterable<User>
+     */
     public function findByEmailOrUserName(string $searchTerms, int $firstResult, int $maxResults = 50): iterable;
 
     public function getUsersCount(): int;
 
+    /**
+     * @return Role[]
+     */
     public function findAllRoles(): array;
 
+    /**
+     * @return UserFeat[]
+     */
     public function findAllFeats(): array;
 }

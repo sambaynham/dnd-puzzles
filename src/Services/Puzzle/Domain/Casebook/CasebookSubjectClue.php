@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CasebookSubjectClueRepository::class)]
 /**
- * @template-extends   \ArrayAccess<string, string>
+ * @implements \ArrayAccess<string, mixed>
  */
 class CasebookSubjectClue extends AbstractDomainEntity implements \ArrayAccess
 {
@@ -105,11 +105,44 @@ class CasebookSubjectClue extends AbstractDomainEntity implements \ArrayAccess
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        // TODO: Implement offsetSet() method.
+        switch ($offset) {
+            case 'title':
+                if (!is_string($value)) {
+                    throw new \Exception('Title must be a string');
+                } else {
+                    $this->setTitle($value);
+                }
+                break;
+            case 'body':
+                if (!is_string($value)) {
+                    throw new \Exception('Body must be a string');
+                } else {
+                    $this->setBody($value);
+                }
+                break;
+            case 'type':
+                if (!$value instanceof CasebookSubjectClueType) {
+                    throw new \Exception('Type must be an instance of CasebookSubjectClueType');
+                } else {
+                    $this->setType($value);
+                }
+                break;
+            case 'revealedDate':
+                break;
+            default:
+                if (is_string($offset)) {
+                    throw new \Exception(sprintf("Unknown offset %s",  $offset));
+                } else {
+                    throw new \Exception(sprintf("Unprocessable offset type %s", gettype($offset)));
+                }
+                break;
+
+        }
+
     }
 
     public function offsetUnset(mixed $offset): void
     {
-        // TODO: Implement offsetUnset() method.
+        throw new \Exception();
     }
 }

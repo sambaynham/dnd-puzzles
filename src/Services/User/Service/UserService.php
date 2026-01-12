@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Services\User\Service;
 
+use App\Entity\ResetPasswordRequest;
 use App\Repository\ResetPasswordRequestRepository;
+use App\Services\Core\Service\Interfaces\DomainServiceInterface;
 use App\Services\Game\Domain\GameInvitation;
 use App\Services\User\Domain\Permission;
 use App\Services\User\Domain\Role;
 use App\Services\User\Domain\User;
+use App\Services\User\Domain\UserFeat;
 use App\Services\User\Domain\ValueObjects\UserAccountType;
 use App\Services\User\Infrastructure\Repository\PermissionRepository;
 use App\Services\User\Infrastructure\Repository\RoleRepository;
@@ -31,8 +34,11 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * @implements UserProviderInterface<User>
+ */
 class UserService
-    implements UserProviderInterface, UserServiceInterface, AccessTokenHandlerInterface
+    implements UserProviderInterface, UserServiceInterface, AccessTokenHandlerInterface, DomainServiceInterface
 {
     private const string DEFAULT_ROLE = 'ROLE_USER';
     public function __construct(
@@ -53,14 +59,17 @@ class UserService
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Invalid user class "%s".', $user::class));
         }
-        return $this->userRepository->find($user->getId());
+        $refreshedUser =  $this->userRepository->find($user->getId());
+        if ($refreshedUser === null) {
+            throw new UserNotFoundException();
+        }
+        return $refreshedUser;
     }
 
     public function supportsClass(string $class): bool
     {
         return $class === User::class || is_subclass_of($class, User::class);
     }
-
 
     /**
      * @param string $identifier
@@ -151,11 +160,17 @@ class UserService
         return $this->permissionRepository->findOneBy(['handle' => $permissionHandle]);
     }
 
+    /**
+     * @return User[]
+     */
     public function getUsersPaginated(int $firstResult, int $maxResults = 50): iterable
     {
         return $this->userRepository->findAllPaginated($firstResult, $maxResults);
     }
 
+    /**
+     * @return User[]
+     */
     public function findByEmailOrUserName(string $searchTerms, int $firstResult, int $maxResults = 50): iterable
     {
         return $this->userRepository->searchByEmailOrUserName($searchTerms, $firstResult, $maxResults);
@@ -166,6 +181,9 @@ class UserService
         return $this->userRepository->getUsersCount();
     }
 
+    /**
+     * @return Role[]
+     */
     public function findAllRoles(): array
     {
         return $this->roleRepository->findAll();
@@ -181,11 +199,17 @@ class UserService
         return new UserBadge($accessToken->getUserIdentifier());
     }
 
+    /**
+     * @return UserFeat[]
+     */
     public function findAllFeats(): array
     {
         return $this->userFeatRepository->findAll();
     }
 
+    /**
+     * @return ResetPasswordRequest[]
+     */
     public function getPasswordResetRequestsForUser(User $user): array {
         return $this->resetPasswordRequestRepository->findAllForUser($user);
     }

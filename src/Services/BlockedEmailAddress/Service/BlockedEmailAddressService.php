@@ -6,8 +6,9 @@ namespace App\Services\BlockedEmailAddress\Service;
 
 use App\Services\BlockedEmailAddress\Domain\BlockedEmailAddress;
 use App\Services\BlockedEmailAddress\Infrastructure\BlockedEmailAddressRepository;
+use App\Services\Core\Service\Interfaces\DomainServiceInterface;
 
-class BlockedEmailAddressService
+class BlockedEmailAddressService implements DomainServiceInterface
 {
     public function __construct(private BlockedEmailAddressRepository $blockedEmailAddressRepository)
     {

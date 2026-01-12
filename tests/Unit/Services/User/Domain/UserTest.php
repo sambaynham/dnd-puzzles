@@ -22,8 +22,8 @@ class UserTest extends TestCase
         return new User(
             email: $overrides['email'] ?? 'test@test.local',
             username: $overrides['username'] ?? 'Test User',
-            password: $overrides['password'] ?? 'Test Pass',
             userAccountType: $overrides['userAccountType'] ?? $this->createMock(UserAccountType::class),
+            password: $overrides['password'] ?? 'Test Pass',
             hasAcceptedCookies: $overrides['hasAcceptedCookies'] ?? false,
             profilePublic: $overrides['profilePublic'] ?? false,
             avatarUrl: $overrides['avatarUrl'] ?? null,
@@ -39,8 +39,8 @@ class UserTest extends TestCase
         $user = new User(
             email: $testEmail,
             username: $userName,
-            password: $password,
             userAccountType: $userAccountType,
+            password: $password,
             id: $id
         );
         self::assertEquals($testEmail, $user->getEmail());

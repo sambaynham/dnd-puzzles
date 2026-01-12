@@ -58,10 +58,10 @@ class AuthController extends AbstractBaseController
             $user = new User(
                 email: $userDto->emailAddress,
                 username: $userDto->userName,
+                userAccountType: $accountType,
                 password: '',
                 hasAcceptedCookies: $userDto->acceptCookies,
-                profilePublic: $userDto->profilePublic,
-                userAccountType: $accountType
+                profilePublic: $userDto->profilePublic
 
             );
 

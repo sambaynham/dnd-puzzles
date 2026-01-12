@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\User\Application\Security;
 
 use App\Services\User\Domain\User as AppUser;
+use App\Services\User\Domain\UserBlock;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -22,9 +23,12 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
-        if ($user->isBlocked() && !$user->getUserBlock()->isExpired()) {
+        if ($user->isBlocked() && !$user->getUserBlock()?->isExpired()) {
             $block = $user->getUserBlock();
 
+            if (!$block instanceof UserBlock) {
+                return;
+            }
             $message = $block->isPermanent()
                 ? sprintf(self::PERMABLOCK_MESSAGE_PATTERN, $block->getReason())
                 : sprintf(self::TEMPORARY_BLOCK_MESSAGE_PATTERN, $block->getReason(), $block->getExpirationDate()?->format('Y-m-d H:i'));

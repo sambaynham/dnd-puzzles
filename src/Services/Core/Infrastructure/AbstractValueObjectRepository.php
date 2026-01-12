@@ -7,15 +7,16 @@ namespace App\Services\Core\Infrastructure;
 use App\Services\Core\Domain\AbstractValueObject;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 /**
- * @template-extends  ServiceEntityRepository<AbstractValueObject>
- */
+* @template T of ServiceEntityRepository
+* @template-extends ServiceEntityRepository<T>
+*/
 abstract class AbstractValueObjectRepository extends ServiceEntityRepository
 {
     /**
      * @param string $handle
-     * @return ?AbstractValueObject
+     * @return ?T
      */
-    final public function findByHandle(string $handle): ? AbstractValueObject {
+    final public function findByHandle(string $handle):  mixed {
         return self::mapResult($this->createQueryBuilder('v')
             ->where('v.handle = :handle')
             ->setParameter('handle', $handle)
@@ -23,7 +24,10 @@ abstract class AbstractValueObjectRepository extends ServiceEntityRepository
             ->getOneOrNullResult());
     }
 
-    private static function mapResult(mixed $result): ? AbstractValueObject {
+    /**
+     * @return ?T
+     */
+    private static function mapResult(mixed $result): mixed {
         if ($result instanceof AbstractValueObject) {
             return $result;
         }

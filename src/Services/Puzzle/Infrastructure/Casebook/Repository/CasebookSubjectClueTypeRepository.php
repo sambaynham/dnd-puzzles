@@ -10,7 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<CasebookSubjectClueType>
+ * @extends AbstractValueObjectRepository<CasebookSubjectClueType>
  */
 class CasebookSubjectClueTypeRepository extends AbstractValueObjectRepository
 {

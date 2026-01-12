@@ -3,6 +3,7 @@
 namespace App\Services\User\Domain;
 
 use App\Services\Core\Domain\AbstractValueObject;
+use App\Services\Core\Domain\Exceptions\InvalidHandleException;
 use App\Services\User\Domain\Exceptions\InvalidRoleHandleException;
 use App\Services\User\Infrastructure\Repository\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,8 +17,15 @@ class Role extends AbstractValueObject
 {
     private const string ROLE_HANDLE_PREFIX = 'ROLE_';
 
+
     /**
-     * @throws InvalidRoleHandleException|\App\Services\Core\Domain\Exceptions\InvalidHandleException
+     * @param string $label
+     * @param string $handle
+     * @param Collection<int, Permission> $permissions
+     * @param Collection<int, User> $users
+     * @param int|null $id
+     * @throws InvalidHandleException
+     * @throws InvalidRoleHandleException
      */
     public function __construct(
         string $label,
@@ -45,6 +53,9 @@ class Role extends AbstractValueObject
         );
     }
 
+    /**
+     * @return Collection<int, User>
+     */
     public function getUsers(): Collection
     {
         return $this->users;

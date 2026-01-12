@@ -9,7 +9,7 @@ parameters:
    doctrine:
        objectManagerLoader: tests/object-manager.php
    paths:
-       - src/Services/Game/Service
+       - src/Services/User
        - tools
 
    level: 10

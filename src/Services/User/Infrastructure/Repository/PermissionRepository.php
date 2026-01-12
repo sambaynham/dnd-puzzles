@@ -10,7 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Permission>
+ * @extends AbstractValueObjectRepository<Permission>
  */
 class PermissionRepository extends AbstractValueObjectRepository
 {

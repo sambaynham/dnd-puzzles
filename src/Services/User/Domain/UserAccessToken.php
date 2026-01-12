@@ -21,7 +21,7 @@ class UserAccessToken extends AbstractDomainEntity
     private const int TOKEN_STRING_LENGTH = 128;
 
 
-    private function __construct(
+    final private function __construct(
         #[ORM\Column(type: 'string', length: 1024)]
         private string $userIdentifier,
         #[ORM\Column(type: 'string', length: 128, unique: true)]

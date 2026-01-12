@@ -10,7 +10,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<UserFeat>
+ * @extends AbstractValueObjectRepository<UserFeat>
  */
 class UserFeatRepository extends AbstractValueObjectRepository
 {
