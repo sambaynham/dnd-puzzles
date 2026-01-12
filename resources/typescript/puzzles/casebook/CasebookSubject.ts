@@ -144,7 +144,7 @@ export class CasebookSubject extends HTMLElement {
         type?: string,
         typeLabel?: string,
         updatedAt?: string,
-        revealedDate?: string | null
+        revealedDate?: string | null | undefined
     }[]) {
 
         if (clues.length > 0) {
@@ -171,7 +171,10 @@ export class CasebookSubject extends HTMLElement {
                     clueComponent.setAttribute('data-type', clueObject.type);
                     clueComponent.setAttribute('data-typelabel', clueObject.typeLabel);
                     clueComponent.setAttribute('data-updated', clueObject.updatedAt);
-                    clueComponent.setAttribute('data-revealed', clueObject.revealedDate);
+                    if (clueObject.revealedDate !== null && clueObject.revealedDate !== undefined) {
+                        clueComponent.setAttribute('data-revealed', clueObject.revealedDate);
+                    }
+
                     if (!clueExists) {
                         this.cluesList.appendChild(clueComponent);
                     }
