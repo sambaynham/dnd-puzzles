@@ -6,10 +6,11 @@ namespace App\Services\Abuse\Service;
 
 use App\Services\Abuse\Domain\AbuseReport;
 use App\Services\Abuse\Infrastructure\AbuseReportRepository;
+use App\Services\Core\Service\Interfaces\DomainServiceInterface;
 use App\Services\User\Domain\User;
 use Doctrine\ORM\EntityManagerInterface;
 
-class AbuseReportService
+class AbuseReportService implements DomainServiceInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,

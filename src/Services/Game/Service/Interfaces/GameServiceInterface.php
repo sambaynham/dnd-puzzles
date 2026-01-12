@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\Game\Service\Interfaces;
 
+use App\Services\Core\Service\Interfaces\DomainServiceInterface;
 use App\Services\Game\Domain\Game;
 use App\Services\Game\Domain\GameInvitation;
 use App\Services\User\Domain\User;
 
-interface GameServiceInterface
+interface GameServiceInterface extends DomainServiceInterface
 {
     public function getRandomUnusedSlug(): string;
 

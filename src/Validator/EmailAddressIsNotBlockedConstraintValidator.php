@@ -13,13 +13,16 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class EmailAddressIsNotBlockedConstraintValidator extends ConstraintValidator
 {
     public function __construct(private readonly BlockedEmailAddressService $blockedEmailAddressService) {
-
     }
 
     public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof EmailAddressIsNotBlockedConstraint) {
             throw new UnexpectedTypeException($constraint, EmailAddressIsNotBlockedConstraint::class);
+        }
+
+        if (null !== $value && !is_string($value)) {
+            throw new UnexpectedTypeException($value, 'string');
         }
 
         // custom constraints should ignore null and empty values to allow

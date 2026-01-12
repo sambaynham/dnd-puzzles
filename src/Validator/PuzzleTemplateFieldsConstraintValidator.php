@@ -17,10 +17,8 @@ class PuzzleTemplateFieldsConstraintValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, PuzzleTemplateFieldsConstraint::class);
         }
 
-        if (null === $value || '' === $value) {
-            return;
+        if (null !== $value && '' !== $value) {
         }
 
-        dd($value);
     }
 }

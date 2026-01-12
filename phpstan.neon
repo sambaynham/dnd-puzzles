@@ -1,6 +1,7 @@
 includes:
     - vendor/phpstan/phpstan-doctrine/extension.neon
     - vendor/ekino/phpstan-banned-code/extension.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
 parameters:
    parallel:
         maximumNumberOfProcesses: 9
@@ -8,11 +9,10 @@ parameters:
    doctrine:
        objectManagerLoader: tests/object-manager.php
    paths:
-       - src/Command
+       - src/Services/Game/Service
+       - tools
 
    level: 10
-   excludePaths:
-       - 'src/Controller'
 
    banned_code:
         nodes:
@@ -24,3 +24,6 @@ parameters:
                     - var_dump
                     - exit
                     - die
+
+rules:
+    - Tools\PHPStan\Rules\NoNonServiceDoctrineUsageRule
