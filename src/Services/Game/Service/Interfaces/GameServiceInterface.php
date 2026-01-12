@@ -16,7 +16,7 @@ interface GameServiceInterface
 
     /**
      * @param Game $game
-     * @return iterable<GameInvitation>
+     * @return GameInvitation[]
      */
     public function getOutstandingInvitationsForGame(Game $game): iterable;
 
@@ -26,18 +26,18 @@ interface GameServiceInterface
 
     /**
      * @param string $emailAddress
-     * @return iterable<GameInvitation>
-     */
+     * @return GameInvitation[]
+ */
     public function findInvitationsByEmailAddress(string $emailAddress): iterable;
 
     /**
-     * @return iterable<GameInvitation>
+     * @return GameInvitation[]
      */
     public function getExpiredInvitations(): iterable;
 
     /**
      * @param User $user
-     * @return iterable<GameInvitation>
+     * @return GameInvitation[]
      */
     public function getOutstandingInvitationsForUser(User $user): iterable;
 

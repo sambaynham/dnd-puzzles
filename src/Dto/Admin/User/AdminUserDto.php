@@ -2,16 +2,32 @@
 
 namespace App\Dto\Admin\User;
 
+use App\Services\User\Domain\Role;
 use App\Services\User\Domain\User;
+use App\Services\User\Domain\UserFeat;
 use App\Services\User\Domain\ValueObjects\UserAccountType;
 use App\Validator as CustomAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ *
+ */
 class AdminUserDto
 {
-    public function __construct(
+
+    /**
+     * @param string|null $email
+     * @param string|null $username
+     * @param Collection<int, UserFeat> $feats
+     * @param Collection<int, Role>|null $roles
+     * @param string|null $plainPassword
+     * @param UserAccountType|null $userAccountType
+     * @param bool $acceptedCookies
+     * @param bool $profilePublic
+     */
+    final public function __construct(
         #[Assert\Email]
         #[Assert\NotBlank]
         #[CustomAssert\EmailAddressIsNotBlockedConstraint]
@@ -34,20 +50,21 @@ class AdminUserDto
 
         public bool $profilePublic = false,
     ) {
-
     }
 
+    /**
+     * @param User $user
+     * @return self
+     */
     public static function makeFromUser(User $user): self {
         return new static(
             email: $user->getEmail(),
             username: $user->getUsername(),
             feats: $user->getFeats(),
             roles: $user->getHydratedRoles(),
+            userAccountType: $user->getUserAccountType(),
             acceptedCookies: $user->getHasAcceptedCookies(),
-            profilePublic: $user->getIsProfilePublic(),
-            userAccountType: $user->getUserAccountType()
+            profilePublic: $user->getIsProfilePublic()
         );
     }
-
-
 }

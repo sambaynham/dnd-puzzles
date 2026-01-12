@@ -42,32 +42,35 @@ class DeleteUserCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $email = $input->getArgument('email');
-        try {
-            $this->userService->loadUserByIdentifier($email);
-        } catch (UserNotFoundException $e) {
-            $io->error(sprintf('No user with email "%s" found.', $email));
-            return Command::FAILURE;
+        if (is_string($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            try {
+                $this->userService->loadUserByIdentifier($email);
+                $user = $this->userService->loadUserByIdentifier($email);
+                if ($user instanceof User) {
+                    $userInvitations = $this->gameService->findInvitationsByEmailAddress($email);
+                    foreach ($userInvitations as $userInvitation) {
+                        $this->entityManager->remove($userInvitation);
+                    }
+                    $this->entityManager->remove($user);
+                    $this->entityManager->flush();
+                    $io->success('User Deleted.');
 
+                    return Command::SUCCESS;
+                }
 
-        } catch (CustomUserMessageAccountStatusException $e) {
-            $io->error($e->getMessage());
-            return Command::FAILURE;
-        }
+                $io->error('Unknown error.');
+                return Command::FAILURE;
 
-        $user = $this->userService->loadUserByIdentifier($email);
-        if ($user instanceof User) {
-            $userInvitations = $this->gameService->findInvitationsByEmailAddress($email);
-            foreach ($userInvitations as $userInvitation) {
-                $this->entityManager->remove($userInvitation);
+            } catch (UserNotFoundException $e) {
+                $io->error(sprintf($e->getMessage(), $email));
+                return Command::FAILURE;
+            } catch (CustomUserMessageAccountStatusException $e) {
+                $io->error($e->getMessage());
+                return Command::FAILURE;
             }
-            $this->entityManager->remove($user);
-            $this->entityManager->flush();
-            $io->success('User Deleted.');
-
-            return Command::SUCCESS;
+        } else {
+            $io->error('Invalid email address.');
+            return Command::FAILURE;
         }
-
-        $io->error('Unknown error.');
-        return Command::FAILURE;
     }
 }

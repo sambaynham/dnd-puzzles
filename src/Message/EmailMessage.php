@@ -17,13 +17,22 @@ class EmailMessage
     ) {
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function getContent(): string
     {
-        return json_encode([
+
+        $message = json_encode([
             'from_email' => $this->fromEmail,
             'to_email' => $this->toEmail,
             'subject' => $this->subject,
             'body' => $this->body,
         ]);
+
+        if ($message === false) {
+            throw new \JsonException("Could not encode message to JSON:");
+        }
+        return $message;
     }
 }

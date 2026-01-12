@@ -69,7 +69,7 @@ class GameInvitationRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return array<GameInvitation>
+     * @return GameInvitation[]
      */
     public function getExpiredInvitations(): array {
         $qb = $this->createQueryBuilder('gi');

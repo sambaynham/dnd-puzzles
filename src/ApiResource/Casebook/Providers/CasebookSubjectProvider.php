@@ -7,15 +7,17 @@ namespace App\ApiResource\Casebook\Providers;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
-use App\ApiResource\Casebook\Dto\CasebookDto;
-use App\ApiResource\Casebook\Dto\CasebookSubjectDto;
+use App\ApiResource\Casebook\Dto\ApiCasebookDto;
+use App\ApiResource\Casebook\Dto\ApiCasebookSubjectDto;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
 use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookRepository;
 use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookSubjectRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
-
+/**
+ * @template-implements ProviderInterface<ApiCasebookSubjectDto>
+ */
 class CasebookSubjectProvider implements ProviderInterface
 {
     public function __construct(
@@ -26,8 +28,12 @@ class CasebookSubjectProvider implements ProviderInterface
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
 
-        if (!$uriVariables['subject'] ?? null) {
+        if ($uriVariables['subject'] == null) {
             throw new UnprocessableEntityHttpException("Subject Id not found.");
+        }
+
+        if (!is_numeric($uriVariables['subject'])) {
+            throw new UnprocessableEntityHttpException("Could not cast subject id to integer");
         }
 
         $subject = $this->casebookSubjectRepository->find((int) $uriVariables['subject']);
@@ -37,7 +43,7 @@ class CasebookSubjectProvider implements ProviderInterface
         }
 
 
-        return CasebookSubjectDto::makeFromSubject($subject);
+        return ApiCasebookSubjectDto::makeFromSubject($subject);
 
     }
 }

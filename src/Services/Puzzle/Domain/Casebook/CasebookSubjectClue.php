@@ -19,7 +19,7 @@ class CasebookSubjectClue extends AbstractDomainEntity implements \ArrayAccess
         'revealedDate'
     ];
 
-    public function __construct(
+    final public function __construct(
         #[ORM\Column(length: 255)]
         private string $title,
 

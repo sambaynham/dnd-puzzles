@@ -6,27 +6,27 @@ namespace App\ApiResource\Casebook\Dto;
 
 use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClue;
 
-class CasebookSubjectClueDto
+class ApiCasebookSubjectClueDto
 {
-    public function __construct(
-        public $id,
+    final public function __construct(
         public string $title,
         public string $body,
         public string $type,
         public string $typeLabel,
-        public \DateTimeInterface $updatedAt,
-        public ? \DateTimeInterface $revealedDate = null
+        public ? \DateTimeInterface $updatedAt = null,
+        public ? \DateTimeInterface $revealedDate = null,
+        public ? int $id = null,
     ) {}
 
     public static function makeFromCasebookSubjectClue(CasebookSubjectClue $clue): static {
         return new static(
-            id: $clue->getId(),
             title: $clue->getTitle(),
             body: $clue->getBody(),
             type: $clue->getType()->getHandle(),
             typeLabel: $clue->getType()->getLabel(),
             updatedAt: $clue->getUpdatedAt(),
-            revealedDate: $clue->getRevealedDate()
+            revealedDate: $clue->getRevealedDate(),
+            id: $clue->getId()
         );
     }
 }

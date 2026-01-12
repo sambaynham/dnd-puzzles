@@ -56,7 +56,7 @@ class GameService implements GameServiceInterface
 
     /**
      * @param Game $game
-     * @return iterable<GameInvitation>
+     * @return GameInvitation[]
      */
     public function getOutstandingInvitationsForGame(Game $game): iterable
     {
@@ -81,7 +81,7 @@ class GameService implements GameServiceInterface
 
     /**
      * @param User $user
-     * @return iterable<GameInvitation>
+     * @return GameInvitation[]
      */
     public function getOutstandingInvitationsForUser(User $user): iterable
     {
@@ -89,6 +89,9 @@ class GameService implements GameServiceInterface
     }
 
 
+    /**
+     * @return GameInvitation[]
+     */
     public function findInvitationsByEmailAddress(string $emailAddress): iterable
     {
         return $this->gameInvitationRepository->findInvitationsByEmailAddress($emailAddress);

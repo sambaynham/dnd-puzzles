@@ -17,7 +17,7 @@ readonly class PuzzleTemplate
      * @param string $authorEmail
      * @param bool $static
      * @param array<PuzzleCredit $credits
-     * @param array<ConfigOptionDefinition> $configuration
+     * @param array<int, ConfigOptionDefinition> $configuration
      * @param string|null $staticCreateRoute
      * @param string|null $staticEditRoute
      */
@@ -79,6 +79,9 @@ readonly class PuzzleTemplate
     }
 
 
+    /**
+     * @return array<int, ConfigOptionDefinition>
+     */
     public function getConfiguration(): array
     {
         return $this->configuration;

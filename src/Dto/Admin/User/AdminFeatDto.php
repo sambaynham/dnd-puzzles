@@ -4,17 +4,26 @@ declare(strict_types=1);
 
 namespace App\Dto\Admin\User;
 
+use App\Services\User\Domain\User;
 use App\Services\User\Domain\UserFeat;
 use App\Services\User\Domain\ValueObjects\Rarity;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 class AdminFeatDto
 {
-
     private const string SLUG_REGEX = '/^[a-z0-9_]+$/';
     private const string ICON_CLASS_REGEX = '/^[a-z0-9-]+$/';
 
-    public function __construct(
+    /**
+     * @param string|null $label
+     * @param string|null $handle
+     * @param string|null $description
+     * @param Collection<int, User>|null $users
+     * @param Rarity|null $rarity
+     * @param string|null $iconClass
+     * @param bool $gamesMasterAwardable
+     */
+    final public function __construct(
         #[Assert\NotBlank()]
         #[Assert\Type('string')]
         #[Assert\Length(min: 4, max: 255)]
@@ -42,13 +51,15 @@ class AdminFeatDto
         #[Assert\Regex(self::ICON_CLASS_REGEX, message: 'The icon class must only contain lowercase letters, numbers, and hyphens.')]
         public ?string $iconClass = null,
 
-
         #[Assert\Type('boolean')]
         public bool $gamesMasterAwardable = false
     ) {
-
     }
 
+    /**
+     * @param UserFeat $feat
+     * @return static
+     */
     public static function  makeFromFeat(UserFeat $feat): static {
         return new static(
             label: $feat->getLabel(),

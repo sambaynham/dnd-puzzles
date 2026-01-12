@@ -7,7 +7,6 @@ namespace App\ApiResource\Casebook\Dto;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Link;
-use App\ApiResource\Casebook\Providers\CasebookProvider;
 use App\ApiResource\Casebook\Providers\CasebookSubjectProvider;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,55 +19,55 @@ use Doctrine\Common\Collections\ArrayCollection;
     uriVariables: [
         'instanceCode' => new Link(
             fromProperty: 'instanceCode',
-            fromClass: CasebookDto::class
+            fromClass: ApiCasebookDto::class
         ),
 
         'subject' => new Link(
             fromProperty: 'id',
-            fromClass: CasebookSubjectDto::class
+            fromClass: ApiCasebookSubjectDto::class
         ),
     ],
     stateless: false,
     provider: CasebookSubjectProvider::class
 )]
-class CasebookSubjectDto
+class ApiCasebookSubjectDto
 {
 
-    public function getSubjectId(): int {
+    public function getSubjectId(): ?int {
         return $this->id;
     }
 
     /**
-     * @var ArrayCollection<CasebookSubjectClueDto>
+     * @var ArrayCollection<int, ApiCasebookSubjectClueDto>
      */
     public ArrayCollection $clues;
 
-    public function __construct(
-        public int $id,
+    final public function __construct(
         public string $name,
         public string $description,
         public string $type,
+        public bool $isRevealed = false,
         public ? string $imageUri = null,
-        public bool $isRevealed = false
+        public ? int $id = null
     ) {
         $this->clues = new ArrayCollection();
     }
 
-    public function getId(): int {
+    public function getId(): ? int {
         return $this->id;
     }
     public static function makeFromSubject(CasebookSubject $subject): static {
 
         $dto = new static (
-            id: $subject->getId(),
             name: $subject->getName(),
             description: $subject->getDescription(),
             type: $subject->getCasebookSubjectType()->getHandle(),
+            isRevealed: $subject->isRevealed(),
             imageUri: $subject->getCasebookSubjectImage(),
-            isRevealed: $subject->isRevealed()
+            id: $subject->getId()
         );
         foreach ($subject->getRevealedCasebookSubjectClues() as $revealedClue) {
-            $dto->clues->add(CasebookSubjectClueDto::makeFromCasebookSubjectClue($revealedClue));
+            $dto->clues->add(ApiCasebookSubjectClueDto::makeFromCasebookSubjectClue($revealedClue));
         }
         return $dto;
     }

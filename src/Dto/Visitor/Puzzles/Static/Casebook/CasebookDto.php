@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CasebookDto
 {
-    public function __construct(
+    final public function __construct(
         public readonly string $puzzleName,
 
         #[Assert\Length(min: 10, max:1024)]

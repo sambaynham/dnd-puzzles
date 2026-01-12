@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class UserEditDto
 {
-    public function __construct(
+    final public function __construct(
         #[Assert\Email]
         #[Assert\NotBlank]
         #[CustomAssert\EmailAddressIsNotBlockedConstraint]

@@ -4,11 +4,11 @@ includes:
 parameters:
    parallel:
         maximumNumberOfProcesses: 9
-
+   treatPhpDocTypesAsCertain: false
    doctrine:
        objectManagerLoader: tests/object-manager.php
    paths:
-       - src/Services/Quotation
+       - src/Command
 
    level: 10
    excludePaths:

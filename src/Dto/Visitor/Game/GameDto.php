@@ -11,7 +11,7 @@ class GameDto
 {
     private const string SLUG_REGEX = '/^[a-z0-9_]+$/';
 
-    public function __construct(
+    final public function __construct(
         #[Assert\NotBlank]
         #[Assert\Length(min: 5, max: 512)]
         public ? string $name = null,
@@ -27,10 +27,6 @@ class GameDto
         #[Assert\Regex(self::SLUG_REGEX, message: 'The slug must only contain lowercase letters, numbers, and underscores.')]
         public ? string $slug = null
     ) {}
-
-
-
-
 
     public static function makeFromGame(Game $game): static {
         return new static(

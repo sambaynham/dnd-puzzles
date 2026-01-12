@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class CasebookSubjectClueDto
 {
-    public function __construct(
+    final public function __construct(
         public ? string $title = null,
         public ? string $body = null,
         public ? CasebookSubjectClueType $type = null,
@@ -21,7 +21,7 @@ class CasebookSubjectClueDto
     ) {
     }
 
-    public static function makeFromCasebookSubjectClue(CasebookSubjectClue $casebookSubjectClue): static {
+    public static function makeFromCasebookSubjectClue(CasebookSubjectClue $casebookSubjectClue): CasebookSubjectClueDto {
         return new static(
             title: $casebookSubjectClue->getTitle(),
             body: $casebookSubjectClue->getBody(),

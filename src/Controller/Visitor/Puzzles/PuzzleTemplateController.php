@@ -6,16 +6,13 @@ namespace App\Controller\Visitor\Puzzles;
 
 use App\Dto\Visitor\Game\AddPuzzle\AddPuzzleStepOneDto;
 use App\Dto\Visitor\Game\AddPuzzle\ChooseGameDto;
-use App\Dto\Visitor\Puzzles\DynamicPuzzleConfigDto;
+use App\Dto\Visitor\Puzzles\Dynamic\DynamicPuzzleConfigDto;
 use App\Form\Type\DieRollType;
 use App\Form\Visitor\Puzzle\AddPuzzle\ChooseGameType;
 use App\Security\GameManagerVoter;
 use App\Services\Game\Domain\Game;
-use App\Services\Puzzle\Domain\Exceptions\NonStaticConfigurationAttemptException;
-use App\Services\Puzzle\Domain\Exceptions\RoutelessStaticConfigurationAttemptException;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\User\Domain\User;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

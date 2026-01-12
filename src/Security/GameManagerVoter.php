@@ -9,7 +9,9 @@ use App\Services\User\Domain\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-
+/**
+ * @template-extends Voter<string, Game>
+ */
 class GameManagerVoter extends Voter
 {
 

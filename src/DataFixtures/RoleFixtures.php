@@ -105,12 +105,12 @@ class RoleFixtures extends Fixture
 
     private function processRoles(ObjectManager $manager): void {
         /**
-         * @var RoleRepository $repo
+         * @var RoleRepository $roleRepo
          */
         $roleRepo = $manager->getRepository(Role::class);
 
         /**
-         * @var PermissionRepository $repo
+         * @var PermissionRepository $permissionsRepo
          */
         $permissionsRepo = $manager->getRepository(Permission::class);
 

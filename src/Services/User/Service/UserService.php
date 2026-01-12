@@ -61,6 +61,13 @@ class UserService
         return $class === User::class || is_subclass_of($class, User::class);
     }
 
+
+    /**
+     * @param string $identifier
+     * @throws UserNotFoundException
+     * @throws CustomUserMessageAccountStatusException
+     * @return UserInterface
+     */
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
         $user = $this->userRepository->findOneBy(['email' => $identifier]);

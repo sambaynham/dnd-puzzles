@@ -36,7 +36,11 @@ class ClearExpiredInvitesCommand extends Command
 
         $expiredInvitations = $this->gameService->getExpiredInvitations();
 
-        $count = count($expiredInvitations);
+        $count = 0;
+        foreach ($expiredInvitations as $expiredInvitation) {
+            $io->info("Invitation with code {$expiredInvitation->getInvitationCode()} is expired");
+            $count++;
+        }
         if ($count === 0) {
             $io->info('There are no expired invitations to clear');
         }

@@ -19,7 +19,7 @@ use App\State\QuoteProvider;
 )]
 class QuoteDto
 {
-    public function __construct(
+    final public function __construct(
         public string $quote,
         public string $citation) {
 

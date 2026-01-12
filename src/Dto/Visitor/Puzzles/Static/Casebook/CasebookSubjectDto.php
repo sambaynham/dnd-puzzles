@@ -6,12 +6,22 @@ namespace App\Dto\Visitor\Puzzles\Static\Casebook;
 
 use App\Services\Puzzle\Domain\Casebook\Casebook;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubject;
+use App\Services\Puzzle\Domain\Casebook\CasebookSubjectClue;
 use App\Services\Puzzle\Domain\Casebook\CasebookSubjectType;
 use Doctrine\Common\Collections\Collection;
 
 class CasebookSubjectDto
 {
-    public function __construct(
+    /**
+     * @param Casebook $casebook
+     * @param CasebookSubjectType|null $type
+     * @param CasebookSubjectClueDto[] $clues
+     * @param string|null $name
+     * @param string|null $description
+     * @param string|null $image
+     * @param bool|null $revealed
+     */
+   final public function __construct(
         public readonly Casebook $casebook,
         public ? CasebookSubjectType $type = null,
         public array $clues = [],
@@ -33,6 +43,11 @@ class CasebookSubjectDto
         );
     }
 
+    /**
+     * @param Collection<int, CasebookSubjectClue> $clues
+     *
+     * @return CasebookSubjectClueDto[]
+     */
     private static function mapClues(Collection $clues): array {
 
         $arrayClues = [];

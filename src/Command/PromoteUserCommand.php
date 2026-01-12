@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Services\User\Domain\Role;
 use App\Services\User\Domain\User;
 use App\Services\User\Service\UserService;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -36,34 +37,37 @@ class PromoteUserCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $email = $input->getArgument('email');
-        try {
-            $this->userService->loadUserByIdentifier($email);
-        } catch (UserNotFoundException $e) {
-            $io->error(sprintf('No user with email "%s" found.', $email));
-            return Command::FAILURE;
-
-
-        } catch (CustomUserMessageAccountStatusException $e) {
-            $io->error($e->getMessage());
-            return Command::FAILURE;
-        }
-
-        $user = $this->userService->loadUserByIdentifier($email);
-        if ($user instanceof User) {
-            $adminRole = $this->userService->getRoleByHandle('ROLE_ADMIN');
-
-            if ($user->hasRole($adminRole)) {
-                $io->warning(sprintf('The user "%s" is already promoted. Aborting', $email));
-                return Command::SUCCESS;
+        if (is_string($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            try {
+                $user = $this->userService->loadUserByIdentifier($email);
+            } catch (UserNotFoundException $e) {
+                $io->error(sprintf('No user with email "%s" found.', $email));
+                return Command::FAILURE;
+            } catch (CustomUserMessageAccountStatusException $e) {
+                $io->error($e->getMessage());
+                return Command::FAILURE;
             }
-            $user->addRole($adminRole);
-            $this->userService->saveUser($user);
+
+            if ($user instanceof User) {
+                $adminRole = $this->userService->getRoleByHandle('ROLE_ADMIN');
+                if (!$adminRole instanceof Role) {
+                    $io->error('The admin role does not exist.');
+                    return Command::FAILURE;
+                }
+
+                if ($user->hasRole($adminRole)) {
+                    $io->warning(sprintf('The user "%s" is already promoted. Aborting', $email));
+                    return Command::SUCCESS;
+                }
+                $user->addRole($adminRole);
+                $this->userService->saveUser($user);
+            }
+            $io->success('User Promoted.');
+
+            return Command::SUCCESS;
+        } else {
+            $io->error('Invalid email address.');
+            return Command::FAILURE;
         }
-
-
-
-        $io->success('User Promoted.');
-
-        return Command::SUCCESS;
     }
 }

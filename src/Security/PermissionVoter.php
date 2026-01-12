@@ -8,7 +8,9 @@ use App\Services\User\Domain\User;
 use App\Services\User\Service\Interfaces\UserServiceInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-
+/**
+ * @template-extends Voter<string, User>
+ */
 class PermissionVoter extends Voter
 {
     public function __construct(private UserServiceInterface $userService) {}

@@ -16,13 +16,13 @@ use App\Services\Puzzle\Domain\Casebook\Casebook;
     uriVariables: [
         'instanceCode' => new Link(
             fromProperty: 'instanceCode',
-            fromClass: CasebookDto::class
+            fromClass: ApiCasebookDto::class
         )
     ],
     stateless: false,
     provider: CasebookProvider::class
 )]
-readonly class CasebookDto
+readonly class ApiCasebookDto
 {
     final public function __construct(
         public string $instanceCode,

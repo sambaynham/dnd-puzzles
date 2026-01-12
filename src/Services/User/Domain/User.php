@@ -212,6 +212,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         }, $this->roles->toArray());
     }
 
+    /**
+     * @return Collection<Role>
+     */
     public function getHydratedRoles(): Collection {
         return $this->roles;
     }
