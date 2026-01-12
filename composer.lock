@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5671c599c8963356a516ad41b2abaacd",
+    "content-hash": "488ee804a0e1825f26a4d45e4104fd0f",
     "packages": [
         {
             "name": "api-platform/doctrine-common",
@@ -9736,6 +9736,72 @@
             "time": "2025-10-20T06:18:40+00:00"
         },
         {
+            "name": "ekino/phpstan-banned-code",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ekino/phpstan-banned-code.git",
+                "reference": "27122aa1783d6521e500c0c397c53244cfbde26f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ekino/phpstan-banned-code/zipball/27122aa1783d6521e500c0c397c53244cfbde26f",
+                "reference": "27122aa1783d6521e500c0c397c53244cfbde26f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "phpstan/phpstan": "^2.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.6",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "nikic/php-parser": "^4.3",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.5",
+                "symfony/var-dumper": "^5.0"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ekino\\PHPStanBannedCode\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rémi Marseille",
+                    "email": "remi.marseille@ekino.com",
+                    "homepage": "https://www.ekino.com"
+                }
+            ],
+            "description": "Detected banned code using PHPStan",
+            "homepage": "https://github.com/ekino/phpstan-banned-code",
+            "keywords": [
+                "PHPStan",
+                "code quality",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/ekino/phpstan-banned-code/issues",
+                "source": "https://github.com/ekino/phpstan-banned-code/tree/v3.0.0"
+            },
+            "time": "2024-11-13T09:57:22+00:00"
+        },
+        {
             "name": "masterminds/html5",
             "version": "2.10.0",
             "source": {
@@ -10105,6 +10171,77 @@
                 "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.0.12"
             },
             "time": "2025-12-01T11:34:02+00:00"
+        },
+        {
+            "name": "phpstan/phpstan-symfony",
+            "version": "2.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-symfony.git",
+                "reference": "24d8c157aa483141b0579d705ef0aac9e1b95436"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/24d8c157aa483141b0579d705ef0aac9e1b95436",
+                "reference": "24d8c157aa483141b0579d705ef0aac9e1b95436",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "php": "^7.4 || ^8.0",
+                "phpstan/phpstan": "^2.1.13"
+            },
+            "conflict": {
+                "symfony/framework-bundle": "<3.0"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/phpstan-phpunit": "^2.0.8",
+                "phpstan/phpstan-strict-rules": "^2.0",
+                "phpunit/phpunit": "^9.6",
+                "psr/container": "1.1.2",
+                "symfony/config": "^5.4 || ^6.1",
+                "symfony/console": "^5.4 || ^6.1",
+                "symfony/dependency-injection": "^5.4 || ^6.1",
+                "symfony/form": "^5.4 || ^6.1",
+                "symfony/framework-bundle": "^5.4 || ^6.1",
+                "symfony/http-foundation": "^5.4 || ^6.1",
+                "symfony/messenger": "^5.4",
+                "symfony/polyfill-php80": "^1.24",
+                "symfony/serializer": "^5.4",
+                "symfony/service-contracts": "^2.2.0"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon",
+                        "rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukáš Unger",
+                    "email": "looky.msc@gmail.com",
+                    "homepage": "https://lookyman.net"
+                }
+            ],
+            "description": "Symfony Framework extensions and rules for PHPStan",
+            "support": {
+                "issues": "https://github.com/phpstan/phpstan-symfony/issues",
+                "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.9"
+            },
+            "time": "2025-11-29T11:17:28+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

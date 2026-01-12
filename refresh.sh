@@ -6,7 +6,7 @@ echo "Pulling git"
 git pull
 
 echo "Rebuilding Authoritative container"
-composer dump-autoload
+composer dump-autoload --no-dev --classmap-authoritative
 
 echo "Exporting Schema"
 ./bin/console api:openapi:export --yaml --output=swagger_docs.yaml

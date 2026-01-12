@@ -1,11 +1,26 @@
 includes:
     - vendor/phpstan/phpstan-doctrine/extension.neon
-
+    - vendor/ekino/phpstan-banned-code/extension.neon
 parameters:
-    paths:
-        - src/Services/Quotation
+   parallel:
+        maximumNumberOfProcesses: 9
 
-    level: 10
-    excludePaths:
-        - 'src/Controller'
+   doctrine:
+       objectManagerLoader: tests/object-manager.php
+   paths:
+       - src/Services/Quotation
 
+   level: 10
+   excludePaths:
+       - 'src/Controller'
+
+   banned_code:
+        nodes:
+            -
+                type: Expr_FuncCall
+                functions:
+                    - dd
+                    - dump
+                    - var_dump
+                    - exit
+                    - die

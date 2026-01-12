@@ -55,7 +55,9 @@
     "require-dev": {
         "doctrine/data-fixtures": "*",
         "doctrine/doctrine-fixtures-bundle": "^4.3",
+        "ekino/phpstan-banned-code": "*",
         "phpstan/phpstan-doctrine": "*",
+        "phpstan/phpstan-symfony": "*",
         "phpunit/phpunit": "^12.4",
         "symfony/browser-kit": "7.3.*",
         "symfony/css-selector": "7.3.*",
@@ -72,8 +74,7 @@
         "bump-after-update": true,
         "sort-packages": true,
         "optimize-autoloader": true,
-        "apcu-autoloader": true,
-        "classmap-authoritative": true
+        "apcu-autoloader": true
     },
     "autoload": {
         "psr-4": {
