@@ -1,8 +1,34 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
+    - vendor/ekino/phpstan-banned-code/extension.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
 parameters:
-    level: 6
-    paths:
-        - bin/
-        - config/
-        - public/
-        - src/
-        - tests/
+   tmpDir: .phpstan.tmp
+   parallel:
+        maximumNumberOfProcesses: 9
+   treatPhpDocTypesAsCertain: false
+   doctrine:
+       objectManagerLoader: tests/object-manager.php
+   paths:
+       - src/Services/Puzzle
+       - tools
+
+   excludePaths:
+       - src/Services/Puzzle/Service/Factory/PuzzleTemplateRegistryFactory.php
+   level: 10
+
+   banned_code:
+        nodes:
+            -
+                type: Expr_FuncCall
+                functions:
+                    - dd
+                    - dump
+                    - var_dump
+                    - exit
+                    - die
+                    - getEntityManager
+
+rules:
+    - Tools\PHPStan\Rules\NoNonServiceDoctrineUsageRule

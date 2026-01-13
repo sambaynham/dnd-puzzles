@@ -9,6 +9,7 @@ use App\Services\Puzzle\Domain\PuzzleCategory;
 use App\Services\Puzzle\Domain\PuzzleTemplate;
 use App\Services\Puzzle\Infrastructure\Casebook\Repository\CasebookRepository;
 use App\Services\Puzzle\Infrastructure\PuzzleCategoryRepository;
+use App\Services\Puzzle\Service\Exceptions\SlugGenerationFailureException;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateServiceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,6 +17,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 class PuzzleTemplateService implements PuzzleTemplateServiceInterface
 {
     private const string ALLOWABLE_SLUG_CHARACTER_PATTERN  = '/[^a-z_]/';
+
+    /**
+     * @param PuzzleTemplateRegistryInterface $templateRegistry
+     * @param PuzzleCategoryRepository $categoryRepository
+     * @param CasebookRepository $casebookRepository
+     */
     public function __construct(
         private readonly PuzzleTemplateRegistryInterface $templateRegistry,
         private readonly PuzzleCategoryRepository $categoryRepository,
@@ -24,7 +31,7 @@ class PuzzleTemplateService implements PuzzleTemplateServiceInterface
 
 
     /**
-     * @return iterable<PuzzleTemplate>
+     * @return PuzzleTemplate[]
      */
     public function getTemplates(): iterable
     {
@@ -37,20 +44,21 @@ class PuzzleTemplateService implements PuzzleTemplateServiceInterface
     }
 
     /**
-     * @return array<PuzzleCategory>
+     * @return PuzzleCategory[]
      */
     public function getAllCategories(): array {
         return $this->categoryRepository->findAll();
     }
 
+    /**
+     * @return ArrayCollection<int, PuzzleTemplate>
+     */
     public function getTemplatesByCategory(PuzzleCategory $category): ArrayCollection
     {
         $collection = new ArrayCollection();
         foreach ($this->getTemplates() as $template) {
             foreach ($template->getCategories() as $puzzleCategory) {
-
-                if ($puzzleCategory->getSlug() === $category->getSlug()) {
-
+                if ($puzzleCategory->getHandle() === $category->getHandle()) {
                     if (!$collection->contains($template)) {
                         $collection->add($template);
                     }
@@ -62,9 +70,12 @@ class PuzzleTemplateService implements PuzzleTemplateServiceInterface
 
     public function getCategoryBySlug(string $categorySlug): ?PuzzleCategory
     {
-        return $this->categoryRepository->findOneBySlug($categorySlug);
+        return $this->categoryRepository->findByHandle($categorySlug);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function generatePuzzleSlug(string $puzzleName, string $puzzleClass): string
     {
         $slug = strtolower($puzzleName);
@@ -73,12 +84,13 @@ class PuzzleTemplateService implements PuzzleTemplateServiceInterface
         }
         $slug = str_replace(" ", "_", $slug);
         $slug = preg_replace(self::ALLOWABLE_SLUG_CHARACTER_PATTERN, '', $slug);
+        if (!is_string($slug)) {
+            throw new SlugGenerationFailureException(sprintf("Unable to generate slug for puzzle '%s'", $puzzleName));
+        }
 
         if ($puzzleClass === Casebook::class) {
             return $this->casebookRepository->decollideSlug($slug);
         }
         return $slug;
     }
-
-
 }

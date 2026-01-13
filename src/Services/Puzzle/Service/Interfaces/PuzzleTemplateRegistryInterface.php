@@ -13,5 +13,8 @@ interface PuzzleTemplateRegistryInterface
 
     public function getTemplate(string $slug): ?PuzzleTemplate;
 
+    /**
+     * @return PuzzleTemplate[]
+     */
     public function getStaticTemplates(): array;
 }

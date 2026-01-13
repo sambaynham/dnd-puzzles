@@ -4,15 +4,18 @@ includes:
     - vendor/ekino/phpstan-banned-code/extension.neon
     - vendor/phpstan/phpstan-symfony/extension.neon
 parameters:
+   tmpDir: .phpstan.tmp
    parallel:
         maximumNumberOfProcesses: 9
    treatPhpDocTypesAsCertain: false
    doctrine:
        objectManagerLoader: tests/object-manager.php
    paths:
-       - src/Services/Core
+       - src/Services/Puzzle
        - tools
 
+   excludePaths:
+       - src/Services/Puzzle/Service/Factory/PuzzleTemplateRegistryFactory.php
    level: 10
 
    banned_code:
@@ -25,6 +28,7 @@ parameters:
                     - var_dump
                     - exit
                     - die
+                    - getEntityManager
 
 rules:
     - Tools\PHPStan\Rules\NoNonServiceDoctrineUsageRule

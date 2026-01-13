@@ -43,7 +43,7 @@ class CasebookSubject extends AbstractDomainEntity
         private ? string $casebookSubjectImage = null,
 
         #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-        private ? \DateTimeInterface $revealedDate = null,
+        private ? \DateTimeImmutable $revealedDate = null,
 
         ?int $id = null
     ) {

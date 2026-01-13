@@ -13,7 +13,7 @@ interface StaticPuzzleInstanceProviderInterface
 
     /**
      * @param Game $game
-     * @return Collection<int, PuzzleInstanceInterface>
+     * @return Collection<int, covariant StaticPuzzleInstanceInterface>
      */
     public function getStaticPuzzleInstancesForGame(Game $game): Collection;
 

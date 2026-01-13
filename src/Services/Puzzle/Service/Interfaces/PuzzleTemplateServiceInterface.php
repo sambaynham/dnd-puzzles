@@ -18,8 +18,14 @@ interface PuzzleTemplateServiceInterface extends DomainServiceInterface
 
     public function getTemplateBySlug(string $categorySlug): ?PuzzleTemplate;
 
+    /**
+     * @return PuzzleCategory[]
+     */
     public function getAllCategories(): array;
 
+    /**
+     * @return ArrayCollection<int, PuzzleTemplate>
+     */
     public function getTemplatesByCategory(PuzzleCategory $category): ArrayCollection;
 
     public function getCategoryBySlug(string $categorySlug): ? PuzzleCategory;

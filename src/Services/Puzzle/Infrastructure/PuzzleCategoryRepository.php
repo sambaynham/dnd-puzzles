@@ -4,6 +4,7 @@ namespace App\Services\Puzzle\Infrastructure;
 
 use App\Services\Core\Infrastructure\AbstractValueObjectRepository;
 use App\Services\Puzzle\Domain\PuzzleCategory;
+use App\Services\User\Domain\ValueObjects\UserAccountType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -14,7 +14,7 @@ abstract class AbstractValueObjectRepository extends ServiceEntityRepository
 {
     /**
      * @param string $handle
-     * @return AbstractValueObject|null
+     * @return T|null
      */
     final public function findByHandle(string $handle):  ? AbstractValueObject {
         $result = $this->createQueryBuilder('v')

@@ -10,11 +10,15 @@ use App\Services\Puzzle\Service\Interfaces\PuzzleTemplateRegistryInterface;
 class PuzzleTemplateRegistry implements PuzzleTemplateRegistryInterface
 {
     /**
-     * @param array<PuzzleTemplate> $templates
+     * @param PuzzleTemplate[] $templates
      */
     public function __construct(private array $templates) {
 
     }
+
+    /**
+     * @return PuzzleTemplate[]
+     */
 
     public function getTemplates(): array
     {
@@ -26,6 +30,9 @@ class PuzzleTemplateRegistry implements PuzzleTemplateRegistryInterface
         return $this->templates[$slug] ?? null;
     }
 
+    /**
+     * @return PuzzleTemplate[]
+     */
     public function getStaticTemplates(): array
     {
         return array_filter($this->getTemplates(), function (PuzzleTemplate $template) {

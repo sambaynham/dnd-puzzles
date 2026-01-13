@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\Puzzle\Service\Interfaces;
 
+use App\Services\Core\Service\Interfaces\DomainServiceInterface;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
-interface PuzzleInstanceServiceInterface
+interface PuzzleInstanceServiceInterface extends DomainServiceInterface
 {
     public function getInstanceByTemplateAndCode(string $templateSlug, string $instanceCode): ?PuzzleInstanceInterface;
 
@@ -16,5 +17,8 @@ interface PuzzleInstanceServiceInterface
 
     public function deleteInstance(PuzzleInstanceInterface $instance): void;
 
+    /**
+     * @return ArrayCollection<int, PuzzleInstanceInterface>
+     */
     public function getStaticPuzzleInstancesForGame(Game $game): ArrayCollection;
 }

@@ -26,6 +26,13 @@ class PuzzleInstanceService implements PuzzleInstanceServiceInterface
      */
     private array $staticInstanceProviders = [];
 
+
+    /**
+     * @param EntityManagerInterface $entityManager
+     * @param PuzzleTemplateRegistryInterface $puzzleTemplateRegistry
+     * @param PuzzleInstanceRepository $puzzleInstanceRepository
+     * @param iterable<StaticPuzzleInstanceProviderInterface> $staticInstanceProviders
+     */
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly PuzzleTemplateRegistryInterface $puzzleTemplateRegistry,
@@ -62,6 +69,9 @@ class PuzzleInstanceService implements PuzzleInstanceServiceInterface
         $this->entityManager->flush();
     }
 
+    /**
+     * @throws MismappedPuzzleTemplateException
+     */
     public function getStaticPuzzleInstancesForGame(Game $game): ArrayCollection
     {
         $staticPuzzles = new ArrayCollection();

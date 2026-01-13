@@ -35,7 +35,12 @@ class Game extends AbstractDomainEntity
     #[OrderBy(["createdAt" => "DESC"])]
     private Collection $dynamicPuzzleInstances;
 
-
+    /**
+    * @param Collection<int, User>|null $players
+     */
+    #[Groups(['extended'])]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'games')]
+    private Collection $players;
 
     /**
      * @param string $name
@@ -44,20 +49,20 @@ class Game extends AbstractDomainEntity
      * @param User $gamesMaster
      * @param \DateTimeInterface|null $archivedDate
      * @param string|null $heroImageUrl
-     * @param Collection<int, User>|null $players
+     * @param Collection|null $staticPuzzleInstances
      * @param int|null $id
      */
     public function __construct(
-        #[ORM\Column(length: 255)]
+        #[ORM\Column(type: 'non_empty_string', length: 255)]
         #[Groups(['basic'])]
         private string $name,
 
         #[Groups(['basic'])]
-        #[ORM\Column(length: 255, unique: true)]
+        #[ORM\Column(type: 'non_empty_string', length: 255, unique: true)]
         private string $slug,
 
         #[Groups(['extended'])]
-        #[ORM\Column(length: 1024)]
+        #[ORM\Column(type: 'non_empty_string', length: 1024)]
         private string $description,
 
         #[ORM\ManyToOne(inversedBy: 'gamesMastered')]
@@ -72,9 +77,6 @@ class Game extends AbstractDomainEntity
         #[ORM\Column(length: 1024, nullable: true)]
         private ? string $heroImageUrl = null,
 
-        #[Groups(['extended'])]
-        #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'games')]
-        private ?Collection $players = null,
         /**
          * @var Collection<int, StaticPuzzleInstanceInterface>
          */
@@ -85,6 +87,8 @@ class Game extends AbstractDomainEntity
         parent::__construct($id);
         $this->gameInvitations = new ArrayCollection();
         $this->dynamicPuzzleInstances = new ArrayCollection();
+        $this->players = new ArrayCollection();
+
         if ($this->staticPuzzleInstances === null) {
             $this->staticPuzzleInstances = new ArrayCollection();
         }
@@ -148,22 +152,19 @@ class Game extends AbstractDomainEntity
      */
     public function getPlayers(): Collection
     {
-        if ($this->players === null) {
-            $this->players = new ArrayCollection();
-        }
         return $this->players;
     }
 
     public function addPlayer(User $player): void
     {
-        if ($this->players && !$this->players->contains($player)) {
+        if (!$this->players->contains($player)) {
             $this->players->add($player);
         }
     }
 
     public function removePlayer(User $player): void
     {
-        $this->players?->removeElement($player);
+        $this->players->removeElement($player);
     }
 
     /**

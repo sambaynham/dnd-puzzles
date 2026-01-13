@@ -40,6 +40,7 @@ class Casebook extends AbstractDomainEntity implements StaticPuzzleInstanceInter
         private string $slug,
 
         #[ORM\ManyToOne(targetEntity: Game::class)]
+        #[ORM\JoinColumn(nullable: false)]
         private Game $game,
 
         #[ORM\Column(length: 2048)]

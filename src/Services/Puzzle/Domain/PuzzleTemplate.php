@@ -5,28 +5,30 @@ namespace App\Services\Puzzle\Domain;
 use App\Services\Puzzle\Domain\Exceptions\NonStaticConfigurationAttemptException;
 use App\Services\Puzzle\Domain\Exceptions\RoutelessStaticConfigurationAttemptException;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 readonly class PuzzleTemplate
 {
     /**
-     * @param string $slug
-     * @param string $title
+     * @param non-empty-string $slug
+     * @param non-empty-string $title
      * @param \DateTimeImmutable $createdAt
-     * @param string $description
-     * @param ArrayCollection<PuzzleCategory> $categories
-     * @param string $authorEmail
+     * @param non-empty-string $description
+     * @param ArrayCollection<int, PuzzleCategory> $categories
+     * @param non-empty-string $authorEmail
      * @param bool $static
-     * @param array<PuzzleCredit $credits
+     * @param PuzzleCredit[] $credits
      * @param array<int, ConfigOptionDefinition> $configuration
-     * @param string|null $staticCreateRoute
-     * @param string|null $staticEditRoute
+     * @param non-empty-string|null $staticCreateRoute
+     * @param non-empty-string|null $staticEditRoute
+     * @param non-empty-string|null $staticPlayRoute
      */
     public function __construct(
         private string $slug,
         private string $title,
         private \DateTimeImmutable $createdAt,
         private string $description,
-        private ArrayCollection $categories,
+        private Collection $categories,
         private string $authorEmail,
         private bool $static,
         private array $credits = [],
@@ -38,49 +40,64 @@ readonly class PuzzleTemplate
     }
 
 
-
     /**
-     * @return ArrayCollection<PuzzleCategory>
+     * @return Collection<int, PuzzleCategory>
      */
-    public function getCategories(): ArrayCollection
+    public function getCategories(): Collection
     {
         return $this->categories;
     }
 
+    /**
+     * @return PuzzleCredit[]
+     */
     public function getCredits(): array
     {
         return $this->credits;
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function getSlug(): string
     {
         return $this->slug;
     }
 
-
+    /**
+     * @return non-empty-string
+     */
     public function getAuthorEmail(): string
     {
         return $this->authorEmail;
     }
 
-
+    /**
+     * @return non-empty-string
+     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function getPuzzleCategories(): string
+    /**
+     * @return iterable<int, PuzzleCategory>
+     */
+    public function getPuzzleCategories(): iterable
     {
-        return $this->category;
+        return $this->categories;
     }
+
+    /**
+     * @return non-empty-string
+     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-
     /**
-     * @return array<int, ConfigOptionDefinition>
+     * @return ConfigOptionDefinition[]
      */
     public function getConfiguration(): array
     {
@@ -96,17 +113,29 @@ readonly class PuzzleTemplate
         return $this->static;
     }
 
+    /**
+     * @throws RoutelessStaticConfigurationAttemptException
+     * @throws NonStaticConfigurationAttemptException
+     */
     public function getStaticCreateRoute(): ? string {
         $this->validateStatic();
         return $this->staticCreateRoute;
     }
 
+    /**
+     * @throws RoutelessStaticConfigurationAttemptException
+     * @throws NonStaticConfigurationAttemptException
+     */
     public function getStaticEditRoute(): ?string
     {
         $this->validateStatic();
         return $this->staticEditRoute;
     }
 
+    /**
+     * @throws RoutelessStaticConfigurationAttemptException
+     * @throws NonStaticConfigurationAttemptException
+     */
     public function getStaticPlayRoute(): ? string {
         $this->validateStatic();
         return $this->staticPlayRoute;

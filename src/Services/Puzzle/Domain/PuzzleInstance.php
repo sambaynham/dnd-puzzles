@@ -2,6 +2,7 @@
 
 namespace App\Services\Puzzle\Domain;
 
+use App\Dto\Visitor\Puzzles\Dynamic\DynamicPuzzleFieldDto;
 use App\Services\Core\Domain\AbstractDomainEntity;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Exceptions\PuzzleTemplateNotMappedException;
@@ -14,28 +15,39 @@ class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInter
 {
     private ? PuzzleTemplate $puzzleTemplate = null;
 
+
+    /**
+     * @param non-empty-string $instanceCode
+     * @param non-empty-string $name
+     * @param non-empty-string $description
+     * @param Game $game
+     * @param non-empty-string $templateSlug
+     * @param \DateTimeInterface|null $publicationDate
+     * @param array $config
+     * @param int|null $id
+     */
     public function __construct(
-        #[ORM\Column(length: 255, unique: true)]
+        #[ORM\Column(type: 'non_empty_string', length: 255, unique: true)]
         private string $instanceCode,
 
-        #[ORM\Column(length: 255)]
+        #[ORM\Column(type: 'non_empty_string', length: 255)]
         private string $name,
 
-        #[ORM\Column(length: 2048)]
+        #[ORM\Column(type: 'non_empty_string', length: 2048)]
         private string $description,
 
         #[ORM\ManyToOne(inversedBy: 'dynamicPuzzleInstances')]
         #[ORM\JoinColumn(nullable: false)]
         private Game $game,
 
-        #[ORM\Column(length:1024)]
+        #[ORM\Column(type: 'non_empty_string', length:1024)]
         private string $templateSlug,
 
         #[ORM\Column(type: 'datetime', nullable: true)]
         private ?\DateTimeInterface $publicationDate = null,
 
         /**
-         * @var array<int, mixed>
+         * @var array<string, DynamicPuzzleFieldDto>
          */
         #[ORM\Column]
         private array $config = [],
@@ -45,31 +57,49 @@ class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInter
         parent::__construct($id);
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @param non-empty-string $name
+     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function getDescription(): string
     {
         return $this->description;
     }
 
+    /**
+     * @param non-empty-string $description
+     */
     public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function getInstanceCode(): string
     {
         return $this->instanceCode;
     }
 
+    /**
+     * @param non-empty-string $instanceCode
+     */
     public function setInstanceCode(string $instanceCode): void
     {
         $this->instanceCode = $instanceCode;
@@ -86,13 +116,16 @@ class PuzzleInstance extends AbstractDomainEntity implements PuzzleInstanceInter
     }
 
     /**
-     * @return mixed[]
+     * @return array<string, DynamicPuzzleFieldDto>
      */
     public function getConfig(): array
     {
         return $this->config;
     }
 
+    /**
+     * @param array<string, DynamicPuzzleFieldDto> $config
+     */
     public function setConfig(array $config): static
     {
         $this->config = $config;

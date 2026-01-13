@@ -7,6 +7,7 @@ namespace App\Services\Puzzle\Infrastructure\Casebook\Repository;
 use App\Services\Game\Domain\Game;
 use App\Services\Puzzle\Domain\Casebook\Casebook;
 use App\Services\Puzzle\Domain\Interfaces\PuzzleInstanceInterface;
+use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceInterface;
 use App\Services\Puzzle\Domain\Interfaces\StaticPuzzleInstanceProviderInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -25,11 +26,12 @@ class CasebookRepository extends ServiceEntityRepository implements StaticPuzzle
 
 
     public function findBySlug(string $slug): ? Casebook {
-        return $this->createQueryBuilder('p')
+        $result = $this->createQueryBuilder('p')
             ->where('p.slug = :slug')
             ->setParameter('slug', $slug)
             ->getQuery()
             ->getOneOrNullResult();
+        return $result instanceof Casebook ? $result : null;
     }
 
     public function decollideSlug(string $candidateSlug, int $attempts = 0): string {
@@ -47,6 +49,9 @@ class CasebookRepository extends ServiceEntityRepository implements StaticPuzzle
         }
     }
 
+    /**
+     * @return Collection<int, Casebook>
+     */
     public function getStaticPuzzleInstancesForGame(Game $game): Collection
     {
         $qb = $this->createQueryBuilder('cp')

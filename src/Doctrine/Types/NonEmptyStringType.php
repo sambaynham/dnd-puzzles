@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Doctrine\Types;
 
 use App\Doctrine\Types\Exceptions\InvalidEmailException;
+use App\Doctrine\Types\Exceptions\InvalidNonEmptyStringException;
 use App\Services\User\Domain\ValueObjects\Exceptions\UnmappedRarityException;
 use App\Services\User\Domain\ValueObjects\Rarity;
 use Doctrine\DBAL\Types\Type;
@@ -30,7 +31,7 @@ class NonEmptyStringType extends Type
      * @throws InvalidEmailException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): string {
-        $this->validateValue($value);
+        self::validateNonEmptyString($value);
         return $value;
     }
 
@@ -40,16 +41,27 @@ class NonEmptyStringType extends Type
      * @throws InvalidEmailException
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform) {
-        $this->validateValue($value);
+        self::validateNonEmptyString($value);
         return $value;
     }
 
     /**
-     * @throws InvalidEmailException
+     * @throws InvalidNonEmptyStringException
      */
-    private function validateValue(mixed $value): void {
+    public static function validateNonEmptyString(mixed $value): void {
         if (!is_string($value) || strlen($value) === 0 ) {
-            throw new InvalidEmailException($value);
+            throw new InvalidNonEmptyStringException($value);
         }
+    }
+
+    /**
+     * @throws InvalidNonEmptyStringException
+     * @param mixed $value
+     *
+     * @return non-empty-string
+     */
+    public static function mapNonEmptyString(mixed $value): string {
+        self::validateNonEmptyString($value);
+        return $value;
     }
 }
