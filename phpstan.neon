@@ -1,5 +1,6 @@
 includes:
     - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
     - vendor/ekino/phpstan-banned-code/extension.neon
     - vendor/phpstan/phpstan-symfony/extension.neon
 parameters:
@@ -9,7 +10,7 @@ parameters:
    doctrine:
        objectManagerLoader: tests/object-manager.php
    paths:
-       - src/Services/User
+       - src/Services/Core
        - tools
 
    level: 10

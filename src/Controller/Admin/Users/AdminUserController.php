@@ -142,10 +142,11 @@ class AdminUserController extends AbstractBaseController
         $form = $this->createForm(AdminBlockUserType::class, $blockDto);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             $userBlock = new UserBlock(
                 $user,
                 $blockDto->reason,
-                $blockDto->expiresAt
+                $blockDto->expiresAt !== null ? \DateTimeImmutable::createFromInterface($blockDto->expiresAt) : null
             );
             $success = true;
             $violations = $this->validator->validate($userBlock);

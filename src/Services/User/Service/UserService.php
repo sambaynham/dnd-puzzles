@@ -191,7 +191,7 @@ class UserService
 
     public function getUserBadgeFrom(#[\SensitiveParameter] string $accessToken): UserBadge
     {
-        $accessToken = $this->userAccessTokenRepository->findOneByValue($accessToken);
+        $accessToken = $this->userAccessTokenRepository->findOneByToken($accessToken);
         if (null === $accessToken || $accessToken->isExpired()) {
             throw new BadCredentialsException('Invalid credentials.');
         }

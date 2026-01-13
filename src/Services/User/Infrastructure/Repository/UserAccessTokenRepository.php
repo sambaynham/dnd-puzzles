@@ -11,12 +11,16 @@ use Doctrine\Persistence\ManagerRegistry;
 
 
 /**
- * @extends ServiceEntityRepository<User>
+ * @extends ServiceEntityRepository<UserAccessToken>
  */
 class UserAccessTokenRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UserAccessToken::class);
+    }
+
+    public function findOneByToken(string $token): ?UserAccessToken {
+        return $this->findOneBy(['token' => $token]);
     }
 }

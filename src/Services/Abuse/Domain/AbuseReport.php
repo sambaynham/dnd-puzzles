@@ -21,7 +21,7 @@ class AbuseReport extends AbstractDomainEntity
         #[ORM\Column(length: 1024)]
         private string $reason,
 
-        #[ORM\Column(length: 1024)]
+        #[ORM\Column(length: 1024, nullable: true)]
         private ? string $notes = null,
 
         #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]

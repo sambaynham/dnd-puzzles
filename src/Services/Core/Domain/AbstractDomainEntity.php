@@ -11,17 +11,26 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class AbstractDomainEntity
 {
     #[ORM\Column(type: 'datetime_immutable')]
-    private ? \DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private ? \DateTimeImmutable $updatedAt = null;
+    private \DateTimeImmutable $updatedAt;
 
     public function __construct(
         #[ORM\Id]
         #[ORM\GeneratedValue]
         #[ORM\Column]
         protected ?int $id = null
-    ) {}
+    ) {
+        if (!isset($this->createdAt)) {
+            $this->createdAt = new \DateTimeImmutable();
+        }
+
+        if (!isset($this->updatedAt)) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+    }
 
     final public function getId(): ?int {
         return $this->id ?? null;
@@ -32,11 +41,11 @@ abstract class AbstractDomainEntity
         $this->id = $id;
     }
 
-    public function getCreatedAt(): ? \DateTimeImmutable {
+    public function getCreatedAt(): \DateTimeImmutable {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ? \DateTimeImmutable {
+    public function getUpdatedAt(): \DateTimeImmutable {
         return $this->updatedAt;
     }
 

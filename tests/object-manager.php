@@ -5,7 +5,7 @@ use App\Kernel;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$envPath = __DIR__ . '.env';
+$envPath = __DIR__ . '/../.env';
 
 if (file_exists($envPath)) {
     // Load in System Environments Variables for config parameters, Dont do this for test where these are

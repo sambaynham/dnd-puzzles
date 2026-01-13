@@ -54,9 +54,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
     private ?UserBlock $userBlock = null;
 
     /**
-     * @param string $email
-     * @param string $username
-     * @param string $password
+     * @param non-empty-string $email
+     * @param non-empty-string $username
+     * @param non-empty-string $password
      * @param UserAccountType $userAccountType
      * @param bool $hasAcceptedCookies
      * @param bool $profilePublic
@@ -64,18 +64,19 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
      * @param int|null $id
      */
     public function __construct(
-        #[ORM\Column(type: 'string', length: 255, unique: true)]
+        #[ORM\Column(type: 'email', length: 255, unique: true)]
         #[Assert\Email]
         private string $email,
 
-        #[ORM\Column(type: 'string', length: 255, nullable: false)]
+        #[ORM\Column(type: 'non_empty_string', length: 255, nullable: false)]
         private string $username,
 
         #[ORM\ManyToOne(targetEntity: UserAccountType::class, fetch: 'EAGER')]
+        #[ORM\JoinColumn(nullable: false)]
         private UserAccountType $userAccountType,
 
-        #[ORM\Column(type: 'string', length: 255)]
-        private string $password = '',
+        #[ORM\Column(type: 'non_empty_string', length: 255)]
+        private string $password = 'REPLACEME',
 
         #[ORM\Column(type: 'boolean', nullable: false)]
         private bool $hasAcceptedCookies = false,
@@ -95,6 +96,10 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         $this->feats = new ArrayCollection();
     }
 
+
+    /**
+     * @return non-empty-string
+     */
     public function getEmail(): string
     {
         return $this->email;
@@ -110,6 +115,11 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         return $this->getEmail();
     }
 
+
+    /**
+     * @param non-empty-string $email
+     * @return void
+     */
     public function setEmail(string $email): void
     {
         $this->email = $email;
@@ -120,6 +130,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         return $this->username;
     }
 
+    /**
+     * @param non-empty-string $username
+     */
     public function setUsername(string $username): void
     {
         $this->username = $username;
@@ -130,7 +143,9 @@ class User extends AbstractDomainEntity implements UserInterface, PasswordAuthen
         return $this->password;
     }
 
-
+    /**
+     * @param non-empty-string $password
+     */
     public function setPassword(string $password): void
     {
         $this->password = $password;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\User\Domain;
 
 use App\Services\Core\Domain\AbstractDomainEntity;
+use App\Services\User\Domain\Interfaces\UserAccessTokenInterface;
 use App\Services\User\Infrastructure\Repository\UserAccessTokenRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Random\RandomException;
@@ -14,20 +15,26 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     repositoryClass: UserAccessTokenRepository::class
 )]
 #[UniqueEntity("email")]
-class UserAccessToken extends AbstractDomainEntity
+class UserAccessToken extends AbstractDomainEntity implements UserAccessTokenInterface
 {
     private const int TOKEN_TTL_SECONDS =  86400;
 
     private const int TOKEN_STRING_LENGTH = 128;
 
 
-    final private function __construct(
-        #[ORM\Column(type: 'string', length: 1024)]
-        private string $userIdentifier,
-        #[ORM\Column(type: 'string', length: 128, unique: true)]
-        private string $token,
+    /**
+     * @param non-empty-string $userIdentifier
+     * @param non-empty-string $token
+     * @param \DateTimeImmutable $expiresAt
+     * @param int|null $id
+     */
+    public function __construct(
+        #[ORM\Column(type: 'non_empty_string', length: 1024)]
+        private readonly string $userIdentifier,
+        #[ORM\Column(type: 'non_empty_string', length: 128, unique: true)]
+        private readonly string $token,
         #[ORM\Column(type: 'datetime_immutable')]
-        private \DateTimeInterface $expiresAt,
+        private readonly \DateTimeImmutable $expiresAt,
 
         ?int $id = null
     ) {
@@ -37,6 +44,7 @@ class UserAccessToken extends AbstractDomainEntity
     /**
      * @throws \DateMalformedIntervalStringException
      * @throws RandomException
+     * @throws \DateMalformedStringException
      */
     public static function makeTokenForUser(User $user): static {
         $expiresAt = new \DateTime();
@@ -45,14 +53,20 @@ class UserAccessToken extends AbstractDomainEntity
         return new static(
             userIdentifier: $user->getUserIdentifier(),
             token: self::generateAccessToken(),
-            expiresAt: $expiresAt
+            expiresAt: \DateTimeImmutable::createFromMutable($expiresAt)
         );
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function getUserIdentifier(): string {
         return $this->userIdentifier;
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function getToken(): string {
         return $this->token;
     }
@@ -64,6 +78,7 @@ class UserAccessToken extends AbstractDomainEntity
 
     /**
      * @throws RandomException
+     * @return non-empty-string
      */
     private static function generateAccessToken(): string {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
